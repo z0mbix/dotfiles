@@ -3,6 +3,7 @@ set input-meta on
 set convert-meta off
 set output-meta on
 
+# Fix backspace/end etc. on FreeBSD
 "\e[1~": beginning-of-line
 "\e[4~": end-of-line
 "\e[5~": beginning-of-history
