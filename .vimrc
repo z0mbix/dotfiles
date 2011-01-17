@@ -5,7 +5,7 @@
 "
 
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n
-"set title
+set title
 set number								" show line numbers
 set ruler								" show line and column no
 set hidden								" hidden buffers?
@@ -35,8 +35,8 @@ set laststatus=2 						" always show status line
 set pastetoggle=<C-p>					" Ctrl+p to toggle pasting
 set spellfile=~/.vimspell.add" 			" my words
 set confirm								" ask to save files
-set t_Co=256							" use all 256 colors
-syntax on								" enable syntax highlighting
+"set t_Co=256							" use all 256 colors
+"syntax on								" enable syntax highlighting
 filetype on
 filetype plugin on
 "color torte
@@ -75,9 +75,14 @@ if has("autocmd")
   augroup END 
 endif
 
+" Switch syntax highlighting on, when the terminal has colors
+if &t_Co > 2 || has("gui_running")
+  syntax on
+endif
+
 " highlight statusbar
-hi statusline ctermbg=black ctermfg=green
-hi statuslinenc ctermbg=gray ctermfg=darkgray
+hi statusline ctermbg=blue ctermfg=white
+hi statuslinenc ctermbg=blue ctermfg=darkgray
 
 " Highlight line if in insert mode
 "hi CursorLine ctermbg=green ctermfg=black cterm=none
@@ -96,15 +101,14 @@ let php_folding=1
 let perl_extended_vars=1
 
 " Insert mode maps
-imap ;EMAIL zombie@zombix.org
+imap ;EM zombie@zombix.org
 imap ;WWW http://www.zombix.org/
 
 " Normal mode paps
 nmap ,s :source $HOME/.vimrc
-" Select all
-nmap <C-s-a> ggVG
 
 " Use ctrl+n/p to switch buffers
-nnoremap <C-n> :next<Enter>
-nnoremap <C-p> :prev<Enter>
+nnoremap <C-N> :next<Enter>
+nnoremap <C-P> :prev<Enter>
 
+" vim: tabstop=8:shiftwidth=8:
