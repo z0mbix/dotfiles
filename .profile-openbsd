@@ -1,0 +1,36 @@
+# sh/ksh initialization
+
+. /etc/ksh.kshrc
+
+#PKG_PATH=ftp://ftp.openbsd.org/pub/OpenBSD/`uname -r`/packages/`machine -a`
+PKG_PATH=ftp://ftp.openbsd.org/pub/OpenBSD/snapshots/packages/`machine -a`
+#TERM=xterm-xfree86
+PS1='-\u@\h (\w) $ '
+HISTFILE=$HOME/.sh_history
+PATH=$HOME/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/usr/local/bin:/usr/local/sbin:/usr/games:.
+EDITOR=vim
+
+export PATH HOME TERM PKG_PATH HISTFILE EDITOR
+
+if [ -f ${HOME}/.alias ]; then
+	. ${HOME}/.alias
+fi
+
+if [ -f ${HOME}/.functions ]; then
+	. ${HOME}/.functions
+fi
+
+# Enable ksh logout file ~/.ksh_logout
+ksh_logout() {
+    if [ -s "${HOME}/.ksh_logout" ]; then
+        . "${HOME}/.ksh_logout"
+    fi
+}
+case "$-" in
+    *i*)
+        # Interactive shell
+        if [ -n "${KSH_VERSION}" ]; then
+            trap ksh_logout 0
+        fi
+    ;;
+esac

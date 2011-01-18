@@ -1,0 +1,15 @@
+# My nzbperlrc config file
+server=europe.news.astraweb.com
+user=
+pw=
+dlpath=~/downloads/newsgroups
+queuedir=~/Dropbox/NZBs
+log=/tmp/nzb.log
+decodelog=/tmp/nzbdbgout.txt
+conn=8
+dlcreate
+retrywait=60
+noupdate
+forever
+daemon
+dropbad

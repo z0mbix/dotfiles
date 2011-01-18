@@ -1,0 +1,20 @@
+Mod1 Tab :NextWindow
+Mod1 Shift Tab :PrevWindow
+Control 1 :Workspace 1
+Control 2 :Workspace 2
+Control 3 :Workspace 3
+Control 4 :Workspace 4
+Control 5 :Workspace 5
+Control 6 :Workspace 6
+Control 7 :Workspace 7
+Control 8 :Workspace 8
+
+Control Mod1 b :ExecCommand firefox
+Control Mod1 f :Fullscreen
+Control Mod1 l :ExecCommand ~/bin/away
+Control Mod1 m :RootMenu
+Control Mod1 x :Close
+Control Mod1 c :Minimize
+Control Mod1 z :ExecCommand gnome-terminal --geometry 116x50+0+0
+Control Mod1 Right :NextWorkspace
+Control Mod1 Left :PrevWorkspace

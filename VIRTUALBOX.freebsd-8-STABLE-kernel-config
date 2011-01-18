@@ -1,0 +1,122 @@
+#
+# VIRTUALBOX -- Virtualbox kernel configuration file for FreeBSD/i386
+#
+
+cpu		I686_CPU
+ident		VIRTUALBOX
+
+options 	SCHED_ULE		# ULE scheduler
+options 	PREEMPTION		# Enable kernel thread preemption
+options 	INET			# InterNETworking
+options 	FFS			# Berkeley Fast Filesystem
+options 	SOFTUPDATES		# Enable FFS soft updates support
+options 	UFS_ACL			# Support for access control lists
+options 	UFS_DIRHASH		# Improve performance on big directories
+options 	UFS_GJOURNAL		# Enable gjournal-based UFS journaling
+options 	MD_ROOT			# MD is a potential root device
+options 	NFSCLIENT		# Network Filesystem Client
+options 	NFSSERVER		# Network Filesystem Server
+options 	NFSLOCKD		# Network Lock Manager
+options 	NFS_ROOT		# NFS usable as /, requires NFSCLIENT
+options 	CD9660			# ISO 9660 Filesystem
+options 	PROCFS			# Process filesystem (requires PSEUDOFS)
+options 	PSEUDOFS		# Pseudo-filesystem framework
+options 	GEOM_PART_GPT		# GUID Partition Tables.
+options 	GEOM_LABEL		# Provides labelization
+options 	COMPAT_43TTY		# BSD 4.3 TTY compat (sgtty)
+options 	COMPAT_FREEBSD6		# Compatible with FreeBSD6
+options 	COMPAT_FREEBSD7		# Compatible with FreeBSD7
+options 	SCSI_DELAY=5000		# Delay (in ms) before probing SCSI
+options 	KTRACE			# ktrace(1) support
+options 	STACK			# stack(9) support
+options 	SYSVSHM			# SYSV-style shared memory
+options 	SYSVMSG			# SYSV-style message queues
+options 	SYSVSEM			# SYSV-style semaphores
+options 	P1003_1B_SEMAPHORES	# POSIX-style semaphores
+options 	_KPOSIX_PRIORITY_SCHEDULING # POSIX P1003_1B real-time extensions
+options 	PRINTF_BUFR_SIZE=128	# Prevent printf output being interspersed.
+options 	KBD_INSTALL_CDEV	# install a CDEV entry in /dev
+options 	HWPMC_HOOKS		# Necessary kernel hooks for hwpmc(4)
+options 	AUDIT			# Security event auditing
+options		FLOWTABLE		# per-cpu routing cache
+options 	INCLUDE_CONFIG_FILE     # Include this file in kernel
+
+# To make an SMP kernel, the next two lines are needed
+options 	SMP			# Symmetric MultiProcessor Kernel
+device		apic			# I/O APIC
+
+# CPU frequency control
+device		cpufreq
+
+# Bus support.
+device		acpi
+device		eisa
+device		pci
+
+# Floppy drives
+device		fdc
+
+# ATA and ATAPI devices
+device		ata
+device		atadisk		# ATA disk drives
+device		atapicd		# ATAPI CDROM drives
+options 	ATA_STATIC_ID	# Static device numbering
+
+# SCSI peripherals
+device          scbus           # SCSI bus (required for SCSI)
+device          da              # Direct Access (disks)
+
+# atkbdc0 controls both the keyboard and the PS/2 mouse
+device		atkbdc		# AT keyboard controller
+device		atkbd		# AT keyboard
+device		psm		# PS/2 mouse
+
+device		kbdmux		# keyboard multiplexer
+
+device		vga		# VGA video card driver
+
+device		splash		# Splash screen and screen saver support
+
+# syscons is the default console driver, resembling an SCO console
+device		sc
+
+device		agp		# support several AGP chipsets
+
+# Power management support (see NOTES for more options)
+#device		apm
+# Add suspend/resume support for the i8254.
+device		pmtimer
+
+# Serial (COM) ports
+device		uart		# Generic UART driver
+
+# PCI Ethernet NICs.
+device		em		# Intel PRO/1000 Gigabit Ethernet Family
+
+# Pseudo devices.
+device		loop		# Network loopback
+device		random		# Entropy device
+device		ether		# Ethernet support
+device		vlan		# 802.1Q VLAN support
+device		tun		# Packet tunnel.
+device		pty		# BSD-style compatibility pseudo ttys
+device		md		# Memory "disks"
+device		gif		# IPv6 and IPv4 tunneling
+device		faith		# IPv6-to-IPv4 relaying (translation)
+device		firmware	# firmware assist module
+
+# The `bpf' device enables the Berkeley Packet Filter.
+# Be aware of the administrative consequences of enabling this!
+# Note that 'bpf' is required for DHCP.
+device		bpf		# Berkeley packet filter
+
+# USB support
+options 	USB_DEBUG	# enable debug msgs
+device		uhci		# UHCI PCI->USB interface
+device		ohci		# OHCI PCI->USB interface
+device		ehci		# EHCI PCI->USB interface (USB 2.0)
+device		usb		# USB Bus (required)
+device		uhid		# "Human Interface Devices"
+device		ukbd		# Keyboard
+device		umass		# Disks/Mass storage - Requires scbus and da
+device		ums		# Mouse
