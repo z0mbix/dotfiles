@@ -7,11 +7,6 @@ if [ $OS == 'Linux' ]; then
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
-	alias l='ls -lF'
-	alias la='ls -aF'
-	alias lal='ls -alF'
-	alias lr='ls -lRF'
-	alias lsd='ls -lF | grep "^d"'
 	alias arpscan='sudo arp-scan -I wlan0 -l'
 	alias p='ps faxl'
 	alias tl='tail -f /var/log/messages'
@@ -22,10 +17,6 @@ if [ $OS == 'Linux' ]; then
 	fi
 elif [ $OS == 'FreeBSD' ]; then
 	alias ls='ls -FG'
-	alias l='ls -l'
-	alias la='ls -aF'
-	alias lal='ls -alF'
-	alias lr='ls -lRF'
 	alias lsd='ls -lF | grep "^d"'
 	alias p='ps axl'
 	alias tl='tail -f /var/log/messages'
@@ -34,24 +25,25 @@ elif [ $OS == 'NetBSD' ]; then
 	LS=/usr/pkg/bin/gls
 	if [ -f $LS ]; then
 		alias ls="$LS --color=auto"
-		alias l="ls -lFG"
-		alias la="ls -aFG"
-		alias lal="ls -alFG"
 		alias lr="ls -lRFG"
 		alias lsd="ls -lFG | grep '^d'"
 	else
 		alias l='ls -lF'
-		alias la='ls -aF'
-		alias lal='ls -alF'
 		alias lr='ls -lRF'
 		alias lsd='ls -lF | grep "^d"'
 	fi
 	alias p='ps ax'
 elif [ $OS == 'Darwin' ]; then
+	alias ls='ls -FG'
 	alias tl='tail -f /var/log/system.log'
 else
 	echo "What OS are you running now?"
 fi
+
+alias l='ls -l'
+alias la='ls -a'
+alias lal='ls -al'
+alias lsd='ls -l | grep "^d"'
 
 # Is vim installed?
 if [ -f `which vim` ]; then
