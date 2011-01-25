@@ -53,7 +53,6 @@ export OS=`uname -s`
 
 # Set Standard PATH/CDPATH
 PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin
-CDPATH=~
 
 if [ $OS == 'OpenBSD' ]; then
 	export CVS_RSH=ssh
@@ -79,6 +78,8 @@ fi
 
 # Ruby gems?
 [ -d ~/.gem/ruby/1.8/bin ] && PATH=$PATH:~/.gem/ruby/1.8/bin
+[ -d /var/lib/gems/1.8/bin ] && PATH=$PATH:/var/lib/gems/1.8/bin
+
 
 # Is this there?
 [ -d /opt/local/bin ] && PATH=$PATH:/opt/local/bin:/opt/local/sbin
@@ -86,7 +87,6 @@ fi
 # Is Dropbox installed?
 if [ -d ~/Dropbox ]; then
 	PATH=$PATH:~/Dropbox/bin:~/Dropbox/Code/Shell
-	CDPATH=$CDPATH:~/Dropbox:~/Dropbox/Code
 fi
 
 #append to the history file, don't overwrite it
@@ -135,4 +135,4 @@ PS1=${lt_blue}'\u'${norm}'@'${HOSTCOLOUR}'\h '${norm}'['${green}'\@'${norm}'] '$
 complete -f -c sudo
 
 # Export important envirnoment variables
-export TERM PATH CDPATH PROMPT_COMMAND PROMPT_TIME PS1
+export TERM PATH PROMPT_COMMAND PROMPT_TIME PS1
