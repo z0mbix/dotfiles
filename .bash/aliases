@@ -36,6 +36,8 @@ elif [ $OS == 'NetBSD' ]; then
 elif [ $OS == 'Darwin' ]; then
 	alias ls='ls -FG'
 	alias tl='tail -f /var/log/system.log'
+	alias gvim='open -a MacVim'
+	alias macvim='open -a MacVim'
 else
 	echo "What OS are you running now?"
 fi
