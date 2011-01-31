@@ -1,0 +1,28 @@
+shell -$SHELL
+startup_message off
+defscrollback 1000
+activity ''
+termcapinfo xterm* 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+hardstatus on
+hardstatus alwayslastline
+hardstatus string "%{.gW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %m/%d %C%a "
+bindkey -k k1 prev
+bindkey -k k2 next
+#screen -t $HOSTNAME    0
+#shelltitle "$ | $SHELL"
+#bind % screen -t top top
+# bind F7  to detach screen session from this terminal
+# bind F8  to kill current screen window.
+# bind F9  to create a new screen
+# bind F10 to rename current screen window
+# bind F11 to move to previous window
+# bind F12 to move to next window
+bindkey -k k4 lockscreen
+bindkey -k k5 redisplay
+bindkey -k k6 windowlist
+bindkey -k k7 detach
+bindkey -k k8 kill
+bindkey -k k9 screen
+bindkey -k k; title
+bindkey -k F1 prev
+bindkey -k F2 next
