@@ -3,6 +3,8 @@
 # Shamelessly stolen from joshua stein:
 # https://github.com/jcs/dotfiles/blob/master/move_in.sh
 #
+# curl -L -o - https://github.com/z0mbix/dotfiles/raw/master/move-in.sh | sh
+#
 
 if [ ! -d ~/.ssh/ ]; then
 	mkdir ~/.ssh/
