@@ -81,8 +81,8 @@ if &t_Co > 2 || has("gui_running")
 endif
 
 " highlight statusbar
-hi statusline ctermbg=blue ctermfg=white
-hi statuslinenc ctermbg=blue ctermfg=darkgray
+hi statusline ctermbg=black ctermfg=green
+hi statuslinenc ctermbg=gray ctermfg=darkgray
 
 " Highlight line if in insert mode
 "hi CursorLine ctermbg=green ctermfg=black cterm=none
