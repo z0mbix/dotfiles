@@ -43,6 +43,9 @@ filetype plugin on
 "color desert
 color z0mbix
 
+" .rc are shell files
+au BufNewFile,BufRead *.rc set ft=sh
+
 " .phtml and .sync are php files
 au BufNewFile,BufRead *.phtml,*.sync set ft=php
 
