@@ -13,7 +13,7 @@ fi
 
 TD=`mktemp -d XXXXXX`
 
-curl -L https://github.com/z0mbix/dotfiles/tarball/master | tar -C $TD -xvzf - 
+curl -L https://github.com/z0mbix/dotfiles/tarball/master | tar -C $TD -xzf - 
 rm -f $TD/z0mbix-*/move-in.sh
 mv -f $TD/z0mbix-*/.???* ~/
 rm -rf $TD
