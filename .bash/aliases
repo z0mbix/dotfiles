@@ -69,6 +69,7 @@ alias ....='cd ../../..'
 alias d='df -h'
 alias recall='history | grep'
 alias serial='screen /dev/tty.PL2303-* 38400'  # Serial console on WRAP/FreeBSD Server
+alias rsync='rsync --progress --stats'
 
 # See what HTTP server a website uses:
 what-http-server() {
