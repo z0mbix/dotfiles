@@ -52,7 +52,7 @@ export GREP_OPTIONS="--color=auto"
 export OS=`uname -s`
 
 # Set Standard PATH/CDPATH
-PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$HOME/bin
 
 if [ $OS == 'OpenBSD' ]; then
 	export CVS_RSH=ssh
@@ -85,9 +85,7 @@ fi
 [ -d /opt/local/bin ] && PATH=$PATH:/opt/local/bin:/opt/local/sbin
 
 # Is Dropbox installed?
-if [ -d ~/Dropbox ]; then
-	PATH=$PATH:~/Dropbox/bin:~/Dropbox/Code/Shell
-fi
+[ -d ~/Dropbox ] && PATH=$PATH:~/Dropbox/bin:~/Dropbox/Code/Shell
 
 #append to the history file, don't overwrite it
 shopt -s histappend
