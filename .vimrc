@@ -5,7 +5,7 @@
 "
 
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n
-set title
+"set title
 set number								" show line numbers
 set ruler								" show line and column no
 set hidden								" hidden buffers?
@@ -84,7 +84,7 @@ if &t_Co > 2 || has("gui_running")
 endif
 
 " highlight statusbar
-hi statusline ctermbg=black ctermfg=green
+hi statusline ctermbg=white ctermfg=magenta
 hi statuslinenc ctermbg=gray ctermfg=darkgray
 
 " Highlight line if in insert mode

@@ -58,11 +58,14 @@ if [ $OS == 'OpenBSD' ]; then
 	export CVS_RSH=ssh
 	export CVSROOT=anoncvs@anoncvs.de.openbsd.org:/cvs
 elif [ $OS == 'FreeBSD' ]; then
-	export CVS_RSH=ssh
-	export CVSROOT=anoncvs@anoncvs.freebsd.org:/cvs
 	export ARCH=`uname -m`
 	export VER=`uname -r|tr 'A-Z' 'a-z'`
-	export PACKAGESITE=ftp://ftp.fr.freebsd.org/pub/FreeBSD/ports/$ARCH/packages-${VER}-release/Latest/
+	export PACKAGESITE=ftp://ftp.uk.freebsd.org/pub/FreeBSD/ports/$ARCH/packages-${VER}-release/Latest/
+	if [ pkg_info | grep pkgsearch >/dev/null ]; then
+		[ -f ~/.portindex.txt ] || pkgsearch -u
+	else
+		echo "pkgsearch not installed!"
+	fi
 elif [ $OS == 'NetBSD' ]; then
 	PATH=$PATH:/usr/pkg/bin:/usr/pkg/sbin:/usr/X11R7/bin:/usr/X11R6/bin
 	export CVSROOT="anoncvs@anoncvs.be.NetBSD.org:/cvsroot"
@@ -79,7 +82,6 @@ fi
 # Ruby gems?
 [ -d ~/.gem/ruby/1.8/bin ] && PATH=$PATH:~/.gem/ruby/1.8/bin
 [ -d /var/lib/gems/1.8/bin ] && PATH=$PATH:/var/lib/gems/1.8/bin
-
 
 # Is this there?
 [ -d /opt/local/bin ] && PATH=$PATH:/opt/local/bin:/opt/local/sbin
