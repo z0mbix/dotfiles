@@ -2,7 +2,7 @@ A collection of the dotfiles I need to remain sane when using Mac/Linux/BSD
 
 To move in, run:
 
-Linux:
+Linux/Mac:
 $ curl -L -o - https://github.com/z0mbix/dotfiles/raw/master/move_in.sh | bash
 
 FreeBSD/OpenBSD:

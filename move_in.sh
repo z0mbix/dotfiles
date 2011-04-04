@@ -3,7 +3,7 @@
 # Idea shamelessly stolen from joshua stein:
 #  https://github.com/jcs/dotfiles/blob/master/move_in.sh
 #
-# Linux:
+# Linux/Mac:
 #  curl -L -o - https://github.com/z0mbix/dotfiles/raw/master/move_in.sh | bash
 #
 # FreeBSD/OpenBSD:
@@ -24,7 +24,7 @@ if [ ! -f ~/.ssh/authorized_keys ]; then
 	chmod 600 ~/.ssh/authorized_keys
 fi
 
-if [ $OS == "Linux" ]; then
+if [ $OS == "Linux" ] || [ $OS == "Darwin" ]; then
 	curl -L $URL | tar -C $TD -xzf - 
 elif [ $OS == "OpenBSD" ] || [ $OS == "FreeBSD" ]; then
 	ftp -o - $URL | tar -C $TD -xzf - 
