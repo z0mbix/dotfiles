@@ -34,4 +34,10 @@ fi
 
 rm -f $TD/z0mbix-*/move_in.sh
 mv -f $TD/z0mbix-*/.???* ~/
+if [ $OS == "OpenBSD" ]; then
+	if [ -f ~/.profile ]; then
+		mv ~/.profile ~/.profile.orig
+	fi
+	mv ~/.profile-openbsd ~/.profile
+fi
 rm -rf $TD
