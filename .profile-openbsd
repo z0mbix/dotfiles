@@ -2,15 +2,18 @@
 
 . /etc/ksh.kshrc
 
-#PKG_PATH=ftp://ftp.openbsd.org/pub/OpenBSD/`uname -r`/packages/`machine -a`
-PKG_PATH=ftp://ftp.openbsd.org/pub/OpenBSD/snapshots/packages/`machine -a`
-#TERM=xterm-xfree86
 PS1='-\u@\h (\w) $ '
-HISTFILE=$HOME/.sh_history
+PKG_PATH=ftp://ftp.openbsd.org/pub/OpenBSD/`uname -r`/packages/`machine -a`
+#PKG_PATH=ftp://ftp.openbsd.org/pub/OpenBSD/snapshots/packages/`machine -a`
+#TERM=xterm-xfree86
+HISTFILE=$HOME/.ksh_history
 PATH=$HOME/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/usr/local/bin:/usr/local/sbin:/usr/games:.
-EDITOR=vim
+#EDITOR=vim
 
-export PATH HOME TERM PKG_PATH HISTFILE EDITOR
+export PS1 PATH HOME TERM PKG_PATH HISTFILE
+
+# Bind Ctrl+L to clear the screen
+bind -m '^L'=clear'^J'
 
 if [ -f ${HOME}/.alias ]; then
 	. ${HOME}/.alias
