@@ -57,6 +57,7 @@ PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$HOME/bin
 if [ $OS == 'OpenBSD' ]; then
 	export CVS_RSH=ssh
 	export CVSROOT=anoncvs@anoncvs.de.openbsd.org:/cvs
+	export PKG_PATH=ftp://ftp.openbsd.org/pub/OpenBSD/`uname -r`/packages/`machine -a`
 elif [ $OS == 'FreeBSD' ]; then
 	export ARCH=`uname -m`
 	export VER=`uname -r|tr 'A-Z' 'a-z'`
