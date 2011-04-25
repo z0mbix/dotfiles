@@ -5,7 +5,6 @@
 "
 
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n
-"set title
 set number								" show line numbers
 set ruler								" show line and column no
 set hidden								" hidden buffers?
