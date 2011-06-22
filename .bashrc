@@ -126,7 +126,7 @@ PS1=${lt_blue}'\u'${norm}'@'${HOSTCOLOUR}'\h '${norm}'['${green}'\@'${norm}'] '$
 # Bash tab completion (Linux/Mac)
 [ -f /etc/bash_completion ] && . /etc/bash_completion
 
-# Bash tab completion (FreeBSD)
+# Bash tab completion (FreeBSD/Mac Homebrew)
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
 # Additional completions
