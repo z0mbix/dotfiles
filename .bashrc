@@ -50,6 +50,7 @@ export HISTFILESIZE=10000
 export HISTSIZE=10000
 export GREP_OPTIONS="--color=auto"
 export OS=`uname -s`
+export UNISONLOCALHOSTNAME=`hostname -s`
 
 # Set Standard PATH/CDPATH
 PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$HOME/bin
@@ -79,6 +80,9 @@ elif [ $OS == 'NetBSD' ]; then
 elif [ $OS == 'Darwin' ]; then
 	[ -d /Developer/usr/bin ] && PATH=$PATH:/Developer/usr/bin
 fi
+
+# Home directory bin?
+[ -d ~/bin ] && PATH=$PATH:~/bin
 
 # Ruby gems?
 [ -d ~/.gem/ruby/1.8/bin ] && PATH=$PATH:~/.gem/ruby/1.8/bin
@@ -131,6 +135,9 @@ PS1=${lt_blue}'\u'${norm}'@'${HOSTCOLOUR}'\h '${norm}'['${green}'\@'${norm}'] '$
 
 # Additional completions
 [ -f ~/.bash/completions ] && . ~/.bash/completions
+
+# Homebrew bash completion
+[ -f `brew --prefix`/Library/Contributions/brew_bash_completion.sh ] && . `brew --prefix`/Library/Contributions/brew_bash_completion.sh
 
 # Enable command/file completion with sudo
 complete -f -c sudo
