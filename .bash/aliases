@@ -79,6 +79,8 @@ alias d='df -h'
 alias recall='history | grep'
 alias serial='screen /dev/tty.PL2303-* 38400'  # Serial console on WRAP/FreeBSD Server
 alias rsync='rsync --progress --stats'
+alias colours='for i in {0..255} ; do printf "\x1b[38;5;${i}mcolour${i} "; done"]"'
+
 
 # See what HTTP server a website uses:
 what-http-server() {
