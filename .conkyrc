@@ -1,0 +1,29 @@
+own_window no
+own_window_colour 262729
+own_window_transparent yes
+own_window_type override
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+double_buffer yes
+use_spacer right
+use_xft no
+alignment top_left
+#gap_x 10
+gap_y 4
+
+# --- Colours, Sizes, Fonts & Margins --- #
+update_interval 1.0
+minimum_size 400 5
+#stippled_borders 3
+#border_margin 9
+border_width 10
+default_color ddccaa
+# --- Text --- #
+draw_outline yes
+draw_borders no
+font -artwiz-snap-normal-r-normal--10-100-75-75-p-90-iso8859-1
+uppercase no
+draw_shades yes
+
+TEXT
+${color 88aa22}$nodename ${color ddccaa}| ${color ea6868}Ubuntu ${color ddccaa}| ${color 6495ed}${time %A} ${time %e} ${time %B} ${time %G}${alignr} ${time %H:%M} ${color ddccaa}| ${alignr}${color e8ae5b}Memory$color ${membar 5,30} | ${color 6495ed}Battery${color} ${battery_bar 5,30} ${battery_percent}% ${color ddccaa}| ${color 88aa22}LAN: ${color}${addr eth0} ${color ddccaa}| ${color 88aa22}WLAN: ${color}${addr wlan0} ${color ddccaa}| ${color 88aa22}WiFi: ${color ea6868}${wireless_essid wlan0}
