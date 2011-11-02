@@ -1,327 +1,355 @@
-Xft.dpi:                    96
-Xft.antialias:           true
-Xft.hinting:              full
-Xft.hintstyle:           hintslight
-Xft.rgba:                  rgb
-
-c64*font:                xft:Adore64:autohint=false:antialias=false:size=7
-c64*background:          #3a319c
-c64*foreground:          #7b71d6
-
-xterm*title:             xterm
-xterm*faceName:          terminus:pixelsize=7
-!xterm*faceName:          cure:Regular
-!xterm*boldfaceName:      cure:Regular
-!xterm*faceName:          Pragmata
-!xterm*faceSize:          8.7
-!xterm*boldfaceName:      Pragmata
-xterm*geometry:          100x30
-!xterm*boldMode:          false
-xterm*cutNewline:        false
-xterm*on4Clicks:         group
-xterm*on5Clicks:         page
-xterm*internalBorder:    1
-xterm*background:        #262729
-xterm*foreground:        light grey
-xterm*metaSendsEscape:   true
-xterm*colorBD:           #ffffff
-xterm*colorBDMode:       false
-xterm*cursorBlink:       false
-xterm*cursorColor:       #e2baf1
-!xterm*veryBoldColors:    14
+Xft.dpi: 96
+Xft.antialias: true
+Xft.hinting: full
+Xft.hintstyle: hintslight
+Xft.rgba: rgb
+ 
+c64*font: xft:Adore64:autohint=false:antialias=false:size=7
+c64*background: #3a319c
+c64*foreground: #7b71d6
+ 
+xterm*title: xterm
+xterm*faceName: terminus:pixelsize=10
+xterm*geometry: 90x25
+xterm*boldMode: false
+xterm*cutNewline: false
+xterm*on4Clicks: group
+xterm*on5Clicks: page
+xterm*internalBorder: 2
+xterm*background: #222222
+xterm*foreground: #ddccbb
+xterm*customization: color
+xterm*metaSendsEscape: true
+xterm*colorBD: #afd700
+xterm*colorBDMode: false
+xterm*cursorBlink: false
+xterm*cursorColor: #ff9900
 xterm*dynamiccolors: true
 xterm*utf8: 1
-xterm*loginShell:        true
-xterm*charClass:         33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48,35:48,58:48,63:48,61:48,44:48,38:48,59:48
-xterm*jumpScroll:        true
-xterm*multiScroll:       true
-xterm*saveLines:         512
+xterm*loginShell: true
+xterm*charClass: 33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48,35:48,58:48,63:48,61:48,44:48,38:48,59:48
+xterm*jumpScroll: true
+xterm*multiScroll: true
+xterm*saveLines: 512
+xterm*scrollBar: false
+xterm*xftAntialias: false
 
-!URxvt*font:              -*-proggytiny-*-*-*-*-*-*-*-*-*-*-iso8859-*
-!URxvt*boldFont:          -*-proggytiny-*-*-*-*-*-*-*-*-*-*-iso8859-*
-!URxvt*font:              -*-dina-medium-r-*-*-*-*-*-*-*-*-microsoft-cp1252
-!URxvt*font:               -windows-dina-medium-r-normal--13-80-96-96-c-70-iso8859-1
-!urxvt.font:              xft:terminus:pixelsize=7
-!urxvt*boldFont:          xft:terminus:pixelsize=7
-!urxvt.font:              xft:Dina:pixelsize=10
-!urxvt*boldFont:          xft:Dina:pixelsize=10
-urxvt.font:              xft:profont:pixelsize=11
-urxvt*boldFont:          xft:profont:pixelsize=11
-!URxvt*font:              -proggytiny-*-*-*-*-10-*-*-*-*-*-*-*
-!urxvt*boldFont:          -proggytiny-*-*-*-*-10-*-*-*-*-*-*-*
-!urxvt.font:              xft:proggytiny:pixelsize=10
-!urxvt*boldFont:          xft:proggytiny:pixelsize=10
-urxvt.termName:          xterm
-urxvt.scrollBar:         false
-!urxvt.backgroundPixmap:  /home/vermaden/.themes/urxvt.back.xpm
-urxvt.imLocale:          en_US.UTF-8
-!urxvt.imLocale:          ja_JP.UTF-8
-urxvt.loginShell:        true
-urxvt.saveLines:         512
-urxvt.geometry:          100x30
-urxvt.boldMode:          false
-urxvt.inheritPixmap:     false
-urxvt.shading:           40
-urxvt.xftAntialias:      false
-urxvt.jumpScroll:        true
-urxvt.tintColor:         white
-urxvt.internalBorder:    0
-urxvt.cursorBlink:       false
-!urxvt.cursorColor:       #E2BAF1
-urxvt.cursorColor:       #ff9900
-urxvt.cursorColor2:      #000000
-urxvt.background:        #262729
-urxvt.foreground:        light grey
-urxvt.colorBD:           #ffffff
-urxvt.colorIT:           #bbbbbb
-urxvt.colorUL:           #999999
-urxvt.underlineColor:    #999999
-urxvt.borderless:        true
-
-rxvt*font:*-*-fixed-medium-r-normal--*-110-*-*-*-*-iso8859-1
-rxvt*boldFont:*-*-fixed-medium-r-normal--*-110-*-*-*-*-iso8859-1
-!urxvt.font:              xft:Inconsolata:size=9
-!urxvt*boldFont:          xft:Inconsolata:size=9
-!urxvt.font:              xft:montecarlo:pixelsize=7
-!urxvt*boldFont:          xft:montecarlo:pixelsize=7
-!urxvt.font:              xft:profont:pixelsize=12
-!urxvt*boldFont:          xft:profont:pixelsize=12
-rxvt.termName:          rxvt
-rxvt.scrollBar:         false
-!urxvt.backgroundPixmap:  /home/vermaden/.themes/urxvt.back.xpm
-rxvt.imLocale:          en_US.UTF-8
-!rxvt.imLocale:          ja_JP.UTF-8
-rxvt.loginShell:        true
-rxvt.saveLines:         512
-rxvt.geometry:          100x30
-rxvt.boldMode:          false
-!urxvt.inheritPixmap:     false
-!urxvt.shading:           15
-rxvt.xftAntialias:      false
-rxvt.jumpScroll:        true
-!rxvt.tintColor:         white
-rxvt.internalBorder:    0
-rxvt.cursorBlink:       false
-rxvt.cursorColor:       #E2BAF1
-rxvt.cursorColor2:      #000000
-rxvt.background:        #262626
-rxvt.foreground:        #686868
-rxvt.colorBD:           #ffffff
-rxvt.colorIT:           #bbbbbb
-rxvt.colorUL:           #999999
-rxvt.underlineColor:    #999999
-rxvt.borderless:        true
-
-!*background:       #151515
-!*foreground:       #cacaca
-
-*background:        #262626
-*foreground:        #686868
-
-!Colorful-Neon
-! Black
-!*color0:        #5A5A5A
-!*color0:        #262729
-!*color8:        #554444
-!*color8:        #3E3E3E
-! Red
-!*color1:        #FF4747
-!*color9:        #FF6767
-! Green
-!*color2:        #AFC81C
-!*color10:        #BFC81C
-! Yellow
-!*color3:        #FDD338
-!*color11:        #F4D461
-! Blue
-!*color4:        #619AF4
-!*color12:        #5496FF
-! Purple
-!*color5:        #5F5A90
-!*color13:        #826AB1
-! Cyan
-!*color6:        #47E0FF
-!*color14:        #2ED9FB
-! White
-!*color7:        #FFFFFF
-!*color15:        #DEDEDE
-
-!Warm Colors
-
+!Xtrail-Colors
 !black
-!*color0:  #262729
-!*color8:  #554444
+XTerm*color0:  #222222
+XTerm*color8:  #554444
 
 !red
-!*color1: #EA6868
-!*color9: #FF7272
+!!XTerm*color1:  #884422
+!!XTerm*color9:  #cc5533
+
+XTerm*color1:  #cd5c5c
+XTerm*color9:  #cc5533
+
 !green
-!*color2: #ABCB8D
-!*color10: #AFD78A
+XTerm*color2:  #778800
+XTerm*color10: #88aa22
+
 !yellow
-!*color3: #E8AE5B
-!*color11: #FFA75D
+XTerm*color3: #e8ae5b
+XTerm*color11: #ea6868
+
 !blue
-!*color4: #71C5F4
-!*color12: #67CDE9
-!magenta
-!*color5: #E2BAF1
-!*color13: #ECAEE9
+XTerm*color4:  #8866cc
+XTerm*color12: #9977dd
+
+!magneta
+XTerm*color5:  #885500
+XTerm*color13: #996600
+
 !cyan
-!*color6: #21F1EA
-!*color14: #36FFFC
-!white
-!*color7: #F1F1F1
-!*color15: #FFFFFF
-
-!Arthur Colors
-!*color0:                   #3d352a
-!*color1:                   #cd5c5c
-!*color2:                   #86af80
-!*color3:                   #e8ae5b
-!*color4:                   #6495ed
-!*color5:                   #deb887
-!*color6:                   #b0c4de
-!*color7:                   #bbaa99
-!*color8:                   #554444
-!*color9:                   #cc5533
-!*color10:                  #88aa22
-!*color11:                  #ffa75d
-!*color12:                  #87ceeb
-!*color13:                  #996600
-!*color14:                  #b0c4de
-!*color15:                  #ddccbb
-
-!thayer colors
-
-!black
-!*color0:    #1B1D1E
-!*color8:    #505354
-*color0:     #262729
-*color8:     #554444
-
-!red
-*color1:    #F92672
-*color9:    #FF669D
-!green
-*color2:    #A6E22E
-*color10:   #BEED5F
-!yellow
-*color3:    #FD971F
-*color11:   #E6DB74
-!blue
-*color4:    #66D9EF
-*color12:   #66D9EF
-!magenta
-*color5:    #9E6FFE
-*color13:   #9E6FFE
-!cyan
-*color6:    #5E7175
-*color14:   #A3BABF
-!white
-*color7:    #CCCCC6
-*color15:   #F8F8F2
-
-
-!Justin Colors
-
-!black text
-!*color0:           #242424
-!*color8:           #cdb5cd
-
-!red text
-!*color1:           #bf7979
-!*color9:           #f4a45f
-
-!green text
-!*color2:           #97b26b
-!*color10:          #c5f779
-
-!yellow text
-!*color3:           #cdcda1
-!*color11:          #ffffaf
-
-!blue text
-!*color4:           #86a2be
-!*color12:          #98afd9
-
-!magenta text
-!*color5:           #d9b798
-!*color13:          #d7d998
-
-!cyan text
-!*color6:           #a1b5cd
-!*color14:          #a1b5cd
+XTerm*color6:  #5555aa
+XTerm*color14: #7777aa
 
 !white
-!*color7:           #ffffff
-!*color15:          #dedede
+XTerm*color7:  #665c64
+XTerm*color15: #c3c2c5
+ 
 
 
-xclock*hourColor:     rgb:0/0/0
-xclock*minuteColor:   rgb:8/8/8
-xclock*secondColor:   rgb:b/b/b
-xclock*majorColor:    rgb:0/0/0
-xclock*minorColor:    rgb:6/6/6
+URxvt*font: -*-terminus-medium-r-*-*-*-*-*-*-*-*-*-*
+URxvt*boldFont: -*-terminus-medium-r-*-*-*-*-*-*-*-*-*-*
+urxvt.termName: xterm-256color
+urxvt.scrollBar: false
+urxvt.imLocale: ja_JP.UTF-8
+urxvt.loginShell: true
+urxvt.saveLines: 512
+urxvt.geometry: 90x25
+urxvt.boldMode: false
+urxvt.inheritPixmap: false
+urxvt.xftAntialias: false
+urxvt.jumpScroll: true
+urxvt.tintColor: white
+URxvt*internalBorder: 3
+URxvt*internalBordercolor: #121212
+urxvt.cursorBlink: false
+urxvt.cursorColor: #ff8939
+urxvt.cursorColor2: #121212
+urxvt.colorBD: #857672
+urxvt.colorIT: #bbbbbb
+urxvt.colorUL: #999999
+urxvt.underlineColor: #999999
+urxvt.borderless: true
 
-xcalc*ti.button1.vertDistance:          4
-xcalc*ti.button2.vertDistance:          4
-xcalc*ti.button3.vertDistance:          4
-xcalc*ti.button4.vertDistance:          4
-xcalc*ti.button5.vertDistance:          4
-xcalc*ti.background:                    gray90
-xcalc*ti.bevel.borderColor:             gray65
-xcalc*ti.bevel.borderWidth:             1
-xcalc*ti.bevel.vertDistance:            4
-xcalc*ti.bevel.defaultDistance:         0
-xcalc*ti.bevel.background:              rgb:b/c/b
-xcalc*ti.bevel.screen*background:       rgb:b/c/b
-xcalc*ti.bevel.screen.borderColor:      rgb:b/c/b
-xcalc*ti.bevel.screen.vertDistance:     10
-xcalc*ti.bevel.screen.horizDistance:    10
-xcalc*ti.bevel.screen*left:             chainLeft
-xcalc*ti.bevel.screen*right:            chainRight
-xcalc*ti.bevel.screen*top:              chainTop
-xcalc*ti.bevel.screen*bottom:           chainBottom
-xcalc*ti.bevel.screen*LCD.foreground:   gray10
+!Technobass - Foreground/Background
+URxvt*foreground: #665c64
+URxvt*background: #222222
+
+!Technicolor I & II - Foreground/Background
+!URxvt*foreground: #b4b4b4
+!URxvt*background: #121212 (or) #222222
+
+!Technicolor II
+! -- black
+!URxvt*color0: #000000
+! -- red
+!URxvt*color1: #A01515
+! -- green
+!URxvt*color2: #86BE51
+! -- yellow
+!URxvt*color3: #968a38
+! -- blue
+!URxvt*color4: #3b7b9c
+! -- purple
+!URxvt*color5: #A6397A
+! -- cyan
+!URxvt*color6: #3b9c5b
+! -- white
+!URxvt*color7: #E9E9E9
+! -- bright-black
+!URxvt*color8: #555753
+! -- bright-red
+!URxvt*color9: #C4362D
+! -- bright-green
+!URxvt*color10: #a6df36
+! -- bright-yellow
+!URxvt*color11: #e8621d
+! -- bright-blue
+!URxvt*color12:  #6495ed
+! -- bright-purple
+!URxvt*color13: #8963B9
+! -- bright-cyan
+!URxvt*color14: #34E2E2
+! -- bright-white
+!URxvt*color15: #c3c2c5
+
+!Technobass
+! -- black
+URxvt*color0: #000000
+! -- red
+URxvt*color1: #ff8888
+! -- green
+URxvt*color2:  #80852d
+! -- yellow
+URxvt*color3: #ffaa55
+! -- blue
+URxvt*color4: #82b8f2
+! -- purple
+URxvt*color5: #ad7fa8
+! -- cyan
+URxvt*color6: #6b9b8b
+! -- white
+URxvt*color7: #babdb6
+! -- bright-black
+URxvt*color8: #555753
+! -- bright-red
+URxvt*color9: #e5505f
+! -- bright-green
+URxvt*color10: #b7e234
+! -- bright-yellow
+URxvt*color11: #e8621d
+! -- bright-blue
+URxvt*color12:  #0088cc
+! -- bright-purple
+URxvt*color13: #cb99e1
+! -- bright-cyan
+URxvt*color14: #34E2E2
+! -- bright-white
+URxvt*color15: #e9e9e9
+
+!Technicolor I
+! black
+!URxvt*color0:  #000000
+!URxvt*color8:  #555753
+
+! red
+!URxvt*color1:  #9e1828
+!URxvt*color9:  #cf6171
+
+! green
+!URxvt*color2:  #80852d
+!URxvt*color10: #7cbc8c
+
+! yellow
+!URxvt*color3:  #968a38
+!URxvt*color11: #fff796
+
+! blue
+!URxvt*color4:  #414171
+!URxvt*color12: #4186be
+
+! magenta
+!URxvt*color5:  #963c59
+!URxvt*color13: #cf9ebe
+
+! cyan
+!URxvt*color6:  #418179
+!URxvt*color14: #71bebe
+
+! white
+!URxvt*color7:  #aaaaaa
+!URxvt*color15: #c3c2c5
+
+rxvt.termName: rxvt
+rxvt.scrollBar: false
+rxvt.loginShell: true
+rxvt.saveLines: 512
+rxvt.boldMode: false
+rxvt.xftAntialias: false
+rxvt.jumpScroll: true
+rxvt*internalBorder: 3
+rxvt*internalBordercolor: #222222
+rxvt.cursorBlink: false
+rxvt.cursorColor: #94bff3
+rxvt.cursorColor2: #000000
+rxvt.background: #222222
+rxvt.foreground: #b4b4b4
+rxvt.colorBD: #554444
+rxvt.colorIT: #bbbbbb
+rxvt.colorUL: #999999
+rxvt.underlineColor: #999999
+rxvt.borderless: true
+rxvt*font: -*-terminus-medium-r-*-*-*-*-*-*-*-*-*-*
+rxvt*boldFont: -*-terminus-medium-r-*-*-*-*-*-*-*-*-*-*
+
+!Technicolor-Variant
+rxvt*color0:         #222222
+rxvt*color1:         #ba8b8b
+rxvt*color2:         #86af80
+rxvt*color3:         #c6d01e
+rxvt*color4:         #3c8ec4
+rxvt*color5:         #9a70b2
+rxvt*color6:         #9fc1cc
+rxvt*color7:         #e9e9e9
+rxvt*color8:         #71a3b7
+rxvt*color9:         #e5505f
+rxvt*color10:        #8cba87
+rxvt.color11:        #e0d95c
+rxvt*color12:        #5899c4
+rxvt.color13:        #ad73ba
+rxvt*color14:	     #338eaa
+rxvt*color15:	     #c3c2c5
+
+!xclock*hourColor: rgb:0/0/0
+!xclock*minuteColor: rgb:8/8/8
+!xclock*secondColor: rgb:b/b/b
+!xclock*majorColor: rgb:0/0/0
+!xclock*minorColor: rgb:6/6/6
+ 
+xcalc*ti.button1.vertDistance: 4
+xcalc*ti.button2.vertDistance: 4
+xcalc*ti.button3.vertDistance: 4
+xcalc*ti.button4.vertDistance: 4
+xcalc*ti.button5.vertDistance: 4
+xcalc*ti.background: gray90
+xcalc*ti.bevel.borderColor: gray65
+xcalc*ti.bevel.borderWidth: 1
+xcalc*ti.bevel.vertDistance: 4
+xcalc*ti.bevel.defaultDistance: 0
+xcalc*ti.bevel.background: rgb:b/c/b
+xcalc*ti.bevel.screen*background: rgb:b/c/b
+xcalc*ti.bevel.screen.borderColor: rgb:b/c/b
+xcalc*ti.bevel.screen.vertDistance: 10
+xcalc*ti.bevel.screen.horizDistance: 10
+xcalc*ti.bevel.screen*left: chainLeft
+xcalc*ti.bevel.screen*right: chainRight
+xcalc*ti.bevel.screen*top: chainTop
+xcalc*ti.bevel.screen*bottom: chainBottom
+xcalc*ti.bevel.screen*LCD.foreground: gray10
 xcalc*ti.bevel.screen*INV.vertDistance: 0
-xcalc*ti.Command.borderColor:           gray65
-xcalc*ti.Command.background:            gray85
-xcalc*ti.Command.foreground:            gray30
-xcalc*ti.button5.background:            rgb:e/b/b
-xcalc*ti.button20.background:           rgb:e/d/c
-xcalc*ti.button25.background:           rgb:e/d/c
-xcalc*ti.button30.background:           rgb:e/d/c
-xcalc*ti.button35.background:           rgb:e/d/c
-xcalc*ti.button40.background:           rgb:b/b/e
-xcalc*ti.button22.background:           gray95
-xcalc*ti.button23.background:           gray95
-xcalc*ti.button24.background:           gray95
-xcalc*ti.button27.background:           gray95
-xcalc*ti.button28.background:           gray95
-xcalc*ti.button29.background:           gray95
-xcalc*ti.button32.background:           gray95
-xcalc*ti.button33.background:           gray95
-xcalc*ti.button34.background:           gray95
-xcalc*ti.button37.background:           gray95
-xcalc*ti.button38.background:           gray95
-xcalc*ti.button39.background:           gray95
+xcalc*ti.Command.borderColor: gray65
+xcalc*ti.Command.background: gray85
+xcalc*ti.Command.foreground: gray30
+xcalc*ti.button5.background: rgb:e/b/b
+xcalc*ti.button20.background: rgb:e/d/c
+xcalc*ti.button25.background: rgb:e/d/c
+xcalc*ti.button30.background: rgb:e/d/c
+xcalc*ti.button35.background: rgb:e/d/c
+xcalc*ti.button40.background: rgb:b/b/e
+xcalc*ti.button22.background: gray95
+xcalc*ti.button23.background: gray95
+xcalc*ti.button24.background: gray95
+xcalc*ti.button27.background: gray95
+xcalc*ti.button28.background: gray95
+xcalc*ti.button29.background: gray95
+xcalc*ti.button32.background: gray95
+xcalc*ti.button33.background: gray95
+xcalc*ti.button34.background: gray95
+xcalc*ti.button37.background: gray95
+xcalc*ti.button38.background: gray95
+xcalc*ti.button39.background: gray95
+ 
+xmessage*form.okay.shapeStyle: rectangle
+xmessage*form.okay.background: IndianRed
+xmessage*form.okay.foreground: rgb:e/b/b
+xmessage*message*background: ivory3
+xmessage*background: gray85
+xmessage*foreground: gray15
+xmessage*Scrollbar.width: 1
+xmessage*Scrollbar.borderWidth: 0
+xmessage*Text.?.cursorColor: rgb:d/5/5
+xmessage*Text.borderColor: gray65
+xmessage*Text*background: gray95
+xmessage*Command.highlightThickness: 1
+xmessage*Command.internalWidth: 5
+xmessage*Command.internalHeight: 3
+xmessage*Command.borderColor: gray40
+xmessage*Command.shapeStyle: Rectangle
+xmessage*Command.background: gray80
+xmessage*font: -*-motoko-*-*-*-*-*-*-*-*-*-*-*-*
 
-xmessage*form.okay.shapeStyle:          rectangle
-xmessage*form.okay.background:          IndianRed
-xmessage*form.okay.foreground:          rgb:e/b/b
-xmessage*message*background:            ivory3
-xmessage*background:                    gray85
-xmessage*foreground:                    gray15
-xmessage*Scrollbar.width:               1
-xmessage*Scrollbar.borderWidth:         0
-xmessage*Text.?.cursorColor:            rgb:d/5/5
-xmessage*Text.borderColor:              gray65
-xmessage*Text*background:               gray95
-xmessage*Command.highlightThickness:    1
-xmessage*Command.internalWidth:         5
-xmessage*Command.internalHeight:        3
-xmessage*Command.borderColor:           gray40
-xmessage*Command.shapeStyle:            Rectangle
-xmessage*Command.background:            gray80
-xmessage*font:                          -*-clean-*-*-*-*-*-*-*-*-*-*-iso8859-2
+xman*font:  -*-nu-*-*-*-*-*-*-*-*-*-*-*
+xman*jumpScroll: true
+xman*multiScroll: true
+xman*scrollBar: 0
+xman*background: #040404
+!xman*foreground: #d1a375
+xman*foreground: #afd700
+!xman*manualFontNormal: -*-proggyoptis-*-*-*-*-*-*-*-*-*-*-*-*
+!xman*manualFontBold:   -*-proggyoptis-*-*-*-*-*-*-*-*-*-*-*-*
+!xman*manualFontItalic: -*-proggyoptis-*-*-*-*-*-*-*-*-*-*-*-*
+!xman*directoryFontNormal: -*-proggyoptis-*-*-*-*-*-*-*-*-*-*-*-*
+
+xman*manualFontNormal:    -artwiz-mintsstrong-medium-r-normal--8-80-75-75-p-100-iso8859-1
+xman*manualFontBold:      -artwiz-mintsstrong-medium-r-normal--8-80-75-75-p-100-iso8859-1
+xman*manualFontItalic:    -artwiz-mintsstrong-medium-r-normal--8-80-75-75-p-100-iso8859-1
+xman*directoryFontNormal: -artwiz-mintsstrong-medium-r-normal--8-80-75-75-p-100-iso8859-1
+
+
+ 
+xman*manualFontBoldColor: #afd700
+xman*manualFontItalicColor: #6495ed
+
+xfontsel*background: #121212
+xfontsel*foreground: #ce5666
+xfontsel*font: -*-weep-*-*-*-*-*-*-*-*-*-*-*-*
+
+dclock*background: #1c1c1c
+dclock*foreground: #00587c
+dclock*geometry:   175x70
+dclock*seconds:    no
+dclock*miltime:    yes
+dclock*font: -artwiz-mintsstrong-medium-r-normal--8-80-75-75-p-100-iso8859-1
+!dclock*font:   -*-motoko-*-*-*-*-*-*-*-*-*-*-*-*
+
+XLock.font: -artwiz-mintsstrong-medium-r-normal--8-80-75-75-p-100-iso8859-1
+XLock.planfont: -artwiz-mintsstrong-medium-r-normal--8-80-75-75-p-100-iso8859-1
+XLock.messagefont: -artwiz-mintsstrong-medium-r-normal--8-80-75-75-p-100-iso8859-1
+XLock.foreground: #ffffff
+XLock.background: #222222
+XLock.lockdelay: 10
