@@ -71,12 +71,10 @@ XTerm*color7:  #665c64
 XTerm*color15: #c3c2c5
  
 
-
 URxvt*font: -*-terminus-medium-r-*-*-*-*-*-*-*-*-*-*
 URxvt*boldFont: -*-terminus-medium-r-*-*-*-*-*-*-*-*-*-*
 urxvt.termName: xterm-256color
 urxvt.scrollBar: false
-urxvt.imLocale: ja_JP.UTF-8
 urxvt.loginShell: true
 urxvt.saveLines: 512
 urxvt.geometry: 90x25
@@ -95,10 +93,10 @@ urxvt.colorIT: #bbbbbb
 urxvt.colorUL: #999999
 urxvt.underlineColor: #999999
 urxvt.borderless: true
-
-!Technobass - Foreground/Background
-URxvt*foreground: #665c64
+URxvt*foreground: #DDDDDD
 URxvt*background: #222222
+URxvt*keysym.Home: \033[1~
+URxvt*keysym.End: \033[4~
 
 !Technicolor I & II - Foreground/Background
 !URxvt*foreground: #b4b4b4
