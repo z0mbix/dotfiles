@@ -1,6 +1,6 @@
 [user]
-	name = 
-	email = 
+	name = David Wooldridge (z0mbix)
+	email = zombie@zombix.org
 [color]
     ui = auto
 [color "branch"]
@@ -29,3 +29,4 @@
 	lol = log --graph --decorate --pretty=oneline --abbrev-commit
 	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
 	ls = ls-files
+	ls-ignored = ls-files --exclude-standard --ignored --others

@@ -12,8 +12,8 @@ alignment top_left
 gap_y 4
 
 # --- Colours, Sizes, Fonts & Margins --- #
-update_interval 1.0
-minimum_size 400 5
+update_interval 2.0
+minimum_size 400 
 #stippled_borders 3
 #border_margin 9
 border_width 10
@@ -26,4 +26,5 @@ uppercase no
 draw_shades yes
 
 TEXT
-${color 88aa22}$nodename ${color ddccaa}| ${color ea6868}Ubuntu ${color ddccaa}| ${color 6495ed}${time %A} ${time %e} ${time %B} ${time %G}${alignr} ${time %H:%M} ${color ddccaa}| ${alignr}${color e8ae5b}Memory$color ${membar 5,30} | ${color 6495ed}Battery${color} ${battery_bar 5,30} ${battery_percent}% ${color ddccaa}| ${color 88aa22}LAN: ${color}${addr eth0} ${color ddccaa}| ${color 88aa22}WLAN: ${color}${addr wlan0} ${color ddccaa}| ${color 88aa22}WiFi: ${color ea6868}${wireless_essid wlan0}
+${color 88aa22}$nodename ${color ddccaa}|${color ea6868} ${alignr}${time %H:%M} ${color ddccaa}| ${color 6495ed}${time %a},${time %e} ${time %b} ${time %G} ${color ddccaa}| ${alignr}${color e8ae5b}Mem:$color ${membar 5,30} | ${color 6495ed}Batt:${color} ${battery_bar 5,30} ${battery_percent}% ${color ddccaa}| ${if_up eth0}${color 88aa22}LAN: ${color}${addr eth0} ${color ddccaa}|${endif} ${if_up wlan0}${color 88aa22}WLAN: ${color}${addr wlan0} ${color ddccaa}(${color ea6868}${wireless_essid wlan0}$color) ${color ddccaa}| ${endif}${color 6495ed}${mpd_artist}: ${color ddccaa}${mpd_title} ${mpd_bar 5,30} | ${color ea6868}Volume: $color${ibm_volume}
+
