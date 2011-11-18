@@ -3,10 +3,10 @@
 
 # OS specific aliases
 if [ $OS == 'Linux' ]; then
-    alias ls='ls --color=auto'
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+	alias ls='ls --color=auto'
+	alias grep='grep --color=auto'
+	alias fgrep='fgrep --color=auto'
+	alias egrep='egrep --color=auto'
 	alias arpscan='sudo arp-scan -I wlan0 -l'
 	alias tl='tail -f /var/log/messages'
 	if [ -f /etc/debian_version ]; then
@@ -79,8 +79,13 @@ alias d='df -h'
 alias recall='history | grep'
 alias serial='screen /dev/tty.PL2303-* 38400'  # Serial console on WRAP/FreeBSD Server
 alias rsync='rsync --progress --stats'
-alias colours='for i in {0..255} ; do printf "\x1b[38;5;${i}mcolour${i} "; done"]"'
+alias colours='for i in {0..255} ; do printf "\x1b[38;5;${i}mcolour${i} "; done'
+alias find_git_repos='find ~ -type d -name ".git" -print|egrep -v "$HOME/Library|$HOME/.Trash"'
 
+mkmod() {
+	mkdir "$1"
+	mkdir "$1/files" "$1/lib" "$1/manifests" "$1/templates" "$1/tests"
+}
 
 # See what HTTP server a website uses:
 what-http-server() {
