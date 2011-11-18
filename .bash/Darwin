@@ -1,0 +1,19 @@
+# Darwin (Mac OS X)
+
+[ -d /Developer/usr/bin ] && PATH=$PATH:/Developer/usr/bin
+
+# Is Dropbox installed?
+[ -d ~/Dropbox ] && PATH=$PATH:~/Dropbox/bin:~/Dropbox/Code/Shell
+
+# Bash tab completion (Linux/Mac)
+[ -f /etc/bash_completion ] && . /etc/bash_completion
+
+# Homebrew bash completion
+[ -f `brew --prefix`/Library/Contributions/brew_bash_completion.sh ] && . `brew --prefix`/Library/Contributions/brew_bash_completion.sh
+
+# Aliases
+alias ls='ls -FG'
+alias tl='tail -f /var/log/system.log'
+alias gvim='open -a MacVim'
+alias macvim='open -a MacVim'
+alias serial='screen /dev/tty.PL2303-* 38400'  # Serial console on WRAP/FreeBSD Server

@@ -35,13 +35,7 @@ export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
 # Some basic bash stuff
-# Set 256 colour terminal for Ubuntu / Redhat
-if [ -e /lib/terminfo/x/xterm-256color ] || [ -e /usr/share/terminfo/x/xterm-256-color ]; then
-	TERM='xterm-256color'
-else
-	TERM='xterm-color'
-fi
-
+export TERM='xterm-color'
 export EDITOR=vim
 export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 export HISTCONTROL=ignoreboth
@@ -52,52 +46,16 @@ export GREP_OPTIONS="--color=auto"
 export OS=`uname -s`
 export UNISONLOCALHOSTNAME=`hostname -s`
 
-# Set Standard PATH/CDPATH
+# Enable color support of ls and also add handy aliases
+[ -x /usr/bin/dircolors ] && eval "`dircolors -b`"
+
+# Set Standard PATH
 PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$HOME/bin
 
-if [ $OS == 'OpenBSD' ]; then
-	export CVS_RSH=ssh
-	export CVSROOT=anoncvs@anoncvs.de.openbsd.org:/cvs
-	export PKG_PATH=ftp://ftp.openbsd.org/pub/OpenBSD/`uname -r`/packages/`machine -a`
-elif [ $OS == 'FreeBSD' ]; then
-	export ARCH=`uname -m`
-	export VER=`uname -r|tr 'A-Z' 'a-z'`
-	export PACKAGESITE=ftp://ftp.uk.freebsd.org/pub/FreeBSD/ports/$ARCH/packages-${VER}-release/Latest/
-	if [ pkg_info | grep pkgsearch >/dev/null ]; then
-		[ -f ~/.portindex.txt ] || pkgsearch -u
-	else
-		echo "pkgsearch not installed!"
-	fi
-elif [ $OS == 'NetBSD' ]; then
-	PATH=$PATH:/usr/pkg/bin:/usr/pkg/sbin:/usr/X11R7/bin:/usr/X11R6/bin
-	export CVSROOT="anoncvs@anoncvs.be.NetBSD.org:/cvsroot"
-	export ARCH=`uname -m`
-	export VER=`uname -r`
-	export PKGSRC_VER="2010Q4"
-	export PKG_PATH="ftp://ftp2.fr.netbsd.org/pub/pkgsrc/packages/$OS/$ARCH/${VER}_${PKGSRC_VER}/All"
-	export PASSIVE_FTP=yes
-	export MANPATH=$MANPATH:/usr/share/man:/usr/pkg/man
-elif [ $OS == 'Darwin' ]; then
-	[ -d /Developer/usr/bin ] && PATH=$PATH:/Developer/usr/bin
-fi
-
-# Home directory bin?
-[ -d ~/bin ] && PATH=$PATH:~/bin
-
-# Ruby gems?
-[ -d ~/.gem/ruby/1.8/bin ] && PATH=$PATH:~/.gem/ruby/1.8/bin
-[ -d /var/lib/gems/1.8/bin ] && PATH=$PATH:/var/lib/gems/1.8/bin
-
-# Is this there?
-[ -d /opt/local/bin ] && PATH=$PATH:/opt/local/bin:/opt/local/sbin
-
-# Is Dropbox installed?
-[ -d ~/Dropbox ] && PATH=$PATH:~/Dropbox/bin:~/Dropbox/Code/Shell
-
-#append to the history file, don't overwrite it
+# Append to the history file, don't overwrite it
 shopt -s histappend
 
-# check the window size after each command and, if necessary,
+# Check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
@@ -107,7 +65,7 @@ shopt -s cdspell
 # Don't try to find all the command possibilities when hitting TAB on an empty line.
 shopt -s no_empty_cmd_completion
 
-# make less more friendly for non-text input files, see lesspipe(1)
+# Make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # Set badass prompt
@@ -123,21 +81,27 @@ esac
 PROMPT_COMMAND='if [ $? -ne 0 ]; then ERROR_FLAG=1; else ERROR_FLAG=; fi; '
 PS1=${lt_blue}'\u'${norm}'@'${HOSTCOLOUR}'\h '${norm}'['${green}'\@'${norm}'] '${yellow}'\w\n'${norm}'${ERROR_FLAG:+'${lt_red}'}\$${ERROR_FLAG:+'${norm}'} '
 
+# Home directory bin?
+[ -d ~/bin ] && PATH=$PATH:~/bin
+
+# Ruby gems?
+[ -d ~/.gem/ruby/1.8/bin ] && PATH=$PATH:~/.gem/ruby/1.8/bin
+[ -d /var/lib/gems/1.8/bin ] && PATH=$PATH:/var/lib/gems/1.8/bin
+[ -d ~/.gem/ruby/1.9/bin ] && PATH=$PATH:~/.gem/ruby/1.9/bin
+[ -d /var/lib/gems/1.9/bin ] && PATH=$PATH:/var/lib/gems/1.9/bin
+
+# /opt/local/{bin,sbin}?
+[ -d /opt/local/bin ] && PATH=$PATH:/opt/local/bin:/opt/local/sbin
+
 # Suck up those aliases
 [ -f ~/.bash/aliases ] && . ~/.bash/aliases
 [ -f ~/.bash/private ] && . ~/.bash/private
 
-# Bash tab completion (Linux/Mac)
-[ -f /etc/bash_completion ] && . /etc/bash_completion
-
-# Bash tab completion (FreeBSD/Mac Homebrew)
-[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+# Import OS Specific stuff
+[ -f ~/.bash/$OS ] && . ~/.bash/$OS
 
 # Additional completions
 [ -f ~/.bash/completions ] && . ~/.bash/completions
-
-# Homebrew bash completion
-[ -f `brew --prefix`/Library/Contributions/brew_bash_completion.sh ] && . `brew --prefix`/Library/Contributions/brew_bash_completion.sh
 
 # Enable command/file completion with sudo
 complete -f -c sudo

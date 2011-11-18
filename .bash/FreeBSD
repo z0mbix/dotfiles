@@ -1,0 +1,22 @@
+# FreeBSD
+
+export ARCH=`uname -m`
+export VER=`uname -r|tr 'A-Z' 'a-z'`
+export PACKAGESITE=ftp://ftp.uk.freebsd.org/pub/FreeBSD/ports/$ARCH/packages-${VER}-release/Latest/
+
+# Install pkgsearch and update it
+if [ pkg_info | grep pkgsearch >/dev/null ]; then
+	[ -f ~/.portindex.txt ] || pkgsearch -u
+else
+	echo "pkgsearch not installed!"
+fi
+
+
+# Bash tab completion
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+
+# Aliases
+alias ls='ls -FG'
+alias lsd='ls -lF | grep "^d"'
+alias tl='tail -f /var/log/messages'
+alias ml='tail -n 30 -f /var/log/maillog'

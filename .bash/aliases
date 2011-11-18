@@ -1,60 +1,25 @@
 # Enable color support of ls and also add handy aliases
 [ -x /usr/bin/dircolors ] && eval "`dircolors -b`"
 
-# OS specific aliases
-if [ $OS == 'Linux' ]; then
-	alias ls='ls --color=auto'
-	alias grep='grep --color=auto'
-	alias fgrep='fgrep --color=auto'
-	alias egrep='egrep --color=auto'
-	alias arpscan='sudo arp-scan -I wlan0 -l'
-	alias tl='tail -f /var/log/messages'
-	if [ -f /etc/debian_version ]; then
-		alias ml='tail -n 30 -f /var/log/mail.log'
-	else
-		alias ml='tail -n 30 -f /var/log/maillog'
-	fi
-elif [ $OS == 'FreeBSD' ]; then
-	alias ls='ls -FG'
-	alias lsd='ls -lF | grep "^d"'
-	alias tl='tail -f /var/log/messages'
-	alias ml='tail -n 30 -f /var/log/maillog'
-elif [ $OS == 'NetBSD' ]; then
-	LS=/usr/pkg/bin/gls
-	if [ -x $LS ]; then
-		alias ls="$LS --color=auto"
-		alias lr="ls -lRFG"
-		alias lsd="ls -lFG | grep '^d'"
-	else
-		alias l='ls -lF'
-		alias lr='ls -lRF'
-		alias lsd='ls -lF | grep "^d"'
-	fi
-elif [ $OS == 'OpenBSD' ]; then
-	LS=/usr/local/bin/colorls
-	if [ -x $LS ]; then
-		alias ls='$LS -FG'
-		alias lr="ls -lRFG"
-		alias lsd="ls -lFG | grep '^d'"
-	else
-		alias l='ls -lF'
-		alias lr='ls -lRF'
-		alias lsd='ls -lF | grep "^d"'
-	fi
-elif [ $OS == 'Darwin' ]; then
-	alias ls='ls -FG'
-	alias tl='tail -f /var/log/system.log'
-	alias gvim='open -a MacVim'
-	alias macvim='open -a MacVim'
-else
-	echo "What OS are you running now?"
-fi
-
+# Generic aliases
 alias l='ls -l'
 alias la='ls -a'
 alias lal='ls -al'
 alias lsd='ls -l | grep "^d"'
-alias p='ps ax'
+alias p='ps aux'
+alias tf='tail -f'
+alias find_git_repos='find ~ -type d -name ".git" -print|egrep -v "$HOME/Library|$HOME/.Trash"'
+alias svim='sudo vim'
+alias scat='sudo cat'
+alias c='clear'
+alias cd..='cd ..'
+alias cd...='cd ../..'
+alias cd....='cd ../../..'
+alias d='df -h'
+alias recall='history | grep'
+alias rsync='rsync --progress --stats'
+alias homempc='ncmpcpp -h 192.168.20.10'
+alias colours='for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i} "; done'
 
 # Is vim installed?
 if [ -f `which vim` ]; then
@@ -65,27 +30,6 @@ if [ -f `which vim` ]; then
 else
 	alias vim='vi'
 fi
-
-alias svim='sudo vim'
-alias scat='sudo cat'
-alias c='clear'
-alias cd..='cd ..'
-alias cd...='cd ../..'
-alias cd....='cd ../../..'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias d='df -h'
-alias recall='history | grep'
-alias serial='screen /dev/tty.PL2303-* 38400'  # Serial console on WRAP/FreeBSD Server
-alias rsync='rsync --progress --stats'
-alias colours='for i in {0..255} ; do printf "\x1b[38;5;${i}mcolour${i} "; done'
-alias find_git_repos='find ~ -type d -name ".git" -print|egrep -v "$HOME/Library|$HOME/.Trash"'
-
-mkmod() {
-	mkdir "$1"
-	mkdir "$1/files" "$1/lib" "$1/manifests" "$1/templates" "$1/tests"
-}
 
 # See what HTTP server a website uses:
 what-http-server() {
@@ -142,7 +86,7 @@ is_leap_year() {
 }
 
 # Search man pages
-# usage: sman command search_term
+# Usage: sman command search_term
 sman() {
 	PAGER=less
 	export PAGER
@@ -158,8 +102,8 @@ centre() {
 	printf "%${c_width}.${c_width}s\n" "$c_text"
 }
 
+# Files modified today
 today() {
-	#files modified today
 	TODAY=`date +'%d-%m-%Y'`
 	ls -l "$@" | grep "$TODAY" | more
 }
@@ -169,9 +113,7 @@ lnp() {
 	ping -c 2 ${network}.${1}
 }
 
-###
-###   Handy Extract Program
-###
+# Handy Extract Program
 extract () {
 	if [ -f $1 ] ; then
 		case $1 in
@@ -193,7 +135,7 @@ extract () {
 	fi
 }
 
-#clock - A bash clock that can run in your terminal window.
+# Clock - A bash clock that can run in your terminal window.
 clock ()
 {
 	while true;do
