@@ -10,9 +10,22 @@
 #  ftp -o - https://github.com/z0mbix/dotfiles/raw/master/move_in.sh | sh
 #
 
-URL=https://github.com/z0mbix/dotfiles/tarball/master
+GH_USER=z0mbix
+URL=https://github.com/${GH_USER}/dotfiles/tarball/master
 OS=`uname`
-TD=`mktemp -d XXXXXX`
+TD=`mktemp --tmpdir=/tmp -d XXXXXX`
+
+if [ $OS = "Linux" -o $OS = "Darwin" ]; then
+	FETCH="curl -L"
+else
+	FETCH="ftp -o -"
+fi
+
+$FETCH $URL | tar -C $TD -xzf - 
+
+rm -f $TD/${GH_USER}-*/move_in.sh
+cd $TD/${GH_USER}-* && tar -cf - . | (cd; tar -xvf -)
+rm -rf $TD
 
 if [ ! -d ~/.ssh/ ]; then
 	mkdir ~/.ssh/
@@ -24,20 +37,10 @@ if [ ! -f ~/.ssh/authorized_keys ]; then
 	chmod 600 ~/.ssh/authorized_keys
 fi
 
-if [ $OS == "Linux" ] || [ $OS == "Darwin" ]; then
-	curl -L $URL | tar -C $TD -xzf - 
-elif [ $OS == "OpenBSD" ] || [ $OS == "FreeBSD" ]; then
-	ftp -o - $URL | tar -C $TD -xzf - 
-else
-	echo "Huh?"
-fi
-
-rm -f $TD/z0mbix-*/move_in.sh
-mv -f $TD/z0mbix-*/.???* ~/
 if [ $OS == "OpenBSD" ]; then
 	if [ -f ~/.profile ]; then
 		mv ~/.profile ~/.profile.orig
 	fi
 	mv ~/.profile-openbsd ~/.profile
+	rm -f .cshrc .login .mailrc
 fi
-rm -rf $TD

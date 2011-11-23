@@ -15,40 +15,38 @@
 #   you can change the menu name in .fluxbox/init to:
 #     session.menuFile: /home/you/.fluxbox/my-menu
 [begin] ()
-      #[exec]   (Terminal) {~/bin/zterm}
-      [exec]   (Terminal) {gnome-terminal}
-      [exec]   (Browser) {firefox}
+      [exec]   (Terminal) {urxvt}
+      [exec]   (Chrome) {google-chrome}
       [exec]   (Editor) {gnome-text-editor}
+      [exec]   (Vim) {gvim}
       [exec]   (File Manager) {nautilus --no-desktop}
 
 [submenu] (Net)
       [exec]   (Epiphany) {epiphany}
+      [exec]   (Chrome) {google-chrome}
       [exec]   (Firefox) {firefox}
-      [exec]   (IM) {pidgin}
-      [exec]   (Remote Desktop) {~/bin/rdpconnect.sh}
-      [exec]   (VNC Client) {gvncviewer}
-      [exec]   (VNC Server) {/usr/lib/vino/vino-server}
+      [exec]   (IM) {empathy}
+      [exec]   (VNC/RDP Client) {remmina}
+      #[exec]   (VNC Server) {/usr/lib/vino/vino-server}
 [end]
 
 [submenu] (Multimedia)
       [exec]   (GIMP) {gimp}
-      [exec]   (Gnome MPlayer) {gnome-mplayer}
-      [exec]   (MPlayer) {mplayer}
+      [exec]   (VLC) {vlc}
       [exec]   (Rhythmbox) {rhythmbox}
-      [exec]   (xmms) {xmms}
+      #[exec]   (Gnome MPlayer) {gnome-mplayer}
 [end]
 
 [submenu] (Tools)
       [exec] (Window name) {xprop WM_CLASS|cut -d \" -f 2|xmessage -file - -center}
-      [exec] (Screenshot) {scrot -d 5 screenshot-'%Y-%m-%d'.png -e 'mv $f ~/Dropbox/Photos/Screenshots/'}
+      [exec] (Screenshot) {scrot -d 5 screenshot-'%Y-%m-%d'.png -e 'mv $f ~/Dropbox/Images/Screenshots/'}
       [exec] (Reload .Xdefaults) {xrdb -load ~/.Xdefaults}
 [end]
 
 [submenu] (Power)
       [exec]   (Shutdown) {sudo shutdown -ph now}
       [exec]   (Reboot) {sudo shutdown -r now}
-      [exec]   (Suspend) {sudo zzz}
-      [exec]   (Lock screen) {~/bin/away}
+      [exec]   (Lock screen) {gnome-screensaver-command -l}
 [end]
 
 [submenu] (fluxbox menu)

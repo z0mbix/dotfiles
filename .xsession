@@ -10,8 +10,8 @@ gnome-settings-daemon&
 fbsetbg ~/Dropbox/Images/Wallpapers/Rocks_1600x1200.jpg&
 xrdb -load ~/.Xdefaults
 conky&
-xterm -geometry 94x47+0+18&
-xterm -geometry 94x47-0-16&
+urxvt -geometry 94x47+0+18&
+urxvt -geometry 94x47-0-16&
 nm-applet&
 /var/lib/dropbox/.dropbox-dist/dropboxd&
 

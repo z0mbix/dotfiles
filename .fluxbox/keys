@@ -1,20 +1,56 @@
-Mod1 Tab :NextWindow
-Mod1 Shift Tab :PrevWindow
-Control 1 :Workspace 1
-Control 2 :Workspace 2
-Control 3 :Workspace 3
-Control 4 :Workspace 4
-Control 5 :Workspace 5
-Control 6 :Workspace 6
-Control 7 :Workspace 7
-Control 8 :Workspace 8
+! fluxbox-update_configs added '(workspace=[current])' to (Next|Prev)(Window|Group)
+! check lines marked by 'FBCV13' if they are correctly updated
+!mouse actions added by fluxbox-update_configs
+OnTitlebar Mouse1 :MacroCmd {Focus} {Raise} {ActivateTab}
+!mouse actions added by fluxbox-update_configs
+OnTitlebar Move1 :StartMoving
+OnLeftGrip Move1 :StartResizing bottomleft
+OnRightGrip Move1 :StartResizing bottomright
+OnWindowBorder Move1 :StartMoving
+
+!mouse actions added by fluxbox-update_configs
+OnTitlebar Mouse2 :StartTabbing
+
+!mouse actions added by fluxbox-update_configs
+OnTitlebar Double Mouse1 :Shade
+OnTitlebar Mouse3 :WindowMenu
+
+!mouse actions added by fluxbox-update_configs
+OnWindow Mod1 Mouse1 :MacroCmd {Raise} {Focus} {StartMoving}
+OnWindow Mod1 Mouse3 :MacroCmd {Raise} {Focus} {StartResizing BottomRight}
+
+!mouse actions added by fluxbox-update_configs
+OnToolbar Mouse4 :NextWorkspace
+OnToolbar Mouse5 :PrevWorkspace
+
+!mouse actions added by fluxbox-update_configs
+OnDesktop Mouse1 :HideMenus
+OnDesktop Mouse2 :WorkspaceMenu
+OnDesktop Mouse3 :RootMenu
+OnDesktop Mouse4 :NextWorkspace
+OnDesktop Mouse5 :PrevWorkspace
+
+Mod1 Tab :NextWindow (workspace=[current]) !! FBCV13 !!
+Mod1 Shift Tab :PrevWindow (workspace=[current]) !! FBCV13 !!
+Mod1 1 :Workspace 1
+Mod1 2 :Workspace 2
+Mod1 3 :Workspace 3
+Mod1 4 :Workspace 4
+Mod1 5 :Workspace 5
+Mod1 6 :Workspace 6
+Mod1 7 :Workspace 7
+Mod1 8 :Workspace 8
 
 Control Mod1 b :ExecCommand firefox
 Control Mod1 f :Fullscreen
-Control Mod1 l :ExecCommand ~/bin/away
+Control Mod1 l :ExecCommand gnome-screensaver-command -l
 Control Mod1 m :RootMenu
 Control Mod1 x :Close
 Control Mod1 c :Minimize
-Control Mod1 z :ExecCommand gnome-terminal --geometry 116x50+0+0
+Control Mod1 z :ExecCommand urxvt
 Control Mod1 Right :NextWorkspace
 Control Mod1 Left :PrevWorkspace
+
+
+
+

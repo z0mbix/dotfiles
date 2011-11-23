@@ -323,10 +323,10 @@ xman*foreground: #afd700
 !xman*manualFontItalic: -*-proggyoptis-*-*-*-*-*-*-*-*-*-*-*-*
 !xman*directoryFontNormal: -*-proggyoptis-*-*-*-*-*-*-*-*-*-*-*-*
 
-xman*manualFontNormal:    -artwiz-mintsstrong-medium-r-normal--8-80-75-75-p-100-iso8859-1
-xman*manualFontBold:      -artwiz-mintsstrong-medium-r-normal--8-80-75-75-p-100-iso8859-1
-xman*manualFontItalic:    -artwiz-mintsstrong-medium-r-normal--8-80-75-75-p-100-iso8859-1
-xman*directoryFontNormal: -artwiz-mintsstrong-medium-r-normal--8-80-75-75-p-100-iso8859-1
+xman*manualFontNormal:    -artwiz-snap-normal-r-normal-*-*-*-*-*-*-*-*-*
+xman*manualFontBold:      -artwiz-snap-normal-r-normal-*-*-*-*-*-*-*-*-*
+xman*manualFontItalic:    -artwiz-snap-normal-r-normal-*-*-*-*-*-*-*-*-*
+xman*directoryFontNormal: -artwiz-snap-normal-r-normal-*-*-*-*-*-*-*-*-*
 
 
  
