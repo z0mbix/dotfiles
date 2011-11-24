@@ -13,6 +13,7 @@ conky&
 urxvt -geometry 94x47+0+18&
 urxvt -geometry 94x47-0-16&
 nm-applet&
+guake&
 /var/lib/dropbox/.dropbox-dist/dropboxd&
 
 # Start fluxbox
