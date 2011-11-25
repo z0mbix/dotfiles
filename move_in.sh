@@ -3,10 +3,10 @@
 # Idea shamelessly stolen from joshua stein:
 #  https://github.com/jcs/dotfiles/blob/master/move_in.sh
 #
-# Linux/Mac:
+# Linux/Mac/FreeBSD:
 #  curl -L -o - https://github.com/z0mbix/dotfiles/raw/master/move_in.sh | bash
 #
-# FreeBSD/OpenBSD:
+# OpenBSD:
 #  ftp -o - https://github.com/z0mbix/dotfiles/raw/master/move_in.sh | sh
 #
 
@@ -15,15 +15,14 @@ URL=https://github.com/${GH_USER}/dotfiles/tarball/master
 OS=`uname`
 TD=`mktemp -d XXXXXX`
 
-if [ $OS = "Linux" -o $OS = "Darwin" ]; then
-	FETCH="curl -L"
-else
+FETCH="curl -L"
+if [ $OS = "OpenBSD" ]; then
 	FETCH="ftp -o -"
 fi
 
 $FETCH $URL | tar -C $TD -xzf - 
 
-rm -f $TD/${GH_USER}-*/move_in.sh
+rm -f $TD/${GH_USER}-*/{README,move_in.sh}
 cd $TD/${GH_USER}-* && tar -cf - . | (cd; tar -xvf -)
 rm -rf $TD
 

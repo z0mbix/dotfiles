@@ -5,10 +5,8 @@ export VER=`uname -r|tr 'A-Z' 'a-z'`
 export PACKAGESITE=ftp://ftp.uk.freebsd.org/pub/FreeBSD/ports/$ARCH/packages-${VER}-release/Latest/
 
 # Install pkgsearch and update it
-if [ pkg_info | grep pkgsearch >/dev/null ]; then
+if [ -f /usr/local/bin/pkgsearch ]; then
 	[ -f ~/.portindex.txt ] || pkgsearch -u
-else
-	echo "pkgsearch not installed!"
 fi
 
 
