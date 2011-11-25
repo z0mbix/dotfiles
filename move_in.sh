@@ -13,7 +13,7 @@
 GH_USER=z0mbix
 URL=https://github.com/${GH_USER}/dotfiles/tarball/master
 OS=`uname`
-TD=`mktemp --tmpdir=/tmp -d XXXXXX`
+TD=`mktemp -d XXXXXX`
 
 if [ $OS = "Linux" -o $OS = "Darwin" ]; then
 	FETCH="curl -L"
