@@ -100,6 +100,9 @@ PS1=${lt_blue}'\u'${norm}'@'${HOSTCOLOUR}'\h '${norm}'['${green}'\@'${norm}'] '$
 # Import OS Specific stuff
 [ -f ~/.bash/$OS ] && . ~/.bash/$OS
 
+# Output local TODO list if it exists
+[ -f ~/.todo ] && (echo "** TODO LIST **"; cat ~/.todo)
+
 # Additional completions
 [ -f ~/.bash/completions ] && . ~/.bash/completions
 
