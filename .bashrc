@@ -95,10 +95,15 @@ PS1=${lt_blue}'\u'${norm}'@'${HOSTCOLOUR}'\h '${norm}'['${green}'\@'${norm}'] '$
 
 # Suck up those aliases
 [ -f ~/.bash/aliases ] && . ~/.bash/aliases
+
+# Any private settings?
 [ -f ~/.bash/private ] && . ~/.bash/private
 
 # Import OS Specific stuff
 [ -f ~/.bash/$OS ] && . ~/.bash/$OS
+
+# Import functions
+[ -f ~/.bash/functions ] && . ~/.bash/functions
 
 # Output local TODO list if it exists
 [ -f ~/.todo ] && (echo "** TODO LIST **"; cat ~/.todo)
