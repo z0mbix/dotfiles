@@ -17,4 +17,7 @@ alias tl='tail -f /var/log/system.log'
 alias gvim='open -a MacVim'
 alias macvim='open -a MacVim'
 alias serial='screen /dev/tty.PL2303-* 38400'  # Serial console on WRAP/FreeBSD Server
+alias arpscan='sudo arp-scan -I en0 -l'
 alias update_dotfiles='curl -L -o - https://github.com/z0mbix/dotfiles/raw/master/move_in.sh | bash'
+alias ldd='otool -L'
+alias mplayer='/Applications/MPlayerX.app/Contents/Resources/binaries/x86_64/mplayer'

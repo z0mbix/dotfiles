@@ -21,6 +21,7 @@ alias recall='history | grep'
 alias rsync='rsync --progress --stats'
 alias homempc='ncmpcpp -h 192.168.20.10'
 alias colours='for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i} "; done'
+alias pign='ping' # doh!
 
 # Is vim installed?
 if [ -f `which vim` ]; then

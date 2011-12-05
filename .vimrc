@@ -55,6 +55,9 @@ au BufNewFile,BufRead *.erb set ft=eruby
 " ruby - what tabs?
 au FileType ruby,eruby set ts=2 sw=2 tw=79 et sts=2 smartindent
 
+" Puppet
+au BufRead,BufNewFile *.pp set ft=puppe
+
 " yaml
 au FileType yaml set ts=2 sw=2 et
 
