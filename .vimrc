@@ -56,7 +56,7 @@ au BufNewFile,BufRead *.erb set ft=eruby
 au FileType ruby,eruby set ts=2 sw=2 tw=79 et sts=2 smartindent
 
 " Puppet
-au BufRead,BufNewFile *.pp set ft=puppe
+au BufRead,BufNewFile *.pp set ft=puppet
 
 " yaml
 au FileType yaml set ts=2 sw=2 et
