@@ -24,6 +24,7 @@ $FETCH $URL | tar -C $TD -xzf -
 
 rm -f $TD/${GH_USER}-*/{README,move_in.sh}
 cd $TD/${GH_USER}-* && tar -cf - . | (cd; tar -xvf -)
+cd -
 rm -rf $TD
 
 if [ ! -d ~/.ssh/ ]; then
@@ -42,4 +43,9 @@ if [ $OS == "OpenBSD" ]; then
 	fi
 	mv ~/.profile-openbsd ~/.profile
 	rm -f .cshrc .login .mailrc
+fi
+
+# Fluxbox on OS X? 
+if [ $OS = "Darwin" ]; then
+	rm -rf ~/.fluxbox
 fi
