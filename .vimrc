@@ -34,13 +34,11 @@ set laststatus=2 						" always show status line
 set pastetoggle=<C-p>					" Ctrl+p to toggle pasting
 set spellfile=~/.vimspell.add" 			" my words
 set confirm								" ask to save files
-"set t_Co=256							" use all 256 colors
-"syntax on								" enable syntax highlighting
+set t_Co=256							" use all 256 colors
 filetype on
 filetype plugin on
-"color torte
-"color desert
-color z0mbix
+set background=dark
+colorscheme solarized
 
 " .rc are shell files
 au BufNewFile,BufRead *.rc set ft=sh
@@ -80,6 +78,21 @@ if has("autocmd")
   augroup END 
 endif
 
+" Quit NERDTree when last file closed
+autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
+
+" Close all open buffers on entering a window if the only
+" buffer that's left is the NERDTree buffer
+function! s:CloseIfOnlyNerdTreeLeft()
+  if exists("t:NERDTreeBufName")
+    if bufwinnr(t:NERDTreeBufName) != -1
+      if winnr("$") == 1
+        q
+      endif
+    endif
+  endif
+endfunction
+
 " Switch syntax highlighting on, when the terminal has colors
 if &t_Co > 2 || has("gui_running")
   syntax on
@@ -115,5 +128,12 @@ nmap ,s :source $HOME/.vimrc
 " Use ctrl+n/p to switch buffers
 nnoremap <C-N> :next<Enter>
 nnoremap <C-P> :prev<Enter>
+
+" Map F2 to NERDTree
+map <F2> :NERDTreeToggle<CR>
+
+" Open NERDTree by default
+autocmd VimEnter * NERDTree
+autocmd VimEnter * wincmd p
 
 " vim: tabstop=8:shiftwidth=8:
