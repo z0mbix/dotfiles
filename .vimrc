@@ -78,7 +78,7 @@ if has("autocmd")
   augroup END 
 endif
 
-" Quit NERDTree when last file closed
+" Quit NERDTree and vim when last file closed
 autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 
 " Close all open buffers on entering a window if the only

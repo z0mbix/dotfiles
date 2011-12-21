@@ -7,12 +7,12 @@
 [color "branch"]
 	current = yellow reverse
 	local = yellow
-	remote = green
+	remote = cyan
 [color "diff"]
 	meta = yellow bold
 	frag = magenta bold
 	old = red bold
-	new = green bold
+	new = cyan
 	whitespace = red reverse
 [color "status"]
 	added = yellow
