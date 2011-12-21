@@ -34,7 +34,10 @@
 	ls-ignored = ls-files --exclude-standard --ignored --others
 	ds = diff --stat
 	last = cat-file commit HEAD
-	cat   = -p cat-file -p
+	cat = -p cat-file -p
+	unstage = reset HEAD
+	uncommit = reset --soft HEAD^
+	changelog = log --pretty=format:\" * %s\"
 [advice]
 	statusHints = false
 [diff]
@@ -42,5 +45,6 @@
 	mnemonicprefix = true
 [merge]
 	stat = true
+	summary = true
 [diff "exif"]
 	textconv = exif
