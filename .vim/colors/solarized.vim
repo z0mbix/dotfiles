@@ -595,7 +595,7 @@ exe "hi! Error"          .s:fmt_bold   .s:fg_red    .s:bg_none
 exe "hi! Todo"           .s:fmt_bold   .s:fg_magenta.s:bg_none
 "       *Todo            anything that needs extra attention; mostly the
 "                        keywords TODO FIXME and XXX
-"
+
 "}}}
 " Extended highlighting "{{{
 " ---------------------------------------------------------------------
@@ -606,7 +606,7 @@ elseif  (g:solarized_visibility=="low")
     exe "hi! SpecialKey" .s:fmt_bold   .s:fg_base02 .s:bg_none
     exe "hi! NonText"    .s:fmt_bold   .s:fg_base02 .s:bg_none
 else
-    exe "hi! SpecialKey" .s:fmt_bold   .s:fg_base00 .s:bg_base02
+    exe "hi! SpecialKey" .s:fmt_bold   .s:fg_base00 .s:bg_none
     exe "hi! NonText"    .s:fmt_bold   .s:fg_base00 .s:bg_none
 endif
 exe "hi! StatusLine"     .s:fmt_none   .s:fg_base1  .s:bg_base02 .s:fmt_revbb

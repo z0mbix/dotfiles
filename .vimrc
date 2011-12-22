@@ -35,10 +35,17 @@ set pastetoggle=<C-p>					" Ctrl+p to toggle pasting
 set spellfile=~/.vimspell.add" 			" my words
 set confirm								" ask to save files
 set t_Co=256							" use all 256 colors
+set list
 filetype on
 filetype plugin on
 set background=dark
 colorscheme solarized
+
+" Shortcut to rapidly toggle `set list`
+nmap <leader>l :set list!<CR>
+  
+" Use the same symbols as TextMate for tabstops and EOLs
+set listchars=tab:▸\ ,eol:¬
 
 " .rc are shell files
 au BufNewFile,BufRead *.rc set ft=sh
@@ -78,7 +85,7 @@ if has("autocmd")
   augroup END 
 endif
 
-" Quit NERDTree and vim when last file closed
+" Quit NERDTree when last file closed
 autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 
 " Close all open buffers on entering a window if the only
@@ -115,7 +122,6 @@ set directory=~/.vim/swp//
 " Language specific stuff
 let php_sql_query=1
 let php_htmlInStrings=1
-let php_folding=1
 let perl_extended_vars=1
 
 " Insert mode maps
@@ -136,4 +142,9 @@ map <F2> :NERDTreeToggle<CR>
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
 
-" vim: tabstop=8:shiftwidth=8:
+" TextMate indentation key mappings 
+nmap <D-[> <<
+nmap <D-]> >>
+vmap <D-[> <gv
+vmap <D-]> >gv
+
