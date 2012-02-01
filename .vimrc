@@ -70,6 +70,9 @@ au FileType ruby,eruby set ts=2 sw=2 tw=79 et sts=2 smartindent
 " Puppet
 au BufRead,BufNewFile *.pp set ft=puppet
 
+" Yum repos
+au BufRead,BufNewFile *.repo set ft=yum
+
 " yaml
 au FileType yaml set ts=2 sw=2 et
 
@@ -155,3 +158,7 @@ nmap <D-]> >>
 vmap <D-[> <gv
 vmap <D-]> >gv
 
+" Stuff I don't want up on github
+if filereadable(glob("~/.vimrc-private"))
+	source ~/.vimrc-private
+endif
