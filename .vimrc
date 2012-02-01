@@ -35,7 +35,14 @@ set pastetoggle=<C-p>					" Ctrl+p to toggle pasting
 set spellfile=~/.vimspell.add" 			" my words
 set confirm								" ask to save files
 set t_Co=256							" use all 256 colors
+set autoread							" reload files changed outside vim"
+set viminfo='100,f1  					" save up to 100 marks, enable capital marks
 set list
+
+set scrolloff=8							" start scrolling when we're 8 lines away from margins
+set sidescrolloff=15
+set sidescroll=1"
+
 filetype on
 filetype plugin on
 set background=dark
@@ -43,7 +50,7 @@ colorscheme solarized
 
 " Shortcut to rapidly toggle `set list`
 nmap <leader>l :set list!<CR>
-  
+
 " Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:▸\ ,eol:¬
 

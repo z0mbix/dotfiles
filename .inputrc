@@ -12,3 +12,8 @@ set output-meta on
 "\e[2~": quoted-insert
 "\e[5C": forward-word
 "\e[5D": backward-word
+
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+"\e[C": forward-char
+"\e[D": backward-char
