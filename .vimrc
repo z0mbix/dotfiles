@@ -1,7 +1,7 @@
 "
 " Vim 7 config
-" z0mbix <zombie@zombix.org>
-" Last update: 07/01/2011
+" z0mbix
+" Last update: 09 Feb 2012
 "
 
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n
@@ -48,7 +48,7 @@ filetype plugin on
 set background=dark
 colorscheme solarized
 
-" Shortcut to rapidly toggle `set list`
+" Quickly toggle `set list` (Show/Hide invisible characters) with \l
 nmap <leader>l :set list!<CR>
 
 " Use the same symbols as TextMate for tabstops and EOLs
@@ -57,24 +57,24 @@ set listchars=tab:▸\ ,eol:¬
 " .rc are shell files
 au BufNewFile,BufRead *.rc set ft=sh
 
-" .phtml and .sync are php files
-au BufNewFile,BufRead *.phtml,*.sync set ft=php
+" Ruby
+au FileType ruby,eruby set ts=2 sw=2 tw=79 et sts=2 smartindent
 
-" these are rubyish files
+" Rubyish files
 au BufNewFile,BufRead *.rake,*.mab set ft=ruby
 au BufNewFile,BufRead *.erb set ft=eruby
 
-" ruby - what tabs?
-au FileType ruby,eruby set ts=2 sw=2 tw=79 et sts=2 smartindent
-
-" Puppet
+" Puppet manifests
 au BufRead,BufNewFile *.pp set ft=puppet
+
+" Yaml
+au FileType yaml set ts=2 sw=2 et
+
+" JSON
+au BufNewFile,BufRead *.json set ft=javascript
 
 " Yum repos
 au BufRead,BufNewFile *.repo set ft=yum
-
-" yaml
-au FileType yaml set ts=2 sw=2 et
 
 " source code gets wrapped at <80
 au FileType asm,javascript,php,html,perl,c,cpp set tw=79 autoindent
@@ -149,8 +149,7 @@ nnoremap <C-P> :prev<Enter>
 map <F2> :NERDTreeToggle<CR>
 
 " Open NERDTree by default
-autocmd VimEnter * NERDTree
-autocmd VimEnter * wincmd p
+"autocmd VimEnter * NERDTree
 
 " TextMate indentation key mappings 
 nmap <D-[> <<
@@ -158,7 +157,3 @@ nmap <D-]> >>
 vmap <D-[> <gv
 vmap <D-]> >gv
 
-" Stuff I don't want up on github
-if filereadable(glob("~/.vimrc-private"))
-	source ~/.vimrc-private
-endif
