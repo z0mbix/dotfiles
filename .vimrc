@@ -1,7 +1,7 @@
 "
 " Vim 7 config
 " z0mbix
-" Last update: 09 Feb 2012
+" Last update: 15 Feb 2012
 "
 
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n
@@ -52,29 +52,30 @@ colorscheme solarized
 nmap <leader>l :set list!<CR>
 
 " Use the same symbols as TextMate for tabstops and EOLs
-set listchars=tab:▸\ ,eol:¬,trail:<
+set listchars=tab:▸\ ,eol:¬
 
 " .rc are shell files
 au BufNewFile,BufRead *.rc set ft=sh
 
-" Ruby
-au FileType ruby,eruby set ts=2 sw=2 tw=79 et sts=2 smartindent
+" .phtml and .sync are php files
+au BufNewFile,BufRead *.phtml,*.sync set ft=php
 
-" Rubyish files
+" these are rubyish files
 au BufNewFile,BufRead *.rake,*.mab set ft=ruby
 au BufNewFile,BufRead *.erb set ft=eruby
 
-" Puppet manifests
+" ruby - what tabs?
+au FileType ruby,eruby set ts=2 sw=2 tw=79 et sts=2 smartindent
+
+" Puppet
 au BufRead,BufNewFile *.pp set ft=puppet
-
-" Yaml
-au FileType yaml set ts=2 sw=2 et
-
-" JSON
-au BufNewFile,BufRead *.json set ft=javascript
+au FileType puppet set ts=2 sw=2 tw=79 et sts=2 smartindent
 
 " Yum repos
 au BufRead,BufNewFile *.repo set ft=yum
+
+" yaml
+au FileType yaml set ts=2 sw=2 et
 
 " source code gets wrapped at <80
 au FileType asm,javascript,php,html,perl,c,cpp set tw=79 autoindent
@@ -150,10 +151,26 @@ map <F2> :NERDTreeToggle<CR>
 
 " Open NERDTree by default
 "autocmd VimEnter * NERDTree
+"autocmd VimEnter * wincmd p
 
-" TextMate indentation key mappings 
+" TextMate indentation key mappings for mvim Cmd+[ and Cmd+]
 nmap <D-[> <<
 nmap <D-]> >>
 vmap <D-[> <gv
 vmap <D-]> >gv
 
+" Set title string and push it to xterm/screen window title
+set titlestring=vim\ %<%F%(\ %)%m%h%w%=%l/%L-%P 
+set titlelen=70
+if &term == "screen"
+  set t_ts=k
+  set t_fs=\
+endif
+if &term == "screen" || &term == "xterm"
+  set title
+endif
+
+" Stuff I don't want up on github
+if filereadable(glob("~/.vimrc-private"))
+	source ~/.vimrc-private
+endif
