@@ -73,6 +73,7 @@ case `hostname -s` in
     "murphy") HOSTCOLOUR=${red} ;;
     "shanks") HOSTCOLOUR=${yellow} ;;
     "eggers") HOSTCOLOUR=${blue} ;;
+    "hesh")   HOSTCOLOUR=${blue} ;;
     "wrap")   HOSTCOLOUR=${lt_red} ;;
     "uk-dwooldridge2") HOSTCOLOUR=${lt_purple} ;;
     *) HOSTCOLOUR=${yellow} ;;
