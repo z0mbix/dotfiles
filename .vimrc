@@ -52,7 +52,7 @@ colorscheme solarized
 nmap <leader>l :set list!<CR>
 
 " Use the same symbols as TextMate for tabstops and EOLs
-set listchars=tab:▸\ ,eol:¬
+set listchars=tab:▸\ ,eol:¬,trail:<
 
 " .rc are shell files
 au BufNewFile,BufRead *.rc set ft=sh
