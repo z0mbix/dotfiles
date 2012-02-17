@@ -1,0 +1,35 @@
+# Enable color support of ls and also add handy aliases
+[ -x /usr/bin/dircolors ] && eval "`dircolors -b`"
+
+# Generic aliases
+alias l='ls -l'
+alias la='ls -a'
+alias lal='ls -al'
+alias lsd='ls -l | grep "^d"'
+alias p='ps aux'
+alias tf='tail -f'
+alias find_git_repos='find ~ -type d -name ".git" -print|egrep -v "$HOME/Library|$HOME/.Trash"'
+alias svim='sudo -e'
+alias scat='sudo cat'
+alias car='cat' # Can't get used to the new air keyboard!
+alias c='clear'
+alias cd..='cd ..'
+alias cd...='cd ../..'
+alias cd....='cd ../../..'
+alias d='df -h'
+alias recall='history | grep'
+alias rsync='rsync --progress --stats'
+alias homempc='ncmpcpp -h 192.168.20.10'
+alias colours='for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i} "; done'
+alias pign='ping' # doh!
+alias running_vms='VBoxManage list runningvms|cut -f2 -d\"'
+
+# Is vim installed?
+if [ -f `which vim` ]; then
+	if [ ! -e ~/.vimrc ]; then
+		echo "You need to install your ~/.vimrc"
+	fi
+	alias vi='vim'
+else
+	alias vim='vi'
+fi

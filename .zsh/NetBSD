@@ -1,0 +1,24 @@
+# NetBSD
+
+PATH=$PATH:/usr/pkg/bin:/usr/pkg/sbin:/usr/X11R7/bin:/usr/X11R6/bin
+
+export CVSROOT="anoncvs@anoncvs.be.NetBSD.org:/cvsroot"
+export ARCH=`uname -m`
+export VER=`uname -r`
+export PKGSRC_VER="2011Q3"
+export PKG_PATH="ftp://ftp2.fr.netbsd.org/pub/pkgsrc/packages/$OS/$ARCH/${VER}_${PKGSRC_VER}/All"
+export PASSIVE_FTP=yes
+export MANPATH=$MANPATH:/usr/share/man:/usr/pkg/man
+
+LS=/usr/pkg/bin/gls
+if [ -x $LS ]; then
+	alias ls="$LS --color=auto"
+	alias lr="ls -lRFG"
+	alias lsd="ls -lFG | grep '^d'"
+else
+	alias l='ls -lF'
+	alias lr='ls -lRF'
+	alias lsd='ls -lF | grep "^d"'
+fi
+
+alias update_dotfiles='ftp -o - https://github.com/z0mbix/dotfiles/raw/master/move_in.sh | sh'

@@ -1,0 +1,18 @@
+# OpenBSD
+
+export CVS_RSH=ssh
+export CVSROOT=anoncvs@anoncvs.de.openbsd.org:/cvs
+export PKG_PATH=ftp://ftp.openbsd.org/pub/OpenBSD/`uname -r`/packages/`machine -a`
+
+LS=/usr/local/bin/colorls
+if [ -x $LS ]; then
+	alias ls='$LS -FG'
+	alias lr="ls -lRFG"
+	alias lsd="ls -lFG | grep '^d'"
+else
+	alias l='ls -lF'
+	alias lr='ls -lRF'
+	alias lsd='ls -lF | grep "^d"'
+fi
+
+alias update_dotfiles='ftp -o - https://github.com/z0mbix/dotfiles/raw/master/move_in.sh | sh'

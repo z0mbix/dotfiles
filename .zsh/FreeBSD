@@ -1,0 +1,18 @@
+# FreeBSD
+
+export PUPPET_DIR=/usr/local/etc/puppet
+export ARCH=`uname -m`
+export VER=`uname -r|tr 'A-Z' 'a-z'`
+export PACKAGESITE=ftp://ftp.uk.freebsd.org/pub/FreeBSD/ports/$ARCH/packages-${VER}-release/Latest/
+
+# Update pkgsearch db if installed
+if [ -f /usr/local/bin/pkgsearch ]; then
+	[ -f ~/.portindex.txt ] || pkgsearch -u
+fi
+
+# Aliases
+alias ls='ls -FG'
+alias lsd='ls -lF | grep "^d"'
+alias tl='tail -f /var/log/messages'
+alias ml='tail -n 30 -f /var/log/maillog'
+alias update_dotfiles='curl -L -o - https://github.com/z0mbix/dotfiles/raw/master/move_in.sh | sh'
