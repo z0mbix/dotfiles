@@ -24,7 +24,7 @@ ZSH_THEME="z0mbix"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment following line if you want red dots to be displayed while waiting for completion
-COMPLETION_WAITING_DOTS="true"
+#COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -36,6 +36,13 @@ source $ZSH/oh-my-zsh.sh
 # Set Standard PATH
 PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$HOME/bin
 
+export GREP_OPTIONS="--color=auto"
+export EDITOR=vim
+export HISTSIZE=50000
+export SAVEHIST=50000
+export OS=`uname -s`
+export UNISONLOCALHOSTNAME=`hostname -s`
+
 # Home directory bin?
 [ -d ~/bin ] && PATH=$PATH:~/bin
 
@@ -46,12 +53,7 @@ PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$HOME/bin
 [ -d /var/lib/gems/1.9/bin ] && PATH=$PATH:/var/lib/gems/1.9/bin
 
 # RVM?
-if [ -d ~/.rvm ]; then
-  echo "RVM Installed!"
-#  PATH=$PATH:~/.rvm/bin
-#  PATH=$PATH:~/.rvm/gems/ruby-1.9.2-p290/bin:~/.rvm/gems/ruby-1.9.2-p290@global/bin:~/.rvm/rubies/ruby-1.9.2-p290/bin
-  source ~/.rvm/scripts/rvm
-fi
+[ -d ~/.rvm ] && source ~/.rvm/scripts/rvm
 
 # /opt/local/{bin,sbin}?
 [ -d /opt/local/bin ] && PATH=$PATH:/opt/local/bin:/opt/local/sbin
@@ -71,6 +73,4 @@ fi
 # Output local TODO list if it exists
 [ -f ~/.todo ] && (echo "** TODO LIST **"; cat ~/.todo)
 
-# Customize to your needs...
-#export PATH=/Users/zombie/.rvm/gems/ruby-1.9.2-p290/bin:/Users/zombie/.rvm/gems/ruby-1.9.2-p290@global/bin:/Users/zombie/.rvm/rubies/ruby-1.9.2-p290/bin:/Users/zombie/.rvm/bin:/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/Users/zombie/bin:/Developer/usr/bin:/Users/zombie/Dropbox/bin:/Users/zombie/Dropbox/Code/Shell
 export PATH
