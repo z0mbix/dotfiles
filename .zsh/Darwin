@@ -9,7 +9,6 @@
 # Aliases
 alias ls='ls -FG'
 alias tl='tail -f /var/log/system.log'
-alias vim='mvim'
 alias gvim='mvim'
 alias macvim='mvim'
 alias serial='screen /dev/tty.PL2303-* 38400'  # Serial console on WRAP/FreeBSD Server

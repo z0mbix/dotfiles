@@ -1,47 +1,47 @@
 "
 " Vim 7 config
 " z0mbix
-" Last update: 15 Feb 2012
+" Last update: 28 Feb 2012
 "
 
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n
-set number								" show line numbers
-set ruler								" show line and column no
-set hidden								" hidden buffers?
-set showcmd								" show command in last line
-set nocompatible						" not compatible with vi
-set showmode							" show mode in mode line
-set modeline							" show mode line
-set ignorecase							" ignore case when searching
-set incsearch							" search while typing
-set backspace=indent,eol,start			" super backspacing
-set smartcase							" smart searching
-set tabstop=4							" default tabs to 4 spaces
-set shiftwidth=4						" match default tab spacing
-set hlsearch							" highlight search results
-set autoindent							" auto indent new lines
-set linebreak							" enable linebreaks
-set showbreak=>>						" what to put infront of linebreaks
-set history=200							" set command and search history
-set noerrorbells						" don't annoy me
-set novisualbell						" disable visual bell
-set report=0							" always report lines changed
-set showmatch							" show matching brackets
-set foldenable							" enable folding
-set foldmethod=indent					" fold lines with equal indent
-set foldlevel=100						" set fold close level
-set laststatus=2 						" always show status line
-set pastetoggle=<C-p>					" Ctrl+p to toggle pasting
-set spellfile=~/.vimspell.add" 			" my words
-set confirm								" ask to save files
-set t_Co=256							" use all 256 colors
-set autoread							" reload files changed outside vim"
-set viminfo='100,f1  					" save up to 100 marks, enable capital marks
-set list
+set number                              " show line numbers
+set ruler                               " show line and column no
+set hidden                              " hidden buffers?
+set showcmd                             " show command in last line
+set nocompatible                        " not compatible with vi
+set showmode                            " show mode in mode line
+set modeline                            " show mode line
+set ignorecase                          " ignore case when searching
+set incsearch                           " search while typing
+set backspace=indent,eol,start          " super backspacing
+set smartcase                           " smart searching
+set tabstop=4                           " default tabs to 4 spaces
+set shiftwidth=4                        " match default tab spacing
+set hlsearch                            " highlight search results
+set autoindent                          " auto indent new lines
+set linebreak                           " enable linebreaks
+set showbreak=>>                        " what to put infront of linebreaks
+set history=200                         " set command and search history
+set noerrorbells                        " don't annoy me
+set novisualbell                        " disable visual bell
+set report=0                            " always report lines changed
+set showmatch                           " show matching brackets
+set foldenable                          " enable folding
+set foldmethod=indent                   " fold lines with equal indent
+set foldlevel=100                       " set fold close level
+set laststatus=2                        " always show status line
+set pastetoggle=<C-p>                   " Ctrl+p to toggle pasting
+set spellfile=~/.vimspell.add"          " my words
+set confirm                             " ask to save files
+set t_Co=256                            " use all 256 colors
+set autoread                            " reload files changed outside vim"
+set viminfo='100,f1                     " save up to 100 marks, enable capital marks
+set list                                " Show invisible characters
 
-set scrolloff=8							" start scrolling when we're 8 lines away from margins
+set scrolloff=8                         " start scrolling when we're 8 lines away from margins
 set sidescrolloff=15
-set sidescroll=1"
+set sidescroll=1
 
 filetype on
 filetype plugin on
@@ -51,8 +51,8 @@ colorscheme solarized
 " Quickly toggle `set list` (Show/Hide invisible characters) with \l
 nmap <leader>l :set list!<CR>
 
-" Use the same symbols as TextMate for tabstops and EOLs
-set listchars=tab:▸\ ,eol:¬
+" Use the same symbols as TextMate for tabstops and EOLs 
+set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 
 " .rc are shell files
 au BufNewFile,BufRead *.rc set ft=sh
@@ -64,7 +64,7 @@ au BufNewFile,BufRead *.phtml,*.sync set ft=php
 au BufNewFile,BufRead *.rake,*.mab set ft=ruby
 au BufNewFile,BufRead *.erb set ft=eruby
 
-" ruby - what tabs?
+" Ruby - what tabs?
 au FileType ruby,eruby set ts=2 sw=2 tw=79 et sts=2 smartindent
 
 " Puppet
@@ -116,21 +116,20 @@ if &t_Co > 2 || has("gui_running")
   syntax on
 endif
 
-" highlight statusbar
+" Highlight statusbar
 hi statusline ctermbg=white ctermfg=magenta
 hi statuslinenc ctermbg=gray ctermfg=darkgray
 
 " Highlight line if in insert mode
-"hi CursorLine ctermbg=green ctermfg=black cterm=none
-"au InsertEnter * set cursorline
-"au InsertLeave * set nocursorline
+au InsertEnter * set cursorline
+au InsertLeave * set nocursorline
 
-" don't pollute directories with swap files, keep them in one place
+" Don't pollute directories with swap files, keep them in one place
 silent !mkdir -p ~/.vim/{backup,swp}/
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swp//
 
-" Language specific stuff
+" PHP stuff
 let php_sql_query=1
 let php_htmlInStrings=1
 let perl_extended_vars=1
@@ -139,25 +138,10 @@ let perl_extended_vars=1
 imap ;EM zombie@zombix.org
 imap ;WWW http://www.zombix.org/
 
-" Normal mode paps
-nmap ,s :source $HOME/.vimrc
+" Fix common typos
+iab teh     the
+iab Teh     The
 
-" Use ctrl+n/p to switch buffers
-nnoremap <C-N> :next<Enter>
-nnoremap <C-P> :prev<Enter>
-
-" Map F2 to NERDTree
-map <F2> :NERDTreeToggle<CR>
-
-" Open NERDTree by default
-"autocmd VimEnter * NERDTree
-"autocmd VimEnter * wincmd p
-
-" TextMate indentation key mappings for mvim Cmd+[ and Cmd+]
-nmap <D-[> <<
-nmap <D-]> >>
-vmap <D-[> <gv
-vmap <D-]> >gv
 
 " Set title string and push it to xterm/screen window title
 set titlestring=vim\ %<%F%(\ %)%m%h%w%=%l/%L-%P 
@@ -167,10 +151,69 @@ if &term == "screen"
   set t_fs=\
 endif
 if &term == "screen" || &term == "xterm"
-  set title
+    set title
 endif
+
+" automatically reload vimrc when it's saved
+"au BufWritePost .vimrc so ~/.vimrc
+
+if has('gui_macvim')
+  "  switch OSX windows with swipes
+  nnoremap <silent> <SwipeLeft> :macaction _cycleWindowsBackwards:<CR>
+  nnoremap <silent> <SwipeRight> :macaction _cycleWindows:<CR>
+
+  " TextMate indentation key mappings for mvim Cmd+[ and Cmd+]
+  nmap <D-[> <<
+  nmap <D-]> >>
+  vmap <D-[> <gv
+  vmap <D-]> >gv
+endif
+
+" Remove annoying F1 help
+inoremap <F1> <nop>
+nnoremap <F1> <nop>
+vnoremap <F1> <nop>
+
+" Retab and Format the File with Spaces
+nnoremap <leader>T :set expandtab<cr>:retab!<cr>
+
+" Use ctrl+n/p to switch buffers
+nnoremap <C-N> :next<Enter>
+nnoremap <C-P> :prev<Enter>
+
+" Remap 'jj' to Esc
+inoremap jj <Esc>
+
+" Map F2 to NERDTree
+map <F2> :NERDTreeToggle<CR>
+
+" Reselect visual block after indent/outdent
+vnoremap < <gv
+vnoremap > >gv
+
+" Improve up/down movement on wrapped lines
+nnoremap j gj
+nnoremap k gk
+
+" Remove ^M from file with \m
+map <Leader>m :%s/^M//<CR>
+
+" select all with \a
+map <Leader>a ggVG
+
+" Source ~/.vimrc with \s
+nmap <Leader>s :source $HOME/.vimrc<CR>
+
+" Clear search highlighting with ESC
+nnoremap <CR> :nohlsearch<CR>/<BS>
+
+" Lazy comments
+map ,# :s/^/#/<CR>:nohlsearch<CR>
+map ,/ :s/^/\/\//<CR>:nohlsearch<CR>
+map ," :s/^/\"/<CR>:nohlsearch<CR>
+map ,; :s/^/;/<CR>:nohlsearch<CR>
 
 " Stuff I don't want up on github
 if filereadable(glob("~/.vimrc-private"))
-	source ~/.vimrc-private
+  source ~/.vimrc-private
 endif
