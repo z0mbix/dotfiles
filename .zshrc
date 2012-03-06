@@ -65,4 +65,7 @@ export UNISONLOCALHOSTNAME=`hostname -s`
 # Output local TODO list if it exists
 [ -f ~/.todo ] && (echo "** TODO LIST **"; cat ~/.todo)
 
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
+
 export PATH
