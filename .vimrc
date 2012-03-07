@@ -186,6 +186,8 @@ inoremap jj <Esc>
 
 " Map F2 to NERDTree
 map <F2> :NERDTreeToggle<CR>
+" Map F2 to NERDTree
+map <leader>t :NERDTreeToggle<CR>
 
 " Reselect visual block after indent/outdent
 vnoremap < <gv

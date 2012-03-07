@@ -8,7 +8,6 @@ alias lal='ls -al'
 alias lsd='ls -l | grep "^d"'
 alias p='ps aux'
 alias tf='tail -f'
-alias find_git_repos='find ~ -type d -name ".git" -print|egrep -v "$HOME/Library|$HOME/.Trash"'
 alias svim='sudo -e'
 alias scat='sudo cat'
 alias car='cat' # Can't get used to the new air keyboard!
@@ -24,3 +23,16 @@ alias colours='for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i} "; done'
 alias pign='ping' # doh!
 alias running_vms='VBoxManage list runningvms|cut -f2 -d\"'
 alias ppv='puppet parser validate'
+alias rake="noglob rake"
+alias code='cd ~/Dropbox/Code'
+alias work='cd ~/Dropbox/Documents/Work/ComQi'
+alias dotfiles='cd ~/Dropbox/Configs/dotfiles'
+
+# Git stuff
+alias find_git_repos='find ~ -type d -name ".git" -print|egrep -v "$HOME/Library|$HOME/.Trash"'
+alias gci='git commit -m'
+alias gs='git st'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias grv='git remote -v'
+alias gpom='git push origin master'
