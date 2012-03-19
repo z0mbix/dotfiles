@@ -1,8 +1,11 @@
 # Load ssh keys
-if [ -f $HOME/.ssh/id_rsa ]; then
-	eval `ssh-agent -s`
-	export SSH_ASKPASS=ssh-askpass
-	ssh-add ssh-add ~/.ssh/id_rsa ~/.ssh/id_rsa_vaughan < /dev/null&
+eval `ssh-agent -s`
+export SSH_ASKPASS=ssh-askpass
+if [ -f ~/Dropbox/Configs/shared/ssh/comqi-ssh ]; then
+	ssh-add ~/Dropbox/Configs/shared/ssh/comqi-ssh < /dev/null&
+fi
+if [ -f ~/Dropbox/Configs/shared/ssh/vaughan-ssh ]; then
+	ssh-add ~/Dropbox/Configs/shared/ssh/vaughan-ssh < /dev/null&
 fi
 
 # Load programs
