@@ -34,6 +34,7 @@ export HISTSIZE=50000
 export SAVEHIST=50000
 export OS=`uname -s`
 export UNISONLOCALHOSTNAME=`hostname -s`
+export LESS="-niSRX"
 
 # Home directory bin?
 [ -d ~/bin ] && PATH=$PATH:~/bin
