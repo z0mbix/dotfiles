@@ -7,7 +7,7 @@ ZSH_THEME="z0mbix"
 # CASE_SENSITIVE="true"
 
 # Comment this out to disable weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment following line if you want to disable colors in ls
 # DISABLE_LS_COLORS="true"
@@ -79,5 +79,8 @@ zstyle ':completion:*' menu select
 setopt MENU_COMPLETE
 setopt AUTO_MENU
 setopt AUTO_LIST
+
+# Disable autocorrect
+unsetopt correct_all
 
 export PATH
