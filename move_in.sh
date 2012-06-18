@@ -14,16 +14,17 @@ GH_USER=z0mbix
 URL=https://github.com/${GH_USER}/dotfiles/tarball/master
 OS=`uname`
 TD=`mktemp -d XXXXXX`
-
+TAR=tar
 FETCH="curl -L"
-if [ $OS = "OpenBSD" ]; then
-	FETCH="ftp -o -"
-fi
 
-$FETCH $URL | tar -C $TD -xzf - 
+# OS Specific Stuff
+[ $OS = "OpenBSD" ] && FETCH="ftp -o -"
+[ $OS = "SunOS" ] && TAR='gtar'
+
+$FETCH $URL | $TAR -C $TD -xzf - 
 
 rm -f $TD/${GH_USER}-*/{README,move_in.sh}
-cd $TD/${GH_USER}-* && tar -cf - . | (cd; tar -xvf -)
+cd $TD/${GH_USER}-* && $TAR -cf - . | (cd; tar -xvf -)
 cd -
 rm -rf $TD
 
