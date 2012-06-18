@@ -27,6 +27,7 @@ alias rake="noglob rake"
 alias code='cd ~/Dropbox/Code'
 alias work='cd ~/Dropbox/Documents/Work/ComQi'
 alias dotfiles='cd ~/Dropbox/Configs/dotfiles'
+alias pwgen='pwgen -1 -B'
 
 # Git stuff
 alias find_git_repos='find ~ -type d -name ".git" -print|egrep -v "$HOME/Library|$HOME/.Trash"'
