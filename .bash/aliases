@@ -24,6 +24,7 @@ alias colours='for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i} "; done'
 alias pign='ping' # doh!
 alias running_vms='VBoxManage list runningvms|cut -f2 -d\"'
 alias ppv='puppet parser validate'
+alias serve_cwd='python -m SimpleHTTPServer'
 
 # Is vim installed?
 if [ -f `which vim` ]; then

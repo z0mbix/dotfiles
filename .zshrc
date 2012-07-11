@@ -24,6 +24,7 @@ DISABLE_AUTO_UPDATE="true"
 plugins=(git osx brew ruby gem rvm ssh-agent vagrant)
 
 source $ZSH/oh-my-zsh.sh
+unsetopt correct_all
 
 # Set Standard PATH
 PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$HOME/bin
