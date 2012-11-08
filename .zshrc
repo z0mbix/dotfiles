@@ -52,6 +52,9 @@ export LESS="-niSRX"
 # /opt/local/{bin,sbin}?
 [ -d /opt/local/bin ] && PATH=$PATH:/opt/local/bin:/opt/local/sbin
 
+# Vagrant?
+[ -d /opt/vagrant/bin ] && PATH=$PATH:/opt/vagrant/bin
+
 # Suck up those aliases
 [ -f ~/.zsh/aliases ] && source ~/.zsh/aliases
 
