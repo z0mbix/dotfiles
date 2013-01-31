@@ -46,7 +46,9 @@ if [ $OS == "OpenBSD" ]; then
 	rm -f .cshrc .login .mailrc
 fi
 
-# Fluxbox on OS X? 
+# Dump stuff we don't need on OS X? 
 if [ $OS = "Darwin" ]; then
 	rm -rf ~/.fluxbox
+    rm -f ~/.conkyrc
+    rm -f ~/.xsession
 fi
