@@ -13,7 +13,7 @@ gap_y 4
 
 # --- Colours, Sizes, Fonts & Margins --- #
 update_interval 2.0
-minimum_size 400 
+minimum_size 400
 #stippled_borders 3
 #border_margin 9
 border_width 10

@@ -27,9 +27,11 @@ alias rake="noglob rake"
 alias code='cd ~/Dropbox/Code'
 alias work='cd ~/Dropbox/Documents/Work/ComQi'
 alias dotfiles='cd ~/Dropbox/Configs/dotfiles'
+alias serenade='~/Dropbox/Projects/Serenade'
 alias pwgen='pwgen -1 -B'
 alias virsh='virsh  -c qemu+ssh://quinn.vaughan.zombix.org/system\?socket=/var/run/libvirt/libvirt-sock'
 alias serve_cwd='python -m SimpleHTTPServer'
+alias vim='gvim'
 
 # Git stuff
 alias find_git_repos='find ~ -type d -name ".git" -print|egrep -v "$HOME/Library|$HOME/.Trash"'

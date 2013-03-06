@@ -48,8 +48,10 @@ Control Mod1 m :RootMenu
 Control Mod1 x :Close
 Control Mod1 c :Minimize
 Control Mod1 z :ExecCommand urxvt
+Control Mod1 v :ExecCommand gvim
 Control Mod1 Right :NextWorkspace
 Control Mod1 Left :PrevWorkspace
+Control Mod1 Space :ExecCommand fbrun
 
 
 
