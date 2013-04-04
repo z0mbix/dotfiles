@@ -23,6 +23,7 @@
     [exec] (System Monitor) {gnome-system-monitor}
     [exec] (Apache Directory Studio) {/opt/apache-directory-studio/ApacheDirectoryStudio}
     [exec] (AeroFS) {/usr/bin/aerofs-gui}
+    [exec] (Dropbox) {~/.dropbox-dist/dropboxd}
   [end]
 
   [submenu] (Multimedia)
