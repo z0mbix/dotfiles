@@ -24,7 +24,17 @@ alias colours='for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i} "; done'
 alias pign='ping' # doh!
 alias running_vms='VBoxManage list runningvms|cut -f2 -d\"'
 alias ppv='puppet parser validate'
+alias rake="noglob rake"
+alias pwgen='pwgen -1 -B'
 alias serve_cwd='python -m SimpleHTTPServer'
+
+# Git stuff
+alias gci='git commit -m'
+alias gs='git st'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias grv='git remote -v'
+alias gpom='git push origin master'
 
 # Is vim installed?
 if [ -f `which vim` ]; then
@@ -35,3 +45,4 @@ if [ -f `which vim` ]; then
 else
 	alias vim='vi'
 fi
+
