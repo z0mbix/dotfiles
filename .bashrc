@@ -97,6 +97,9 @@ PS1=${lt_blue}'\u'${norm}'@'${HOSTCOLOUR}'\h '${norm}'['${green}'\@'${norm}'] '$
 # /opt/local/{bin,sbin}?
 [ -d /opt/local/bin ] && PATH=$PATH:/opt/local/bin:/opt/local/sbin
 
+# Vagrant?
+[ -d /opt/vagrant/bin ] && PATH=$PATH:/opt/vagrant/bin
+
 # Omnibus Chef?
 [ -d /opt/chef/bin ] && PATH=$PATH:/opt/chef/bin
 
