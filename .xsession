@@ -1,14 +1,15 @@
-# Load ssh keys
+# Load ssh agent
 eval `ssh-agent -s`
 export SSH_ASKPASS=ssh-askpass
-ssh-add ~/.ssh/comqi < /dev/null&
-ssh-add ~/.ssh/vaughan < /dev/null&
+ssh-add ~/.ssh/comqi < /dev/null
 
 # Load programs
-gnome-settings-daemon&
-#fbsetbg ~/Dropbox/Images/Wallpapers/Rocks_1600x1200.jpg&
 fbsetbg ~/Dropbox/Images/Wallpapers/Minecraft/18270-minecraft-creeper-stare.png&
-xrdb -load ~/.Xdefaults
+gnome-settings-daemon&
+xset fp+ ~/.fonts&
+xset fp rehash&
+xset r rate 180 40&
+xrdb -load ~/.Xdefaults&
 urxvt -geometry 129x59+1-16&
 urxvt -geometry 96x59-2-16&
 nm-applet&
