@@ -43,6 +43,7 @@ export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
 export HISTFILESIZE=10000
 export HISTSIZE=10000
 export GREP_OPTIONS="--color=auto"
+export LESS="-niSRX"
 export OS=`uname -s`
 export UNISONLOCALHOSTNAME=`hostname -s`
 
