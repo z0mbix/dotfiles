@@ -1,7 +1,11 @@
-set meta-flag on
 set input-meta on
 set convert-meta off
 set output-meta on
+set show-all-if-ambiguous on
+set mark-symlinked-directories on
+set visible-stats on
+set skip-completed-text on
+set bell-style none
 
 # Fix backspace/end etc. on FreeBSD
 "\e[1~": beginning-of-line
