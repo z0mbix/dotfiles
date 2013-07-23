@@ -1,0 +1,8 @@
+[ui]
+username = David Wooldridge <zombie@zombix.org>
+style = compact
+
+[diff]
+git = 1
+showfunc = 1
+unified = 8
