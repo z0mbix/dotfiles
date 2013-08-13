@@ -1,6 +1,45 @@
 [ui]
 username = David Wooldridge <zombie@zombix.org>
 style = compact
+editor = vim
+ignore = ~/.hgignore
+ssh = ssh -C
+
+[alias]
+log = log --limit 10 --template '\033[1;34m{rev} \033[0;31m{node|short} \033[0;32m{date|age} \033[0m- {desc|strip|firstline} \033[0;34m{author|person}{if(bookmarks, " \033[1;31m({bookmarks})")}{if(branches, " \033[1;32m({branch})")}{if(tags, " \033[1;33m({tags})")}\033[0m\n'
+
+[extensions]
+color =
+graphlog =
+fetch =
+progress =
+pager =
+prompt = ~/Dropbox/Configs/hg-prompt/prompt.py
+
+[pager]
+pager = LESS='FSRX' less
+attend = cat, diff, glog, log, incoming, outgoing, lg, show, lga
+
+[progress]
+delay = 1.0
+
+[color]
+status.modified = red bold
+status.added = green bold
+status.removed = red bold blue_background
+status.deleted = cyan bold
+status.unknown = magenta bold
+status.ignored = black bold
+diff.diffline = bold
+diff.extended = cyan bold
+diff.file_a = red bold
+diff.file_b = green bold
+diff.hunk = magenta
+diff.deleted = red
+diff.inserted = green
+diff.changed = white
+diff.trailingwhitespace = bold red_background
+log = yellow
 
 [diff]
 git = 1
