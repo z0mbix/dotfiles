@@ -77,6 +77,7 @@ case `hostname -s` in
     "hesh")   HOSTCOLOUR=${blue} ;;
     "wrap")   HOSTCOLOUR=${lt_red} ;;
     "uk-dwooldridge2") HOSTCOLOUR=${lt_purple} ;;
+    "Davids-MacBook-Pro") HOSTCOLOUR=${lt_purple} ;;
     *) HOSTCOLOUR=${yellow} ;;
 esac
 

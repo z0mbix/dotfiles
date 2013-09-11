@@ -1,19 +1,18 @@
 [begin] ()
 
-  [exec] (Terminal) {urxvt}
-  [exec] (Gnome Terminal) {gnome-terminal}
-  [exec] (Chrome) {google-chrome}
-  [exec] (GEdit) {gnome-text-editor}
-  [exec] (Sublime Text 2) {/opt/sublimetext2/sublime_text}
-  [exec] (Vim) {gvim}
   [exec] (File Manager) {nautilus --no-desktop}
-  [exec] (Rhythmbox) {rhythmbox}
+  [exec] (Terminal) {urxvt}
+  #[exec] (Gnome Terminal) {gnome-terminal}
+  [exec] (Chrome) {google-chrome}
+  [exec] (Editor) {gnome-text-editor}
+  #[exec] (Sublime Text 2) {/opt/sublimetext2/sublime_text}
+  #[exec] (Vim) {gvim}
 
   [submenu] (Net)
-    [exec] (Epiphany) {epiphany}
+    [exec] (Empathy) {empathy}
     [exec] (Chrome) {google-chrome}
     [exec] (Firefox) {firefox}
-    [exec] (Empathy) {empathy}
+    [exec] (Evolution) {evolution}
     [exec] (Skype) {skype}
     [exec] (VPN) {/usr/local/bin/qikea}
     [exec] (VNC/RDP Client) {remmina}
@@ -22,7 +21,6 @@
     [exec] (OpenXenManager) {/usr/bin/openxenmanager}
     [exec] (System Monitor) {gnome-system-monitor}
     [exec] (Apache Directory Studio) {/opt/apache-directory-studio/ApacheDirectoryStudio}
-    [exec] (AeroFS) {/usr/bin/aerofs-gui}
     [exec] (Dropbox) {~/.dropbox-dist/dropboxd}
   [end]
 
@@ -40,6 +38,7 @@
     [exec] (Gnome Control Centre) {gnome-control-center}
     [exec] (Conky) {pkill conky; conky}
     [exec] (Guake) {guake}
+    [exec] (xkill) {xkill}
     [exec] (Screenshot) {scrot -d 5 screenshot-'%Y-%m-%d'.png -e 'mv $f ~/Dropbox/Images/Screenshots/'}
     [exec] (Reload .Xdefaults) {xrdb -load ~/.Xdefaults}
   [end]
@@ -64,7 +63,7 @@
     [restart] (Restart)
     [exec] (About) {(fluxbox -v; fluxbox -info | sed 1d) 2> /dev/null | xmessage -file - -center}
     [separator]
-    [exit] (Exit)
+    [exit] (Logout)
   [end]
 
 [end]

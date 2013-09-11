@@ -1,5 +1,5 @@
 [ui]
-username = David Wooldridge <zombie@zombix.org>
+username = David Wooldridge
 style = compact
 editor = vim
 ignore = ~/.hgignore

@@ -45,6 +45,8 @@ set sidescroll=1
 
 filetype on
 filetype plugin on
+"let g:solarized_termcolors=256
+syntax enable
 set background=dark
 colorscheme solarized
 
