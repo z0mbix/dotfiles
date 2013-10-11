@@ -33,6 +33,10 @@ alias serve_cwd='python -m SimpleHTTPServer'
 #alias serve_cwd='ruby -r webrick -e "s = WEBrick::HTTPServer.new(:Port => 9090, :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start"'
 alias cat_without_comments="grep -v -E '^$|^[[:blank:]]*#|^;|^[[:blank:]]*//' $1"
 
+# MySQL
+alias mydbs='mysql -e "show databases"'
+alias mytables="mysql $1 -e 'show tables'"
+
 # Git stuff
 alias gci='git commit -m'
 alias gs='git st'
