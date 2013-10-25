@@ -69,6 +69,12 @@ shopt -s no_empty_cmd_completion
 # Make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+if [ ! -z "$SSH_AUTH_SOCK" -a "$SSH_AUTH_SOCK" != "$HOME/.ssh/agent_sock" ] ; then
+    unlink "$HOME/.ssh/agent_sock" 2>/dev/null
+    ln -s "$SSH_AUTH_SOCK" "$HOME/.ssh/agent_sock"
+    export SSH_AUTH_SOCK="$HOME/.ssh/agent_sock"
+fi
+
 # Set badass prompt
 case `hostname -s` in
     "murphy") HOSTCOLOUR=${red} ;;
