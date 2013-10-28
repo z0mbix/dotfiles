@@ -69,6 +69,7 @@ shopt -s no_empty_cmd_completion
 # Make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+# Make ssh-agent work in tmux
 if [ ! -z "$SSH_AUTH_SOCK" -a "$SSH_AUTH_SOCK" != "$HOME/.ssh/agent_sock" ] ; then
     unlink "$HOME/.ssh/agent_sock" 2>/dev/null
     ln -s "$SSH_AUTH_SOCK" "$HOME/.ssh/agent_sock"
