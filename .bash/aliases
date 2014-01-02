@@ -32,10 +32,23 @@ alias pwgen='pwgen -1 -B'
 alias serve_cwd='python -m SimpleHTTPServer'
 #alias serve_cwd='ruby -r webrick -e "s = WEBrick::HTTPServer.new(:Port => 9090, :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start"'
 alias cat_without_comments="grep -v -E '^$|^[[:blank:]]*#|^;|^[[:blank:]]*//|(/\*([^*]|(\*+[^*/]))*\*+/)|(//.*)' $1"
+alias pubkey="cat ~/.ssh/id_rsa.pub | pbcopy | printf 'Public key copied to pasteboard.\n'";
 
 # MySQL
 alias mydbs='mysql -e "show databases"'
 alias mytables="mysql $1 -e 'show tables'"
+
+
+# Vagrant
+alias v="vagrant"
+alias vst="vagrant status"
+alias vup="vagrant up"
+alias vupp="vagrant up --provision"
+alias vupnp="vagrant up --no-provision"
+alias vpr="vagrant provision"
+alias vhl="vagrant halt"
+alias vre="vagrant reload"
+alias vssh="vagrant ssh"
 
 # Git stuff
 alias gci='git commit -m'
