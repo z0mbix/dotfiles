@@ -37,7 +37,7 @@ set confirm                             " ask to save files
 set t_Co=256                            " use all 256 colors
 set autoread                            " reload files changed outside vim"
 set viminfo='100,f1                     " save up to 100 marks, enable capital marks
-set list                                " Show invisible characters
+"set list                                " Show invisible characters
 
 set scrolloff=8                         " start scrolling when we're 8 lines away from margins
 set sidescrolloff=15
@@ -48,7 +48,7 @@ filetype plugin on
 "let g:solarized_termcolors=256
 syntax enable
 set background=dark
-colorscheme solarized
+colorscheme torte
 
 " Quickly toggle `set list` (Show/Hide invisible characters) with \l
 nmap <leader>l :set list!<CR>
@@ -58,16 +58,19 @@ set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 
 " .rc are shell files
 au BufNewFile,BufRead *.rc set ft=sh
+au FileType sh set ts=2 sw=2 tw=79 et sts=2 smartindent
 
 " .phtml and .sync are php files
 au BufNewFile,BufRead *.phtml,*.sync set ft=php
 
-" these are rubyish files
+" Ruby - what tabs?
 au BufNewFile,BufRead *.rake,*.mab set ft=ruby
 au BufNewFile,BufRead *.erb set ft=eruby
-
-" Ruby - what tabs?
 au FileType ruby,eruby set ts=2 sw=2 tw=79 et sts=2 smartindent
+
+" JavaScript
+au BufNewFile,BufRead *.js set ft=javascript
+au FileType javascript set ts=2 sw=2 tw=79 et sts=2 smartindent
 
 " Puppet
 au BufRead,BufNewFile *.pp set ft=puppet
