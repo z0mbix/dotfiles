@@ -24,3 +24,9 @@ alias ldd='otool -L'
 alias mplayer='/Applications/MPlayerX.app/Contents/Resources/binaries/x86_64/mplayer'
 alias flushdns='sudo killall -HUP mDNSResponder'
 alias flushchromedns='open -a Google\ Chrome chrome://net-internals/#dns'
+
+# Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm update npm -g; npm update -g; sudo gem update --system; sudo gem update'
+
+# Lock the screen (when going AFK)
+alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
