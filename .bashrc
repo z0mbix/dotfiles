@@ -76,6 +76,10 @@ if [ ! -z "$SSH_AUTH_SOCK" -a "$SSH_AUTH_SOCK" != "$HOME/.ssh/agent_sock" ] ; th
     export SSH_AUTH_SOCK="$HOME/.ssh/agent_sock"
 fi
 
+hg_ps1() {
+    hg prompt "({{branch}}{ at {bookmark}}{status}) " 2> /dev/null
+}
+
 # Set badass prompt
 case `hostname -s` in
     "murphy") HOSTCOLOUR=${red} ;;
@@ -89,7 +93,7 @@ case `hostname -s` in
 esac
 
 PROMPT_COMMAND='if [ $? -ne 0 ]; then ERROR_FLAG=1; else ERROR_FLAG=; fi; '
-PS1=${lt_blue}'\u'${norm}'@'${HOSTCOLOUR}'\h '${norm}'['${green}'\@'${norm}'] '${yellow}'\w\n'${norm}'${ERROR_FLAG:+'${lt_red}'}\$${ERROR_FLAG:+'${norm}'} '
+PS1=${lt_blue}'\u'${norm}'@'${HOSTCOLOUR}'\h '${norm}'['${green}'\@'${norm}'] '${red}'$(hg_ps1)'${yellow}'\w\n'${norm}'${ERROR_FLAG:+'${lt_red}'}\$${ERROR_FLAG:+'${norm}'} '
 
 # Home directory bin?
 [ -d ~/bin ] && PATH=$PATH:~/bin
@@ -100,14 +104,14 @@ PS1=${lt_blue}'\u'${norm}'@'${HOSTCOLOUR}'\h '${norm}'['${green}'\@'${norm}'] '$
 [ -d ~/.gem/ruby/1.9/bin ] && PATH=$PATH:~/.gem/ruby/1.9/bin
 [ -d /var/lib/gems/1.9/bin ] && PATH=$PATH:/var/lib/gems/1.9/bin
 
+# Heroku Toolbelt?
+[ -d /usr/local/heroku/bin ] && PATH=$PATH:/usr/local/heroku/bin
+
 # RVM?
 [ -f ~/.rvm/scripts/rvm ] && . ~/.rvm/scripts/rvm
 
 # /opt/local/{bin,sbin}?
 [ -d /opt/local/bin ] && PATH=$PATH:/opt/local/bin:/opt/local/sbin
-
-# Vagrant?
-[ -d /opt/vagrant/bin ] && PATH=$PATH:/opt/vagrant/bin
 
 # Omnibus Chef?
 [ -d /opt/chef/bin ] && PATH=$PATH:/opt/chef/bin
