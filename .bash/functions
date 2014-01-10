@@ -1,3 +1,8 @@
+# Recursive grep
+rgrep() {
+	grep -Ir $1 *
+}
+
 # Create a new empty puppet module
 make_puppet_module() {
 	if [ ! -z $PUPPET_DIR ]; then
