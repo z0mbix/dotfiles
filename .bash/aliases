@@ -22,7 +22,7 @@ alias cd....='cd ../../..'
 alias d='df -h'
 alias recall='history | grep'
 alias rsync='rsync --progress --stats'
-alias homempc='ncmpcpp -h 192.168.20.10'
+alias homempc='ncmpcpp -h 192.168.69.10'
 alias colours='for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i} "; done'
 alias pign='ping' # doh!
 alias running_vms='VBoxManage list runningvms|cut -f2 -d\"'
@@ -35,6 +35,7 @@ alias cat_without_comments="grep -v -E '^$|^[[:blank:]]*#|^;|^[[:blank:]]*//|(/\
 alias pubkey="cat ~/.ssh/id_rsa.pub | pbcopy | printf 'Public key copied to pasteboard.\n'";
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com" # Get external IP address
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+alias j='jobs'
 
 # npm for europeans
 alias npm="npm --registry http://registry.npmjs.eu"

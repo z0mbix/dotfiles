@@ -76,10 +76,6 @@ if [ ! -z "$SSH_AUTH_SOCK" -a "$SSH_AUTH_SOCK" != "$HOME/.ssh/agent_sock" ] ; th
     export SSH_AUTH_SOCK="$HOME/.ssh/agent_sock"
 fi
 
-hg_ps1() {
-    hg prompt "({{branch}}{ at {bookmark}}{status}) " 2> /dev/null
-}
-
 # Set badass prompt
 case `hostname -s` in
     "murphy") HOSTCOLOUR=${red} ;;
@@ -93,7 +89,16 @@ case `hostname -s` in
 esac
 
 PROMPT_COMMAND='if [ $? -ne 0 ]; then ERROR_FLAG=1; else ERROR_FLAG=; fi; '
-PS1=${lt_blue}'\u'${norm}'@'${HOSTCOLOUR}'\h '${norm}'['${green}'\@'${norm}'] '${red}'$(hg_ps1)'${yellow}'\w\n'${norm}'${ERROR_FLAG:+'${lt_red}'}\$${ERROR_FLAG:+'${norm}'} '
+PS1=${lt_blue}'\u'${norm}'@'${HOSTCOLOUR}'\h '${norm}'['${green}'\@'${norm}'] '${yellow}'\w\n'${norm}'${ERROR_FLAG:+'${lt_red}'}\$${ERROR_FLAG:+'${norm}'} '
+
+# Is hgprompt installed?
+if [ -f ~/.hg_extensions/hgprompt/hgprompt.py ]; then
+  hg_ps1() {
+    hg prompt "({{branch}}{ at {bookmark}}{status}) " 2> /dev/null
+  }
+  PS1=${lt_blue}'\u'${norm}'@'${HOSTCOLOUR}'\h '${norm}'['${green}'\@'${norm}'] '${red}'$(hg_ps1)'${yellow}'\w\n'${norm}'${ERROR_FLAG:+'${lt_red}'}\$${ERROR_FLAG:+'${norm}'} '
+fi
+
 
 # Home directory bin?
 [ -d ~/bin ] && PATH=$PATH:~/bin
@@ -109,6 +114,9 @@ PS1=${lt_blue}'\u'${norm}'@'${HOSTCOLOUR}'\h '${norm}'['${green}'\@'${norm}'] '$
 
 # RVM?
 [ -f ~/.rvm/scripts/rvm ] && . ~/.rvm/scripts/rvm
+
+# chruby
+[ -f /usr/local/opt/chruby/share/chruby/chruby.sh ] && source /usr/local/opt/chruby/share/chruby/chruby.sh
 
 # /opt/local/{bin,sbin}?
 [ -d /opt/local/bin ] && PATH=$PATH:/opt/local/bin:/opt/local/sbin

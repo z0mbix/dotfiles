@@ -3,6 +3,11 @@ rgrep() {
 	grep -Ir $1 *
 }
 
+# Remove a file by inode
+rm_inode() {
+	find . -inum $1 -exec rm -i {} \;
+}
+
 # Create a new empty puppet module
 make_puppet_module() {
 	if [ ! -z $PUPPET_DIR ]; then
