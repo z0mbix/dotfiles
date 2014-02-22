@@ -36,6 +36,9 @@ alias pubkey="cat ~/.ssh/id_rsa.pub | pbcopy | printf 'Public key copied to past
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com" # Get external IP address
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 alias j='jobs'
+alias p8='ping 8.8.8.8'
+alias pinggw="ping $(netstat -rn -f inet|grep ^default|awk '{print $2}')"
+alias vd='vimdiff'
 
 # npm for europeans
 alias npm="npm --registry http://registry.npmjs.eu"
@@ -59,7 +62,7 @@ alias vssh="vagrant ssh"
 alias gci='git commit -m'
 alias gs='git st'
 alias gd='git diff'
-alias gds='git diff --staged'
+alias gdc='git diff --cached'
 alias grv='git remote -v'
 alias gpom='git push origin master'
 
