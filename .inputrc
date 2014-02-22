@@ -6,6 +6,7 @@ set mark-symlinked-directories on
 set visible-stats on
 set skip-completed-text on
 set bell-style none
+set completion-ignore-case on
 
 # Fix backspace/end etc. on FreeBSD
 "\e[1~": beginning-of-line
