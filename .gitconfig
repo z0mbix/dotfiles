@@ -32,17 +32,22 @@
 	br = branch
 	co = checkout
 	df = diff
+	dc = diff --cached
+	ds = diff --stat
+	sl = stash list
+	sa = stash apply
+	ss = stash save
 	lol = log --graph --decorate --pretty=oneline --abbrev-commit
-	#lg = log --graph --pretty=format:'%Cred%h%Creset %ad - %s%C(yellow)%d%Creset %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	ls = ls-files
 	ls-ignored = ls-files --exclude-standard --ignored --others
-	ds = diff --stat
 	last = cat-file commit HEAD
 	cat = -p cat-file -p
 	unstage = reset HEAD
 	uncommit = reset --soft HEAD^
 	changelog = log --pretty=format:\" * %s\"
+	out = log --graph --oneline --pretty=format:'%Cred%h%Cgreen %cd %Creset- %s' --abbrev-commit --date=relative --graph @{upstream}..
+	in = !git fetch && git log --pretty=oneline --abbrev-commit --graph ..@{upstream}
 [advice]
 	statusHints = false
 [diff]
@@ -53,3 +58,9 @@
 	summary = true
 [diff "exif"]
 	textconv = exif
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

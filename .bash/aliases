@@ -65,6 +65,7 @@ alias gd='git diff'
 alias gdc='git diff --cached'
 alias grv='git remote -v'
 alias gpom='git push origin master'
+alias gl='git lg'
 
 # Is vim installed?
 if [ -f `which vim` ]; then

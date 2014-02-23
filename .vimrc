@@ -41,7 +41,8 @@ set confirm                             " ask to save files
 set t_Co=256                            " use all 256 colors
 set autoread                            " reload files changed outside vim"
 set viminfo='100,f1                     " save up to 100 marks, enable capital marks
-set listchars=tab:›\ ,eol:¬,trail:⋅     " set the characters for the invisibles
+set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+"set listchars=tab:›\ ,eol:¬,trail:⋅     " set the characters for the invisibles
 set list                                " Show invisible characters
 set splitbelow                          " splits show up below by default
 set splitright                          " splits go to the right by default
@@ -112,9 +113,13 @@ au FileType sh set ts=2 sw=2 et
 au BufNewFile,BufRead *.phtml,*.sync set ft=php
 
 " Ruby - what tabs?
-au FileType ruby,eruby set ts=2 sw=2 tw=79 et sts=2 smartindent
 au BufNewFile,BufRead *.rake,*.mab set ft=ruby
 au BufNewFile,BufRead *.erb set ft=eruby
+au FileType ruby,eruby set ts=2 sw=2 tw=79 et sts=2 smartindent
+
+" JavaScript
+au BufNewFile,BufRead *.js set ft=javascript
+au FileType javascript set ts=2 sw=2 tw=79 et sts=2 smartindent
 
 " Puppet
 au BufRead,BufNewFile *.pp set ft=puppet
