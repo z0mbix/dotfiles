@@ -52,18 +52,23 @@ set sidescrolloff=15
 set sidescroll=1
 
 " Tab completion settings
-set wildmode=list:longest     " Wildcard matches show a list, matching the longest first
-set wildignore+=.git,.hg,.svn " Ignore version control repos
-set wildignore+=*.6           " Ignore Go compiled files
-set wildignore+=*.pyc         " Ignore Python compiled files
-set wildignore+=*.rbc         " Ignore Rubinius compiled files
-set wildignore+=*.swp         " Ignore vim backups
+set wildmode=list:longest               " Wildcard matches show a list, matching the longest first
+set wildignore+=.git,.hg,.svn           " Ignore version control repos
+set wildignore+=*.6                     " Ignore Go compiled files
+set wildignore+=*.pyc                   " Ignore Python compiled files
+set wildignore+=*.rbc                   " Ignore Rubinius compiled files
+set wildignore+=*.swp                   " Ignore vim backups
 
-let mapleader=";"                      " The <leader> key
+let mapleader=";"                       " The <leader> key
 
-filetype on
 filetype plugin on
 set background=dark
+
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 
 " Quickly toggle `set list` (Show/Hide invisible characters) with \l
 nmap <leader>' :set list!<CR>
@@ -106,15 +111,14 @@ color Monokai
 filetype plugin indent on
 
 " .rc are shell files
-au BufNewFile,BufRead *.rc set ft=sh
+au BufNewFile,BufRead *.rc,*.sh set ft=sh
 au FileType sh set ts=2 sw=2 et
 
-" .phtml and .sync are php files
-au BufNewFile,BufRead *.phtml,*.sync set ft=php
-
 " Ruby - what tabs?
-au BufNewFile,BufRead *.rake,*.mab set ft=ruby
+au BufNewFile,BufRead *.rake,*.mab,*.ru set ft=ruby
 au BufNewFile,BufRead *.erb set ft=eruby
+au BufNewFile,BufRead *.rub set ft=eruby
+au BufNewFile,BufRead .irbrc,.pryrc,Capfile,Gemfile,Rakefile,Vagrantfile,Puppetfile set ft=ruby
 au FileType ruby,eruby set ts=2 sw=2 tw=79 et sts=2 smartindent
 
 " JavaScript
@@ -180,9 +184,9 @@ au InsertEnter * set cursorline
 au InsertLeave * set nocursorline
 
 " Don't pollute directories with swap files, keep them in one place
-silent !mkdir -p ~/.vim/{backup,swp}/
+silent !mkdir -p ~/.vim/{backup,swap}/
 set backupdir=~/.vim/backup//
-set directory=~/.vim/swp//
+set directory=~/.vim/swap//
 
 " PHP stuff
 let php_sql_query=1
