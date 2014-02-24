@@ -6,3 +6,4 @@ compare_git_to_home.sh
 diff_file.sh
 .bash/private
 .zsh/private
+.vim/private

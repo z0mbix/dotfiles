@@ -21,7 +21,7 @@ FETCH="curl -L"
 [ $OS = "OpenBSD" ] && FETCH="ftp -o -"
 [ $OS = "SunOS" ] && TAR='gtar'
 
-$FETCH $URL | $TAR -C $TD -xzf - 
+$FETCH $URL | $TAR -C $TD -xzf -
 
 rm -f $TD/${GH_USER}-*/{README,move_in.sh}
 cd $TD/${GH_USER}-* && $TAR -cf - . | (cd; tar -xvf -)
@@ -29,26 +29,26 @@ cd -
 rm -rf $TD
 
 if [ ! -d ~/.ssh/ ]; then
-	mkdir ~/.ssh/
-	chmod 700 ~/.ssh
+  mkdir ~/.ssh/
+  chmod 700 ~/.ssh
 fi
 
 if [ ! -f ~/.ssh/authorized_keys ]; then
-	touch ~/.ssh/authorized_keys
-	chmod 600 ~/.ssh/authorized_keys
+  touch ~/.ssh/authorized_keys
+  chmod 600 ~/.ssh/authorized_keys
 fi
 
 if [ $OS == "OpenBSD" ]; then
-	if [ -f ~/.profile ]; then
-		mv ~/.profile ~/.profile.orig
-	fi
-	mv ~/.profile-openbsd ~/.profile
-	rm -f .cshrc .login .mailrc
+  if [ -f ~/.profile ]; then
+    mv ~/.profile ~/.profile.orig
+  fi
+  mv ~/.profile-openbsd ~/.profile
+  rm -f .cshrc .login .mailrc
 fi
 
-# Dump stuff we don't need on OS X? 
+# Dump stuff we don't need on OS X?
 if [ $OS = "Darwin" ]; then
-	rm -rf ~/.fluxbox
-    rm -f ~/.conkyrc
-    rm -f ~/.xsession
+  rm -rf ~/.fluxbox
+  rm -f ~/.conkyrc
+  rm -f ~/.xsession
 fi

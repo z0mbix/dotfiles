@@ -59,11 +59,11 @@ alias vre="vagrant reload"
 alias vssh="vagrant ssh"
 
 # Git stuff
-alias gci='git commit -m'
+alias gc='git commit -m'
 alias gs='git st'
 alias gd='git diff'
 alias gdc='git diff --cached'
-alias grv='git remote -v'
+alias gr='git remote -v'
 alias gpom='git push origin master'
 alias gl='git lg'
 
@@ -77,3 +77,6 @@ else
 	alias vim='vi'
 fi
 
+if [ -f /Applications/MacVim.app/Contents/MacOS/Vim ]; then
+	alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+fi

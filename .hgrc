@@ -6,7 +6,9 @@ ignore = ~/.hgignore
 ssh = ssh -C
 
 [alias]
-log = log --limit 10 --template '\033[1;34m{rev} \033[0;31m{node|short} \033[0;32m{date|age} \033[0m- {desc|strip|firstline} \033[0;34m{author|person}{if(bookmarks, " \033[1;31m({bookmarks})")}{if(branches, " \033[1;32m({branch})")}{if(tags, " \033[1;33m({tags})")}\033[0m\n'
+log = log --limit 20
+lg = log --limit 20 --template '\033[1;34m{rev} \033[0;31m{node|short} \033[0;32m{date|age} \033[0m- {desc|strip|firstline} \033[0;34m{author|person}{if(bookmarks, " \033[1;31m({bookmarks})")}{if(branches, " \033[1;32m({branch})")}{if(tags, " \033[1;33m({tags})")}\033[0m\n'
+diff-last-commit = diff -c tip
 
 [extensions]
 color =
@@ -14,11 +16,15 @@ graphlog =
 fetch =
 progress =
 pager =
-prompt = ~/Dropbox/Configs/hg-prompt/prompt.py
+histedit =
+#hgshelve = ~/.hg_extensions/hgshelve/hgshelve.py
+hgflow = ~/.hg_extensions/hgflow/hgflow.py
+prompt = ~/.hg_extensions/hgprompt/hgprompt.py
+rebase =
 
 [pager]
 pager = LESS='FSRX' less
-attend = cat, diff, glog, log, incoming, outgoing, lg, show, lga
+attend = cat, diff, diff-last-commit, log, glog, incoming, outgoing, show, lga
 
 [progress]
 delay = 1.0

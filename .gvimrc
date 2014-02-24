@@ -1,5 +1,6 @@
-set guifont=Monaco:h12
-set lines=48 columns=200
-set guioptions-=T " hide toolbar
+set guifont=Menlo
+set lines=48 columns=120
 set background=dark
-colorscheme Monokai
+set guioptions=egmt
+
+colorscheme molokai

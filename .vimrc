@@ -9,7 +9,7 @@ set encoding=utf-8
 
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n
 set number                              " show line numbers
-"set relativenumber                      " show relative line numbers
+set relativenumber                      " show relative line numbers
 set ruler                               " show line and column no
 set hidden                              " hidden buffers?
 set showcmd                             " show command in last line
@@ -38,6 +38,7 @@ set laststatus=2                        " always show status line
 set pastetoggle=<C-p>                   " Ctrl+p to toggle pasting
 set spellfile=~/.vimspell.add"          " my words
 set confirm                             " ask to save files
+set gdefault                            " appls substitutions globally on lines
 set t_Co=256                            " use all 256 colors
 set autoread                            " reload files changed outside vim"
 set viminfo='100,f1                     " save up to 100 marks, enable capital marks
@@ -47,7 +48,7 @@ set list                                " Show invisible characters
 set splitbelow                          " splits show up below by default
 set splitright                          " splits go to the right by default
 "set colorcolumn=80                      " highlight 80 character limit
-set scrolloff=8                         " start scrolling when we're 8 lines away from margins
+set scrolloff=4                         " start scrolling when we're 4 lines away from margins
 set sidescrolloff=15
 set sidescroll=1
 
@@ -59,19 +60,13 @@ set wildignore+=*.pyc                   " Ignore Python compiled files
 set wildignore+=*.rbc                   " Ignore Rubinius compiled files
 set wildignore+=*.swp                   " Ignore vim backups
 
-let mapleader=";"                       " The <leader> key
+let mapleader=","                       " The <leader> key
 
-filetype plugin on
-set background=dark
-
-filetype off                  " required
+filetype off                            " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-
-" Quickly toggle `set list` (Show/Hide invisible characters) with \l
-nmap <leader>' :set list!<CR>
 
 let g:vim_home_path = "~/.vim"
 
@@ -104,8 +99,11 @@ Bundle "scrooloose/syntastic"
 Bundle "tpope/vim-eunuch"
 Bundle "tpope/vim-fugitive"
 Bundle 'flazz/vim-colorschemes'
+"Bundle 'Valloric/YouCompleteMe'
+"Bundle 'msanders/snipmate.vim'
 
 " Set colour after vim-colorschemes
+set background=dark
 color Monokai
 
 filetype plugin indent on
@@ -143,6 +141,8 @@ au FileType make,c,cpp set ts=8 sw=8
 
 " Only do this part when compiled with support for autocommands
 if has("autocmd")
+  " Save when focus is lost
+  au FocusLost * :wa
   " In text files, always limit the width of text to 78 characters
   autocmd BufRead *.txt set tw=78
   " When editing a file, always jump to the last cursor position
@@ -153,6 +153,9 @@ if has("autocmd")
 
   " Clear whitespace at the end of lines automatically
   autocmd BufWritePre * :%s/\s\+$//e
+
+  " automatically reload vimrc when it's saved
+  autocmd BufWritePost .vimrc source $HOME/.vimrc
 endif
 
 " Quit NERDTree when last file closed
@@ -184,7 +187,7 @@ au InsertEnter * set cursorline
 au InsertLeave * set nocursorline
 
 " Don't pollute directories with swap files, keep them in one place
-silent !mkdir -p ~/.vim/{backup,swap}/
+silent !mkdir -p ~/.vim/{backup,swap,cache}/
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 
@@ -193,14 +196,9 @@ let php_sql_query=1
 let php_htmlInStrings=1
 let perl_extended_vars=1
 
-" Insert mode maps
-imap ;EM zombie@zombix.org
-imap ;WWW http://www.zombix.org/
-
 " Fix common typos
 iab teh     the
 iab Teh     The
-
 
 " Set title string and push it to xterm/screen window title
 set titlestring=vim\ %<%F%(\ %)%m%h%w%=%l/%L-%P
@@ -213,9 +211,6 @@ if &term == "screen" || &term == "xterm"
     set title
 endif
 
-" automatically reload vimrc when it's saved
-"au BufWritePost .vimrc so ~/.vimrc
-
 if has('gui_macvim')
   "  switch OSX windows with swipes
   nnoremap <silent> <SwipeLeft> :macaction _cycleWindowsBackwards:<CR>
@@ -226,6 +221,11 @@ if has('gui_macvim')
   nmap <D-]> >>
   vmap <D-[> <gv
   vmap <D-]> >gv
+
+  " Source the gvimrc file after saving it
+  if has("autocmd")
+    autocmd bufwritepost .gvimrc source ~/.gvimrc
+  endif
 endif
 
 " Remove annoying F1 help
@@ -233,8 +233,17 @@ inoremap <F1> <nop>
 nnoremap <F1> <nop>
 vnoremap <F1> <nop>
 
+nnoremap <leader>w <C-w>v<C-w>l
+nnoremap <leader>s <C-w>s<C-w>l
+
+" One less key to hit
+nnoremap ; :
+
 " Retab and Format the File with Spaces
 nnoremap <leader>T :set expandtab<cr>:retab!<cr>
+
+" Toggle line numbers
+nnoremap <leader>N :setlocal number!<cr>:setlocal norelativenumber!<cr>
 
 " Use ctrl+n/p to switch buffers
 nnoremap <C-N> :next<Enter>
@@ -242,11 +251,6 @@ nnoremap <C-P> :prev<Enter>
 
 " Remap 'jj' to Esc
 inoremap jj <Esc>
-
-" Map F2 to NERDTree
-map <F2> :NERDTreeToggle<CR>
-" Map F2 to NERDTree
-map <leader>t :NERDTreeToggle<CR>
 
 " Reselect visual block after indent/outdent
 vnoremap < <gv
@@ -262,14 +266,22 @@ map <C-k> <C-w>k
 map <C-h> <C-w>h
 map <C-l> <C-w>l
 
-" Remove ^M from file with \m
-map <Leader>m :%s/^M//<CR>
+" Quickly toggle `set list` (Show/Hide invisible characters)
+nmap <leader>' :set list!<CR>
 
-" select all with \a
-map <Leader>a ggVG
+" Quickly edit ~/.vimrc file
+"nmap <leader>v :tabedit $MYVIMRC<CR>
+nnoremap <leader>v <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
-" Source ~/.vimrc with \s
-nmap <Leader>s :source $HOME/.vimrc<CR>
+" NERDTree mappings
+map <F2> :NERDTreeToggle<CR>
+map <leader>n :NERDTreeToggle<CR>
+
+" Remove ^M from file
+map <leader>m :%s/^M//<CR>
+
+" select all
+map <leader>a ggVG
 
 " Shortcut to yanking to the system clipboard
 map <leader>y "*y
@@ -289,7 +301,7 @@ map ,/ :s/^/\/\//<CR>:nohlsearch<CR>
 map ," :s/^/\"/<CR>:nohlsearch<CR>
 map ,; :s/^/;/<CR>:nohlsearch<CR>
 
-"set clipboard=unnamed,unnamedplus
+set clipboard=unnamed,unnamedplus
 
 " Command to write as root if we don't have permission
 cmap w!! %!sudo tee > /dev/null %
