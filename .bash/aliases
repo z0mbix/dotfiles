@@ -37,7 +37,7 @@ alias ip="dig +short myip.opendns.com @resolver1.opendns.com" # Get external IP 
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 alias j='jobs'
 alias p8='ping 8.8.8.8'
-alias pinggw="ping $(netstat -rn -f inet|grep ^default|awk '{print $2}')"
+#alias pinggw="ping $(netstat -rn -f inet|grep ^default|awk '{print $2}')"
 alias vd='vimdiff'
 
 # npm for europeans

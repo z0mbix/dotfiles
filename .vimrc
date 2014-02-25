@@ -323,6 +323,6 @@ if exists("+undofile")
 endif
 
 " Stuff I don't want up on github
-if filereadable(glob("~/.vimrc-private"))
-  source ~/.vimrc-private
+if filereadable(glob("~/.vim/private"))
+  source ~/.vim/private
 endif
