@@ -79,6 +79,7 @@ Bundle 'gmarik/vundle'
 " Language plugins
 Bundle "elzr/vim-json"
 Bundle "empanda/vim-varnish"
+Bundle 'evanmiller/nginx-vim-syntax'
 Bundle "groenewege/vim-less"
 "Bundle "Glench/Vim-Jinja2-Syntax"
 "Bundle "kchmck/vim-coffee-script"
