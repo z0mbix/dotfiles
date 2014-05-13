@@ -9,7 +9,7 @@ set encoding=utf-8
 
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n
 set number                              " show line numbers
-set relativenumber                      " show relative line numbers
+"set relativenumber                      " show relative line numbers
 set ruler                               " show line and column no
 set hidden                              " hidden buffers?
 set showcmd                             " show command in last line
@@ -79,7 +79,7 @@ Bundle 'gmarik/vundle'
 " Language plugins
 Bundle "elzr/vim-json"
 Bundle "empanda/vim-varnish"
-Bundle 'evanmiller/nginx-vim-syntax'
+Bundle "evanmiller/nginx-vim-syntax"
 Bundle "groenewege/vim-less"
 "Bundle "Glench/Vim-Jinja2-Syntax"
 "Bundle "kchmck/vim-coffee-script"
@@ -99,7 +99,9 @@ Bundle "mhinz/vim-startify"
 Bundle "scrooloose/syntastic"
 Bundle "tpope/vim-eunuch"
 Bundle "tpope/vim-fugitive"
-Bundle 'flazz/vim-colorschemes'
+Bundle "flazz/vim-colorschemes"
+Bundle "terryma/vim-multiple-cursors"
+Bundle "chriskempson/base16-vim"
 "Bundle 'Valloric/YouCompleteMe'
 "Bundle 'msanders/snipmate.vim'
 
@@ -297,10 +299,10 @@ nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>l :CtrlPLine<cr>
 
 " Lazy comments
-map ,# :s/^/#/<CR>:nohlsearch<CR>
-map ,/ :s/^/\/\//<CR>:nohlsearch<CR>
-map ," :s/^/\"/<CR>:nohlsearch<CR>
-map ,; :s/^/;/<CR>:nohlsearch<CR>
+map <leader># :s/^/#/<CR>:nohlsearch<CR>
+map <leader>// :s/^/\/\//<CR>:nohlsearch<CR>
+map <leader>" :s/^/\"/<CR>:nohlsearch<CR>
+"map <leader>; :s/^/;/<CR>:nohlsearch<CR>
 
 set clipboard=unnamed,unnamedplus
 
