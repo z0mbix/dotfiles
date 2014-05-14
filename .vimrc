@@ -107,7 +107,7 @@ Bundle "chriskempson/base16-vim"
 
 " Set colour after vim-colorschemes
 set background=dark
-color Monokai
+color dark16-ocean
 
 filetype plugin indent on
 
