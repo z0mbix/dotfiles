@@ -86,6 +86,7 @@ Bundle "groenewege/vim-less"
 Bundle "PProvost/vim-ps1"
 Bundle "rodjek/vim-puppet"
 Bundle "tpope/vim-markdown"
+Bundle "fatih/vim-go"
 "Bundle "nono/vim-handlebars"
 
 " Other plugins
@@ -107,7 +108,7 @@ Bundle "chriskempson/base16-vim"
 
 " Set colour after vim-colorschemes
 set background=dark
-color dark16-ocean
+color monokai
 
 filetype plugin indent on
 

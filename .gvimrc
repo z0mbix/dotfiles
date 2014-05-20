@@ -1,6 +1,8 @@
-set guifont=Menlo
-set lines=48 columns=120
+set guifont=Menlo:h10
+set lines=68 columns=165
+"set fuoptions=maxvert,maxhorz
+
 set background=dark
 set guioptions=egmt
 
-colorscheme molokai
+colorscheme base16-ocean
