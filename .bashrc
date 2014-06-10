@@ -46,6 +46,7 @@ export GREP_OPTIONS="--color=auto"
 export LESS="-niSRX"
 export OS=`uname -s`
 export UNISONLOCALHOSTNAME=`hostname -s`
+export GOPATH="$HOME/.go"
 
 # Enable color support of ls and also add handy aliases
 [ -x /usr/bin/dircolors ] && eval "`dircolors -b`"
