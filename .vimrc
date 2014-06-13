@@ -103,6 +103,8 @@ Bundle "tpope/vim-fugitive"
 Bundle "flazz/vim-colorschemes"
 Bundle "terryma/vim-multiple-cursors"
 Bundle "chriskempson/base16-vim"
+Bundle "joonty/vdebug"
+Bundle "ervandew/supertab"
 "Bundle 'Valloric/YouCompleteMe'
 "Bundle 'msanders/snipmate.vim'
 
