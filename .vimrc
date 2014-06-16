@@ -81,13 +81,10 @@ Bundle "elzr/vim-json"
 Bundle "empanda/vim-varnish"
 Bundle "evanmiller/nginx-vim-syntax"
 Bundle "groenewege/vim-less"
-"Bundle "Glench/Vim-Jinja2-Syntax"
-"Bundle "kchmck/vim-coffee-script"
 Bundle "PProvost/vim-ps1"
 Bundle "rodjek/vim-puppet"
 Bundle "tpope/vim-markdown"
 Bundle "fatih/vim-go"
-"Bundle "nono/vim-handlebars"
 
 " Other plugins
 Bundle "scrooloose/nerdtree"
@@ -102,16 +99,16 @@ Bundle "scrooloose/syntastic"
 Bundle "tpope/vim-eunuch"
 Bundle "tpope/vim-fugitive"
 Bundle "flazz/vim-colorschemes"
+Bundle "chriskempson/base16-vim"
 Bundle "terryma/vim-multiple-cursors"
 Bundle "chriskempson/base16-vim"
 Bundle "joonty/vdebug"
 Bundle "ervandew/supertab"
-"Bundle 'Valloric/YouCompleteMe'
-"Bundle 'msanders/snipmate.vim'
+Bundle "tpope/vim-surround"
 
 " Set colour after vim-colorschemes
 set background=dark
-color Monokai
+color base16-ocean
 
 filetype plugin indent on
 
@@ -275,6 +272,13 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-h> <C-w>h
 map <C-l> <C-w>l
+
+if exists(":Tabularize")
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+  nmap <Leader>a: :Tabularize /:\zs<CR>
+  vmap <Leader>a: :Tabularize /:\zs<CR>
+endif
 
 " Quickly toggle `set list` (Show/Hide invisible characters)
 nmap <leader>' :set list!<CR>
