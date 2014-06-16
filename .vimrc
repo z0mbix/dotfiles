@@ -125,6 +125,9 @@ au BufNewFile,BufRead *.rub set ft=eruby
 au BufNewFile,BufRead .irbrc,.pryrc,Capfile,Gemfile,Rakefile,Vagrantfile,Puppetfile set ft=ruby
 au FileType ruby,eruby set ts=2 sw=2 tw=79 et sts=2 smartindent
 
+" Python
+au FileType python set ts=4 sw=4 tw=79 et sts=4
+
 " JavaScript
 au BufNewFile,BufRead *.js set ft=javascript
 au FileType javascript set ts=2 sw=2 tw=79 et sts=2 smartindent
