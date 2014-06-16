@@ -105,6 +105,7 @@ Bundle "chriskempson/base16-vim"
 Bundle "joonty/vdebug"
 Bundle "ervandew/supertab"
 Bundle "tpope/vim-surround"
+Bundle "henrik/vim-reveal-in-finder"
 
 " Set colour after vim-colorschemes
 set background=dark
