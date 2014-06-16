@@ -90,6 +90,7 @@ Bundle "fatih/vim-go"
 "Bundle "nono/vim-handlebars"
 
 " Other plugins
+Bundle "scrooloose/nerdtree"
 Bundle "airblade/vim-gitgutter"
 Bundle "godlygeek/tabular"
 Bundle "kien/ctrlp.vim"
