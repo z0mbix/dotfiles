@@ -8,61 +8,61 @@ scriptencoding utf-8
 set encoding=utf-8
 
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n
-set number                              " show line numbers
-"set relativenumber                      " show relative line numbers
-set ruler                               " show line and column no
-set hidden                              " hidden buffers?
-set showcmd                             " show command in last line
-set nocompatible                        " not compatible with vi
-set showmode                            " show mode in mode line
-set modeline                            " show mode line
-set ignorecase                          " ignore case when searching
-set incsearch                           " search while typing
-set backspace=indent,eol,start          " super backspacing
-set smartcase                           " smart searching
-set tabstop=4                           " default tabs to 4 spaces
-set shiftwidth=4                        " match default tab spacing
-set hlsearch                            " highlight search results
-set autoindent                          " auto indent new lines
-set linebreak                           " enable linebreaks
-set showbreak=>>                        " what to put infront of linebreaks
-set history=200                         " set command and search history
-set noerrorbells                        " don't annoy me
-set novisualbell                        " disable visual bell
-set report=0                            " always report lines changed
-set showmatch                           " show matching brackets
-set foldenable                          " enable folding
-set foldmethod=indent                   " fold lines with equal indent
-set foldlevel=100                       " set fold close level
-set laststatus=2                        " always show status line
-set pastetoggle=<C-p>                   " Ctrl+p to toggle pasting
-set spellfile=~/.vimspell.add"          " my words
-set confirm                             " ask to save files
-set gdefault                            " appls substitutions globally on lines
-set t_Co=256                            " use all 256 colors
-set autoread                            " reload files changed outside vim"
-set viminfo='100,f1                     " save up to 100 marks, enable capital marks
-set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
-"set listchars=tab:›\ ,eol:¬,trail:⋅     " set the characters for the invisibles
-set list                                " Show invisible characters
-set splitbelow                          " splits show up below by default
-set splitright                          " splits go to the right by default
-"set colorcolumn=80                      " highlight 80 character limit
-set scrolloff=4                         " start scrolling when we're 4 lines away from margins
-set sidescrolloff=15
-set sidescroll=1
+set number								" show line numbers
+"set relativenumber						 " show relative line numbers
+set ruler								" show line and column no
+set hidden								" hidden buffers?
+set showcmd								" show command in last line
+set nocompatible						" not compatible with vi
+set showmode							" show mode in mode line
+set modeline							" show mode line
+set ignorecase							" ignore case when searching
+set incsearch							" search while typing
+set backspace=indent,eol,start			" super backspacing
+set smartcase							" smart searching
+set tabstop=4							" default tabs to 4 spaces
+set shiftwidth=4						" match default tab spacing
+set hlsearch							" highlight search results
+set autoindent							" auto indent new lines
+set linebreak							" enable linebreaks
+set showbreak=>>						" what to put infront of linebreaks
+set history=200							" set command and search history
+set noerrorbells						" don't annoy me
+set novisualbell						" disable visual bell
+set report=0							" always report lines changed
+set showmatch							" show matching brackets
+set foldenable							" enable folding
+set foldmethod=indent					" fold lines with equal indent
+set foldlevel=100						" set fold close level
+set laststatus=2						" always show status line
+set pastetoggle=<C-p>					" Ctrl+p to toggle pasting
+set spellfile=~/.vimspell.add"			" my words
+set confirm								" ask to save files
+set gdefault							" appls substitutions globally on lines
+set t_Co=256							" use all 256 colors
+set autoread							" reload files changed outside vim
+set viminfo='100,f1						" save up to 100 marks, enable capital marks
+set listchars=tab:›\ ,eol:¬,trail:⋅,extends:❯,precedes:❮ " set the characters for the invisibles
+set list								" Show invisible characters
+set splitbelow							" splits show up below by default
+set splitright							" splits go to the right by default
+set colorcolumn=80						" highlight 80 character limit
+set scrolloff=4							" start scrolling when we're 4 lines away from margins
+set sidescrolloff=15					" start scrolling when we're 15 lines away from margins
+set sidescroll=1 						" Enable side scrolling
+set nrformats=							" Treat numbers as decimal instead of octal
 
 " Tab completion settings
-set wildmode=list:longest               " Wildcard matches show a list, matching the longest first
-set wildignore+=.git,.hg,.svn           " Ignore version control repos
-set wildignore+=*.6                     " Ignore Go compiled files
-set wildignore+=*.pyc                   " Ignore Python compiled files
-set wildignore+=*.rbc                   " Ignore Rubinius compiled files
-set wildignore+=*.swp                   " Ignore vim backups
+set wildmode=list:longest				" Wildcard matches show a list, matching the longest first
+set wildignore+=.git,.hg,.svn			" Ignore version control repos
+set wildignore+=*.6						" Ignore Go compiled files
+set wildignore+=*.pyc					" Ignore Python compiled files
+set wildignore+=*.rbc					" Ignore Rubinius compiled files
+set wildignore+=*.swp					" Ignore vim backups
 
-let mapleader=","                       " The <leader> key
+let mapleader=","						" The <leader> key
 
-filetype off                            " required
+filetype off							" required for vundle
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/vundle/
@@ -106,6 +106,8 @@ Bundle "joonty/vdebug"
 Bundle "ervandew/supertab"
 Bundle "tpope/vim-surround"
 Bundle "henrik/vim-reveal-in-finder"
+Bundle "tpope/vim-commentary"
+Bundle "tpope/vim-unimpaired"
 
 " Set colour after vim-colorschemes
 set background=dark
@@ -130,6 +132,27 @@ au FileType python set ts=4 sw=4 tw=79 et sts=4
 " JavaScript
 au BufNewFile,BufRead *.js set ft=javascript
 au FileType javascript set ts=2 sw=2 tw=79 et sts=2 smartindent
+
+" JSON
+let g:vim_json_syntax_conceal = 0
+
+" Startify
+let g:startify_list_order = [
+  \ ['   Bookmarks:'],
+  \ 'bookmarks',
+  \ ['   Recent files:', ],
+  \ 'files',
+  \ ['   Recent files (current directory):'],
+  \ 'dir',
+  \ ['   Sessions:'],
+  \ 'sessions',
+  \ ]
+let g:startify_change_to_vcs_root = 1
+let g:startify_bookmarks =
+  \ [ '~/.vimrc', '~/.bashrc', '~/.bash_profile', '~/.ssh/config',
+  \ '~/.ssh/authorized_keys', '~/Dropbox/Configs/dotfiles' ]
+let g:startify_custom_header =
+  \ map(split(system('fortune -n 100 | cowsay'), '\n'), '"	 ". v:val') + ['','']
 
 " Puppet
 au BufRead,BufNewFile *.pp set ft=puppet
@@ -173,11 +196,11 @@ autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 " buffer that's left is the NERDTree buffer
 function! s:CloseIfOnlyNerdTreeLeft()
   if exists("t:NERDTreeBufName")
-    if bufwinnr(t:NERDTreeBufName) != -1
-      if winnr("$") == 1
-        q
-      endif
-    endif
+	if bufwinnr(t:NERDTreeBufName) != -1
+	  if winnr("$") == 1
+		q
+	  endif
+	endif
   endif
 endfunction
 
@@ -205,8 +228,8 @@ let php_htmlInStrings=1
 let perl_extended_vars=1
 
 " Fix common typos
-iab teh     the
-iab Teh     The
+iab teh		the
+iab Teh		The
 
 " Set title string and push it to xterm/screen window title
 set titlestring=vim\ %<%F%(\ %)%m%h%w%=%l/%L-%P
@@ -216,7 +239,7 @@ if &term == "screen"
   set t_fs=\
 endif
 if &term == "screen" || &term == "xterm"
-    set title
+	set title
 endif
 
 if has('gui_macvim')
@@ -232,7 +255,7 @@ if has('gui_macvim')
 
   " Source the gvimrc file after saving it
   if has("autocmd")
-    autocmd bufwritepost .gvimrc source ~/.gvimrc
+	autocmd bufwritepost .gvimrc source ~/.gvimrc
   endif
 endif
 
@@ -247,15 +270,14 @@ nnoremap <leader>s <C-w>s<C-w>l
 " One less key to hit
 nnoremap ; :
 
+" Show registers
+nnoremap <leader>r :registers<cr>
+
 " Retab and Format the File with Spaces
 nnoremap <leader>T :set expandtab<cr>:retab!<cr>
 
 " Toggle line numbers
 nnoremap <leader>N :setlocal number!<cr>:setlocal norelativenumber!<cr>
-
-" Use ctrl+n/p to switch buffers
-nnoremap <C-N> :next<Enter>
-nnoremap <C-P> :prev<Enter>
 
 " Remap 'jj' to Esc
 inoremap jj <Esc>
@@ -273,6 +295,8 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-h> <C-w>h
 map <C-l> <C-w>l
+
+map shebang I#!/usr/bin/env bash<cr><Esc>
 
 if exists(":Tabularize")
   nmap <Leader>a= :Tabularize /=<CR>
@@ -310,19 +334,10 @@ nnoremap <leader>t :CtrlP<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>l :CtrlPLine<cr>
 
-" Lazy comments
-map <leader># :s/^/#/<CR>:nohlsearch<CR>
-map <leader>// :s/^/\/\//<CR>:nohlsearch<CR>
-map <leader>" :s/^/\"/<CR>:nohlsearch<CR>
-"map <leader>; :s/^/;/<CR>:nohlsearch<CR>
-
 set clipboard=unnamed,unnamedplus
 
 " Command to write as root if we don't have permission
 cmap w!! %!sudo tee > /dev/null %
-
-" JSON
-let g:vim_json_syntax_conceal = 0
 
 " undofile - This allows you to use undos after exiting and restarting
 " This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
@@ -330,7 +345,7 @@ let g:vim_json_syntax_conceal = 0
 " This is only present in 7.3+
 if exists("+undofile")
   if isdirectory($HOME . '/.vim/undo') == 0
-    :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+	:silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
   endif
   set undodir=./.vim-undo//
   set undodir+=~/.vim/undo//
