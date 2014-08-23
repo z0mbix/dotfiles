@@ -32,13 +32,13 @@ make_puppet_module() {
 # See what HTTP server a website uses:
 what-http-server() {
 	curl -s -I $(for h in "$@"; do printf "http://%s " "$h"; done) | awk -F': ' '/^Server:/ {print $2}';
-}  
+}
 
 # Check that scr exists and set these if it does:
-if which scr>/dev/null 2>&1; then
-	function vim() { scr vim $* ; }
-	function man() { scr man $* ; }
-fi
+# if which scr>/dev/null 2>&1; then
+# 	function vim() { scr vim $* ; }
+# 	function man() { scr man $* ; }
+# fi
 
 calc() {
         perl -wlne 'print eval';
@@ -96,7 +96,7 @@ centre() {
 	c_width=$1
 	shift
 	c_text="$*"
-	c_width=$(( ($c_width + ${#c_text}) / 2 )) 
+	c_width=$(( ($c_width + ${#c_text}) / 2 ))
 	printf "%${c_width}.${c_width}s\n" "$c_text"
 }
 
