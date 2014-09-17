@@ -3,6 +3,7 @@
 
 # Generic aliases
 alias l='ls -l'
+alias l1='ls -1'
 alias lR='ls -lR'
 alias la='ls -a'
 alias laR='ls -aR'
