@@ -34,13 +34,13 @@ alias serve_cwd='python -m SimpleHTTPServer'
 #alias serve_cwd='ruby -r webrick -e "s = WEBrick::HTTPServer.new(:Port => 9090, :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start"'
 alias cat_without_comments="grep -v -E '^$|^[[:blank:]]*#|^;|^[[:blank:]]*//|(/\*([^*]|(\*+[^*/]))*\*+/)|(//.*)' $1"
 alias pubkey="cat ~/.ssh/id_rsa.pub | pbcopy | printf 'Public key copied to pasteboard.\n'";
-alias publicip="dig +short myip.opendns.com @resolver1.opendns.com" # Get external IP address
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com" # Get external IP address
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 alias j='jobs'
 alias p8='ping 8.8.8.8'
-#alias pinggw="ping $(netstat -rn -f inet|grep ^default|awk '{print $2}')"
 alias vd='vimdiff'
-alias vim-bundle-install='vim +BundleInstall +qall'
+alias vim-bundle-install="vim +BundleInstall +qall"
+alias countdown='mpg321 -q ~/Dropbox/Documents/Sounds/countdown.mp3'
 
 # npm for europeans
 alias npm="npm --registry http://registry.npmjs.eu"
