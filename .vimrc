@@ -48,7 +48,8 @@ set noswapfile              " We live in the future
 
 " Tab completion settings
 set wildmenu
-set wildmode=list:longest                        " Wildcard matches show a list, matching the longest first
+" set wildmode=list:longest                        " Wildcard matches show a list, matching the longest first
+set wildmode=full
 set wildignore+=.git,.hg,.svn                    " Ignore version control repos
 set wildignore+=*.6                              " Ignore Go compiled files
 set wildignore+=.hg,.git,.svn                    " Version control
@@ -91,7 +92,6 @@ Bundle "fatih/vim-go"
 " Other plugins
 Bundle "scrooloose/nerdtree"
 Bundle "airblade/vim-gitgutter"
-Bundle "godlygeek/tabular"
 Bundle "kien/ctrlp.vim"
 Bundle "Lokaltog/vim-easymotion"
 Bundle "bling/vim-airline"
@@ -119,6 +119,12 @@ Bundle "amiorin/vim-project"
 Bundle "rking/ag.vim"
 Bundle "bling/vim-bufferline"
 Bundle "terryma/vim-expand-region"
+Bundle 'junegunn/vim-easy-align'
+Bundle "MarcWeber/vim-addon-mw-utils"
+
+Bundle "tomtom/tlib_vim"
+Bundle "garbas/vim-snipmate"
+Bundle "honza/vim-snippets"
 
 " Set colour after vim-colorschemes
 set background=dark
@@ -137,6 +143,15 @@ au BufNewFile,BufRead *.rub set ft=eruby
 au BufNewFile,BufRead .irbrc,.pryrc,Capfile,Gemfile,Rakefile,Vagrantfile,Puppetfile set ft=ruby
 au FileType ruby,eruby set ts=2 sw=2 tw=79 et sts=2 smartindent
 
+" PHP
+au BufNewFile,BufRead *.php set ft=php
+au FileType php set ts=4 sw=4 tw=79 et sts=4 smartindent
+let php_sql_query=1
+let php_htmlInStrings=1
+
+" Perl
+let perl_extended_vars=1
+
 " Python
 au FileType python set ts=4 sw=4 tw=79 et sts=4
 
@@ -151,6 +166,15 @@ let g:vim_json_syntax_conceal = 0
 au BufRead,BufNewFile */etc/nginx/* set ft=nginx ts=4 sw=4 sts=4 et smartindent
 autocmd FileType nginx set commentstring=#\ %s
 
+
+" Abbreviations
+inoreabbrev teh the
+cnoreabbrev Wq wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+
+
 " Resize splits when the window is resized
 au VimResized * :wincmd =
 
@@ -163,11 +187,11 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " The Silver Searcher
 if executable('ag')
-  set grepprg=ag
+	let g:ackprg = 'ag --nogroup --nocolor --column'
+	" Bind K to grep (with the silver searcher) for the word under cursor
+	nnoremap K :Ag <cword> *<CR>
 endif
 
-" Bind K to grep (with the silver searcher) for the word under cursor
-nnoremap K :Ag <cword> *<CR>
 
 " " miniBufExpl
 " let g:miniBufExplMapWindowNavVim = 1
@@ -199,6 +223,17 @@ map <D-9> :b9<CR>
 map <leader>x :Bclose<CR>
 map <leader>X :Bclose!<CR>
 
+" vim-expand-region
+" Extend the global default (NOTE: Remove comments in dictionary before sourcing)
+call expand_region#custom_text_objects({
+      \ "\/\\n\\n\<CR>": 1,
+      \ 'a]' :1,
+      \ 'ab' :1,
+      \ 'aB' :1,
+      \ 'ii' :0,
+      \ 'ai' :0,
+      \ })
+
 " :)
 map q: :q
 
@@ -206,8 +241,10 @@ map q: :q
 nnoremap <CR> G
 nnoremap <BS> gg
 
-" JSON formatting (requires jq)
-map <leader>j :%!jq .<CR>
+" Run current buffer through jq back in to the same buffer
+map <leader>J :%!jq .<CR>
+" Run current file through jq to see if it parses successfully
+map <leader>j :!jq -M -c . % 2>&1 >/dev/null<CR>
 
 runtime macros/matchit.vim
 map <tab> %
@@ -222,6 +259,12 @@ noremap L $
 vnoremap L g_
 
 nnoremap <leader>o :CtrlP<CR>
+
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
+nmap <Leader>a <Plug>(EasyAlign)
 
 " Indent Guides
 " let g:indent_guides_enable_on_vim_startup = 1
@@ -330,14 +373,10 @@ silent !mkdir -p ~/.vim/{backup,swap,cache}/
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 
-" PHP stuff
-let php_sql_query=1
-let php_htmlInStrings=1
-let perl_extended_vars=1
-
 " Puppet stuff
 let g:syntastic_puppet_puppetlint_args='--no-80chars-check
   \ --no-autoloader_layout-check
+  \ --no-quoted_booleans-check
   \ --no-class_inherits_from_params_class-check'
 
 " Fix common typos
