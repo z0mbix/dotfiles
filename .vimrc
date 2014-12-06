@@ -524,4 +524,3 @@ endif
 if filereadable(glob("~/.vim/private"))
   source ~/.vim/private
 endif
-
