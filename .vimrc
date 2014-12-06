@@ -121,7 +121,7 @@ Bundle "bling/vim-bufferline"
 Bundle "terryma/vim-expand-region"
 Bundle 'junegunn/vim-easy-align'
 Bundle "MarcWeber/vim-addon-mw-utils"
-
+Bundle "tpope/vim-endwise"
 Bundle "tomtom/tlib_vim"
 Bundle "garbas/vim-snipmate"
 Bundle "honza/vim-snippets"
