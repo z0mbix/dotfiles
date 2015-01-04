@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # Idea shamelessly stolen from joshua stein:
 #  https://github.com/jcs/dotfiles/blob/master/move_in.sh
@@ -15,7 +15,7 @@ URL=https://github.com/${GH_USER}/dotfiles/tarball/master
 OS=`uname`
 TD=`mktemp -d XXXXXX`
 TAR=tar
-FETCH="curl -L"
+FETCH="curl -s -L"
 
 # OS Specific Stuff
 [ $OS = "OpenBSD" ] && FETCH="ftp -o -"
@@ -52,3 +52,17 @@ if [ $OS = "Darwin" ]; then
   rm -f ~/.conkyrc
   rm -f ~/.xsession
 fi
+
+if which git >/dev/null 2>&1; then
+  git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+  if which vim >/dev/null 2>&1; then
+    if [ -d ~/.vim/bundle/vundle ]; then
+      vim +BundleInstall +qall
+    fi
+  else
+    echo 'You need to install vim'
+  fi
+else
+  echo 'You need to install git'
+fi
+
