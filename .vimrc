@@ -34,7 +34,7 @@ set confirm								" ask to save files
 set t_Co=256							" use all 256 colors
 set autoread							" reload files changed outside vim
 set viminfo='100,f1						" save up to 100 marks, enable capital marks
-set listchars=tab:›\ ,eol:¬,trail:⋅,extends:❯,precedes:❮ " set the characters for the invisibles
+set listchars=tab:›\ ,eol:¬,trail:·,extends:❯,precedes:❮ " set the characters for the invisibles
 set list								" Show invisible characters
 set splitbelow							" splits show up below by default
 set splitright							" splits go to the right by default
