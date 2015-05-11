@@ -125,6 +125,10 @@ Bundle "tpope/vim-endwise"
 Bundle "tomtom/tlib_vim"
 Bundle "garbas/vim-snipmate"
 Bundle "honza/vim-snippets"
+Bundle "tpope/vim-dispatch"
+Bundle "dougireton/vim-chef"
+Bundle "gosukiwi/vim-atom-dark"
+Bundle "z0mbix/vim-codeschool"
 
 " Set colour after vim-colorschemes
 set background=dark
@@ -279,7 +283,7 @@ au BufRead,BufNewFile *.repo set ft=yum
 
 " YAML
 au BufRead,BufNewFile *.yml,*.yaml set ft=yaml
-au FileType yaml set ts=4 sw=4 et
+au FileType yaml set ts=2 sw=2 et
 
 " source code gets wrapped at <80
 au FileType asm,javascript,php,html,perl,c,cpp set tw=79 autoindent
