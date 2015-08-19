@@ -129,6 +129,7 @@ Bundle "tpope/vim-dispatch"
 Bundle "dougireton/vim-chef"
 Bundle "gosukiwi/vim-atom-dark"
 Bundle "z0mbix/vim-codeschool"
+Bundle "jdkanani/vim-material-theme"
 
 " Set colour after vim-colorschemes
 set background=dark
