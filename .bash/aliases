@@ -41,6 +41,7 @@ alias p8='ping 8.8.8.8'
 alias vd='vimdiff'
 alias vim-bundle-install="vim +BundleInstall +qall"
 alias countdown='mpg321 -q ~/Dropbox/Documents/Sounds/countdown.mp3'
+alias get-composer='curl -sS https://getcomposer.org/installer | php'
 
 # npm for europeans
 alias npm="npm --registry http://registry.npmjs.eu"
