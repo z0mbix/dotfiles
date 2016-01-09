@@ -130,6 +130,8 @@ Bundle "dougireton/vim-chef"
 Bundle "gosukiwi/vim-atom-dark"
 Bundle "z0mbix/vim-codeschool"
 Bundle "jdkanani/vim-material-theme"
+Bundle "christophermca/meta5"
+Bundle "junegunn/fzf"
 
 " Set colour after vim-colorschemes
 set background=dark
@@ -243,8 +245,8 @@ call expand_region#custom_text_objects({
 map q: :q
 
 " Easily go to the top/bottom of the file
-nnoremap <CR> G
-nnoremap <BS> gg
+" nnoremap <CR> G
+" nnoremap <BS> gg
 
 " Run current buffer through jq back in to the same buffer
 map <leader>J :%!jq .<CR>
@@ -312,39 +314,39 @@ if has("autocmd")
 endif
 
 " Quit NERDTree when last file closed
-autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
+" autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 
 " Close all open buffers on entering a window if the only
 " buffer that's left is the NERDTree buffer
-function! s:CloseIfOnlyNerdTreeLeft()
-  if exists("t:NERDTreeBufName")
-    if bufwinnr(t:NERDTreeBufName) != -1
-      if winnr("$") == 1
-        q
-      endif
-    endif
-  endif
-endfunction
+" function! s:CloseIfOnlyNerdTreeLeft()
+"   if exists("t:NERDTreeBufName")
+"     if bufwinnr(t:NERDTreeBufName) != -1
+"       if winnr("$") == 1
+"         q
+"       endif
+"     endif
+"   endif
+" endfunction
 
-augroup ps_nerdtree
-  au!
-  au Filetype nerdtree setlocal nolist
-  au Filetype nerdtree nnoremap <buffer> H :vertical resize -10<cr>
-  au Filetype nerdtree nnoremap <buffer> L :vertical resize +10<cr>
-augroup END
+" augroup ps_nerdtree
+"   au!
+"   au Filetype nerdtree setlocal nolist
+"   au Filetype nerdtree nnoremap <buffer> H :vertical resize -10<cr>
+"   au Filetype nerdtree nnoremap <buffer> L :vertical resize +10<cr>
+" augroup END
 
-let NERDTreeHighlightCursorline = 1
-let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index',
-                    \ 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json',
-                    \ '.*\.o$', 'db.db', 'tags.bak', '.*\.pdf$', '.*\.mid$',
-                    \ '.*\.midi$']
+" let NERDTreeHighlightCursorline = 1
+" let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index',
+"                     \ 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json',
+"                     \ '.*\.o$', 'db.db', 'tags.bak', '.*\.pdf$', '.*\.mid$',
+"                     \ '.*\.midi$']
 
-let NERDTreeMinimalUI = 0
-let NERDTreeDirArrows = 1
-let NERDChristmasTree = 1
-let NERDTreeChDirMode = 2
-let NERDTreeMapJumpFirstChild = 'gK'
-let g:NERDTreeWinSize = 40
+" let NERDTreeMinimalUI = 0
+" let NERDTreeDirArrows = 1
+" let NERDChristmasTree = 1
+" let NERDTreeChDirMode = 2
+" let NERDTreeMapJumpFirstChild = 'gK'
+" let g:NERDTreeWinSize = 40
 
 " Ranger
 nnoremap <leader>r :silent !ranger %:h<cr>:redraw!<cr>
@@ -383,6 +385,10 @@ let g:syntastic_puppet_puppetlint_args='--no-80chars-check
   \ --no-autoloader_layout-check
   \ --no-quoted_booleans-check
   \ --no-class_inherits_from_params_class-check'
+
+" Exclude some annoying shellcheck checks
+let g:syntastic_sh_shellcheck_args='--exclude=SC2086
+  \ --exclude=SC2068'
 
 " Fix common typos
 iab teh		the
@@ -506,6 +512,8 @@ cnoremap <c-e> <end>
 " " Space to toggle folds.
 " nnoremap <Space> za
 " vnoremap <Space> za
+"
+set rtp+=~/.fzf
 
 set clipboard=unnamed,unnamedplus
 
