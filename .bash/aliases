@@ -26,6 +26,7 @@ alias rsync='rsync --progress --stats'
 alias homempc='ncmpcpp -h 192.168.69.10'
 alias colours='for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i} "; done'
 alias pign='ping' # doh!
+alias pinggw="ping $(netstat -rn -f inet|grep ^default|awk '{print $2}')"
 alias running_vms='VBoxManage list runningvms|cut -f2 -d\"'
 alias ppv='puppet parser validate'
 alias rake="noglob rake"
@@ -34,7 +35,7 @@ alias serve_cwd='python -m SimpleHTTPServer'
 #alias serve_cwd='ruby -r webrick -e "s = WEBrick::HTTPServer.new(:Port => 9090, :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start"'
 alias cat_without_comments="grep -v -E '^$|^[[:blank:]]*#|^;|^[[:blank:]]*//|(/\*([^*]|(\*+[^*/]))*\*+/)|(//.*)' $1"
 alias pubkey="cat ~/.ssh/id_rsa.pub | pbcopy | printf 'Public key copied to pasteboard.\n'";
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com" # Get external IP address
+alias external-ip="dig +short myip.opendns.com @resolver1.opendns.com" # Get external IP address
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 alias j='jobs'
 alias p8='ping 8.8.8.8'
@@ -42,6 +43,9 @@ alias vd='vimdiff'
 alias vim-bundle-install="vim +BundleInstall +qall"
 alias countdown='mpg321 -q ~/Dropbox/Documents/Sounds/countdown.mp3'
 alias get-composer='curl -sS https://getcomposer.org/installer | php'
+alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3'
+alias c='osascript -e "set Volume 1000"; mpg321 -q ~/Dropbox/Documents/Sounds/countdown.mp3'
+alias ddh='osascript -e "set Volume 1000"; mpg321 -q ~/Dropbox/Documents/Sounds/double-dream-hands.mp3'
 
 # npm for europeans
 alias npm="npm --registry http://registry.npmjs.eu"
@@ -69,6 +73,8 @@ alias gdc='git diff --cached'
 alias gr='git remote -v'
 alias gpom='git push origin master'
 alias gl='git lg'
+alias gdlc='git diff-last-commit'
+alias gp='git pull'
 
 # Is vim installed?
 if [ -f `which vim` ]; then
