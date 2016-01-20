@@ -40,13 +40,19 @@ export EDITOR=vim
 export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 export HISTCONTROL=ignoreboth
 export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
-export HISTFILESIZE=10000
-export HISTSIZE=10000
+export HISTFILESIZE=50000
+export HISTSIZE=50000
 export GREP_OPTIONS="--color=auto"
 export LESS="-niSRX"
 export OS=`uname -s`
 export UNISONLOCALHOSTNAME=`hostname -s`
 export GOPATH="$HOME/.go"
+
+export AWS_DEFAULT_REGION=eu-west-1
+
+export ANSIBLE_NOCOWS=1
+
+bind '"\M-d": backward-kill-word'
 
 # Enable color support of ls and also add handy aliases
 [ -x /usr/bin/dircolors ] && eval "`dircolors -b`"
@@ -77,6 +83,10 @@ if [ ! -z "$SSH_AUTH_SOCK" -a "$SSH_AUTH_SOCK" != "$HOME/.ssh/agent_sock" ] ; th
     export SSH_AUTH_SOCK="$HOME/.ssh/agent_sock"
 fi
 
+if [ -f ~/.git-prompt.sh ]; then
+  source ~/.git-prompt.sh
+fi
+
 # Set badass prompt
 case `hostname -s` in
     "murphy") HOSTCOLOUR=${red} ;;
@@ -90,7 +100,7 @@ case `hostname -s` in
 esac
 
 PROMPT_COMMAND='if [ $? -ne 0 ]; then ERROR_FLAG=1; else ERROR_FLAG=; fi; '
-PS1=${lt_blue}'\u'${norm}'@'${HOSTCOLOUR}'\h '${norm}'['${green}'\@'${norm}'] '${yellow}'\w\n'${norm}'${ERROR_FLAG:+'${lt_red}'}\$${ERROR_FLAG:+'${norm}'} '
+PS1=${lt_blue}'\u'${norm}'@'${HOSTCOLOUR}'\h '${norm}'['${green}'\@'${norm}'] $(__git_ps1 "(%s)") '${yellow}'\w\n'${norm}'${ERROR_FLAG:+'${lt_red}'}\$${ERROR_FLAG:+'${norm}'} '
 
 # Is hgprompt installed?
 if [ -f ~/.hg_extensions/hgprompt/hgprompt.py ]; then
@@ -99,7 +109,6 @@ if [ -f ~/.hg_extensions/hgprompt/hgprompt.py ]; then
   }
   PS1=${lt_blue}'\u'${norm}'@'${HOSTCOLOUR}'\h '${norm}'['${green}'\@'${norm}'] '${red}'$(hg_ps1)'${yellow}'\w\n'${norm}'${ERROR_FLAG:+'${lt_red}'}\$${ERROR_FLAG:+'${norm}'} '
 fi
-
 
 # Home directory bin?
 [ -d ~/bin ] && PATH=$PATH:~/bin
@@ -125,6 +134,9 @@ fi
 # Omnibus Chef?
 [ -d /opt/chef/bin ] && PATH=$PATH:/opt/chef/bin
 
+# Puppet?
+[ -d /opt/puppetlabs/bin ] && PATH=$PATH:/opt/puppetlabs/bin
+
 # Suck up those aliases
 [ -f ~/.bash/aliases ] && . ~/.bash/aliases
 
@@ -143,8 +155,21 @@ fi
 # Additional completions
 [ -f ~/.bash/completions ] && . ~/.bash/completions
 
+if [[ -d ~/.bash/plugins ]]; then
+  for file in ~/.bash/plugins/*; do
+    . $file
+  done
+fi
+
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
+
 # Enable command/file completion with sudo
 complete -f -c sudo
 
 # Export important envirnoment variables
-export TERM PATH PROMPT_COMMAND PROMPT_TIME PS1
+export TERM PATH PROMPT_COMMAND PROMPT_TIME PS1 GOPATH
+
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
