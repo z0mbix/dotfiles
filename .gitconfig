@@ -27,7 +27,7 @@
 	excludesfile = ~/.gitignore
 	pager = less -FRSX
 [alias]
-	st = status -s
+	st = status -sb
 	ci = commit
 	br = branch
 	co = checkout
