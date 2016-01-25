@@ -1,3 +1,11 @@
+vagrant-halt-all() {
+	for vm_dir in $(vagrant global-status | grep running | awk '{print $5}'); do
+		cd "$vm_dir"
+		vagrant halt
+	done
+}
+
+
 # Recursive grep
 rgrep() {
 	grep -Ir $1 *
@@ -35,10 +43,10 @@ what-http-server() {
 }
 
 # Check that scr exists and set these if it does:
-# if which scr>/dev/null 2>&1; then
-# 	function vim() { scr vim $* ; }
-# 	function man() { scr man $* ; }
-# fi
+if which scr>/dev/null 2>&1; then
+	function vim() { scr vim $* ; }
+	function man() { scr man $* ; }
+fi
 
 calc() {
         perl -wlne 'print eval';
@@ -112,7 +120,7 @@ lnp() {
 }
 
 # Handy Extract Program
-extract () {
+extract() {
 	if [ -f $1 ] ; then
 		case $1 in
 			*.tar.bz2)   tar xvjf $1        ;;
@@ -134,8 +142,7 @@ extract () {
 }
 
 # Clock - A bash clock that can run in your terminal window.
-clock ()
-{
+clock() {
 	while true;do
 		clear;
 		echo ===============;
@@ -145,3 +152,7 @@ clock ()
 	done
 }
 
+mkdircd() {
+  mkdir -p "$1"
+  cd "$1"
+}
