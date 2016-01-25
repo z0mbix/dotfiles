@@ -30,3 +30,4 @@ alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup
 
 # Lock the screen (when going AFK)
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+alias pinggw="ping $(netstat -rn -f inet|grep ^default|awk '{print $2}')"
