@@ -386,6 +386,9 @@ let g:syntastic_puppet_puppetlint_args='--no-80chars-check
   \ --no-quoted_booleans-check
   \ --no-class_inherits_from_params_class-check'
 
+let g:syntastic_eruby_ruby_quiet_messages =
+    \ {'regex': 'possibly useless use of a variable in void context'}
+
 " Exclude some annoying shellcheck checks
 let g:syntastic_sh_shellcheck_args='--exclude=SC2086
   \ --exclude=SC2068'
