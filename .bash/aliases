@@ -45,6 +45,7 @@ alias get-composer='curl -sS https://getcomposer.org/installer | php'
 alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3'
 alias c='osascript -e "set Volume 1000"; mpg321 -q ~/Dropbox/Documents/Sounds/countdown.mp3'
 alias ddh='osascript -e "set Volume 1000"; mpg321 -q ~/Dropbox/Documents/Sounds/double-dream-hands.mp3'
+alias weather='clear; curl http://wttr.in/'
 
 # npm for europeans
 alias npm="npm --registry http://registry.npmjs.eu"
