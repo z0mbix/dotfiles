@@ -88,3 +88,5 @@ setopt AUTO_LIST
 unsetopt correct_all
 
 export PATH
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
