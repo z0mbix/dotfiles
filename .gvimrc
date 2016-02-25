@@ -1,5 +1,5 @@
 if has('gui_macvim')
-  set guifont=Menlo:h10
+  set guifont=Menlo:h11
   set fuoptions=maxvert,maxhorz
 endif
 
