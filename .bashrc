@@ -161,9 +161,12 @@ if [[ -d ~/.bash/plugins ]]; then
   done
 fi
 
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  . $(brew --prefix)/etc/bash_completion
+if [ -f /usr/local/etc/bash_completion ]; then
+  . /usr/local/etc/bash_completion
 fi
+
+# fzf (https://github.com/junegunn/fzf)
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # Enable command/file completion with sudo
 complete -f -c sudo
@@ -171,5 +174,3 @@ complete -f -c sudo
 # Export important envirnoment variables
 export TERM PATH PROMPT_COMMAND PROMPT_TIME PS1 GOPATH
 
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash

@@ -44,7 +44,9 @@ set scrolloff=4							" start scrolling when we're 4 lines away from margins
 set sidescrolloff=15					" start scrolling when we're 15 lines away from margins
 set sidescroll=1 						" Enable side scrolling
 set nrformats=							" Treat numbers as decimal instead of octal
-set noswapfile              " We live in the future
+set noswapfile 							" We live in the future
+set showtabline=1 						" Only show the tabline when more than one tab open
+set autochdir
 
 " Tab completion settings
 set wildmenu
@@ -135,7 +137,7 @@ Bundle "junegunn/fzf"
 
 " Set colour after vim-colorschemes
 set background=dark
-color base16-ocean
+color Tomorrow-Night
 
 filetype plugin indent on
 
@@ -200,35 +202,28 @@ if executable('ag')
 endif
 
 
-" " miniBufExpl
-" let g:miniBufExplMapWindowNavVim = 1
-" let g:miniBufExplMapWindowNavArrows = 1
-" let g:miniBufExplMapCTabSwitchBufs = 1
-" let g:miniBufExplModSelTarget = 1
-" let g:miniBufExplCycleArround = 1
-" let g:miniBufExplUseSingleClick = 1
-" let g:miniBufExplBRSplit = 1
+" miniBufExpl
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
+let g:miniBufExplCycleArround = 1
+let g:miniBufExplUseSingleClick = 1
+let g:miniBufExplBRSplit = 1
 
 let g:bufferline_echo = 0
 
 " Switch buffers
-" map <C-Tab> :MBEbn<CR>
-" map <C-S-Tab> :MBEbp<CR>
-map <C-Tab> :bn<CR>
-map <C-S-Tab> :bp<CR>
-map <D-1> :b1<CR>
-map <D-2> :b2<CR>
-map <D-3> :b3<CR>
-map <D-4> :b4<CR>
-map <D-5> :b5<CR>
-map <D-6> :b6<CR>
-map <D-7> :b7<CR>
-map <D-8> :b8<CR>
-map <D-9> :b9<CR>
+nnoremap <C-Tab> :bn<CR>
+nnoremap <C-S-Tab> :bp<CR>
+
+" Switch buffers in non-gui mode
+nnoremap ¬ :bn<CR>
+nnoremap ˙ :bp<CR>
 
 " Bclose
-map <leader>x :Bclose<CR>
-map <leader>X :Bclose!<CR>
+nnoremap <leader>x :Bclose<CR>
+nnoremap <leader>X :Bclose!<CR>
 
 " vim-expand-region
 " Extend the global default (NOTE: Remove comments in dictionary before sourcing)
@@ -243,6 +238,9 @@ call expand_region#custom_text_objects({
 
 " :)
 map q: :q
+
+" Easily switch buffer with ;
+nmap ; :CtrlPBuffer<CR>
 
 " Easily go to the top/bottom of the file
 " nnoremap <CR> G

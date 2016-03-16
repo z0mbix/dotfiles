@@ -23,6 +23,7 @@ alias update_dotfiles='curl -L -o - https://github.com/z0mbix/dotfiles/raw/maste
 alias ldd='otool -L'
 alias flushdns='sudo killall -HUP mDNSResponder'
 alias flushchromedns='chrome-cli open chrome://net-internals/#dns' # https://github.com/prasmussen/chrome-cli
+alias gvim='mvim'
 
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm update npm -g; npm update -g; sudo gem update --system; sudo gem update'
