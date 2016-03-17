@@ -15,10 +15,11 @@ set completion-ignore-case on
 "\e[6~": end-of-history
 "\e[3~": delete-char
 "\e[2~": quoted-insert
-"\e[5C": forward-word
-"\e[5D": backward-word
+"\e[1;3C": forward-word  # Alt right
+"\e[1;3D": backward-word # Alt left
 
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 "\e[C": forward-char
 "\e[D": backward-char
+
