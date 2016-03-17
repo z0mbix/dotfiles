@@ -19,6 +19,8 @@ alias arpscan='sudo arp-scan -I wlan0 -l'
 alias serial='screen /dev/ttyUSB0 9600'  # Serial console
 alias mvim='gvim'
 alias update_dotfiles='curl -L -o - https://github.com/z0mbix/dotfiles/raw/master/move_in.sh | bash'
+alias pbcopy='xsel --clipboard --input'
+alias pbpaste='xsel --clipboard --output'
 
 if [ -f /etc/debian_version ]; then
 	alias tl='tail -f /var/log/syslog'

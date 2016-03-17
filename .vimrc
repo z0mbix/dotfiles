@@ -46,7 +46,7 @@ set sidescroll=1 						" Enable side scrolling
 set nrformats=							" Treat numbers as decimal instead of octal
 set noswapfile 							" We live in the future
 set showtabline=1 						" Only show the tabline when more than one tab open
-set autochdir
+set autoread
 
 " Tab completion settings
 set wildmenu

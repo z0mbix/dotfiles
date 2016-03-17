@@ -42,7 +42,6 @@ export HISTCONTROL=ignoreboth
 export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
 export HISTFILESIZE=50000
 export HISTSIZE=50000
-export GREP_OPTIONS="--color=auto"
 export LESS="-niSRX"
 export OS=`uname -s`
 export UNISONLOCALHOSTNAME=`hostname -s`
