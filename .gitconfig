@@ -42,6 +42,7 @@
 	ls = ls-files
 	ls-ignored = ls-files --exclude-standard --ignored --others
 	last = cat-file commit HEAD
+	diff-last-commit = diff HEAD^ HEAD
 	cat = -p cat-file -p
 	unstage = reset HEAD
 	uncommit = reset --soft HEAD^

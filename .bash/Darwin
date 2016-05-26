@@ -3,27 +3,30 @@
 [ -d /Developer/usr/bin ] && PATH=$PATH:/Developer/usr/bin
 
 # Is Dropbox installed?
-[ -d ~/Dropbox ] && PATH=$PATH:~/Dropbox/bin:~/Dropbox/Code/Shell
+[ -d ~/Dropbox/bin/Darwin ] && PATH=$PATH:~/Dropbox/bin/Darwin
 
 # Bash tab completion (Linux/Mac)
 [ -f /etc/bash_completion ] && . /etc/bash_completion
 
 # Bash tab completion from homebrew
-[ -f /usr/local/etc/bash_completion ] && . `brew --prefix`/etc/bash_completion
+[ -f /usr/local/etc/bash_completion ] && . $(brew --prefix)/etc/bash_completion
 
 # Homebrew bash completion
-[ -f `brew --prefix`/Library/Contributions/brew_bash_completion.sh ] && . `brew --prefix`/Library/Contributions/brew_bash_completion.sh
+[ -f $(brew --prefix`/Library/Contributions/brew_bash_completion.sh) ] && . $(brew --prefix`/Library/Contributions/brew_bash_completion.sh)
 
 # Aliases
 alias ls='ls -FG'
 alias tl='tail -f /var/log/system.log'
 alias serial='screen /dev/tty.PL2303-* 38400'  # Serial console on WRAP/FreeBSD Server
 alias arpscan='sudo arp-scan -I en0 -l'
-alias update_dotfiles='curl -L -o - https://github.com/z0mbix/dotfiles/raw/master/move_in.sh | bash'
+alias update_dotfiles='curl -L -s -o - https://github.com/z0mbix/dotfiles/raw/master/move_in.sh | bash'
 alias ldd='otool -L'
 alias flushdns='sudo killall -HUP mDNSResponder'
 alias flushchromedns='chrome-cli open chrome://net-internals/#dns' # https://github.com/prasmussen/chrome-cli
 alias gvim='mvim'
+alias c='osascript -e "set Volume 1000"; mpg321 -q ~/Dropbox/Documents/Sounds/countdown.mp3'
+alias ddh='osascript -e "set Volume 1000"; mpg321 -q ~/Dropbox/Documents/Sounds/double-dream-hands.mp3'
+alias pw='pwgen -sy -N1 32 | pbcopy && echo "Password copied to clipboard"'
 
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm update npm -g; npm update -g; sudo gem update --system; sudo gem update'

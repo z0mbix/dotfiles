@@ -28,8 +28,6 @@ alias colours='for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i} "; done'
 alias pign='ping' # doh!
 alias running_vms='VBoxManage list runningvms|cut -f2 -d\"'
 alias ppv='puppet parser validate'
-alias rake="noglob rake"
-alias pwgen='pwgen -1 -B'
 alias serve_cwd='python -m SimpleHTTPServer'
 #alias serve_cwd='ruby -r webrick -e "s = WEBrick::HTTPServer.new(:Port => 9090, :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start"'
 alias cat_without_comments="grep -v -E '^$|^[[:blank:]]*#|^;|^[[:blank:]]*//|(/\*([^*]|(\*+[^*/]))*\*+/)|(//.*)' $1"
@@ -43,12 +41,7 @@ alias vim-bundle-install="vim +BundleInstall +qall"
 alias countdown='mpg321 -q ~/Dropbox/Documents/Sounds/countdown.mp3'
 alias get-composer='curl -sS https://getcomposer.org/installer | php'
 alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3'
-alias c='osascript -e "set Volume 1000"; mpg321 -q ~/Dropbox/Documents/Sounds/countdown.mp3'
-alias ddh='osascript -e "set Volume 1000"; mpg321 -q ~/Dropbox/Documents/Sounds/double-dream-hands.mp3'
 alias weather='clear; curl http://wttr.in/'
-
-# npm for europeans
-alias npm="npm --registry http://registry.npmjs.eu"
 
 # MySQL
 alias mydbs='mysql -e "show databases"'
@@ -77,15 +70,11 @@ alias gdlc='git diff-last-commit'
 alias gp='git pull'
 
 # Is vim installed?
-if [ -f `which vim` ]; then
+if [ -f $(which vim) ]; then
 	if [ ! -e ~/.vimrc ]; then
 		echo "You need to install your ~/.vimrc"
 	fi
 	alias vi='vim'
 else
 	alias vim='vi'
-fi
-
-if [ -f /Applications/MacVim.app/Contents/MacOS/Vim ]; then
-	alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
 fi
