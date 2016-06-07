@@ -9,10 +9,10 @@
 [ -f /etc/bash_completion ] && . /etc/bash_completion
 
 # Bash tab completion from homebrew
-[ -f /usr/local/etc/bash_completion ] && . $(brew --prefix)/etc/bash_completion
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
 # Homebrew bash completion
-[ -f $(brew --prefix`/Library/Contributions/brew_bash_completion.sh) ] && . $(brew --prefix`/Library/Contributions/brew_bash_completion.sh)
+[ -f /usr/local/Library/Contributions/brew_bash_completion.sh ] && . /usr/local/Library/Contributions/brew_bash_completion.sh
 
 # Aliases
 alias ls='ls -FG'
