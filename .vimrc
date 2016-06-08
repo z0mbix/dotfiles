@@ -134,6 +134,7 @@ Bundle "z0mbix/vim-codeschool"
 Bundle "jdkanani/vim-material-theme"
 Bundle "christophermca/meta5"
 Bundle "junegunn/fzf"
+Bundle "hashivim/vim-terraform"
 
 " Set colour after vim-colorschemes
 set background=dark
