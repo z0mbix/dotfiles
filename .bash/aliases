@@ -42,6 +42,8 @@ alias countdown='mpg321 -q ~/Dropbox/Documents/Sounds/countdown.mp3'
 alias get-composer='curl -sS https://getcomposer.org/installer | php'
 alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3'
 alias weather='clear; curl http://wttr.in/'
+alias copyinputrc='echo -e "cat > ~/.inputrc <<EOF $(echo; cat ~/.inputrc)\nEOF\nbind -f ~/.inputrc" | pbcopy'
+alias mockproxy='mockserver -logLevel INFO -proxyPort 8080'
 
 # MySQL
 alias mydbs='mysql -e "show databases"'
@@ -51,6 +53,7 @@ alias mytables="mysql $1 -e 'show tables'"
 alias v="vagrant"
 alias vst="vagrant status"
 alias vup="vagrant up"
+alias vdown="vagrant halt"
 alias vupp="vagrant up --provision"
 alias vupnp="vagrant up --no-provision"
 alias vpr="vagrant provision"
