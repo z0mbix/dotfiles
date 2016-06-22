@@ -14,6 +14,9 @@
 # Homebrew bash completion
 [ -f /usr/local/Library/Contributions/brew_bash_completion.sh ] && . /usr/local/Library/Contributions/brew_bash_completion.sh
 
+# User installed pip
+export PATH=$PATH:~/Library/Python/2.7/bin
+
 # Aliases
 alias ls='ls -FG'
 alias tl='tail -f /var/log/system.log'
@@ -34,3 +37,6 @@ alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup
 # Lock the screen (when going AFK)
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 alias pinggw="ping $(netstat -rn -f inet|grep ^default|awk '{print $2}')"
+
+# Output current SSID
+alias ssid="echo $(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}')"
