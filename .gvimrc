@@ -14,4 +14,4 @@ set background=dark
 set guioptions=
 
 "colorscheme base16-ocean
-colorscheme Tomorrow-Night
+colorscheme onedark
