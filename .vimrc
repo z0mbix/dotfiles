@@ -135,10 +135,12 @@ Bundle "jdkanani/vim-material-theme"
 Bundle "christophermca/meta5"
 Bundle "junegunn/fzf"
 Bundle "hashivim/vim-terraform"
+Bundle "pearofducks/ansible-vim"
+Bundle 'editorconfig/editorconfig-vim'
 
 " Set colour after vim-colorschemes
 set background=dark
-color Tomorrow-Night
+color onedark
 
 filetype plugin indent on
 
@@ -391,6 +393,9 @@ let g:syntastic_eruby_ruby_quiet_messages =
 " Exclude some annoying shellcheck checks
 let g:syntastic_sh_shellcheck_args='--exclude=SC2086
   \ --exclude=SC2068'
+
+" let g:syntastic_yaml_checkers = ['js-yaml']
+" let g:syntastic_terraform_checkers = ['terraform validate']
 
 " Fix common typos
 iab teh		the
