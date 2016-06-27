@@ -98,16 +98,8 @@ case `hostname -s` in
     *) HOSTCOLOUR=${yellow} ;;
 esac
 
-PROMPT_COMMAND='if [ $? -ne 0 ]; then ERROR_FLAG=1; else ERROR_FLAG=; fi; '
-PS1=${lt_blue}'\u'${norm}'@'${HOSTCOLOUR}'\h '${norm}'['${green}'\@'${norm}'] $(__git_ps1 "(%s)") '${yellow}'\w\n'${norm}'${ERROR_FLAG:+'${lt_red}'}\$${ERROR_FLAG:+'${norm}'} '
-
-# Is hgprompt installed?
-if [ -f ~/.hg_extensions/hgprompt/hgprompt.py ]; then
-  hg_ps1() {
-    hg prompt "({{branch}}{ at {bookmark}}{status}) " 2> /dev/null
-  }
-  PS1=${lt_blue}'\u'${norm}'@'${HOSTCOLOUR}'\h '${norm}'['${green}'\@'${norm}'] '${red}'$(hg_ps1)'${yellow}'\w\n'${norm}'${ERROR_FLAG:+'${lt_red}'}\$${ERROR_FLAG:+'${norm}'} '
-fi
+PROMPT_COMMAND='if [ $? -ne 0 ]; then ERROR_FLAG=1; else ERROR_FLAG=; fi; hasjobs=$(jobs -p)'
+PS1=${norm}'['${green}'\@'${norm}'] '${yellow}'\w '${lt_blue}'$(__git_ps1 "(%s) ")'${norm}''${lt_blue}'${hasjobs:+(\j) }'${norm}'${ERROR_FLAG:+'${lt_red}'}»${ERROR_FLAG:+'${norm}'} '
 
 # Home directory bin?
 [ -d ~/bin ] && PATH=$PATH:~/bin
@@ -121,6 +113,9 @@ fi
 # Heroku Toolbelt?
 [ -d /usr/local/heroku/bin ] && PATH=$PATH:/usr/local/heroku/bin
 
+# Go bins?
+[ -d $GOPATH/bin ] && PATH=$PATH:$GOPATH/bin
+
 # RVM?
 [ -f ~/.rvm/scripts/rvm ] && . ~/.rvm/scripts/rvm
 
@@ -131,7 +126,7 @@ fi
 [ -d /opt/local/bin ] && PATH=$PATH:/opt/local/bin:/opt/local/sbin
 
 # Omnibus Chef?
-[ -d /opt/chef/bin ] && PATH=$PATH:/opt/chef/bin
+[ -d /opt/chefdk/embedded/bin ] && PATH=$PATH:/opt/chefdk/embedded/bin
 
 # Puppet?
 [ -d /opt/puppetlabs/bin ] && PATH=$PATH:/opt/puppetlabs/bin
@@ -166,6 +161,8 @@ fi
 
 # fzf (https://github.com/junegunn/fzf)
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+which -s direnv && eval "$(direnv hook bash)"
 
 # Enable command/file completion with sudo
 complete -f -c sudo
