@@ -45,7 +45,7 @@ export HISTSIZE=50000
 export LESS="-niSRX"
 export OS=`uname -s`
 export UNISONLOCALHOSTNAME=`hostname -s`
-export GOPATH="$HOME/.go"
+export GOPATH="$HOME/repos/go"
 
 export AWS_DEFAULT_REGION=eu-west-1
 
@@ -99,7 +99,7 @@ case `hostname -s` in
 esac
 
 PROMPT_COMMAND='if [ $? -ne 0 ]; then ERROR_FLAG=1; else ERROR_FLAG=; fi; hasjobs=$(jobs -p)'
-PS1=${norm}'['${green}'\@'${norm}'] '${yellow}'\w '${lt_blue}'$(__git_ps1 "(%s) ")'${norm}''${lt_blue}'${hasjobs:+(\j) }'${norm}'${ERROR_FLAG:+'${lt_red}'}»${ERROR_FLAG:+'${norm}'} '
+PS1=${norm}'['${green}'\@'${norm}'] '${yellow}'\w '${lt_blue}'$(__git_ps1 "(%s) ")'${norm}''${lt_blue}'${hasjobs:+(\j) }'${norm}'${ERROR_FLAG:+'${lt_red}'}\n»${ERROR_FLAG:+'${norm}'} '
 
 # Home directory bin?
 [ -d ~/bin ] && PATH=$PATH:~/bin
