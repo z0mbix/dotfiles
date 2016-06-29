@@ -1,3 +1,16 @@
+function cdls {
+    builtin cd "$@"
+	ls -l
+}
+
+clone() {
+	local url=$1
+	local repo="${url##*/}"
+	local dir="${repo%.git}"
+	git clone $url
+	cd $dir
+}
+
 vagrant-halt-all() {
 	for vm_dir in $(vagrant global-status | grep running | awk '{print $5}'); do
 		cd "$vm_dir"
