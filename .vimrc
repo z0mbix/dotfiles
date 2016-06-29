@@ -242,13 +242,6 @@ call expand_region#custom_text_objects({
 " :)
 map q: :q
 
-" Easily switch buffer with ;
-nmap ; :CtrlPBuffer<CR>
-
-" Easily go to the top/bottom of the file
-" nnoremap <CR> G
-" nnoremap <BS> gg
-
 " Run current buffer through jq back in to the same buffer
 map <leader>J :%!jq .<CR>
 " Run current file through jq to see if it parses successfully
@@ -509,6 +502,7 @@ noremap <silent><leader>/ :nohlsearch<cr>
 nnoremap <leader>t :CtrlP<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>l :CtrlPLine<cr>
+nmap ; :CtrlPBuffer<CR>
 
 " Hop to start/end of line
 inoremap <c-a> <esc>I
