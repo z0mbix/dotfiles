@@ -484,6 +484,7 @@ nnoremap <leader>v <C-w><C-v><C-l>:e $MYVIMRC<cr>
 " NERDTree mappings
 map <F2> :NERDTreeToggle<CR>
 map <leader>n :NERDTreeToggle<CR>
+nmap § :NERDTreeToggle<CR>
 
 " Remove ^M from file
 map <leader>m :%s/^M//<CR>
