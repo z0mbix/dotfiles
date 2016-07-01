@@ -87,19 +87,17 @@ if [ -f ~/.git-prompt.sh ]; then
 fi
 
 # Set badass prompt
-case `hostname -s` in
+case $(hostname -s) in
     "murphy") HOSTCOLOUR=${red} ;;
     "shanks") HOSTCOLOUR=${yellow} ;;
     "eggers") HOSTCOLOUR=${blue} ;;
-    "hesh")   HOSTCOLOUR=${blue} ;;
-    "wrap")   HOSTCOLOUR=${lt_red} ;;
-    "uk-dwooldridge2") HOSTCOLOUR=${lt_purple} ;;
-    "Davids-MacBook-Pro") HOSTCOLOUR=${lt_purple} ;;
+    "hesh")   HOSTCOLOUR=${lt_purple} ;;
+    holb*) HOSTCOLOUR=${lt_red} ;;
     *) HOSTCOLOUR=${yellow} ;;
 esac
 
 PROMPT_COMMAND='if [ $? -ne 0 ]; then ERROR_FLAG=1; else ERROR_FLAG=; fi; hasjobs=$(jobs -p)'
-PS1=${norm}'['${green}'\@'${norm}'] '${yellow}'\w '${lt_blue}'$(__git_ps1 "(%s) ")'${norm}''${lt_blue}'${hasjobs:+(\j) }'${norm}'${ERROR_FLAG:+'${lt_red}'}\n»${ERROR_FLAG:+'${norm}'} '
+PS1=${norm}'['${green}'\@'${norm}'] ('${HOSTCOLOUR}'$HOSTNAME'${norm}') '${yellow}'\w '${lt_blue}'$(__git_ps1 "(%s) ")'${norm}''${lt_blue}'${hasjobs:+(\j) }'${norm}'${ERROR_FLAG:+'${lt_red}'}\n»${ERROR_FLAG:+'${norm}'} '
 
 # Home directory bin?
 [ -d ~/bin ] && PATH=$PATH:~/bin
