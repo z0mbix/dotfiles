@@ -162,7 +162,7 @@ fi
 # fzf (https://github.com/junegunn/fzf)
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-which -s direnv && eval "$(direnv hook bash)"
+which direnv >/dev/null && eval "$(direnv hook bash)"
 
 # Enable command/file completion with sudo
 complete -f -c sudo
