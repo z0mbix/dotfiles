@@ -49,6 +49,8 @@
 	changelog = log --pretty=format:\" * %s\"
 	out = log --graph --oneline --pretty=format:'%Cred%h%Cgreen %cd %Creset- %s' --abbrev-commit --date=relative --graph @{upstream}..
 	in = !git fetch && git log --pretty=oneline --abbrev-commit --graph ..@{upstream}
+	since = !git log $(git merge-base --fork-point master)..HEAD
+	branch-toggle = checkout -
 [advice]
 	statusHints = false
 [diff]

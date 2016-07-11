@@ -60,6 +60,7 @@ alias vpr="vagrant provision"
 alias vhl="vagrant halt"
 alias vre="vagrant reload"
 alias vssh="vagrant ssh"
+alias vupssh="vagrant up && vagrant ssh"
 
 # Git stuff
 alias gc='git commit -m'
@@ -71,6 +72,7 @@ alias gpom='git push origin master'
 alias gl='git lg'
 alias gdlc='git diff-last-commit'
 alias gp='git pull'
+alias gbt='git branch-toggle'
 
 # Is vim installed?
 if [ -f $(which vim) ]; then
