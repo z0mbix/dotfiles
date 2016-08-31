@@ -25,11 +25,15 @@ set foldenable                                           " enable folding
 set foldmethod=indent                                    " fold lines with equal indent
 set foldlevel=20                                         " set fold close level
 set laststatus=2                                         " always show status line
+set ttyfast                                              " Indicate fast terminal conn for faster redraw
+set ttymouse=xterm2                                      " Indicate terminal type for mouse codes
+set ttyscroll=3                                          " Speedup scrolling
 " set pastetoggle=<C-p>                                    " ctrl+p to toggle " pasting (Causes problems with YCM)
+set runtimepath+=~/.fzf
+set clipboard=unnamed,unnamedplus
 set spellfile=~/.vimspell.add"                           " my words
 set confirm                                              " ask to save files
 set t_Co=256                                             " use all 256 colors
-set autoread                                             " reload files changed outside vim
 set viminfo='100,f1                                      " save up to 100 marks, enable capital marks
 set listchars=tab:›\ ,eol:¬,trail:·,extends:❯,precedes:❮ " set the characters for the invisibles
 set list                                                 " Show invisible characters
@@ -206,22 +210,23 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#bufferline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#syntastic#enabled = 1
 
 " The Silver Searcher
 if executable('ag')
-    let g:ackprg = 'ag --nogroup --nocolor --column'
-    " Bind K to grep (with the silver searcher) for the word under cursor
-    nnoremap K :Ag <cword> *<CR>
+	let g:ackprg = 'ag --nogroup --nocolor --column'
+	" Bind K to grep (with the silver searcher) for the word under cursor
+	nnoremap K :Ag <cword> *<CR>
 endif
 
-" miniBufExpl
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
-let g:miniBufExplCycleArround = 1
-let g:miniBufExplUseSingleClick = 1
-let g:miniBufExplBRSplit = 1
+" " miniBufExpl
+" let g:miniBufExplMapWindowNavVim = 1
+" let g:miniBufExplMapWindowNavArrows = 1
+" let g:miniBufExplMapCTabSwitchBufs = 1
+" let g:miniBufExplModSelTarget = 1
+" let g:miniBufExplCycleArround = 1
+" let g:miniBufExplUseSingleClick = 1
+" let g:miniBufExplBRSplit = 1
 
 let g:bufferline_echo = 0
 
@@ -247,13 +252,13 @@ nnoremap <leader>X :Bclose!<CR>
 " vim-expand-region
 " Extend the global default (NOTE: Remove comments in dictionary before sourcing)
 call expand_region#custom_text_objects({
-      \ "\/\\n\\n\<CR>": 1,
-      \ 'a]' :1,
-      \ 'ab' :1,
-      \ 'aB' :1,
-      \ 'ii' :0,
-      \ 'ai' :0,
-      \ })
+	\ "\/\\n\\n\<CR>": 1,
+	\ 'a]' :1,
+	\ 'ab' :1,
+	\ 'aB' :1,
+	\ 'ii' :0,
+	\ 'ai' :0,
+	\ })
 
 " :)
 map q: :q
@@ -302,21 +307,21 @@ au FileType make,c,cpp set ts=8 sw=8
 
 " Only do this part when compiled with support for autocommands
 if has("autocmd")
-  " Save when focus is lost
-  "au FocusLost * :wa
-  " In text files, always limit the width of text to 78 characters
-  autocmd BufRead *.txt set tw=78
-  " When editing a file, always jump to the last cursor position
-  autocmd BufReadPost *
-  \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-  \   exe "normal! g'\"" |
-  \ endif
+	" Save when focus is lost
+	"au FocusLost * :wa
+	" In text files, always limit the width of text to 78 characters
+	autocmd BufRead *.txt set tw=78
+	" When editing a file, always jump to the last cursor position
+	autocmd BufReadPost *
+	\ if line("'\"") > 0 && line ("'\"") <= line("$") |
+	\   exe "normal! g'\"" |
+	\ endif
 
-  " Clear whitespace at the end of lines automatically
-  autocmd BufWritePre * :%s/\s\+$//e
+	" Clear whitespace at the end of lines automatically
+	autocmd BufWritePre * :%s/\s\+$//e
 
-  " automatically reload vimrc when it's saved
-  autocmd BufWritePost .vimrc source $HOME/.vimrc
+	" automatically reload vimrc when it's saved
+	autocmd BufWritePost .vimrc source $HOME/.vimrc
 endif
 
 " Quit NERDTree when last file closed
@@ -329,20 +334,20 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " Close all open buffers on entering a window if the only
 " buffer that's left is the NERDTree buffer
 function! s:CloseIfOnlyNerdTreeLeft()
-  if exists("t:NERDTreeBufName")
-    if bufwinnr(t:NERDTreeBufName) != -1
-      if winnr("$") == 1
-        q
-      endif
-    endif
-  endif
+	if exists("t:NERDTreeBufName")
+		if bufwinnr(t:NERDTreeBufName) != -1
+			if winnr("$") == 1
+				q
+			endif
+		endif
+	endif
 endfunction
 
 augroup ps_nerdtree
-  au!
-  au Filetype nerdtree setlocal nolist
-  au Filetype nerdtree nnoremap <buffer> H :vertical resize -10<cr>
-  au Filetype nerdtree nnoremap <buffer> L :vertical resize +10<cr>
+	au!
+	au Filetype nerdtree setlocal nolist
+	au Filetype nerdtree nnoremap <buffer> H :vertical resize -10<cr>
+	au Filetype nerdtree nnoremap <buffer> L :vertical resize +10<cr>
 augroup END
 
 let NERDTreeHighlightCursorline = 1
@@ -410,7 +415,7 @@ nnoremap J mzJ`z
 
 " Switch syntax highlighting on, when the terminal has colors
 if &t_Co > 2 || has("gui_running")
-  syntax on
+	syntax on
 endif
 
 " Highlight statusbar
@@ -428,60 +433,114 @@ set directory=~/.vim/swap//
 
 " Puppet stuff
 let g:syntastic_puppet_puppetlint_args='--no-80chars-check
-  \ --no-autoloader_layout-check
-  \ --no-quoted_booleans-check
-  \ --no-class_inherits_from_params_class-check'
+	\ --no-autoloader_layout-check
+	\ --no-quoted_booleans-check
+	\ --no-class_inherits_from_params_class-check'
 
 let g:syntastic_eruby_ruby_quiet_messages =
-    \ {'regex': 'possibly useless use of a variable in void context'}
+	\ {'regex': 'possibly useless use of a variable in void context'}
 
 " Exclude some annoying shellcheck checks
 let g:syntastic_sh_shellcheck_args='--exclude=SC2086
-  \ --exclude=SC2068'
+	\ --exclude=SC2068'
 
 " let g:syntastic_yaml_checkers = ['js-yaml']
 " let g:syntastic_terraform_checkers = ['terraform validate']
+let g:syntastic_check_on_open = 1
 let g:terraform_fmt_on_save = 1
 
 " Fix common typos
-iab teh		the
-iab Teh		The
+iab teh the
+iab Teh The
 
 if !exists("g:vdebug_options")
-  let g:vdebug_options = {}
+	let g:vdebug_options = {}
 endif
 
-" listen on all interfaces
-let g:vdebug_options['server'] = '10.4.0.1'
-let g:vdebug_options['port'] = '9001'
-let g:vdebug_options['path_maps'] = { '/home/vagrant' : '/Users/David' }
+" vim-go
+let g:go_fmt_command = "goimports"
+let g:go_autodetect_gopath = 1
+let g:go_list_type = "quickfix"
+
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_generate_tags = 1
+
+" Open :GoDeclsDir with ctrl-g
+nmap <C-g> :GoDeclsDir<cr>
+imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
+
+" vim-go
+" Taken from https://github.com/fatih/vim-go-tutorial/blob/master/vimrc
+augroup go
+	autocmd!
+	" Show by default 4 spaces for a tab
+	autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+	" :GoBuild and :GoTestCompile
+	autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+	" :GoTest
+	autocmd FileType go nmap <leader>t  <Plug>(go-test)
+	" :GoRun
+	autocmd FileType go nmap <leader>r  <Plug>(go-run)
+	" :GoDoc
+	autocmd FileType go nmap <Leader>d <Plug>(go-doc)
+	" :GoCoverageToggle
+	autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+	" :GoInfo
+	autocmd FileType go nmap <Leader>i <Plug>(go-info)
+	" :GoMetaLinter
+	autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
+	" :GoDef but opens in a vertical split
+	autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
+	" :GoDef but opens in a horizontal split
+	autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
+	" :GoAlternate  commands :A, :AV, :AS and :AT
+	autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+	autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+	autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+	autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+augroup END
+
+" build_go_files is a custom function that builds or compiles the test file.
+" It calls :GoBuild if its a Go file, or :GoTestCompile if it's a test file
+function! s:build_go_files()
+	let l:file = expand('%')
+	if l:file =~# '^\f\+_test\.go$'
+		call go#cmd#Test(0, 1)
+	elseif l:file =~# '^\f\+\.go$'
+		call go#cmd#Build(0)
+	endif
+endfunction
 
 " Set title string and push it to xterm/screen window title
 set titlestring=vim\ %<%F%(\ %)%m%h%w%=%l/%L-%P
 set titlelen=70
 if &term == "screen"
-  set t_ts=k
-  set t_fs=\
+	set t_ts=k
+	set t_fs=\
 endif
 if &term == "screen" || &term == "xterm"
 	set title
 endif
 
 if has('gui_macvim')
-  "  switch OSX windows with swipes
-  nnoremap <silent> <SwipeLeft> :macaction _cycleWindowsBackwards:<CR>
-  nnoremap <silent> <SwipeRight> :macaction _cycleWindows:<CR>
+	"  switch OSX windows with swipes
+	nnoremap <silent> <SwipeLeft> :macaction _cycleWindowsBackwards:<CR>
+	nnoremap <silent> <SwipeRight> :macaction _cycleWindows:<CR>
 
-  " TextMate indentation key mappings for mvim Cmd+[ and Cmd+]
-  nmap <D-[> <<
-  nmap <D-]> >>
-  vmap <D-[> <gv
-  vmap <D-]> >gv
+	" TextMate indentation key mappings for mvim Cmd+[ and Cmd+]
+	nmap <D-[> <<
+	nmap <D-]> >>
+	vmap <D-[> <gv
+	vmap <D-]> >gv
 
-  " Source the gvimrc file after saving it
-  if has("autocmd")
-    autocmd bufwritepost .gvimrc source ~/.gvimrc
-  endif
+	" Source the gvimrc file after saving it
+	if has("autocmd")
+		autocmd bufwritepost .gvimrc source ~/.gvimrc
+	endif
 endif
 
 " Remove annoying F1 help
@@ -564,10 +623,6 @@ cnoremap <c-e> <end>
 nnoremap <Space> za
 vnoremap <Space> za
 "
-set rtp+=~/.fzf
-
-set clipboard=unnamed,unnamedplus
-
 " Command to write as root if we don't have permission
 cmap w!! %!sudo tee > /dev/null %
 
@@ -576,15 +631,15 @@ cmap w!! %!sudo tee > /dev/null %
 " :help undo-persistence
 " This is only present in 7.3+
 if exists("+undofile")
-  if isdirectory($HOME . '/.vim/undo') == 0
-    :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
-  endif
-  set undodir=./.vim-undo//
-  set undodir+=~/.vim/undo//
-  set undofile
+	if isdirectory($HOME . '/.vim/undo') == 0
+		:silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+	endif
+	set undodir=./.vim-undo//
+	set undodir+=~/.vim/undo//
+	set undofile
 endif
 
 " Stuff I don't want up on github
 if filereadable(glob("~/.vim/private"))
-  source ~/.vim/private
+	source ~/.vim/private
 endif
