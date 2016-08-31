@@ -1,69 +1,64 @@
 scriptencoding utf-8
 set encoding=utf-8
-
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n
-set number								" show line numbers
-set ruler								" show line and column no
-set hidden								" hidden buffers?
-set showcmd								" show command in last line
-set nocompatible						" not compatible with vi
-set showmode							" show mode in mode line
-set modeline							" show mode line
-set ignorecase							" ignore case when searching
-set incsearch							" search while typing
-set backspace=indent,eol,start			" super backspacing
-set smartcase							" smart searching
-set tabstop=4							" default tabs to 4 spaces
-set shiftwidth=4						" match default tab spacing
-set hlsearch							" highlight search results
-set autoindent							" auto indent new lines
-set linebreak							" enable linebreaks
-set showbreak=>>						" what to put infront of linebreaks
-set history=200							" set command and search history
-set noerrorbells						" don't annoy me
-set novisualbell						" disable visual bell
-set report=0							" always report lines changed
-set showmatch							" show matching brackets
-set foldenable							" enable folding
-set foldmethod=indent					" fold lines with equal indent
-set foldlevel=100						" set fold close level
-set laststatus=2						" always show status line
-set pastetoggle=<C-p>					" Ctrl+p to toggle pasting
-set spellfile=~/.vimspell.add"			" my words
-set confirm								" ask to save files
-set t_Co=256							" use all 256 colors
-set autoread							" reload files changed outside vim
-set viminfo='100,f1						" save up to 100 marks, enable capital marks
+set number                                               " show line numbers
+set ruler                                                " show line and column no
+set hidden                                               " hidden buffers?
+set showcmd                                              " show command in last line
+set nocompatible                                         " not compatible with vi
+set ignorecase                                           " ignore case when searching
+set incsearch                                            " search while typing
+set backspace=indent,eol,start                           " super backspacing
+set smartcase                                            " smart searching
+set tabstop=4                                            " default tabs to 4 spaces
+set shiftwidth=4                                         " match default tab spacing
+set hlsearch                                             " highlight search results
+set autoindent                                           " auto indent new lines
+set linebreak                                            " enable linebreaks
+set showbreak=>>                                         " what to put infront of linebreaks
+set history=200                                          " set command and search history
+set noerrorbells                                         " don't annoy me
+set novisualbell                                         " disable visual bell
+set report=0                                             " always report lines changed
+set showmatch                                            " show matching brackets
+set foldenable                                           " enable folding
+set foldmethod=indent                                    " fold lines with equal indent
+set foldlevel=20                                         " set fold close level
+set laststatus=2                                         " always show status line
+" set pastetoggle=<C-p>                                    " ctrl+p to toggle " pasting (Causes problems with YCM)
+set spellfile=~/.vimspell.add"                           " my words
+set confirm                                              " ask to save files
+set t_Co=256                                             " use all 256 colors
+set autoread                                             " reload files changed outside vim
+set viminfo='100,f1                                      " save up to 100 marks, enable capital marks
 set listchars=tab:›\ ,eol:¬,trail:·,extends:❯,precedes:❮ " set the characters for the invisibles
-set list								" Show invisible characters
-set splitbelow							" splits show up below by default
-set splitright							" splits go to the right by default
-" set colorcolumn=80						" highlight 80 character limit
-" let &colorcolumn=join(range(81,999),",")
-set scrolloff=4							" start scrolling when we're 4 lines away from margins
-set sidescrolloff=15					" start scrolling when we're 15 lines away from margins
-set sidescroll=1 						" Enable side scrolling
-set nrformats=							" Treat numbers as decimal instead of octal
-set noswapfile 							" We live in the future
-set showtabline=1 						" Only show the tabline when more than one tab open
-set autoread
-
-" Tab completion settings
-set wildmenu
-" set wildmode=list:longest                        " Wildcard matches show a list, matching the longest first
+set list                                                 " Show invisible characters
+set splitbelow                                           " splits show up below by default
+set splitright                                           " splits go to the right by default
+set scrolloff=4                                          " start scrolling when we're 4 lines away from margins
+set sidescrolloff=15                                     " start scrolling when we're 15 lines away from margins
+set sidescroll=1                                         " enable side scrolling
+set nrformats=                                           " treat numbers as decimal instead of octal
+set noswapfile                                           " we live in the future
+set showtabline=1                                        " only show the tabline when more than one tab open
+set autoread                                             " detect files changed outside of vim
+set noshowmode                                           " don't show the default vim mode line
+set nomodeline                                           " don't show mode line
+set wildmenu                                             " Tab completion
+set wildmode=list:longest                                " Wildcard matches show a list, matching the longest first
 set wildmode=full
-set wildignore+=.git,.hg,.svn                    " Ignore version control repos
-set wildignore+=*.6                              " Ignore Go compiled files
-set wildignore+=.hg,.git,.svn                    " Version control
-set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
-set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
-set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
-set wildignore+=*.spl                            " compiled spelling word lists
-set wildignore+=*.sw?                            " Vim swap files
-set wildignore+=*.DS_Store                       " OSX bullshit
-set wildignore+=*.luac                           " Lua byte code
-set wildignore+=migrations                       " Django migrations
-set wildignore+=*.pyc                            " Python byte code
+set wildignore+=.git,.hg,.svn                            " Ignore version control repos
+set wildignore+=*.6                                      " Ignore Go compiled files
+set wildignore+=.hg,.git,.svn                            " Version control
+set wildignore+=*.aux,*.out,*.toc                        " LaTeX intermediate files
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg           " binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest         " compiled object files
+set wildignore+=*.spl                                    " compiled spelling word lists
+set wildignore+=*.sw?                                    " Vim swap files
+set wildignore+=*.DS_Store                               " OSX bullshit
+set wildignore+=*.luac                                   " Lua byte code
+set wildignore+=migrations                               " Django migrations
+set wildignore+=*.pyc                                    " Python byte code
 
 let mapleader=","                                " The <leader> key
 
@@ -86,60 +81,71 @@ Bundle "elzr/vim-json"
 Bundle "empanda/vim-varnish"
 Bundle "evanmiller/nginx-vim-syntax"
 Bundle "groenewege/vim-less"
-Bundle "PProvost/vim-ps1"
-Bundle "rodjek/vim-puppet"
 Bundle "tpope/vim-markdown"
 Bundle "fatih/vim-go"
 
 " Other plugins
-Bundle "scrooloose/nerdtree"
-Bundle "airblade/vim-gitgutter"
-Bundle "kien/ctrlp.vim"
-Bundle "Lokaltog/vim-easymotion"
-Bundle "bling/vim-airline"
-Bundle "mileszs/ack.vim"
-Bundle "scrooloose/syntastic"
-Bundle "tpope/vim-eunuch"
-Bundle "tpope/vim-fugitive"
-Bundle "flazz/vim-colorschemes"
-Bundle "chriskempson/base16-vim"
-Bundle "terryma/vim-multiple-cursors"
-Bundle "joonty/vdebug"
-Bundle "ervandew/supertab"
-Bundle "tpope/vim-surround"
-Bundle "tpope/vim-repeat"
-Bundle "henrik/vim-reveal-in-finder"
-Bundle "tpope/vim-commentary"
-Bundle "tpope/vim-unimpaired"
-Bundle "duff/vim-bufonly"
-Bundle "rbgrouleff/bclose.vim"
-Bundle "nathanaelkane/vim-indent-guides"
-Bundle "danro/rename.vim"
-Bundle "michaeljsmith/vim-indent-object"
-Bundle "Townk/vim-autoclose"
-Bundle "amiorin/vim-project"
-Bundle "rking/ag.vim"
-Bundle "bling/vim-bufferline"
-Bundle "terryma/vim-expand-region"
+Bundle 'scrooloose/nerdtree'
+Bundle 'Xuyuanp/nerdtree-git-plugin'
+Bundle 'tiagofumo/vim-nerdtree-syntax-highlight'
+Bundle 'airblade/vim-gitgutter'
+Bundle 'kien/ctrlp.vim'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'bling/vim-airline'
+Bundle 'joshdick/airline-onedark.vim'
+Bundle 'mileszs/ack.vim'
+Bundle 'scrooloose/syntastic'
+Bundle 'tpope/vim-eunuch'
+Bundle 'tpope/vim-fugitive'
+Bundle 'flazz/vim-colorschemes'
+Bundle 'chriskempson/base16-vim'
+Bundle 'terryma/vim-multiple-cursors'
+Bundle 'joonty/vdebug'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-repeat'
+Bundle 'henrik/vim-reveal-in-finder'
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-unimpaired'
+Bundle 'duff/vim-bufonly'
+Bundle 'rbgrouleff/bclose.vim'
+Bundle 'danro/rename.vim'
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'michaeljsmith/vim-indent-object'
+Bundle 'Townk/vim-autoclose'
+Bundle 'amiorin/vim-project'
+Bundle 'rking/ag.vim'
+Bundle 'bling/vim-bufferline'
+Bundle 'terryma/vim-expand-region'
 Bundle 'junegunn/vim-easy-align'
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tpope/vim-endwise"
-Bundle "tomtom/tlib_vim"
-Bundle "garbas/vim-snipmate"
-Bundle "honza/vim-snippets"
-Bundle "tpope/vim-dispatch"
-Bundle "dougireton/vim-chef"
-Bundle "gosukiwi/vim-atom-dark"
-Bundle "z0mbix/vim-codeschool"
-Bundle "jdkanani/vim-material-theme"
-Bundle "christophermca/meta5"
-Bundle "junegunn/fzf"
-Bundle "hashivim/vim-terraform"
-Bundle "pearofducks/ansible-vim"
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tpope/vim-endwise'
+Bundle 'tomtom/tlib_vim'
+Bundle 'garbas/vim-snipmate'
+Bundle 'honza/vim-snippets'
+Bundle 'tpope/vim-dispatch'
+Bundle 'dougireton/vim-chef'
+Bundle 'gosukiwi/vim-atom-dark'
+Bundle 'z0mbix/vim-codeschool'
+Bundle 'jdkanani/vim-material-theme'
+Bundle 'christophermca/meta5'
+Bundle 'junegunn/fzf'
+Bundle 'hashivim/vim-terraform'
+Bundle 'pearofducks/ansible-vim'
 Bundle 'editorconfig/editorconfig-vim'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'hashivim/vim-packer'
+" Bundle 'Valloric/YouCompleteMe'
+Bundle 'ervandew/supertab'
+Bundle 'fatih/molokai'
+Bundle 'sheerun/vim-polyglot'
 
 " Set colour after vim-colorschemes
 set background=dark
+let g:rehash256 = 1
+let g:molokai_original = 1
+if (has("termguicolors"))
+	set termguicolors
+endif
 color onedark
 
 filetype plugin indent on
@@ -190,6 +196,10 @@ cnoreabbrev Q q
 " Resize splits when the window is resized
 au VimResized * :wincmd =
 
+" ansible-vim
+let g:ansible_extra_keywords_highlight = 1
+let g:ansible_attribute_highlight = "ob"
+
 " simple separators for buffer list
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
@@ -199,11 +209,10 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " The Silver Searcher
 if executable('ag')
-	let g:ackprg = 'ag --nogroup --nocolor --column'
-	" Bind K to grep (with the silver searcher) for the word under cursor
-	nnoremap K :Ag <cword> *<CR>
+    let g:ackprg = 'ag --nogroup --nocolor --column'
+    " Bind K to grep (with the silver searcher) for the word under cursor
+    nnoremap K :Ag <cword> *<CR>
 endif
-
 
 " miniBufExpl
 let g:miniBufExplMapWindowNavVim = 1
@@ -216,13 +225,20 @@ let g:miniBufExplBRSplit = 1
 
 let g:bufferline_echo = 0
 
+" Atom style Comments
+nmap <D-/> gcc
+vmap <D-/> gc
+
+" Re-idents entire file
+nnoremap <F7> mzgg=G`z
+
 " Switch buffers
 nnoremap <C-Tab> :bn<CR>
 nnoremap <C-S-Tab> :bp<CR>
 
-" Switch buffers in non-gui mode
-nnoremap ¬ :bn<CR>
-nnoremap ˙ :bp<CR>
+" Switch buffers in non-gui
+nnoremap <Tab>e :bn<CR>
+nnoremap <S-Tab>e :bp<CR>
 
 " Bclose
 nnoremap <leader>x :Bclose<CR>
@@ -278,10 +294,6 @@ autocmd FileType puppet set commentstring=#\ %s
 " Yum repos
 au BufRead,BufNewFile *.repo set ft=yum
 
-" YAML
-au BufRead,BufNewFile *.yml,*.yaml set ft=yaml
-au FileType yaml set ts=2 sw=2 et
-
 " source code gets wrapped at <80
 au FileType asm,javascript,php,html,perl,c,cpp set tw=79 autoindent
 
@@ -308,28 +320,32 @@ if has("autocmd")
 endif
 
 " Quit NERDTree when last file closed
-" autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
+autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
+
+" Open NERDTree automatically when vim starts up if no file is specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " Close all open buffers on entering a window if the only
 " buffer that's left is the NERDTree buffer
-" function! s:CloseIfOnlyNerdTreeLeft()
-"   if exists("t:NERDTreeBufName")
-"     if bufwinnr(t:NERDTreeBufName) != -1
-"       if winnr("$") == 1
-"         q
-"       endif
-"     endif
-"   endif
-" endfunction
+function! s:CloseIfOnlyNerdTreeLeft()
+  if exists("t:NERDTreeBufName")
+    if bufwinnr(t:NERDTreeBufName) != -1
+      if winnr("$") == 1
+        q
+      endif
+    endif
+  endif
+endfunction
 
-" augroup ps_nerdtree
-"   au!
-"   au Filetype nerdtree setlocal nolist
-"   au Filetype nerdtree nnoremap <buffer> H :vertical resize -10<cr>
-"   au Filetype nerdtree nnoremap <buffer> L :vertical resize +10<cr>
-" augroup END
+augroup ps_nerdtree
+  au!
+  au Filetype nerdtree setlocal nolist
+  au Filetype nerdtree nnoremap <buffer> H :vertical resize -10<cr>
+  au Filetype nerdtree nnoremap <buffer> L :vertical resize +10<cr>
+augroup END
 
-" let NERDTreeHighlightCursorline = 1
+let NERDTreeHighlightCursorline = 1
 " let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index',
 "                     \ 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json',
 "                     \ '.*\.o$', 'db.db', 'tags.bak', '.*\.pdf$', '.*\.mid$',
@@ -341,6 +357,42 @@ endif
 " let NERDTreeChDirMode = 2
 " let NERDTreeMapJumpFirstChild = 'gK'
 " let g:NERDTreeWinSize = 40
+" let g:NERDTreeDirArrowExpandable = '▸'
+" let g:NERDTreeDirArrowCollapsible = '▾'
+
+let g:NERDTreeFileExtensionHighlightFullName = 1
+let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
+let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
+let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
+
+let s:brown = "905532"
+let s:aqua =  "3AFFDB"
+let s:blue = "58A4D7"
+let s:darkBlue = "2980B9"
+let s:purple = "A852D0"
+let s:lightPurple = "B97AD7"
+let s:red = "AE403F"
+let s:beige = "F5C06F"
+let s:yellow = "F09F17"
+let s:orange = "D4843E"
+let s:darkOrange = "F16529"
+let s:pink = "CB6F6F"
+let s:salmon = "EE6E73"
+let s:green = "8FAA54"
+let s:lightGreen = "31B53E"
+let s:white = "FFFFFF"
+let s:rspec_red = 'FE405F'
+let s:git_orange = 'F54D27'
+
+let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
+let g:NERDTreeExtensionHighlightColor['yml'] = s:blue " sets the color of css files to blue
+let g:NERDTreeExtensionHighlightColor['tf'] = s:lightPurple " sets the color of css files to blue
+let g:NERDTreeExtensionHighlightColor['tfvars'] = s:lightPurple " sets the color of css files to blue
+let g:NERDTreeExtensionHighlightColor['md'] = s:salmon " sets the color of css files to blue
+
+" YouCompleteMe
+" let g:ycm_auto_trigger = 1
 
 " Ranger
 nnoremap <leader>r :silent !ranger %:h<cr>:redraw!<cr>
@@ -389,6 +441,7 @@ let g:syntastic_sh_shellcheck_args='--exclude=SC2086
 
 " let g:syntastic_yaml_checkers = ['js-yaml']
 " let g:syntastic_terraform_checkers = ['terraform validate']
+let g:terraform_fmt_on_save = 1
 
 " Fix common typos
 iab teh		the
@@ -439,9 +492,6 @@ vnoremap <F1> <nop>
 nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <leader>s <C-w>s<C-w>l
 
-" One less key to hit
-"nnoremap ; :
-
 " Show registers
 " nnoremap <leader>r :registers<cr>
 
@@ -482,7 +532,6 @@ nmap <leader>' :set list!<CR>
 nnoremap <leader>v <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
 " NERDTree mappings
-map <F2> :NERDTreeToggle<CR>
 map <leader>n :NERDTreeToggle<CR>
 nmap § :NERDTreeToggle<CR>
 
@@ -512,8 +561,8 @@ cnoremap <c-a> <home>
 cnoremap <c-e> <end>
 
 " " Space to toggle folds.
-" nnoremap <Space> za
-" vnoremap <Space> za
+nnoremap <Space> za
+vnoremap <Space> za
 "
 set rtp+=~/.fzf
 
