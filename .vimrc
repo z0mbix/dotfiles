@@ -165,6 +165,8 @@ au BufNewFile,BufRead *.rub set ft=eruby
 au BufNewFile,BufRead .irbrc,.pryrc,Capfile,Gemfile,Rakefile,Vagrantfile,Puppetfile set ft=ruby
 au FileType ruby,eruby set ts=2 sw=2 tw=79 et sts=2 smartindent
 
+au FileType terraform setlocal commentstring=#\ %s
+
 " PHP
 au BufNewFile,BufRead *.php set ft=php
 au FileType php set ts=4 sw=4 tw=79 et sts=4 smartindent
