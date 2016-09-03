@@ -1,0 +1,21 @@
+--exclude=.git
+--exclude=.terraform
+--regex-make=/^([^# \t]*):/\1/t,target/
+--langdef=ansible
+--langmap=ansible:.yml.yaml
+--regex-ansible=/^[ \t]*-[ \t]*name:[ \t]*(.+)/\1/t,tasks/
+--regex-ansible=/^[ \t]*-[ \t]*hosts:[ \t]*(.+)/\1/h,hosts/
+--langdef=terraform
+--langmap=terraform:.tf.tfvars
+--regex-terraform=/^resource "(.+)" "(.+)"/\1 \2/r,resources/
+--regex-terraform=/^(.+)[ \t ]*=.*/\1/f,tfvars/
+--regex-terraform=/^variable "(.+)"/\1/v,variables/
+--regex-terraform=/^module "(.+)"/\1/m,modules/
+--regex-terraform=/^output "(.+)"/\1/o,outputs/
+--languages=ansible,python,sh,terraform,make
+--langdef=markdown
+--langmap=markdown:.md
+--regex-markdown=/^#[ \t]+(.*)/\1/h,Heading_L1/
+--regex-markdown=/^##[ \t]+(.*)/\1/i,Heading_L2/
+--regex-markdown=/^###[ \t]+(.*)/\1/k,Heading_L3/
+--regex-sh=/readonly (.*)=.*/\1/c,constants/

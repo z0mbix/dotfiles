@@ -27,8 +27,8 @@ set foldlevel=20                                         " set fold close level
 set laststatus=2                                         " always show status line
 set ttyfast                                              " Indicate fast terminal conn for faster redraw
 set ttymouse=xterm2                                      " Indicate terminal type for mouse codes
-set ttyscroll=3                                          " Speedup scrolling
-" set pastetoggle=<C-p>                                    " ctrl+p to toggle " pasting (Causes problems with YCM)
+set ttyscroll=3                                          " speedup scrolling
+set pastetoggle=<F8>                                     " toggle pasting
 set runtimepath+=~/.fzf
 set clipboard=unnamed,unnamedplus
 set spellfile=~/.vimspell.add"                           " my words
@@ -48,6 +48,7 @@ set showtabline=1                                        " only show the tabline
 set autoread                                             " detect files changed outside of vim
 set noshowmode                                           " don't show the default vim mode line
 set nomodeline                                           " don't show mode line
+set mouse=a                                              " enable mouse support
 set wildmenu                                             " Tab completion
 set wildmode=list:longest                                " Wildcard matches show a list, matching the longest first
 set wildmode=full
@@ -139,9 +140,13 @@ Bundle 'editorconfig/editorconfig-vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'hashivim/vim-packer'
 " Bundle 'Valloric/YouCompleteMe'
-Bundle 'ervandew/supertab'
+" Bundle 'ervandew/supertab'
 Bundle 'fatih/molokai'
 Bundle 'sheerun/vim-polyglot'
+Bundle 'Shougo/neocomplete.vim'
+Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet-snippets'
+Plugin 'majutsushi/tagbar'
 
 " Set colour after vim-colorschemes
 set background=dark
@@ -190,6 +195,8 @@ let g:vim_json_syntax_conceal = 0
 au BufRead,BufNewFile */etc/nginx/* set ft=nginx ts=4 sw=4 sts=4 et smartindent
 autocmd FileType nginx set commentstring=#\ %s
 
+" Resize splits when the window is resized
+au VimResized * :wincmd =
 
 " Abbreviations
 inoreabbrev teh the
@@ -197,10 +204,6 @@ cnoreabbrev Wq wq
 cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
-
-
-" Resize splits when the window is resized
-au VimResized * :wincmd =
 
 " ansible-vim
 let g:ansible_extra_keywords_highlight = 1
@@ -213,6 +216,50 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#bufferline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#syntastic#enabled = 1
+
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Enable snipMate compatibility feature.
+let g:neosnippet#enable_snipmate_compatibility = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  " return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" Tell Neosnippet about the other snippets
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ neosnippet#expandable_or_jumpable() ?
+  \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+  \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+	set conceallevel=2 concealcursor=niv
+endif
 
 " The Silver Searcher
 if executable('ag')
@@ -282,13 +329,11 @@ noremap H ^
 noremap L $
 vnoremap L g_
 
-nnoremap <leader>o :CtrlP<CR>
-
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
-nmap <Leader>a <Plug>(EasyAlign)
+nmap <leader>a <Plug>(EasyAlign)
 
 " Indent Guides
 " let g:indent_guides_enable_on_vim_startup = 1
@@ -580,21 +625,20 @@ map <C-h> <C-w>h
 map <C-l> <C-w>l
 
 " Easily fix = & : alignments
-nmap <Leader>T= :Tabularize /=<CR>
-vmap <Leader>T= :Tabularize /=<CR>
-nmap <Leader>T: :Tabularize /:\zs<CR>
-vmap <Leader>T: :Tabularize /:\zs<CR>
+nmap <leader>T= :Tabularize /=<CR>
+vmap <leader>T= :Tabularize /=<CR>
+nmap <leader>T: :Tabularize /:\zs<CR>
+vmap <leader>T: :Tabularize /:\zs<CR>
 
 " Quickly toggle `set list` (Show/Hide invisible characters)
 nmap <leader>' :set list!<CR>
 
 " Quickly edit ~/.vimrc file
-"nmap <leader>v :tabedit $MYVIMRC<CR>
 nnoremap <leader>v <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
 " NERDTree mappings
 map <leader>n :NERDTreeToggle<CR>
-nmap § :NERDTreeToggle<CR>
+map § :NERDTreeToggle<CR>
 
 " Remove ^M from file
 map <leader>m :%s/^M//<CR>
@@ -606,14 +650,16 @@ map <leader>a ggVG
 map <leader>y "*y
 map <leader>p "*p
 
-" Clear search highlighting with ESC
+" Clear search highlighting
 noremap <silent><leader>/ :nohlsearch<cr>
 
 " CtrlP
-nnoremap <leader>t :CtrlP<cr>
-nnoremap <leader>b :CtrlPBuffer<cr>
-nnoremap <leader>l :CtrlPLine<cr>
-nmap ; :CtrlPBuffer<CR>
+nnoremap <silent> <leader>o :CtrlP<CR>
+nnoremap <silent> <leader>t :CtrlPTag<cr>
+nnoremap <silent> <leader>b :CtrlPBuffer<cr>
+nnoremap <silent> <leader>l :CtrlPLine<cr>
+nnoremap <silent> <leader>b :TagbarToggle<CR>
+nnoremap <silent> ; :CtrlPBuffer<CR>
 
 " Hop to start/end of line
 inoremap <c-a> <esc>I
@@ -621,12 +667,63 @@ inoremap <c-e> <esc>A
 cnoremap <c-a> <home>
 cnoremap <c-e> <end>
 
-" " Space to toggle folds.
+" Space to toggle folds.
 nnoremap <Space> za
 vnoremap <Space> za
 "
 " Command to write as root if we don't have permission
 cmap w!! %!sudo tee > /dev/null %
+
+" ctags/tagbar
+nnoremap <leader>f :ta<space>
+" Auto open the TagBar when file is supported
+autocmd FileType * nested :call tagbar#autoopen(0)
+
+let g:tagbar_compact = 1
+
+let g:tagbar_type_ansible = {
+	\ 'ctagstype' : 'ansible',
+	\ 'kinds' : [
+	\ 't:tasks',
+	\ 'h:hosts'
+	\ ],
+	\ 'sort' : 0
+	\ }
+
+let g:tagbar_type_terraform = {
+	\ 'ctagstype' : 'terraform',
+	\ 'kinds' : [
+	\ 'r:resources',
+	\ 'm:modules',
+	\ 'o:outputs',
+	\ 'v:variables',
+	\ 'f:tfvars'
+	\ ],
+	\ 'sort' : 0
+	\ }
+
+let g:tagbar_type_make = {
+	\ 'kinds':[
+	\ 'm:macros',
+	\ 't:targets'
+	\ ]
+	\}
+
+let g:tagbar_type_sh = {
+	\ 'kinds':[
+	\ 'f:functions',
+	\ 'c:constants'
+	\ ]
+	\}
+
+let g:tagbar_type_markdown = {
+	\ 'ctagstype' : 'markdown',
+	\ 'kinds' : [
+	\ 'h:Heading_L1',
+	\ 'i:Heading_L2',
+	\ 'k:Heading_L3'
+	\ ]
+	\ }
 
 " undofile - This allows you to use undos after exiting and restarting
 " This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
