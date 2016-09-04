@@ -412,6 +412,7 @@ let NERDTreeHighlightCursorline = 1
 " let g:NERDTreeDirArrowExpandable = '▸'
 " let g:NERDTreeDirArrowCollapsible = '▾'
 
+let g:NERDTreeMinimalUI = 1
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
@@ -658,6 +659,7 @@ nnoremap <silent> <leader>o :CtrlP<CR>
 nnoremap <silent> <leader>t :CtrlPTag<cr>
 nnoremap <silent> <leader>b :CtrlPBuffer<cr>
 nnoremap <silent> <leader>l :CtrlPLine<cr>
+nnoremap <silent> <leader>m :CtrlPMRUFiles<CR>
 nnoremap <silent> <leader>b :TagbarToggle<CR>
 nnoremap <silent> ; :CtrlPBuffer<CR>
 
