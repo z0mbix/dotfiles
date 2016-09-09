@@ -2,6 +2,8 @@
 	name = David Wooldridge (z0mbix)
 	email = zombie@zombix.org
 	editor = vim
+[commit]
+	template = ~/.gitmessage
 [github]
 	user = z0mbix
 [push]
@@ -26,6 +28,7 @@
 	whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	excludesfile = ~/.gitignore
 	pager = less -FRSX
+	quotepath = false
 [alias]
 	st = status -sb
 	ci = commit
@@ -37,7 +40,9 @@
 	sl = stash list
 	sa = stash apply
 	ss = stash save
-	lol = log --graph --decorate --pretty=oneline --abbrev-commit
+	sp = stash pop
+	sd = stash show --patch
+	lol = log --decorate --pretty=oneline --abbrev-commit
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	ls = ls-files
 	ls-ignored = ls-files --exclude-standard --ignored --others

@@ -157,6 +157,21 @@ if (has("termguicolors"))
 endif
 color onedark
 
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Hack\ 9
+  elseif has("gui_win32")
+    set guifont=Hack\ 9
+  elseif has("gui_macvim")
+    set guifont=Hack:h12
+    " set fullscreen
+  elseif has("gui_vimr")
+    set guifont=Hack:h12
+    " set fullscreen
+  endif
+endif
+
+set guioptions=
 filetype plugin indent on
 
 " .rc are shell files
@@ -204,6 +219,15 @@ cnoreabbrev Wq wq
 cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
+
+" Startify
+" Make Startify work with NERDTree
+autocmd VimEnter *
+	\   if !argc()
+	\ |   Startify
+	\ |   NERDTree
+	\ |   wincmd w
+	\ | endif
 
 " ansible-vim
 let g:ansible_extra_keywords_highlight = 1
@@ -268,14 +292,12 @@ if executable('ag')
 	nnoremap K :Ag <cword> *<CR>
 endif
 
-" " miniBufExpl
-" let g:miniBufExplMapWindowNavVim = 1
-" let g:miniBufExplMapWindowNavArrows = 1
-" let g:miniBufExplMapCTabSwitchBufs = 1
-" let g:miniBufExplModSelTarget = 1
-" let g:miniBufExplCycleArround = 1
-" let g:miniBufExplUseSingleClick = 1
-" let g:miniBufExplBRSplit = 1
+" CtrlSF
+let g:ctrlsf_ignore_dir = ['tags', 'npm_modules']
+
+nmap <C-F>s <Plug>CtrlSFCwordExec
+vmap <C-F>s <Plug>CtrlSFVwordExec
+nmap <C-F>S <Plug>CtrlSFPrompt
 
 let g:bufferline_echo = 0
 
@@ -403,21 +425,13 @@ let NERDTreeHighlightCursorline = 1
 "                     \ '.*\.o$', 'db.db', 'tags.bak', '.*\.pdf$', '.*\.mid$',
 "                     \ '.*\.midi$']
 
-" let NERDTreeMinimalUI = 0
-" let NERDTreeDirArrows = 1
-" let NERDChristmasTree = 1
-" let NERDTreeChDirMode = 2
-" let NERDTreeMapJumpFirstChild = 'gK'
-" let g:NERDTreeWinSize = 40
-" let g:NERDTreeDirArrowExpandable = '▸'
-" let g:NERDTreeDirArrowCollapsible = '▾'
-
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
 let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
 let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
+let g:NERDTreeAutoDeleteBuffer = 1
 
 let s:brown = "905532"
 let s:aqua =  "3AFFDB"
@@ -584,11 +598,6 @@ if has('gui_macvim')
 	nmap <D-]> >>
 	vmap <D-[> <gv
 	vmap <D-]> >gv
-
-	" Source the gvimrc file after saving it
-	if has("autocmd")
-		autocmd bufwritepost .gvimrc source ~/.gvimrc
-	endif
 endif
 
 " Remove annoying F1 help
@@ -680,6 +689,9 @@ cmap w!! %!sudo tee > /dev/null %
 nnoremap <leader>f :ta<space>
 " Auto open the TagBar when file is supported
 autocmd FileType * nested :call tagbar#autoopen(0)
+
+" Auto run ctags on file save
+let g:auto_ctags = 1
 
 let g:tagbar_compact = 1
 
