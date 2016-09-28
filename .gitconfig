@@ -2,6 +2,7 @@
 	name = David Wooldridge (z0mbix)
 	email = zombie@zombix.org
 	editor = vim
+	signingkey = FFCE5C105D81AB88
 [commit]
 	template = ~/.gitmessage
 [github]
