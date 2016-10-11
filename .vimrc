@@ -649,6 +649,7 @@ nnoremap <leader>v <C-w><C-v><C-l>:e $MYVIMRC<cr>
 " NERDTree mappings
 map <leader>n :NERDTreeToggle<CR>
 map § :NERDTreeToggle<CR>
+nmap ` :NERDTreeToggle<CR>
 
 " Remove ^M from file
 map <leader>m :%s/^M//<CR>
@@ -688,7 +689,7 @@ cmap w!! %!sudo tee > /dev/null %
 " ctags/tagbar
 nnoremap <leader>f :ta<space>
 " Auto open the TagBar when file is supported
-autocmd FileType * nested :call tagbar#autoopen(0)
+" autocmd FileType * nested :call tagbar#autoopen(0)
 
 " Auto run ctags on file save
 let g:auto_ctags = 1
