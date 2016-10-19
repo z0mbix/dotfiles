@@ -102,6 +102,9 @@ PS1=${norm}'['${green}'\@'${norm}'] ('${HOSTCOLOUR}'$HOSTNAME'${norm}') '${yello
 # Home directory bin?
 [ -d ~/bin ] && PATH=$PATH:~/bin
 
+# Syncthing bin
+[ -d ~/Sync/bin/$OS ] && PATH=$PATH:~/Sync/bin/$OS
+
 # Ruby gems?
 [ -d ~/.gem/ruby/1.8/bin ] && PATH=$PATH:~/.gem/ruby/1.8/bin
 [ -d /var/lib/gems/1.8/bin ] && PATH=$PATH:/var/lib/gems/1.8/bin

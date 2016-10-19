@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+os=$(uname)
+
+if [[ $os == 'OpenBSD' ]]; then
+  declare -a pkgs=$(pkg_info | awk '{print $1}')
+  for pkg in ${pkgs[@]}; do
+    echo ${pkg%-*} >> .packages.openbsd
+  done
+elif [[ $os == 'Darwin' ]]; then
+  brew bundle dump --force
+fi
+

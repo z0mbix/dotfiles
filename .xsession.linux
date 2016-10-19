@@ -17,10 +17,8 @@ xrdb -load ~/.Xdefaults&
 urxvt -geometry 129x59+1-16&
 urxvt -geometry 96x59-2-16&
 nm-applet&
-#guake&
 conky&
 ~/.dropbox-dist/dropboxd&
-#/opt/copy/CopyAgent&
 
 # Start fluxbox in the background, and keep a note of the PID
 fluxbox -log "~/.fluxbox/log" &
@@ -29,7 +27,7 @@ fbpid=$!
 # Add SSH keys
 sleep 2
 {
-    ssh-add ~/.ssh/comqi ~/.ssh/vaughan < /dev/null
+    ssh-add ~/.ssh/id_rsa < /dev/null
 } &
 
 # Wait for fluxbox to exit

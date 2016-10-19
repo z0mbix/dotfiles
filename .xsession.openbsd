@@ -1,0 +1,51 @@
+export SSH_ASKPASS=/usr/local/bin/ssh-askpass-fullscreen &
+export LANG=en_GB.UTF-8
+export PATH=$PATH:~/bin:~/Sync/bin/OpenBSD
+
+# Start dbus
+eval `dbus-launch --sh-syntax`
+
+# No beeps!
+xset -b &
+
+# Set keyboard repeat rate
+xset r rate 180 40&
+
+# Lock screen after 5 minutes
+xidle -timeout 300 -program "/usr/local/bin/slock" &
+
+# Lock screen hot corner
+xdotool behave_screen_edge --delay 1000 top-left exec slock &
+
+# Hide the cursor
+xbanish &
+
+# Dim the screen when inactive
+xdimmer -t 60 &
+
+# Adjust colour temperature
+redshift -l 51.5806:0.3420 &
+
+# Thinkpad Trackpad settings
+synclient TouchpadOff=1 &
+xinput set-prop "/dev/wsmouse" "WS Pointer Wheel Emulation Button" 2 &
+xinput set-prop "/dev/wsmouse" "WS Pointer Wheel Emulation" 1 &
+xinput set-prop "/dev/wsmouse" "WS Pointer Wheel Emulation Timeout" 200 &
+
+# Set-up some fonts
+/usr/X11R6/bin/xset fp+ /usr/local/share/fonts/artwiz-aleczapka &
+/usr/X11R6/bin/xset fp+ /usr/local/share/fonts/powerline &
+/usr/X11R6/bin/xset fp+ /usr/local/share/fonts/terminus &
+/usr/X11R6/bin/xset fp rehash &
+
+# Set the wallpaper
+feh --bg-fill ~/Pictures/v.png &
+
+# I always need a terminal
+terminator &
+
+# Sync things
+syncthing -no-browser > ~/.syncthing.log 2>&1 &
+syncthing-inotify > /dev/null 2>&1 &
+
+exec /usr/local/bin/i3
