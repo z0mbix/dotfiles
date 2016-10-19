@@ -48,6 +48,8 @@ set showtabline=1                                        " only show the tabline
 set autoread                                             " detect files changed outside of vim
 set noshowmode                                           " don't show the default vim mode line
 set nomodeline                                           " don't show mode line
+set lazyredraw                                           " Redraw only when required
+set cursorline                                           " Highlight the current line
 set mouse=a                                              " enable mouse support
 set wildmenu                                             " Tab completion
 set wildmode=list:longest                                " Wildcard matches show a list, matching the longest first
@@ -147,6 +149,9 @@ Bundle 'Shougo/neocomplete.vim'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'majutsushi/tagbar'
+Plugin 'soramugi/auto-ctags.vim'
+Plugin 'dyng/ctrlsf.vim'
+Plugin 'mhinz/vim-startify'
 
 " Set colour after vim-colorschemes
 set background=dark
@@ -163,10 +168,12 @@ if has("gui_running")
   elseif has("gui_win32")
     set guifont=Hack\ 9
   elseif has("gui_macvim")
-    set guifont=Hack:h12
+    " set guifont=Hack:h12
+    set guifont=Sauce\ Code\ Powerline:h12
     " set fullscreen
   elseif has("gui_vimr")
-    set guifont=Hack:h12
+    " set guifont=Hack:h12
+    set guifont=Sauce\ Code\ Powerline:h12
     " set fullscreen
   endif
 endif
@@ -185,6 +192,7 @@ au BufNewFile,BufRead *.rub set ft=eruby
 au BufNewFile,BufRead .irbrc,.pryrc,Capfile,Gemfile,Rakefile,Vagrantfile,Puppetfile set ft=ruby
 au FileType ruby,eruby set ts=2 sw=2 tw=79 et sts=2 smartindent
 
+" Prefer # comments for terraform
 au FileType terraform setlocal commentstring=#\ %s
 
 " PHP
@@ -197,7 +205,8 @@ let php_htmlInStrings=1
 let perl_extended_vars=1
 
 " Python
-au FileType python set ts=4 sw=4 tw=79 et sts=4
+au BufNewFile,BufRead .py set ft=python
+au FileType python set ts=4 sw=4 tw=79 et sts=4 smartindent
 
 " JavaScript
 au BufNewFile,BufRead *.js set ft=javascript
@@ -266,6 +275,7 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-terraform-snippets'
 
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -304,6 +314,8 @@ let g:bufferline_echo = 0
 " Atom style Comments
 nmap <D-/> gcc
 vmap <D-/> gc
+nmap <C-/> gcc
+vmap <C-/> gc
 
 " Re-idents entire file
 nnoremap <F7> mzgg=G`z
@@ -357,6 +369,11 @@ vmap <Enter> <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
 nmap <leader>a <Plug>(EasyAlign)
 
+" Fugitive
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gb :Gblame<CR>
+
 " Indent Guides
 " let g:indent_guides_enable_on_vim_startup = 1
 
@@ -374,24 +391,17 @@ au FileType asm,javascript,php,html,perl,c,cpp set tw=79 autoindent
 " makefiles and c have tabstops at 8 for portability
 au FileType make,c,cpp set ts=8 sw=8
 
-" Only do this part when compiled with support for autocommands
-if has("autocmd")
-	" Save when focus is lost
-	"au FocusLost * :wa
-	" In text files, always limit the width of text to 78 characters
-	autocmd BufRead *.txt set tw=78
-	" When editing a file, always jump to the last cursor position
-	autocmd BufReadPost *
-	\ if line("'\"") > 0 && line ("'\"") <= line("$") |
-	\   exe "normal! g'\"" |
-	\ endif
+" When editing a file, always jump to the last cursor position
+autocmd BufReadPost *
+\ if line("'\"") > 0 && line ("'\"") <= line("$") |
+\   exe "normal! g'\"" |
+\ endif
 
-	" Clear whitespace at the end of lines automatically
-	autocmd BufWritePre * :%s/\s\+$//e
+" Clear whitespace at the end of lines automatically
+autocmd BufWritePre * :%s/\s\+$//e
 
-	" automatically reload vimrc when it's saved
-	autocmd BufWritePost .vimrc source $HOME/.vimrc
-endif
+" automatically reload vimrc when it's saved
+autocmd BufWritePost .vimrc source $HOME/.vimrc
 
 " Quit NERDTree when last file closed
 autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
@@ -399,6 +409,9 @@ autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 " Open NERDTree automatically when vim starts up if no file is specified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" Auto refresh NERDTree on focus
+" autocmd WinEnter * if exists('b:NERDTree') | execute 'normal R' | endif
 
 " Close all open buffers on entering a window if the only
 " buffer that's left is the NERDTree buffer
@@ -508,7 +521,7 @@ let g:syntastic_sh_shellcheck_args='--exclude=SC2086
 
 " let g:syntastic_yaml_checkers = ['js-yaml']
 " let g:syntastic_terraform_checkers = ['terraform validate']
-let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_open = 1
 let g:terraform_fmt_on_save = 1
 
 " Fix common typos
@@ -644,15 +657,17 @@ vmap <leader>T: :Tabularize /:\zs<CR>
 nmap <leader>' :set list!<CR>
 
 " Quickly edit ~/.vimrc file
-nnoremap <leader>v <C-w><C-v><C-l>:e $MYVIMRC<cr>
+nnoremap <leader>v :e $MYVIMRC<cr>
 
 " NERDTree mappings
 map <leader>n :NERDTreeToggle<CR>
 map § :NERDTreeToggle<CR>
-nmap ` :NERDTreeToggle<CR>
 
 " Remove ^M from file
-map <leader>m :%s/^M//<CR>
+map <leader>M :%s/^M//<CR>
+
+" Open PWD in finder
+nnoremap <leader>F :silent !open .<cr>
 
 " select all
 map <leader>a ggVG
@@ -664,13 +679,19 @@ map <leader>p "*p
 " Clear search highlighting
 noremap <silent><leader>/ :nohlsearch<cr>
 
+" Easy window resizing
+nnoremap <Tab><Right> :vertical resize +5<CR>
+nnoremap <Tab><Left> :vertical resize -5<CR>
+nnoremap <Tab><Up> :res +5<CR>
+nnoremap <Tab><Down> :res -5<CR>
+
 " CtrlP
 nnoremap <silent> <leader>o :CtrlP<CR>
 nnoremap <silent> <leader>t :CtrlPTag<cr>
 nnoremap <silent> <leader>b :CtrlPBuffer<cr>
 nnoremap <silent> <leader>l :CtrlPLine<cr>
 nnoremap <silent> <leader>m :CtrlPMRUFiles<CR>
-nnoremap <silent> <leader>b :TagbarToggle<CR>
+nnoremap <silent> <leader>B :TagbarToggle<CR>
 nnoremap <silent> ; :CtrlPBuffer<CR>
 
 " Hop to start/end of line
