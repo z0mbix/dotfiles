@@ -660,8 +660,9 @@ nmap <leader>' :set list!<CR>
 nnoremap <leader>v :e $MYVIMRC<cr>
 
 " NERDTree mappings
-map <leader>n :NERDTreeToggle<CR>
-map § :NERDTreeToggle<CR>
+nmap <leader>n :NERDTreeToggle<CR>
+nmap § :NERDTreeToggle<CR>  " Macs
+nmap ` :NERDTreeToggle<CR> " Non-Macs
 
 " Remove ^M from file
 map <leader>M :%s/^M//<CR>
