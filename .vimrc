@@ -16,6 +16,9 @@ set hlsearch                                             " highlight search resu
 set autoindent                                           " auto indent new lines
 set linebreak                                            " enable linebreaks
 set showbreak=>>                                         " what to put infront of linebreaks
+set breakindent                                          " preserve horizontal blocks
+set formatoptions+=j                                     " remove comments when joining lines
+set nostartofline                                        " keep cursor in same column
 set history=200                                          " set command and search history
 set noerrorbells                                         " don't annoy me
 set novisualbell                                         " disable visual bell
