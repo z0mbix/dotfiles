@@ -670,6 +670,14 @@ nmap ` :NERDTreeToggle<CR> " Non-Macs
 " Remove ^M from file
 map <leader>M :%s/^M//<CR>
 
+" Bubble single lines
+nmap <C-k> [e
+nmap <C-j> ]e
+
+" Bubble multiple lines
+vmap <C-k> [egv
+vmap <C-j> ]egv
+
 " Open PWD in finder
 nnoremap <leader>F :silent !open .<cr>
 
