@@ -74,87 +74,83 @@ let mapleader=","                                " The <leader> key
 
 filetype off                                     " required for vundle
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+if empty(glob('~/.vim/autoload/plug.vim'))
+	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
 
-let g:vim_home_path = "~/.vim"
-
-execute "set rtp+=" . g:vim_home_path . "/bundle/vundle/"
-let g:vundle_default_git_proto = 'https'
-call vundle#rc(g:vim_home_path. "/bundle")
-
-Bundle 'gmarik/vundle'
+call plug#begin('~/.vim/plugged')
 
 " Language plugins
-Bundle "elzr/vim-json"
-Bundle "empanda/vim-varnish"
-Bundle "evanmiller/nginx-vim-syntax"
-Bundle "groenewege/vim-less"
-Bundle "tpope/vim-markdown"
-Bundle "fatih/vim-go"
+Plug 'elzr/vim-json'
+Plug 'empanda/vim-varnish'
+Plug 'evanmiller/nginx-vim-syntax'
+Plug 'groenewege/vim-less'
+Plug 'tpope/vim-markdown'
+Plug 'fatih/vim-go'
+Plug 'hashivim/vim-terraform'
+Plug 'hashivim/vim-packer'
+Plug 'pearofducks/ansible-vim'
 
 " Other plugins
-Bundle 'scrooloose/nerdtree'
-Bundle 'Xuyuanp/nerdtree-git-plugin'
-Bundle 'tiagofumo/vim-nerdtree-syntax-highlight'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'kien/ctrlp.vim'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'bling/vim-airline'
-Bundle 'joshdick/onedark.vim'
-Bundle 'mileszs/ack.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'tpope/vim-eunuch'
-Bundle 'tpope/vim-fugitive'
-Bundle 'flazz/vim-colorschemes'
-Bundle 'chriskempson/base16-vim'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'joonty/vdebug'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-repeat'
-Bundle 'henrik/vim-reveal-in-finder'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'duff/vim-bufonly'
-Bundle 'rbgrouleff/bclose.vim'
-Bundle 'danro/rename.vim'
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'michaeljsmith/vim-indent-object'
-Bundle 'Townk/vim-autoclose'
-Bundle 'amiorin/vim-project'
-Bundle 'rking/ag.vim'
-Bundle 'bling/vim-bufferline'
-Bundle 'terryma/vim-expand-region'
-Bundle 'junegunn/vim-easy-align'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tpope/vim-endwise'
-Bundle 'tomtom/tlib_vim'
-Bundle 'garbas/vim-snipmate'
-Bundle 'honza/vim-snippets'
-Bundle 'tpope/vim-dispatch'
-Bundle 'dougireton/vim-chef'
-Bundle 'gosukiwi/vim-atom-dark'
-Bundle 'z0mbix/vim-codeschool'
-Bundle 'jdkanani/vim-material-theme'
-Bundle 'christophermca/meta5'
-Bundle 'junegunn/fzf'
-Bundle 'hashivim/vim-terraform'
-Bundle 'pearofducks/ansible-vim'
-Bundle 'editorconfig/editorconfig-vim'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'hashivim/vim-packer'
-" Bundle 'Valloric/YouCompleteMe'
-" Bundle 'ervandew/supertab'
-Bundle 'fatih/molokai'
-Bundle 'sheerun/vim-polyglot'
-Bundle 'Shougo/neocomplete.vim'
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neosnippet-snippets'
-Plugin 'majutsushi/tagbar'
-Plugin 'soramugi/auto-ctags.vim'
-Plugin 'dyng/ctrlsf.vim'
-Plugin 'mhinz/vim-startify'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'airblade/vim-gitgutter'
+Plug 'kien/ctrlp.vim'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'bling/vim-airline'
+Plug 'joshdick/onedark.vim'
+Plug 'mileszs/ack.vim'
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fugitive'
+Plug 'flazz/vim-colorschemes'
+Plug 'chriskempson/base16-vim'
+Plug 'whatyouhide/vim-gotham'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'henrik/vim-reveal-in-finder'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-unimpaired'
+Plug 'duff/vim-bufonly'
+Plug 'rbgrouleff/bclose.vim'
+Plug 'danro/rename.vim'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'Townk/vim-autoclose'
+Plug 'amiorin/vim-project'
+Plug 'rking/ag.vim'
+Plug 'bling/vim-bufferline'
+Plug 'terryma/vim-expand-region'
+Plug 'junegunn/vim-easy-align'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tpope/vim-endwise'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
+Plug 'tpope/vim-dispatch'
+Plug 'dougireton/vim-chef'
+Plug 'gosukiwi/vim-atom-dark'
+Plug 'z0mbix/vim-codeschool'
+Plug 'jdkanani/vim-material-theme'
+Plug 'christophermca/meta5'
+Plug 'junegunn/fzf'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'sheerun/vim-polyglot'
+Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'majutsushi/tagbar'
+Plug 'soramugi/auto-ctags.vim'
+Plug 'dyng/ctrlsf.vim'
+Plug 'mhinz/vim-startify'
+
+call plug#end()
 
 " Set colour after vim-colorschemes
 set background=dark
@@ -253,15 +249,15 @@ let g:airline#extensions#bufferline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#syntastic#enabled = 1
 
-" Disable AutoComplPop.
+" " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
-" Use neocomplete.
+" " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
+" " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
-" Enable snipMate compatibility feature.
+" " Enable snipMate compatibility feature.
 let g:neosnippet#enable_snipmate_compatibility = 1
-" Set minimum syntax keyword length.
+" " Set minimum syntax keyword length.
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
@@ -475,7 +471,20 @@ let g:NERDTreeExtensionHighlightColor['tfvars'] = s:lightPurple " sets the color
 let g:NERDTreeExtensionHighlightColor['md'] = s:salmon " sets the color of css files to blue
 
 " YouCompleteMe
-" let g:ycm_auto_trigger = 1
+let g:ycm_auto_trigger = 1
+
+" vim-go
+" au Filetype go nnoremap <leader>v :vsp <CR>:exe "GoDef" <CR>
+" au Filetype go nnoremap <leader>s :sp <CR>:exe "GoDef"<CR>
+" au Filetype go nnoremap <leader>t :tab split <CR>:exe "GoDef"<CR>
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_textobj_include_function_doc = 0
 
 " Ranger
 nnoremap <leader>r :silent !ranger %:h<cr>:redraw!<cr>
@@ -525,6 +534,8 @@ let g:syntastic_sh_shellcheck_args='--exclude=SC2086
 " let g:syntastic_yaml_checkers = ['js-yaml']
 " let g:syntastic_terraform_checkers = ['terraform validate']
 " let g:syntastic_check_on_open = 1
+let g:syntastic_enable_signs = 1
+let g:syntastic_error_symbol = '✖︎'
 let g:terraform_fmt_on_save = 1
 
 " Fix common typos
@@ -671,12 +682,12 @@ nmap ` :NERDTreeToggle<CR> " Non-Macs
 map <leader>M :%s/^M//<CR>
 
 " Bubble single lines
-nmap <C-k> [e
-nmap <C-j> ]e
+" nmap <C-k> [e
+" nmap <C-j> ]e
 
 " Bubble multiple lines
-vmap <C-k> [egv
-vmap <C-j> ]egv
+" vmap <C-k> [egv
+" vmap <C-j> ]egv
 
 " Open PWD in finder
 nnoremap <leader>F :silent !open .<cr>

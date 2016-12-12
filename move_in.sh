@@ -54,10 +54,11 @@ if [ $OS = "Darwin" ]; then
 fi
 
 if which git >/dev/null 2>&1; then
-  git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   if which vim >/dev/null 2>&1; then
-    if [ -d ~/.vim/bundle/vundle ]; then
-      vim +BundleInstall +qall
+    if [ -d ~/.vim/plugged ]; then
+      vim +PlugInstall
     fi
   else
     echo 'You need to install vim'
@@ -65,4 +66,3 @@ if which git >/dev/null 2>&1; then
 else
   echo 'You need to install git'
 fi
-
