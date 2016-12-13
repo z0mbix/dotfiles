@@ -10,23 +10,23 @@
 #  ftp -o - https://github.com/z0mbix/dotfiles/raw/master/move_in.sh | sh
 #
 
-GH_USER=z0mbix
-URL=https://github.com/${GH_USER}/dotfiles/tarball/master
-OS=`uname`
-TD=`mktemp -d XXXXXX`
-TAR=tar
-FETCH="curl -s -L"
+gh_user=z0mbix
+url=https://github.com/${gh_user}/dotfiles/tarball/master
+os=`uname`
+td=`mktemp -d XXXXXX`
+tar=tar
+fetch="curl -s -L"
 
 # OS Specific Stuff
-[ $OS = "OpenBSD" ] && FETCH="ftp -o -"
-[ $OS = "SunOS" ] && TAR='gtar'
+[ $os = "OpenBSD" ] && fetch="ftp -o -"
+[ $os = "SunOS" ] && tar='gtar'
 
-$FETCH $URL | $TAR -C $TD -xzf -
+$fetch $url | $tar -C $td -xzf -
 
-rm -f $TD/${GH_USER}-*/{README,move_in.sh}
-cd $TD/${GH_USER}-* && $TAR -cf - . | (cd; tar -xvf -)
+rm -f $td/${gh_user}-*/{README,move_in.sh}
+cd $td/${gh_user}-* && $tar -cf - . | (cd; tar -xvf -)
 cd -
-rm -rf $TD
+rm -rf $td
 
 if [ ! -d ~/.ssh/ ]; then
   mkdir ~/.ssh/
@@ -38,7 +38,7 @@ if [ ! -f ~/.ssh/authorized_keys ]; then
   chmod 600 ~/.ssh/authorized_keys
 fi
 
-if [ $OS == "OpenBSD" ]; then
+if [ $os == "OpenBSD" ]; then
   if [ -f ~/.profile ]; then
     mv ~/.profile ~/.profile.orig
   fi
@@ -47,17 +47,22 @@ if [ $OS == "OpenBSD" ]; then
 fi
 
 # Dump stuff we don't need on OS X?
-if [ $OS = "Darwin" ]; then
+if [ $os = "Darwin" ]; then
   rm -rf ~/.fluxbox
   rm -f ~/.conkyrc
   rm -f ~/.xsession
+fi
+
+if [ ! -f ~/.git-prompt.sh ]; then
+  curl -s -o ~/.git-prompt.sh \
+    https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
 fi
 
 if which git >/dev/null 2>&1; then
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   if which vim >/dev/null 2>&1; then
-    if [ -d ~/.vim/plugged ]; then
+    if [ ! -d ~/.vim/plugged ]; then
       vim +PlugInstall
     fi
   else
