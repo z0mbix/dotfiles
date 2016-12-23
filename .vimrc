@@ -89,6 +89,7 @@ Plug 'evanmiller/nginx-vim-syntax'
 Plug 'groenewege/vim-less'
 Plug 'tpope/vim-markdown'
 Plug 'fatih/vim-go'
+Plug 'z0mbix/vim-terraform-snippets'
 Plug 'hashivim/vim-terraform'
 Plug 'hashivim/vim-packer'
 Plug 'pearofducks/ansible-vim'
@@ -273,8 +274,8 @@ endfunction
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-terraform-snippets'
+let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/snippets'
+let g:neosnippet#snippets_directory='~/.vim/plugged/vim-terraform-snippets'
 
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
