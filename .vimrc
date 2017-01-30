@@ -93,6 +93,7 @@ Plug 'z0mbix/vim-terraform-snippets'
 Plug 'hashivim/vim-terraform'
 Plug 'hashivim/vim-packer'
 Plug 'pearofducks/ansible-vim'
+Plug 'tell-k/vim-autopep8'
 
 " Other plugins
 Plug 'AndrewRadev/splitjoin.vim'
@@ -150,6 +151,7 @@ Plug 'majutsushi/tagbar'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'mhinz/vim-startify'
+Plug 'enricobacis/vim-airline-clock'
 
 call plug#end()
 
@@ -207,6 +209,8 @@ let perl_extended_vars=1
 " Python
 au BufNewFile,BufRead .py set ft=python
 au FileType python set ts=4 sw=4 tw=79 et sts=4 smartindent
+au FileType python map <buffer> <F7> :call Autopep8()<CR>
+let g:autopep8_disable_show_diff=1
 
 " JavaScript
 au BufNewFile,BufRead *.js set ft=javascript
