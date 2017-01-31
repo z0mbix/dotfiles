@@ -4,6 +4,7 @@
 	editor = vim
 	signingkey = FFCE5C105D81AB88
 [commit]
+	gpgsign = true
 	template = ~/.gitmessage
 [github]
 	user = z0mbix
