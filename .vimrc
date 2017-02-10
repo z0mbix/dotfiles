@@ -50,7 +50,7 @@ set noswapfile                                           " we live in the future
 set showtabline=1                                        " only show the tabline when more than one tab open
 set autoread                                             " detect files changed outside of vim
 set noshowmode                                           " don't show the default vim mode line
-set nomodeline                                           " don't show mode line
+set modeline                                           " don't show mode line
 set lazyredraw                                           " Redraw only when required
 set cursorline                                           " Highlight the current line
 set mouse=a                                              " enable mouse support
@@ -93,6 +93,7 @@ Plug 'z0mbix/vim-terraform-snippets'
 Plug 'hashivim/vim-terraform'
 Plug 'hashivim/vim-packer'
 Plug 'pearofducks/ansible-vim'
+" Plug 'phenomenes/ansible-snippets'
 Plug 'tell-k/vim-autopep8'
 
 " Other plugins
@@ -164,6 +165,8 @@ if (has("termguicolors"))
 endif
 color onedark
 
+set t_ut=
+
 if has("gui_running")
   if has("gui_gtk2")
     set guifont=Hack\ 9
@@ -218,6 +221,9 @@ au FileType javascript set ts=2 sw=2 tw=79 et sts=2 smartindent
 
 " JSON
 let g:vim_json_syntax_conceal = 0
+
+" The Jenkinsfile
+au BufNewFile,BufRead Jenkinsfile set ft=groovy
 
 " nginx
 au BufRead,BufNewFile */etc/nginx/* set ft=nginx ts=4 sw=4 sts=4 et smartindent
