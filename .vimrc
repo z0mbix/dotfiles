@@ -1,6 +1,7 @@
 scriptencoding utf-8
 set encoding=utf-8
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n
+set shortmess=atOI                                       " disable start-up message
 set number                                               " show line numbers
 set ruler                                                " show line and column no
 set hidden                                               " hidden buffers?
@@ -50,13 +51,12 @@ set noswapfile                                           " we live in the future
 set showtabline=1                                        " only show the tabline when more than one tab open
 set autoread                                             " detect files changed outside of vim
 set noshowmode                                           " don't show the default vim mode line
-set modeline                                           " don't show mode line
+set modeline                                             " don't show mode line
 set lazyredraw                                           " Redraw only when required
 set cursorline                                           " Highlight the current line
 set mouse=a                                              " enable mouse support
 set wildmenu                                             " Tab completion
-set wildmode=list:longest                                " Wildcard matches show a list, matching the longest first
-set wildmode=full
+set wildmode=list:longest,full                           " Wildcard matches show a list, matching the longest first
 set wildignore+=.git,.hg,.svn                            " Ignore version control repos
 set wildignore+=*.6                                      " Ignore Go compiled files
 set wildignore+=.hg,.git,.svn                            " Version control
@@ -83,76 +83,75 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " Language plugins
-Plug 'elzr/vim-json'
-Plug 'empanda/vim-varnish'
-Plug 'evanmiller/nginx-vim-syntax'
+Plug 'elzr/vim-json', { 'for': 'json' }
+Plug 'empanda/vim-varnish', { 'for': 'varnish' }
+Plug 'evanmiller/nginx-vim-syntax', {'for': 'nginx' }
 Plug 'groenewege/vim-less'
-Plug 'tpope/vim-markdown'
-Plug 'fatih/vim-go'
+Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'z0mbix/vim-terraform-snippets'
-Plug 'hashivim/vim-terraform'
+Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 Plug 'hashivim/vim-packer'
 Plug 'pearofducks/ansible-vim'
 " Plug 'phenomenes/ansible-snippets'
-Plug 'tell-k/vim-autopep8'
+Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 
 " Other plugins
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'airblade/vim-gitgutter'
-Plug 'kien/ctrlp.vim'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'bling/vim-airline'
-Plug 'joshdick/onedark.vim'
-Plug 'mileszs/ack.vim'
-Plug 'scrooloose/syntastic'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-fugitive'
-Plug 'flazz/vim-colorschemes'
-Plug 'chriskempson/base16-vim'
-Plug 'whatyouhide/vim-gotham'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'henrik/vim-reveal-in-finder'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-unimpaired'
-Plug 'duff/vim-bufonly'
-Plug 'rbgrouleff/bclose.vim'
-Plug 'danro/rename.vim'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'Townk/vim-autoclose'
-Plug 'amiorin/vim-project'
-Plug 'rking/ag.vim'
-Plug 'bling/vim-bufferline'
-Plug 'terryma/vim-expand-region'
-Plug 'junegunn/vim-easy-align'
 Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tpope/vim-endwise'
-Plug 'tomtom/tlib_vim'
-Plug 'garbas/vim-snipmate'
-Plug 'honza/vim-snippets'
-Plug 'tpope/vim-dispatch'
-Plug 'dougireton/vim-chef'
-Plug 'gosukiwi/vim-atom-dark'
-Plug 'z0mbix/vim-codeschool'
-Plug 'jdkanani/vim-material-theme'
-Plug 'christophermca/meta5'
-Plug 'junegunn/fzf'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'scrooloose/nerdcommenter'
-Plug 'sheerun/vim-polyglot'
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
-Plug 'majutsushi/tagbar'
-Plug 'soramugi/auto-ctags.vim'
+Plug 'Townk/vim-autoclose'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'airblade/vim-gitgutter'
+Plug 'amiorin/vim-project'
+Plug 'bling/vim-airline'
+Plug 'bling/vim-bufferline'
+Plug 'chriskempson/base16-vim'
+Plug 'christophermca/meta5'
+Plug 'danro/rename.vim'
+Plug 'dougireton/vim-chef'
+Plug 'duff/vim-bufonly'
 Plug 'dyng/ctrlsf.vim'
-Plug 'mhinz/vim-startify'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'enricobacis/vim-airline-clock'
+Plug 'flazz/vim-colorschemes'
+Plug 'garbas/vim-snipmate'
+Plug 'gosukiwi/vim-atom-dark'
+Plug 'henrik/vim-reveal-in-finder'
+Plug 'honza/vim-snippets'
+Plug 'jdkanani/vim-material-theme'
+Plug 'joshdick/onedark.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/vim-easy-align'
+Plug 'kien/ctrlp.vim'
+Plug 'majutsushi/tagbar'
+Plug 'mhinz/vim-startify'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'mileszs/ack.vim'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'rbgrouleff/bclose.vim'
+Plug 'rking/ag.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'sheerun/vim-polyglot'
+Plug 'soramugi/auto-ctags.vim'
+Plug 'terryma/vim-expand-region'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'tomtom/tlib_vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'wincent/ferret'
 
 call plug#end()
 
