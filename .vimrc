@@ -1,6 +1,6 @@
 scriptencoding utf-8
-set encoding=utf-8
-set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n
+set encoding=utf-8                                       " default to utf-8
+set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n      " dope statusline
 set shortmess=atOI                                       " disable start-up message
 set number                                               " show line numbers
 set ruler                                                " show line and column no
@@ -29,12 +29,11 @@ set foldenable                                           " enable folding
 set foldmethod=indent                                    " fold lines with equal indent
 set foldlevel=20                                         " set fold close level
 set laststatus=2                                         " always show status line
-set ttyfast                                              " Indicate fast terminal conn for faster redraw
-set ttymouse=xterm2                                      " Indicate terminal type for mouse codes
+set ttyfast                                              " fast terminal conn for faster redraw
+set ttymouse=xterm2                                      " terminal type for mouse codes
 set ttyscroll=3                                          " speedup scrolling
 set pastetoggle=<F8>                                     " toggle pasting
-set runtimepath+=~/.fzf
-set clipboard=unnamed,unnamedplus
+set clipboard=unnamed,unnamedplus                        " use system clipboard "
 set spellfile=~/.vimspell.add"                           " my words
 set confirm                                              " ask to save files
 set t_Co=256                                             " use all 256 colors
@@ -55,6 +54,7 @@ set modeline                                             " don't show mode line
 set lazyredraw                                           " Redraw only when required
 set cursorline                                           " Highlight the current line
 set mouse=a                                              " enable mouse support
+set nojoinspaces                                         " remove extra space when joining lines
 set wildmenu                                             " Tab completion
 set wildmode=list:longest,full                           " Wildcard matches show a list, matching the longest first
 set wildignore+=.git,.hg,.svn                            " Ignore version control repos
@@ -124,8 +124,10 @@ Plug 'henrik/vim-reveal-in-finder'
 Plug 'honza/vim-snippets'
 Plug 'jdkanani/vim-material-theme'
 Plug 'joshdick/onedark.vim'
+Plug 'junegunn/vim-after-object'
 Plug 'junegunn/fzf'
 Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-peekaboo'
 Plug 'kien/ctrlp.vim'
 Plug 'majutsushi/tagbar'
 Plug 'mhinz/vim-startify'
@@ -134,7 +136,6 @@ Plug 'mileszs/ack.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'rking/ag.vim'
-Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
 Plug 'sheerun/vim-polyglot'
@@ -231,6 +232,9 @@ autocmd FileType nginx set commentstring=#\ %s
 " Resize splits when the window is resized
 au VimResized * :wincmd =
 
+" vim-after-object - e.g. ca= / da= etc.
+autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
+
 " Abbreviations
 inoreabbrev teh the
 cnoreabbrev Wq wq
@@ -258,6 +262,9 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#bufferline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#syntastic#enabled = 1
+
+" Stop bufferline from echoing to command bar (vim-bufferline)
+let g:bufferline_echo = 0
 
 " " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -304,13 +311,6 @@ if has('conceal')
 	set conceallevel=2 concealcursor=niv
 endif
 
-" The Silver Searcher
-if executable('ag')
-	let g:ackprg = 'ag --nogroup --nocolor --column'
-	" Bind K to grep (with the silver searcher) for the word under cursor
-	nnoremap K :Ag <cword> *<CR>
-endif
-
 " CtrlSF
 let g:ctrlsf_ignore_dir = ['tags', 'npm_modules']
 
@@ -318,7 +318,9 @@ nmap <C-F>s <Plug>CtrlSFCwordExec
 vmap <C-F>s <Plug>CtrlSFVwordExec
 nmap <C-F>S <Plug>CtrlSFPrompt
 
-let g:bufferline_echo = 0
+" ferret - find word under cursor
+nmap <leader>f <Plug>(FerretAckWord)
+nmap <leader>F <Plug>(FerretLack)
 
 " Atom style Comments
 nmap <D-/> gcc
@@ -342,7 +344,6 @@ nnoremap <leader>x :Bclose<CR>
 nnoremap <leader>X :Bclose!<CR>
 
 " vim-expand-region
-" Extend the global default (NOTE: Remove comments in dictionary before sourcing)
 call expand_region#custom_text_objects({
 	\ "\/\\n\\n\<CR>": 1,
 	\ 'a]' :1,
@@ -666,10 +667,10 @@ nnoremap j gj
 nnoremap k gk
 
 " Make navigating around splits easier
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-h> <C-w>h
-map <C-l> <C-w>l
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-h> <C-w>h
+nmap <C-l> <C-w>l
 
 " Easily fix = & : alignments
 nmap <leader>T= :Tabularize /=<CR>
@@ -679,9 +680,6 @@ vmap <leader>T: :Tabularize /:\zs<CR>
 
 " Quickly toggle `set list` (Show/Hide invisible characters)
 nmap <leader>' :set list!<CR>
-
-" Quickly edit ~/.vimrc file
-nnoremap <leader>v :e $MYVIMRC<cr>
 
 " NERDTree mappings
 nmap <leader>n :NERDTreeToggle<CR>
@@ -696,11 +694,11 @@ map <leader>M :%s/^M//<CR>
 " nmap <C-j> ]e
 
 " Bubble multiple lines
-" vmap <C-k> [egv
-" vmap <C-j> ]egv
+vmap <C-k> [egv
+vmap <C-j> ]egv
 
 " Open PWD in finder
-nnoremap <leader>F :silent !open .<cr>
+" nnoremap <leader>F :silent !open .<cr>
 
 " select all
 map <leader>a ggVG
@@ -741,7 +739,8 @@ vnoremap <Space> za
 cmap w!! %!sudo tee > /dev/null %
 
 " ctags/tagbar
-nnoremap <leader>f :ta<space>
+" nnoremap <leader>f :ta<space>
+
 " Auto open the TagBar when file is supported
 " autocmd FileType * nested :call tagbar#autoopen(0)
 

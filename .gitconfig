@@ -48,6 +48,7 @@
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	ls = ls-files
 	ls-ignored = ls-files --exclude-standard --ignored --others
+	log-last = log -n 1
 	last = cat-file commit HEAD
 	diff-last-commit = diff HEAD^ HEAD
 	cat = -p cat-file -p
@@ -58,6 +59,8 @@
 	in = !git fetch && git log --pretty=oneline --abbrev-commit --graph ..@{upstream}
 	since = !git log $(git merge-base --fork-point master)..HEAD
 	branch-toggle = checkout -
+	alias = !git config -l | grep ^alias | cut -c 7- | sort
+	pr = !"pr() { git fetch origin pull/$1/head:pr-$1; git checkout pr-$1; }; pr"
 [advice]
 	statusHints = false
 [diff]
@@ -74,3 +77,7 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[credential]
+	helper = osxkeychain
+[help]
+	autocorrect = 1
