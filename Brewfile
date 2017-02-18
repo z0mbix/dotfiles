@@ -5,9 +5,7 @@ tap 'homebrew/bundle'
 tap 'homebrew/completions'
 tap 'homebrew/core'
 tap 'homebrew/services'
-tap 'koekeishiya/kwm'
 tap 'neovim/neovim'
-tap 'rogual/neovim-dot-app'
 brew 'libyaml'
 brew 'openssl@1.1'
 brew 'pkg-config'
@@ -81,7 +79,6 @@ brew 'mad'
 brew 'mas'
 brew 'protobuf'
 brew 'mobile-shell'
-brew 'mockserver'
 brew 'mpg321'
 brew 'msgpack'
 brew 'ncdu'
@@ -122,20 +119,13 @@ brew 'youtube-dl'
 brew 'homebrew/binary/ngrok2'
 brew 'homebrew/boneyard/samba'
 brew 'homebrew/completions/vagrant-completion'
-brew 'koekeishiya/kwm/kwm'
 brew 'neovim/neovim/neovim'
 mas 'Kindle', id: 405399194
-mas 'Keynote', id: 409183694
-mas 'iMovie', id: 408981434
 mas 'Microsoft Remote Desktop', id: 715768417
-mas 'VOX', id: 461369673
 mas 'TheHub', id: 819619479
-mas 'OneDrive', id: 823766827
 mas 'Flycut', id: 442160987
 mas 'Converto', id: 576421334
-mas 'CCMenu', id: 603117688
 mas 'Pages', id: 409201541
 mas 'GarageBand', id: 682658836
-mas 'Numbers', id: 409203825
 mas 'Simplenote', id: 692867256
 mas 'Gestimer', id: 990588172
