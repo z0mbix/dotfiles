@@ -70,9 +70,9 @@ set wildignore+=*.luac                                   " Lua byte code
 set wildignore+=migrations                               " Django migrations
 set wildignore+=*.pyc                                    " Python byte code
 
-let mapleader=","                                " The <leader> key
+let mapleader=","                                        " The <leader> key
 
-filetype off                                     " required for vundle
+filetype off                                             " required for vundle
 
 if empty(glob('~/.vim/autoload/plug.vim'))
 	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -83,21 +83,24 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " Language plugins
+Plug 'ekalinin/Dockerfile.vim', {'for' : 'Dockerfile'}
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'empanda/vim-varnish', { 'for': 'varnish' }
 Plug 'evanmiller/nginx-vim-syntax', {'for': 'nginx' }
-Plug 'groenewege/vim-less'
-Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'z0mbix/vim-terraform-snippets'
-Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
+Plug 'fatih/vim-nginx' , {'for' : 'nginx'}
+Plug 'groenewege/vim-less'
 Plug 'hashivim/vim-packer'
+Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 Plug 'pearofducks/ansible-vim'
-" Plug 'phenomenes/ansible-snippets'
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
+Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+Plug 'z0mbix/vim-terraform-snippets'
+" Plug 'phenomenes/ansible-snippets'
 
 " Other plugins
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'Shougo/neocomplete.vim'
@@ -136,7 +139,7 @@ Plug 'mileszs/ack.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'rking/ag.vim'
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
 Plug 'sheerun/vim-polyglot'
 Plug 'soramugi/auto-ctags.vim'
@@ -159,11 +162,11 @@ call plug#end()
 " Set colour after vim-colorschemes
 set background=dark
 let g:rehash256 = 1
-let g:molokai_original = 1
 if (has("termguicolors"))
 	set termguicolors
 endif
 color onedark
+syntax on
 
 set t_ut=
 
@@ -242,15 +245,6 @@ cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
 
-" Startify
-" Make Startify work with NERDTree
-autocmd VimEnter *
-	\   if !argc()
-	\ |   Startify
-	\ |   NERDTree
-	\ |   wincmd w
-	\ | endif
-
 " ansible-vim
 let g:ansible_extra_keywords_highlight = 1
 let g:ansible_attribute_highlight = "ob"
@@ -304,7 +298,7 @@ imap <expr><TAB>
   \ neosnippet#expandable_or_jumpable() ?
   \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-  \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+	\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " For conceal markers.
 if has('conceal')
@@ -413,12 +407,18 @@ autocmd BufWritePre * :%s/\s\+$//e
 " automatically reload vimrc when it's saved
 autocmd BufWritePost .vimrc source $HOME/.vimrc
 
-" Quit NERDTree when last file closed
-autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
+" Startify
+" Make Startify work with NERDTree
+" autocmd VimEnter *
+" 	\   if !argc()
+" 	\ |   Startify
+" 	\ |   NERDTree
+" 	\ |   wincmd w
+" 	\ | endif
 
 " Open NERDTree automatically when vim starts up if no file is specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " Auto refresh NERDTree on focus
 " autocmd WinEnter * if exists('b:NERDTree') | execute 'normal R' | endif
@@ -434,6 +434,9 @@ function! s:CloseIfOnlyNerdTreeLeft()
 		endif
 	endif
 endfunction
+
+" Quit NERDTree when last file closed
+autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 
 augroup ps_nerdtree
 	au!
@@ -482,7 +485,7 @@ let g:NERDTreeExtensionHighlightColor['tfvars'] = s:lightPurple " sets the color
 let g:NERDTreeExtensionHighlightColor['md'] = s:salmon " sets the color of css files to blue
 
 " YouCompleteMe
-let g:ycm_auto_trigger = 1
+" let g:ycm_auto_trigger = 1
 
 " vim-go
 " au Filetype go nnoremap <leader>v :vsp <CR>:exe "GoDef" <CR>
@@ -510,11 +513,6 @@ vnoremap Q gq
 
 " Keep the cursor in place while joining lines
 nnoremap J mzJ`z
-
-" Switch syntax highlighting on, when the terminal has colors
-if &t_Co > 2 || has("gui_running")
-	syntax on
-endif
 
 " Highlight statusbar
 hi statusline ctermbg=white ctermfg=magenta
@@ -548,14 +546,6 @@ let g:syntastic_sh_shellcheck_args='--exclude=SC2086
 let g:syntastic_enable_signs = 1
 let g:syntastic_error_symbol = '✖︎'
 let g:terraform_fmt_on_save = 1
-
-" Fix common typos
-iab teh the
-iab Teh The
-
-if !exists("g:vdebug_options")
-	let g:vdebug_options = {}
-endif
 
 " vim-go
 let g:go_fmt_command = "goimports"
@@ -683,7 +673,7 @@ nmap <leader>' :set list!<CR>
 
 " NERDTree mappings
 nmap <leader>n :NERDTreeToggle<CR>
-nmap § :NERDTreeToggle<CR>  " Macs
+nmap § :NERDTreeToggle<CR> " Macs
 nmap ` :NERDTreeToggle<CR> " Non-Macs
 
 " Remove ^M from file
@@ -711,10 +701,10 @@ map <leader>p "*p
 noremap <silent><leader>/ :nohlsearch<cr>
 
 " Easy window resizing
-nnoremap <Tab><Right> :vertical resize +5<CR>
-nnoremap <Tab><Left> :vertical resize -5<CR>
-nnoremap <Tab><Up> :res +5<CR>
-nnoremap <Tab><Down> :res -5<CR>
+nnoremap <Tab><Left> :vertical resize +5<CR>
+nnoremap <Tab><Right> :vertical resize -5<CR>
+nnoremap <Tab><Down> :res +5<CR>
+nnoremap <Tab><Up> :res -5<CR>
 
 " CtrlP
 nnoremap <silent> <leader>o :CtrlP<CR>
@@ -745,7 +735,7 @@ cmap w!! %!sudo tee > /dev/null %
 " autocmd FileType * nested :call tagbar#autoopen(0)
 
 " Auto run ctags on file save
-let g:auto_ctags = 1
+" let g:auto_ctags = 1
 
 let g:tagbar_compact = 1
 
