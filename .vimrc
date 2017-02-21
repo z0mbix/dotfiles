@@ -60,14 +60,12 @@ set wildmode=list:longest,full                           " Wildcard matches show
 set wildignore+=.git,.hg,.svn                            " Ignore version control repos
 set wildignore+=*.6                                      " Ignore Go compiled files
 set wildignore+=.hg,.git,.svn                            " Version control
-set wildignore+=*.aux,*.out,*.toc                        " LaTeX intermediate files
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg           " binary images
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest         " compiled object files
 set wildignore+=*.spl                                    " compiled spelling word lists
 set wildignore+=*.sw?                                    " Vim swap files
 set wildignore+=*.DS_Store                               " OSX bullshit
 set wildignore+=*.luac                                   " Lua byte code
-set wildignore+=migrations                               " Django migrations
 set wildignore+=*.pyc                                    " Python byte code
 
 let mapleader=","                                        " The <leader> key
@@ -93,11 +91,11 @@ Plug 'fatih/vim-nginx' , {'for' : 'nginx'}
 Plug 'groenewege/vim-less'
 Plug 'hashivim/vim-packer'
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
-Plug 'pearofducks/ansible-vim'
+Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
-Plug 'z0mbix/vim-terraform-snippets'
-" Plug 'phenomenes/ansible-snippets'
+Plug 'z0mbix/vim-terraform-snippets', { 'for': 'terraform' }
+Plug 'phenomenes/ansible-snippets', { 'for': 'ansible' }
 
 " Other plugins
 Plug 'AndrewRadev/splitjoin.vim'
@@ -158,7 +156,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'unblevable/quick-scope'
 Plug 'wincent/ferret'
-
 call plug#end()
 
 " Set colour after vim-colorschemes
@@ -173,32 +170,34 @@ syntax on
 set t_ut=
 
 if has("gui_running")
-  if has("gui_gtk2")
-    set guifont=Hack\ 9
-  elseif has("gui_win32")
-    set guifont=Hack\ 9
-  elseif has("gui_macvim")
-    " set guifont=Hack:h12
-    set guifont=Sauce\ Code\ Powerline:h12
-    " set fullscreen
-  elseif has("gui_vimr")
-    " set guifont=Hack:h12
-    set guifont=Sauce\ Code\ Powerline:h12
-    " set fullscreen
-  endif
-endif
-
-" Time out on key codes but not mappings.
-" Basically this makes terminal Vim work sanely.
-if !has('gui_running')
-  set notimeout
-  set ttimeout
-  set ttimeoutlen=10
-  augroup FastEscape
-    autocmd!
-    au InsertEnter * set timeoutlen=0
-    au InsertLeave * set timeoutlen=1000
-  augroup END
+	" let g:qs_first_occurrence_highlight_color = '#afff5f' " gui vim
+	" let g:qs_second_occurrence_highlight_color = '#5fffff'  " gui vim
+	if has("gui_gtk2")
+		set guifont=Hack\ 9
+	elseif has("gui_win32")
+		set guifont=Hack\ 9
+	elseif has("gui_macvim")
+		" set guifont=Hack:h12
+		set guifont=Sauce\ Code\ Powerline:h12
+		" set fullscreen
+	elseif has("gui_vimr")
+		" set guifont=Hack:h12
+		set guifont=Sauce\ Code\ Powerline:h12
+		" set fullscreen
+	endif
+else
+	" Time out on key codes but not mappings.
+	" Basically this makes terminal Vim work sanely.
+	set notimeout
+	set ttimeout
+	set ttimeoutlen=10
+	augroup FastEscape
+		autocmd!
+		au InsertEnter * set timeoutlen=0
+		au InsertLeave * set timeoutlen=1000
+	augroup END
+	" let g:qs_first_occurrence_highlight_color = 155 " terminal vim
+	" let g:qs_second_occurrence_highlight_color = 81 " terminal vim
 endif
 
 set guioptions=
@@ -223,9 +222,6 @@ au BufNewFile,BufRead *.php set ft=php
 au FileType php set ts=4 sw=4 tw=79 et sts=4 smartindent
 let php_sql_query=1
 let php_htmlInStrings=1
-
-" Perl
-let perl_extended_vars=1
 
 " Python
 au BufNewFile,BufRead .py set ft=python
@@ -264,6 +260,9 @@ cnoreabbrev Q q
 let g:ansible_extra_keywords_highlight = 1
 let g:ansible_attribute_highlight = "ob"
 
+" ansible-snippets
+let g:neosnippet#snippets_directory='~/.vim/plugged/ansible-snippets/snippets'
+
 " simple separators for buffer list
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
@@ -290,9 +289,7 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
-  " return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  " For no inserting <CR> key.
-  return pumvisible() ? "\<C-y>" : "\<CR>"
+	return pumvisible() ? "\<C-y>" : "\<CR>"
 endfunction
 
 " <TAB>: completion.
@@ -309,9 +306,9 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ neosnippet#expandable_or_jumpable() ?
-  \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+	\ pumvisible() ? "\<C-n>" :
+	\ neosnippet#expandable_or_jumpable() ?
+	\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 	\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
@@ -344,6 +341,12 @@ nmap <C-F>S <Plug>CtrlSFPrompt
 " ferret - find word under cursor
 nmap <leader>f <Plug>(FerretAckWord)
 nmap <leader>F <Plug>(FerretLack)
+
+" Refill the default register with what was just pasted
+xnoremap p pgvy
+
+" Make Y consistent with D
+nnoremap Y y$
 
 " Atom style Comments
 nmap <D-/> gcc
