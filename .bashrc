@@ -43,9 +43,9 @@ export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
 export HISTFILESIZE=50000
 export HISTSIZE=50000
 export LESS="-niSRX"
-export OS=`uname -s`
-export UNISONLOCALHOSTNAME=`hostname -s`
-export GOPATH="$HOME/repos/go"
+export OS=$(uname -s)
+export UNISONLOCALHOSTNAME=$(hostname -s)
+export GOPATH="$HOME"
 
 export AWS_DEFAULT_REGION=eu-west-1
 
@@ -54,10 +54,10 @@ export ANSIBLE_NOCOWS=1
 bind '"\M-d": backward-kill-word'
 
 # Enable color support of ls and also add handy aliases
-[ -x /usr/bin/dircolors ] && eval "`dircolors -b`"
+[ -x /usr/bin/dircolors ] && eval "$(dircolors -b)"
 
 # Set Standard PATH
-PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$HOME/bin
+PATH=/usr/local/bin:/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$HOME/bin
 
 # Append to the history file, don't overwrite it
 shopt -s histappend
@@ -82,9 +82,7 @@ if [ ! -z "$SSH_AUTH_SOCK" -a "$SSH_AUTH_SOCK" != "$HOME/.ssh/agent_sock" ] ; th
     export SSH_AUTH_SOCK="$HOME/.ssh/agent_sock"
 fi
 
-if [ -f ~/.git-prompt.sh ]; then
-  source ~/.git-prompt.sh
-fi
+[ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
 
 # Set badass prompt
 case $(hostname -s) in
@@ -105,23 +103,11 @@ PS1=${norm}'['${green}'\@'${norm}'] ('${HOSTCOLOUR}'$HOSTNAME'${norm}') '${yello
 # Syncthing bin
 [ -d ~/Sync/bin/$OS ] && PATH=$PATH:~/Sync/bin/$OS
 
-# Ruby gems?
-[ -d ~/.gem/ruby/1.8/bin ] && PATH=$PATH:~/.gem/ruby/1.8/bin
-[ -d /var/lib/gems/1.8/bin ] && PATH=$PATH:/var/lib/gems/1.8/bin
-[ -d ~/.gem/ruby/1.9/bin ] && PATH=$PATH:~/.gem/ruby/1.9/bin
-[ -d /var/lib/gems/1.9/bin ] && PATH=$PATH:/var/lib/gems/1.9/bin
-
-# Heroku Toolbelt?
-[ -d /usr/local/heroku/bin ] && PATH=$PATH:/usr/local/heroku/bin
-
 # Go bins?
 [ -d $GOPATH/bin ] && PATH=$PATH:$GOPATH/bin
 
 # RVM?
 [ -f ~/.rvm/scripts/rvm ] && . ~/.rvm/scripts/rvm
-
-# chruby
-[ -f /usr/local/opt/chruby/share/chruby/chruby.sh ] && source /usr/local/opt/chruby/share/chruby/chruby.sh
 
 # /opt/local/{bin,sbin}?
 [ -d /opt/local/bin ] && PATH=$PATH:/opt/local/bin:/opt/local/sbin
@@ -163,6 +149,7 @@ fi
 # fzf (https://github.com/junegunn/fzf)
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# https://direnv.net/
 which direnv >/dev/null && eval "$(direnv hook bash)"
 
 # Enable command/file completion with sudo
@@ -170,4 +157,3 @@ complete -f -c sudo
 
 # Export important envirnoment variables
 export TERM PATH PROMPT_COMMAND PROMPT_TIME PS1 GOPATH
-
