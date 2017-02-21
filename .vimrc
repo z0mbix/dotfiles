@@ -83,7 +83,8 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " Language plugins
-Plug 'ekalinin/Dockerfile.vim', {'for' : 'Dockerfile'}
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'ekalinin/Dockerfile.vim', { 'for' : 'Dockerfile' }
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'empanda/vim-varnish', { 'for': 'varnish' }
 Plug 'evanmiller/nginx-vim-syntax', {'for': 'nginx' }
@@ -127,8 +128,8 @@ Plug 'henrik/vim-reveal-in-finder'
 Plug 'honza/vim-snippets'
 Plug 'jdkanani/vim-material-theme'
 Plug 'joshdick/onedark.vim'
-Plug 'junegunn/vim-after-object'
 Plug 'junegunn/fzf'
+Plug 'junegunn/vim-after-object'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
 Plug 'kien/ctrlp.vim'
@@ -155,6 +156,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'unblevable/quick-scope'
 Plug 'wincent/ferret'
 
 call plug#end()
@@ -184,6 +186,19 @@ if has("gui_running")
     set guifont=Sauce\ Code\ Powerline:h12
     " set fullscreen
   endif
+endif
+
+" Time out on key codes but not mappings.
+" Basically this makes terminal Vim work sanely.
+if !has('gui_running')
+  set notimeout
+  set ttimeout
+  set ttimeoutlen=10
+  augroup FastEscape
+    autocmd!
+    au InsertEnter * set timeoutlen=0
+    au InsertLeave * set timeoutlen=1000
+  augroup END
 endif
 
 set guioptions=
@@ -315,7 +330,7 @@ endfunction
 
 function! Multiple_cursors_after()
 	if exists(':NeoCompleteUnlock')==2
-		exe 'NeoCompleteock'
+		exe 'NeoCompleteUnlock'
 	endif
 endfunction
 
