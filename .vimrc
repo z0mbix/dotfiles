@@ -305,6 +305,20 @@ if has('conceal')
 	set conceallevel=2 concealcursor=niv
 endif
 
+
+" Make vim-multiple-cursors play nicely with neocomplete
+function! Multiple_cursors_before()
+	if exists(':NeoCompleteLock')==2
+		exe 'NeoCompleteLock'
+	endif
+endfunction
+
+function! Multiple_cursors_after()
+	if exists(':NeoCompleteUnlock')==2
+		exe 'NeoCompleteock'
+	endif
+endfunction
+
 " CtrlSF
 let g:ctrlsf_ignore_dir = ['tags', 'npm_modules']
 
