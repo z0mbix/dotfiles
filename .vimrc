@@ -100,6 +100,7 @@ Plug 'phenomenes/ansible-snippets', { 'for': 'ansible' }
 " Other plugins
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'FooSoft/vim-argwrap'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'Shougo/neocomplete.vim'
@@ -130,7 +131,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/vim-after-object'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'majutsushi/tagbar'
 Plug 'mhinz/vim-startify'
 Plug 'michaeljsmith/vim-indent-object'
@@ -330,6 +331,9 @@ function! Multiple_cursors_after()
 		exe 'NeoCompleteUnlock'
 	endif
 endfunction
+
+" ArgWrap
+nnoremap <leader>A :silent ArgWrap<CR>
 
 " CtrlSF
 let g:ctrlsf_ignore_dir = ['tags', 'npm_modules']
@@ -746,6 +750,11 @@ nnoremap <silent> <leader>l :CtrlPLine<cr>
 nnoremap <silent> <leader>m :CtrlPMRUFiles<CR>
 nnoremap <silent> <leader>B :TagbarToggle<CR>
 nnoremap <silent> ; :CtrlPBuffer<CR>
+let g:ctrlp_custom_ignore = {
+	\ 'dir':  '\v[\/]\.(git|hg|svn|pip_download_cache|wheel_cache)$',
+	\ 'file': '\v\.(png|jpg|jpeg|gif|DS_Store|pyc)$',
+	\ 'link': '',
+	\ }
 
 " Hop to start/end of line
 inoremap <c-a> <esc>I
