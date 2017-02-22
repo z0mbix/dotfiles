@@ -1,4 +1,7 @@
-TAB: menu-complete
+Tab: menu-complete
+"\e[Z": "\e-1\C-i"
+"\e\C-d": possible-completions
+"\e\C-l": complete
 
 set input-meta on
 set convert-meta off
@@ -9,6 +12,7 @@ set visible-stats on
 set skip-completed-text on
 set bell-style none
 set completion-ignore-case on
+set match-hidden-files off
 
 # Fix backspace/end etc. on FreeBSD
 "\e[1~": beginning-of-line
@@ -25,3 +29,6 @@ set completion-ignore-case on
 "\e[C": forward-char
 "\e[D": backward-char
 
+$if Bash
+  Space: magic-space
+$endif
