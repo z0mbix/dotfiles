@@ -157,6 +157,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'unblevable/quick-scope'
 Plug 'wincent/ferret'
+
 call plug#end()
 
 " Set colour after vim-colorschemes
@@ -171,20 +172,15 @@ syntax on
 set t_ut=
 
 if has("gui_running")
-	" let g:qs_first_occurrence_highlight_color = '#afff5f' " gui vim
-	" let g:qs_second_occurrence_highlight_color = '#5fffff'  " gui vim
 	if has("gui_gtk2")
 		set guifont=Hack\ 9
 	elseif has("gui_win32")
 		set guifont=Hack\ 9
 	elseif has("gui_macvim")
-		" set guifont=Hack:h12
 		set guifont=Sauce\ Code\ Powerline:h12
 		" set fullscreen
 	elseif has("gui_vimr")
-		" set guifont=Hack:h12
 		set guifont=Sauce\ Code\ Powerline:h12
-		" set fullscreen
 	endif
 else
 	" Time out on key codes but not mappings.
@@ -197,8 +193,6 @@ else
 		au InsertEnter * set timeoutlen=0
 		au InsertLeave * set timeoutlen=1000
 	augroup END
-	" let g:qs_first_occurrence_highlight_color = 155 " terminal vim
-	" let g:qs_second_occurrence_highlight_color = 81 " terminal vim
 endif
 
 set guioptions=
@@ -540,9 +534,6 @@ let g:go_textobj_include_function_doc = 0
 nnoremap <leader>r :silent !ranger %:h<cr>:redraw!<cr>
 nnoremap <leader>R :silent !ranger<cr>:redraw!<cr>
 
-" Uppercase previous word with Ctrl+u
-inoremap <C-u> <esc>mzgUiw`za
-
 " Formatting, TextMate-style
 nnoremap Q gqip
 vnoremap Q gq
@@ -662,6 +653,9 @@ if has('gui_macvim')
 	nmap <D-]> >>
 	vmap <D-[> <gv
 	vmap <D-]> >gv
+
+	" Duplicate line with Cmd+d
+	nmap <D-d> yyp
 endif
 
 " Remove annoying F1 help
@@ -669,6 +663,7 @@ inoremap <F1> <nop>
 nnoremap <F1> <nop>
 vnoremap <F1> <nop>
 
+" Split window
 nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <leader>s <C-w>s<C-w>l
 
@@ -776,7 +771,9 @@ cmap w!! %!sudo tee > /dev/null %
 " autocmd FileType * nested :call tagbar#autoopen(0)
 
 " Auto run ctags on file save
-" let g:auto_ctags = 1
+if !empty(glob(".ctags"))
+	let g:auto_ctags = 1
+endif
 
 let g:tagbar_compact = 1
 
