@@ -88,7 +88,7 @@ Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'empanda/vim-varnish', { 'for': 'varnish' }
 Plug 'evanmiller/nginx-vim-syntax', {'for': 'nginx' }
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'fatih/vim-nginx' , {'for' : 'nginx'}
+Plug 'fatih/vim-nginx', {'for' : 'nginx'}
 Plug 'groenewege/vim-less'
 Plug 'hashivim/vim-packer'
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
@@ -102,7 +102,6 @@ Plug 'phenomenes/ansible-snippets', { 'for': 'ansible' }
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'FooSoft/vim-argwrap'
-Plug 'Lokaltog/vim-easymotion'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/neosnippet'
@@ -130,7 +129,6 @@ Plug 'honza/vim-snippets'
 Plug 'jdkanani/vim-material-theme'
 Plug 'jiangmiao/auto-pairs'
 Plug 'joshdick/onedark.vim'
-Plug 'junegunn/fzf'
 Plug 'junegunn/vim-after-object'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
@@ -157,8 +155,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'unblevable/quick-scope'
 Plug 'wincent/ferret'
+Plug 'rhysd/clever-f.vim'
 
 call plug#end()
 
@@ -267,6 +265,10 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#bufferline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#syntastic#enabled = 1
+
+" clever-f
+let g:clever_f_mark_char = 1
+let g:clever_f_mark_char_color = "Type" " yellow from onedark theme
 
 " Stop bufferline from echoing to command bar (vim-bufferline)
 let g:bufferline_echo = 0
