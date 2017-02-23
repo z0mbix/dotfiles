@@ -244,7 +244,7 @@ au VimResized * :wincmd =
 " vim-after-object - e.g. ca= / da= etc.
 autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
 
-" Abbreviations
+" abbreviations
 inoreabbrev teh the
 cnoreabbrev Wq wq
 cnoreabbrev WQ wq
@@ -267,6 +267,7 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#syntastic#enabled = 1
 
 " clever-f
+let g:clever_f_timeout_ms = 2000
 let g:clever_f_mark_char = 1
 let g:clever_f_mark_char_color = "Type" " yellow from onedark theme
 
@@ -315,7 +316,6 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
 	set conceallevel=2 concealcursor=niv
 endif
-
 
 " Make vim-multiple-cursors play nicely with neocomplete
 function! Multiple_cursors_before()
