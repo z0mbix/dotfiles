@@ -67,6 +67,7 @@ set wildignore+=*.sw?                                    " Vim swap files
 set wildignore+=*.DS_Store                               " OSX bullshit
 set wildignore+=*.luac                                   " Lua byte code
 set wildignore+=*.pyc                                    " Python byte code
+setlocal cryptmethod=blowfish2                           " Use blowfish2 for encryption"
 
 let mapleader=","                                        " The <leader> key
 
