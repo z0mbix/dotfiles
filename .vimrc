@@ -93,10 +93,10 @@ Plug 'groenewege/vim-less'
 Plug 'hashivim/vim-packer'
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
+Plug 'phenomenes/ansible-snippets', { 'for': 'ansible' }
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'z0mbix/vim-terraform-snippets', { 'for': 'terraform' }
-Plug 'phenomenes/ansible-snippets', { 'for': 'ansible' }
 
 " Other plugins
 Plug 'AndrewRadev/splitjoin.vim'
@@ -111,8 +111,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'amiorin/vim-project'
 Plug 'bling/vim-airline'
 Plug 'bling/vim-bufferline'
-Plug 'chriskempson/base16-vim'
-Plug 'christophermca/meta5'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'danro/rename.vim'
 Plug 'dougireton/vim-chef'
@@ -120,13 +118,10 @@ Plug 'duff/vim-bufonly'
 Plug 'dyng/ctrlsf.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'enricobacis/vim-airline-clock'
-Plug 'flazz/vim-colorschemes'
 Plug 'garbas/vim-snipmate'
-Plug 'gosukiwi/vim-atom-dark'
 Plug 'gregsexton/gitv'
 Plug 'henrik/vim-reveal-in-finder'
 Plug 'honza/vim-snippets'
-Plug 'jdkanani/vim-material-theme'
 Plug 'jiangmiao/auto-pairs'
 Plug 'joshdick/onedark.vim'
 Plug 'junegunn/vim-after-object'
@@ -138,10 +133,11 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'mileszs/ack.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'rbgrouleff/bclose.vim'
+Plug 'rhysd/clever-f.vim'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
@@ -155,8 +151,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'wellle/targets.vim'
 Plug 'wincent/ferret'
-Plug 'rhysd/clever-f.vim'
 
 call plug#end()
 
