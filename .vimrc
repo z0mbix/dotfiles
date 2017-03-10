@@ -153,6 +153,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'wellle/targets.vim'
 Plug 'wincent/ferret'
+Plug 'tweekmonster/startuptime.vim'
 
 call plug#end()
 
@@ -703,9 +704,9 @@ vmap <leader>T: :Tabularize /:\zs<CR>
 nmap <leader>' :set list!<CR>
 
 " NERDTree mappings
-nmap <leader>n :NERDTreeToggle<CR>
-nmap § :NERDTreeToggle<CR> " Macs
-nmap ` :NERDTreeToggle<CR> " Non-Macs
+nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap § :NERDTreeToggle<CR> " Macs
+nnoremap ` :NERDTreeToggle<CR> " Non-Macs
 
 " Remove ^M from file
 map <leader>M :%s/^M//<CR>
