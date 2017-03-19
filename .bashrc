@@ -100,6 +100,9 @@ PS1=${norm}'['${green}'\@'${norm}'] ('${HOSTCOLOUR}'$HOSTNAME'${norm}') '${yello
 # Home directory bin?
 [ -d ~/bin ] && PATH=$PATH:~/bin
 
+# Dropbox bin
+[ -d ~/Dropbox/bin/$OS ] && PATH=$PATH:~/Dropbox/bin/$OS
+
 # Syncthing bin
 [ -d ~/Sync/bin/$OS ] && PATH=$PATH:~/Sync/bin/$OS
 

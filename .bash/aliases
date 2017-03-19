@@ -47,6 +47,7 @@ alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3'
 alias weather='clear; curl http://wttr.in/'
 alias mockproxy='mockserver -logLevel INFO -proxyPort 8080'
 alias tmux='TERM=screen-256color tmux'
+alias planetrock="mplayer 'http://tx.sharp-stream.com/icecast.php?i=planetrock.mp3'"
 
 # I cannot live without this, so this allow me to quickly copy a pastable HEREDOC on to new hosts :)
 alias copyinputrc='echo -e "cat > ~/.inputrc <<EOF $(echo; cat ~/.inputrc)\nEOF\nbind -f ~/.inputrc" | pbcopy'

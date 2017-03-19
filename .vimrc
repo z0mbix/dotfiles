@@ -1,3 +1,5 @@
+" vim:foldmethod=marker:foldlevel=0
+" Settings {{{
 scriptencoding utf-8
 set encoding=utf-8                                       " default to utf-8
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n      " dope statusline
@@ -69,10 +71,60 @@ set wildignore+=*.luac                                   " Lua byte code
 set wildignore+=*.pyc                                    " Python byte code
 setlocal cryptmethod=blowfish2                           " Use blowfish2 for encryption"
 
+" undofile - This allows you to use undos after exiting and restarting
+" This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
+" :help undo-persistence
+" This is only present in 7.3+
+if exists("+undofile")
+	if isdirectory($HOME . '/.vim/undo') == 0
+		:silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+	endif
+	set undodir=./.vim-undo//
+	set undodir+=~/.vim/undo//
+	set undofile
+endif
+
+" Set title string and push it to xterm/screen window title
+set titlestring=vim\ %<%F%(\ %)%m%h%w%=%l/%L-%P
+set titlelen=70
+if &term == "screen"
+	set t_ts=k
+	set t_fs=\
+endif
+if &term == "screen" || &term == "xterm"
+	set title
+endif
+
+if has("gui_running")
+	set guioptions=
+	if has("gui_gtk2")
+		set guifont=Hack\ 9
+	elseif has("gui_win32")
+		set guifont=Hack\ 9
+	elseif has("gui_macvim")
+		set guifont=Sauce\ Code\ Powerline:h12
+		" set fullscreen
+	elseif has("gui_vimr")
+		set guifont=Sauce\ Code\ Powerline:h12
+	endif
+else
+	" Time out on key codes but not mappings.
+	" Basically this makes terminal Vim work sanely.
+	set notimeout
+	set ttimeout
+	set ttimeoutlen=10
+	augroup FastEscape
+		autocmd!
+		au InsertEnter * set timeoutlen=0
+		au InsertLeave * set timeoutlen=1000
+	augroup END
+endif
+
 let mapleader=","                                        " The <leader> key
+" }}}
 
-filetype off                                             " required for vundle
-
+" Plugins {{{
+" Auto install vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
 	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
 		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -137,7 +189,6 @@ Plug 'rhysd/clever-f.vim'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
-" Plug 'sheerun/vim-polyglot'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
@@ -151,12 +202,15 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'tweekmonster/startuptime.vim'
+Plug 'vim-scripts/scratch.vim'
 Plug 'wellle/targets.vim'
 Plug 'wincent/ferret'
-Plug 'tweekmonster/startuptime.vim'
 
 call plug#end()
+" }}}
 
+" Colours/Theme {{{
 " Set colour after vim-colorschemes
 set background=dark
 let g:rehash256 = 1
@@ -165,89 +219,98 @@ if (has("termguicolors"))
 endif
 color onedark
 syntax on
-
 set t_ut=
+" }}}
 
-if has("gui_running")
-	if has("gui_gtk2")
-		set guifont=Hack\ 9
-	elseif has("gui_win32")
-		set guifont=Hack\ 9
-	elseif has("gui_macvim")
-		set guifont=Sauce\ Code\ Powerline:h12
-		" set fullscreen
-	elseif has("gui_vimr")
-		set guifont=Sauce\ Code\ Powerline:h12
-	endif
-else
-	" Time out on key codes but not mappings.
-	" Basically this makes terminal Vim work sanely.
-	set notimeout
-	set ttimeout
-	set ttimeoutlen=10
-	augroup FastEscape
-		autocmd!
-		au InsertEnter * set timeoutlen=0
-		au InsertLeave * set timeoutlen=1000
-	augroup END
-endif
+" Auto Commands {{{
+" Highlight line if in insert mode
+autocmd InsertEnter * set cursorline
+autocmd InsertLeave * set nocursorline
 
-set guioptions=
-filetype plugin indent on
+" git commit messages
+autocmd FileType gitcommit set textwidth=72
+autocmd FileType gitcommit set colorcolumn=73
 
-" .rc are shell files
-au BufNewFile,BufRead *.rc,*.sh set ft=sh
-au FileType sh set ts=2 sw=2 et smartindent
+" Shell files
+autocmd BufNewFile,BufRead *.rc,*.sh set ft=sh
+autocmd FileType sh set ts=2 sw=2 et smartindent
 
-" Ruby - what tabs?
-au BufNewFile,BufRead *.rake,*.mab,*.ru set ft=ruby
-au BufNewFile,BufRead *.erb set ft=eruby
-au BufNewFile,BufRead *.rub set ft=eruby
-au BufNewFile,BufRead .irbrc,.pryrc,Capfile,Gemfile,Rakefile,Vagrantfile,Puppetfile set ft=ruby
-au FileType ruby,eruby set ts=2 sw=2 tw=79 et sts=2 smartindent
-
-" Prefer # comments for terraform
-au FileType terraform setlocal commentstring=#\ %s
+" Ruby
+autocmd BufNewFile,BufRead *.rake,*.mab,*.ru set ft=ruby
+autocmd BufNewFile,BufRead *.erb set ft=eruby
+autocmd BufNewFile,BufRead *.rub set ft=eruby
+autocmd BufNewFile,BufRead .irbrc,.pryrc,Capfile,Gemfile,Rakefile,Vagrantfile,Puppetfile set ft=ruby
+autocmd FileType ruby,eruby set ts=2 sw=2 tw=79 et sts=2 smartindent
 
 " PHP
-au BufNewFile,BufRead *.php set ft=php
-au FileType php set ts=4 sw=4 tw=79 et sts=4 smartindent
+autocmd BufNewFile,BufRead *.php set ft=php
+autocmd FileType php set ts=4 sw=4 tw=79 et sts=4 smartindent
 let php_sql_query=1
 let php_htmlInStrings=1
 
 " Python
-au BufNewFile,BufRead .py set ft=python
-au FileType python set ts=4 sw=4 tw=79 et sts=4 smartindent
-au FileType python map <buffer> <F7> :call Autopep8()<CR>
+autocmd BufNewFile,BufRead .py set ft=python
+autocmd FileType python set ts=4 sw=4 tw=79 et sts=4 smartindent
+autocmd FileType python map <buffer> <F7> :call Autopep8()<CR>
 let g:autopep8_disable_show_diff=1
 
 " JavaScript
-au BufNewFile,BufRead *.js set ft=javascript
-au FileType javascript set ts=2 sw=2 tw=79 et sts=2 smartindent
+autocmd BufNewFile,BufRead *.js set ft=javascript
+autocmd FileType javascript set ts=2 sw=2 tw=79 et sts=2 smartindent
 
 " JSON
 let g:vim_json_syntax_conceal = 0
 
 " The Jenkinsfile
-au BufNewFile,BufRead Jenkinsfile set ft=groovy
+autocmd BufNewFile,BufRead Jenkinsfile set ft=groovy
 
 " nginx
-au BufRead,BufNewFile */etc/nginx/* set ft=nginx ts=4 sw=4 sts=4 et smartindent
+autocmd BufRead,BufNewFile */etc/nginx/* set ft=nginx ts=4 sw=4 sts=4 et smartindent
 autocmd FileType nginx set commentstring=#\ %s
 
+" Puppet
+autocmd BufRead,BufNewFile *.pp set ft=puppet
+autocmd FileType puppet set ts=2 sw=2 tw=79 et sts=2 smartindent
+autocmd FileType puppet set commentstring=#\ %s
+
+" Yum repos
+autocmd BufRead,BufNewFile *.repo set ft=yum
+
+" Source code gets wrapped at <80
+autocmd FileType asm,javascript,php,html,perl,c,cpp set tw=79 autoindent
+
+" Makefiles and c have tabstops at 8 for portability
+autocmd FileType make,c,cpp set ts=8 sw=8
+
+" When editing a file, always jump to the last cursor position
+autocmd BufReadPost *
+\ if line("'\"") > 0 && line ("'\"") <= line("$") |
+\   exe "normal! g'\"" |
+\ endif
+
+" Clear whitespace at the end of lines automatically
+autocmd BufWritePre * :%s/\s\+$//e
+
+" Automatically reload vimrc when it's saved
+autocmd BufWritePost .vimrc source $HOME/.vimrc
+
 " Resize splits when the window is resized
-au VimResized * :wincmd =
+autocmd VimResized * :wincmd =
 
 " vim-after-object - e.g. ca= / da= etc.
 autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
+" }}}
 
+" Abbreviations {{{
 " abbreviations
 inoreabbrev teh the
 cnoreabbrev Wq wq
 cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
+" }}}
 
+" Variables {{{
 " ansible-vim
 let g:ansible_extra_keywords_highlight = 1
 let g:ansible_attribute_highlight = "ob"
@@ -270,16 +333,18 @@ let g:clever_f_mark_char_color = "Type" " yellow from onedark theme
 
 " Stop bufferline from echoing to command bar (vim-bufferline)
 let g:bufferline_echo = 0
+" }}}
 
-" " Disable AutoComplPop.
+" Neocomplete/Neosnippet {{{
+" Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
-" " Use neocomplete.
+" Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
-" " Use smartcase.
+" Use smartcase.
 let g:neocomplete#enable_smart_case = 1
-" " Enable snipMate compatibility feature.
+" Enable snipMate compatibility feature.
 let g:neosnippet#enable_snipmate_compatibility = 1
-" " Set minimum syntax keyword length.
+" Set minimum syntax keyword length.
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
@@ -326,21 +391,13 @@ function! Multiple_cursors_after()
 		exe 'NeoCompleteUnlock'
 	endif
 endfunction
+" }}}
 
-" ArgWrap
+" ArgWrap {{{
 nnoremap <leader>A :silent ArgWrap<CR>
+" }}}
 
-" CtrlSF
-let g:ctrlsf_ignore_dir = ['tags', 'npm_modules']
-
-nmap <C-F>s <Plug>CtrlSFCwordExec
-vmap <C-F>s <Plug>CtrlSFVwordExec
-nmap <C-F>S <Plug>CtrlSFPrompt
-
-" ferret - find word under cursor
-nmap <leader>f <Plug>(FerretAckWord)
-nmap <leader>F <Plug>(FerretLack)
-
+" Mappings {{{
 " Refill the default register with what was just pasted
 xnoremap p pgvy
 
@@ -367,16 +424,6 @@ nnoremap <S-Tab>e :bp<CR>
 " Bclose
 nnoremap <leader>x :Bclose<CR>
 nnoremap <leader>X :Bclose!<CR>
-
-" vim-expand-region
-call expand_region#custom_text_objects({
-	\ "\/\\n\\n\<CR>": 1,
-	\ 'a]' :1,
-	\ 'ab' :1,
-	\ 'aB' :1,
-	\ 'ii' :0,
-	\ 'ai' :0,
-	\ })
 
 " :)
 map q: :q
@@ -409,128 +456,6 @@ nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gb :Gblame<CR>
 
-" Indent Guides
-" let g:indent_guides_enable_on_vim_startup = 1
-
-" Puppet
-au BufRead,BufNewFile *.pp set ft=puppet
-au FileType puppet set ts=2 sw=2 tw=79 et sts=2 smartindent
-autocmd FileType puppet set commentstring=#\ %s
-
-" Yum repos
-au BufRead,BufNewFile *.repo set ft=yum
-
-" source code gets wrapped at <80
-au FileType asm,javascript,php,html,perl,c,cpp set tw=79 autoindent
-
-" makefiles and c have tabstops at 8 for portability
-au FileType make,c,cpp set ts=8 sw=8
-
-" When editing a file, always jump to the last cursor position
-autocmd BufReadPost *
-\ if line("'\"") > 0 && line ("'\"") <= line("$") |
-\   exe "normal! g'\"" |
-\ endif
-
-" Clear whitespace at the end of lines automatically
-autocmd BufWritePre * :%s/\s\+$//e
-
-" automatically reload vimrc when it's saved
-autocmd BufWritePost .vimrc source $HOME/.vimrc
-
-" Startify
-" Make Startify work with NERDTree
-" autocmd VimEnter *
-" 	\   if !argc()
-" 	\ |   Startify
-" 	\ |   NERDTree
-" 	\ |   wincmd w
-" 	\ | endif
-
-" Open NERDTree automatically when vim starts up if no file is specified
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-" Auto refresh NERDTree on focus
-" autocmd WinEnter * if exists('b:NERDTree') | execute 'normal R' | endif
-
-" Close all open buffers on entering a window if the only
-" buffer that's left is the NERDTree buffer
-function! s:CloseIfOnlyNerdTreeLeft()
-	if exists("t:NERDTreeBufName")
-		if bufwinnr(t:NERDTreeBufName) != -1
-			if winnr("$") == 1
-				q
-			endif
-		endif
-	endif
-endfunction
-
-" Quit NERDTree when last file closed
-autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
-
-augroup ps_nerdtree
-	au!
-	au Filetype nerdtree setlocal nolist
-	au Filetype nerdtree nnoremap <buffer> H :vertical resize -10<cr>
-	au Filetype nerdtree nnoremap <buffer> L :vertical resize +10<cr>
-augroup END
-
-let NERDTreeHighlightCursorline = 1
-" let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index',
-"                     \ 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json',
-"                     \ '.*\.o$', 'db.db', 'tags.bak', '.*\.pdf$', '.*\.mid$',
-"                     \ '.*\.midi$']
-
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeFileExtensionHighlightFullName = 1
-let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
-let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
-let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
-let g:NERDTreeAutoDeleteBuffer = 1
-
-let s:brown = "905532"
-let s:aqua =  "3AFFDB"
-let s:blue = "58A4D7"
-let s:darkBlue = "2980B9"
-let s:purple = "A852D0"
-let s:lightPurple = "B97AD7"
-let s:red = "AE403F"
-let s:beige = "F5C06F"
-let s:yellow = "F09F17"
-let s:orange = "D4843E"
-let s:darkOrange = "F16529"
-let s:pink = "CB6F6F"
-let s:salmon = "EE6E73"
-let s:green = "8FAA54"
-let s:lightGreen = "31B53E"
-let s:white = "FFFFFF"
-let s:rspec_red = 'FE405F'
-let s:git_orange = 'F54D27'
-
-let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreeExtensionHighlightColor['yml'] = s:blue " sets the color of css files to blue
-let g:NERDTreeExtensionHighlightColor['tf'] = s:lightPurple " sets the color of css files to blue
-let g:NERDTreeExtensionHighlightColor['tfvars'] = s:lightPurple " sets the color of css files to blue
-let g:NERDTreeExtensionHighlightColor['md'] = s:salmon " sets the color of css files to blue
-
-" YouCompleteMe
-" let g:ycm_auto_trigger = 1
-
-" vim-go
-" au Filetype go nnoremap <leader>v :vsp <CR>:exe "GoDef" <CR>
-" au Filetype go nnoremap <leader>s :sp <CR>:exe "GoDef"<CR>
-" au Filetype go nnoremap <leader>t :tab split <CR>:exe "GoDef"<CR>
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_textobj_include_function_doc = 0
-
 " Ranger
 nnoremap <leader>r :silent !ranger %:h<cr>:redraw!<cr>
 nnoremap <leader>R :silent !ranger<cr>:redraw!<cr>
@@ -541,108 +466,6 @@ vnoremap Q gq
 
 " Keep the cursor in place while joining lines
 nnoremap J mzJ`z
-
-" Highlight statusbar
-hi statusline ctermbg=white ctermfg=magenta
-hi statuslinenc ctermbg=gray ctermfg=darkgray
-
-" Highlight line if in insert mode
-au InsertEnter * set cursorline
-au InsertLeave * set nocursorline
-
-" Don't pollute directories with swap files, keep them in one place
-silent !mkdir -p ~/.vim/{backup,swap,cache}/
-set backupdir=~/.vim/backup//
-set directory=~/.vim/swap//
-
-" Puppet stuff
-let g:syntastic_puppet_puppetlint_args='--no-80chars-check
-	\ --no-autoloader_layout-check
-	\ --no-quoted_booleans-check
-	\ --no-class_inherits_from_params_class-check'
-
-let g:syntastic_eruby_ruby_quiet_messages =
-	\ {'regex': 'possibly useless use of a variable in void context'}
-
-" Exclude some annoying shellcheck checks
-let g:syntastic_sh_shellcheck_args='--exclude=SC2086
-	\ --exclude=SC2068'
-
-" let g:syntastic_yaml_checkers = ['js-yaml']
-" let g:syntastic_terraform_checkers = ['terraform validate']
-" let g:syntastic_check_on_open = 1
-let g:syntastic_enable_signs = 1
-let g:syntastic_error_symbol = '✖︎'
-let g:terraform_fmt_on_save = 1
-
-" vim-go
-let g:go_fmt_command = "goimports"
-let g:go_autodetect_gopath = 1
-let g:go_list_type = "quickfix"
-
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_generate_tags = 1
-
-" Open :GoDeclsDir with ctrl-g
-nmap <C-g> :GoDeclsDir<cr>
-imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
-
-" vim-go
-" Taken from https://github.com/fatih/vim-go-tutorial/blob/master/vimrc
-augroup go
-	autocmd!
-	" Show by default 4 spaces for a tab
-	autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
-	" :GoBuild and :GoTestCompile
-	autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-	" :GoTest
-	autocmd FileType go nmap <leader>t  <Plug>(go-test)
-	" :GoRun
-	autocmd FileType go nmap <leader>r  <Plug>(go-run)
-	" :GoDoc
-	autocmd FileType go nmap <Leader>d <Plug>(go-doc)
-	" :GoCoverageToggle
-	autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
-	" :GoInfo
-	autocmd FileType go nmap <Leader>i <Plug>(go-info)
-	" :GoMetaLinter
-	autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
-	" :GoDef but opens in a vertical split
-	autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
-	" :GoDef but opens in a horizontal split
-	autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
-	" :GoAlternate  commands :A, :AV, :AS and :AT
-	autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-	autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-	autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-	autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-augroup END
-
-" build_go_files is a custom function that builds or compiles the test file.
-" It calls :GoBuild if its a Go file, or :GoTestCompile if it's a test file
-function! s:build_go_files()
-	let l:file = expand('%')
-	if l:file =~# '^\f\+_test\.go$'
-		call go#cmd#Test(0, 1)
-	elseif l:file =~# '^\f\+\.go$'
-		call go#cmd#Build(0)
-	endif
-endfunction
-
-" Set title string and push it to xterm/screen window title
-set titlestring=vim\ %<%F%(\ %)%m%h%w%=%l/%L-%P
-set titlelen=70
-if &term == "screen"
-	set t_ts=k
-	set t_fs=\
-endif
-if &term == "screen" || &term == "xterm"
-	set title
-endif
 
 if has('gui_macvim')
 	"  switch OSX windows with swipes
@@ -738,7 +561,215 @@ nnoremap <Tab><Right> :vertical resize -5<CR>
 nnoremap <Tab><Down> :res +5<CR>
 nnoremap <Tab><Up> :res -5<CR>
 
-" CtrlP
+" Hop to start/end of line
+inoremap <c-a> <esc>I
+inoremap <c-e> <esc>A
+cnoremap <c-a> <home>
+cnoremap <c-e> <end>
+
+" Space to toggle folds.
+nnoremap <Space> za
+vnoremap <Space> za
+
+" Command to write as root if we don't have permission
+cmap w!! %!sudo tee > /dev/null %
+" }}}
+
+" vim-expand-region {{{
+call expand_region#custom_text_objects({
+	\ "\/\\n\\n\<CR>": 1,
+	\ 'a]' :1,
+	\ 'ab' :1,
+	\ 'aB' :1,
+	\ 'ii' :0,
+	\ 'ai' :0,
+	\ })
+
+" Startify
+" Make Startify work with NERDTree
+" autocmd VimEnter *
+" 	\   if !argc()
+" 	\ |   Startify
+" 	\ |   NERDTree
+" 	\ |   wincmd w
+" 	\ | endif
+" }}}
+
+" Ferret {{{
+" find word under cursor
+nmap <leader>f <Plug>(FerretAckWord)
+" enter word to find
+nmap <leader>F <Plug>(FerretLack)
+" }}}
+
+" CtrlSF {{{
+let g:ctrlsf_ignore_dir = ['tags', 'npm_modules']
+
+nmap <C-F>s <Plug>CtrlSFCwordExec
+vmap <C-F>s <Plug>CtrlSFVwordExec
+nmap <C-F>S <Plug>CtrlSFPrompt
+" }}}
+
+" NERDTree {{{
+" Open NERDTree automatically when vim starts up if no file is specified
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" Auto refresh NERDTree on focus
+" autocmd WinEnter * if exists('b:NERDTree') | execute 'normal R' | endif
+
+" Close all open buffers on entering a window if the only
+" buffer that's left is the NERDTree buffer
+function! s:CloseIfOnlyNerdTreeLeft()
+	if exists("t:NERDTreeBufName")
+		if bufwinnr(t:NERDTreeBufName) != -1
+			if winnr("$") == 1
+				q
+			endif
+		endif
+	endif
+endfunction
+
+" Quit NERDTree when last file closed
+autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
+
+augroup ps_nerdtree
+	au!
+	au Filetype nerdtree setlocal nolist
+	au Filetype nerdtree nnoremap <buffer> H :vertical resize -10<cr>
+	au Filetype nerdtree nnoremap <buffer> L :vertical resize +10<cr>
+augroup END
+
+let NERDTreeHighlightCursorline = 1
+" let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index',
+"                     \ 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json',
+"                     \ '.*\.o$', 'db.db', 'tags.bak', '.*\.pdf$', '.*\.mid$',
+"                     \ '.*\.midi$']
+
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeFileExtensionHighlightFullName = 1
+let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
+let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
+let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
+let g:NERDTreeAutoDeleteBuffer = 1
+
+let s:brown = "905532"
+let s:aqua =  "3AFFDB"
+let s:blue = "58A4D7"
+let s:darkBlue = "2980B9"
+let s:purple = "A852D0"
+let s:lightPurple = "B97AD7"
+let s:red = "AE403F"
+let s:beige = "F5C06F"
+let s:yellow = "F09F17"
+let s:orange = "D4843E"
+let s:darkOrange = "F16529"
+let s:pink = "CB6F6F"
+let s:salmon = "EE6E73"
+let s:green = "8FAA54"
+let s:lightGreen = "31B53E"
+let s:white = "FFFFFF"
+let s:rspec_red = 'FE405F'
+let s:git_orange = 'F54D27'
+
+let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
+let g:NERDTreeExtensionHighlightColor['yml'] = s:blue " sets the color of css files to blue
+let g:NERDTreeExtensionHighlightColor['tf'] = s:lightPurple " sets the color of css files to blue
+let g:NERDTreeExtensionHighlightColor['tfvars'] = s:lightPurple " sets the color of css files to blue
+let g:NERDTreeExtensionHighlightColor['md'] = s:salmon " sets the color of css files to blue
+" }}}
+
+" syntastic {{{
+" Puppet stuff
+let g:syntastic_puppet_puppetlint_args='--no-80chars-check
+	\ --no-autoloader_layout-check
+	\ --no-quoted_booleans-check
+	\ --no-class_inherits_from_params_class-check'
+
+let g:syntastic_eruby_ruby_quiet_messages =
+	\ {'regex': 'possibly useless use of a variable in void context'}
+
+" Exclude some annoying shellcheck checks
+let g:syntastic_sh_shellcheck_args='--exclude=SC2086
+	\ --exclude=SC2068'
+
+" let g:syntastic_yaml_checkers = ['js-yaml']
+" let g:syntastic_terraform_checkers = ['terraform validate']
+" let g:syntastic_check_on_open = 1
+let g:syntastic_enable_signs = 1
+let g:syntastic_error_symbol = '✖︎'
+let g:terraform_fmt_on_save = 1
+" }}}
+
+" vim-go {{{
+" Taken from https://github.com/fatih/vim-go-tutorial/blob/master/vimrc
+let g:go_fmt_command = "goimports"
+let g:go_autodetect_gopath = 1
+let g:go_list_type = "quickfix"
+
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_textobj_include_function_doc = 0
+
+" au Filetype go nnoremap <leader>v :vsp <CR>:exe "GoDef" <CR>
+" au Filetype go nnoremap <leader>s :sp <CR>:exe "GoDef"<CR>
+" au Filetype go nnoremap <leader>t :tab split <CR>:exe "GoDef"<CR>
+
+
+" Open :GoDeclsDir with ctrl-g
+nmap <C-g> :GoDeclsDir<cr>
+imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
+
+augroup go
+	autocmd!
+	" Show by default 4 spaces for a tab
+	autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+	" :GoBuild and :GoTestCompile
+	autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+	" :GoTest
+	autocmd FileType go nmap <leader>t  <Plug>(go-test)
+	" :GoRun
+	autocmd FileType go nmap <leader>r  <Plug>(go-run)
+	" :GoDoc
+	autocmd FileType go nmap <Leader>d <Plug>(go-doc)
+	" :GoCoverageToggle
+	autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+	" :GoInfo
+	autocmd FileType go nmap <Leader>i <Plug>(go-info)
+	" :GoMetaLinter
+	autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
+	" :GoDef but opens in a vertical split
+	autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
+	" :GoDef but opens in a horizontal split
+	autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
+	" :GoAlternate  commands :A, :AV, :AS and :AT
+	autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+	autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+	autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+	autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+augroup END
+
+" build_go_files is a custom function that builds or compiles the test file.
+" It calls :GoBuild if its a Go file, or :GoTestCompile if it's a test file
+function! s:build_go_files()
+	let l:file = expand('%')
+	if l:file =~# '^\f\+_test\.go$'
+		call go#cmd#Test(0, 1)
+	elseif l:file =~# '^\f\+\.go$'
+		call go#cmd#Build(0)
+	endif
+endfunction
+" }}}
+
+" CtrlP {{{
 nnoremap <silent> <leader>o :CtrlP<CR>
 nnoremap <silent> <leader>t :CtrlPTag<cr>
 nnoremap <silent> <leader>b :CtrlPBuffer<cr>
@@ -751,21 +782,9 @@ let g:ctrlp_custom_ignore = {
 	\ 'file': '\v\.(png|jpg|jpeg|gif|DS_Store|pyc)$',
 	\ 'link': '',
 	\ }
+" }}}
 
-" Hop to start/end of line
-inoremap <c-a> <esc>I
-inoremap <c-e> <esc>A
-cnoremap <c-a> <home>
-cnoremap <c-e> <end>
-
-" Space to toggle folds.
-nnoremap <Space> za
-vnoremap <Space> za
-"
-" Command to write as root if we don't have permission
-cmap w!! %!sudo tee > /dev/null %
-
-" ctags/tagbar
+" ctags {{{
 " nnoremap <leader>f :ta<space>
 
 " Auto open the TagBar when file is supported
@@ -821,21 +840,11 @@ let g:tagbar_type_markdown = {
 	\ 'k:Heading_L3'
 	\ ]
 	\ }
+" }}}
 
-" undofile - This allows you to use undos after exiting and restarting
-" This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
-" :help undo-persistence
-" This is only present in 7.3+
-if exists("+undofile")
-	if isdirectory($HOME . '/.vim/undo') == 0
-		:silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
-	endif
-	set undodir=./.vim-undo//
-	set undodir+=~/.vim/undo//
-	set undofile
-endif
-
+" Source Files {{{
 " Stuff I don't want up on github
 if filereadable(glob("~/.vim/private"))
 	source ~/.vim/private
 endif
+" }}}
