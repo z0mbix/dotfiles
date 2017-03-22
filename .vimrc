@@ -144,6 +144,7 @@ Plug 'fatih/vim-nginx', {'for' : 'nginx'}
 Plug 'groenewege/vim-less'
 Plug 'hashivim/vim-packer'
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
+Plug 'ngmy/vim-rubocop', { 'for': 'ruby' }
 Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
 Plug 'phenomenes/ansible-snippets', { 'for': 'ansible' }
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
@@ -681,6 +682,11 @@ let g:NERDTreeExtensionHighlightColor['md'] = s:salmon " sets the color of css f
 " }}}
 
 " syntastic {{{
+" let g:syntastic_check_on_open = 1
+let g:syntastic_enable_signs = 1
+let g:syntastic_error_symbol = '✖︎'
+let g:terraform_fmt_on_save = 1
+
 " Puppet stuff
 let g:syntastic_puppet_puppetlint_args='--no-80chars-check
 	\ --no-autoloader_layout-check
@@ -694,12 +700,8 @@ let g:syntastic_eruby_ruby_quiet_messages =
 let g:syntastic_sh_shellcheck_args='--exclude=SC2086
 	\ --exclude=SC2068'
 
-" let g:syntastic_yaml_checkers = ['js-yaml']
-" let g:syntastic_terraform_checkers = ['terraform validate']
-" let g:syntastic_check_on_open = 1
-let g:syntastic_enable_signs = 1
-let g:syntastic_error_symbol = '✖︎'
-let g:terraform_fmt_on_save = 1
+" Use rubocop for ruby
+let g:syntastic_ruby_checkers = ['rubocop']
 " }}}
 
 " vim-go {{{
