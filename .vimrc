@@ -150,6 +150,7 @@ Plug 'phenomenes/ansible-snippets', { 'for': 'ansible' }
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'z0mbix/vim-terraform-snippets', { 'for': 'terraform' }
+Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
 
 " Other plugins
 Plug 'AndrewRadev/splitjoin.vim'
@@ -178,6 +179,8 @@ Plug 'henrik/vim-reveal-in-finder'
 Plug 'honza/vim-snippets'
 Plug 'jiangmiao/auto-pairs'
 Plug 'joshdick/onedark.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-after-object'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
@@ -301,6 +304,8 @@ autocmd VimResized * :wincmd =
 
 " vim-after-object - e.g. ca= / da= etc.
 autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
+
+" autocmd BufWritePre *.sh :Shfmt
 " }}}
 
 " Abbreviations {{{
@@ -335,6 +340,9 @@ let g:clever_f_mark_char_color = "Type" " yellow from onedark theme
 
 " Stop bufferline from echoing to command bar (vim-bufferline)
 let g:bufferline_echo = 0
+
+" Always use two space indentation for shell scripts
+let g:vimshfmt_extra_args = '-i 2'
 " }}}
 
 " Neocomplete/Neosnippet {{{
@@ -557,11 +565,11 @@ map <leader>p "*p
 " Clear search highlighting
 noremap <silent><leader>/ :nohlsearch<cr>
 
-" Easy window resizing
-nnoremap <Tab><Left> :vertical resize +5<CR>
-nnoremap <Tab><Right> :vertical resize -5<CR>
-nnoremap <Tab><Down> :res +5<CR>
-nnoremap <Tab><Up> :res -5<CR>
+" " Easy window resizing
+" nnoremap <Tab><Left> :vertical resize +5<CR>
+" nnoremap <Tab><Right> :vertical resize -5<CR>
+" nnoremap <Tab><Down> :res +5<CR>
+" nnoremap <Tab><Up> :res -5<CR>
 
 " Hop to start/end of line
 inoremap <c-a> <esc>I
@@ -703,6 +711,7 @@ let g:syntastic_sh_shellcheck_args='--exclude=SC2086
 
 " Use rubocop for ruby
 let g:syntastic_ruby_checkers = ['rubocop']
+
 " }}}
 
 " vim-go {{{
@@ -780,11 +789,22 @@ nnoremap <silent> <leader>l :CtrlPLine<cr>
 nnoremap <silent> <leader>m :CtrlPMRUFiles<CR>
 nnoremap <silent> <leader>B :TagbarToggle<CR>
 nnoremap <silent> ; :CtrlPBuffer<CR>
+
 let g:ctrlp_custom_ignore = {
 	\ 'dir':  '\v[\/]\.(git|hg|svn|pip_download_cache|wheel_cache)$',
 	\ 'file': '\v\.(png|jpg|jpeg|gif|DS_Store|pyc)$',
 	\ 'link': '',
 	\ }
+
+if executable('ag')
+	set grepprg=ag\ --nogroup\ --nocolor
+	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+	let g:ctrlp_use_caching = 0
+endif
+
+if argc() == 0
+    autocmd vimenter * CtrlP
+endif
 " }}}
 
 " ctags {{{
