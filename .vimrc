@@ -20,7 +20,7 @@ set autoindent                                           " auto indent new lines
 set linebreak                                            " enable linebreaks
 set showbreak=>>                                         " what to put infront of linebreaks
 set breakindent                                          " preserve horizontal blocks
-set formatoptions+=j                                     " remove comments when joining lines
+set formatoptions+=j formatoptions-=or                   " remove comments when joining lines
 set nostartofline                                        " keep cursor in same column
 set history=200                                          " set command and search history
 set noerrorbells                                         " don't annoy me
@@ -169,6 +169,7 @@ Plug 'chr4/sslsecure.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'danro/rename.vim'
 Plug 'dougireton/vim-chef'
+Plug 'dracula/vim'
 Plug 'duff/vim-bufonly'
 Plug 'dyng/ctrlsf.vim'
 Plug 'editorconfig/editorconfig-vim'
@@ -314,7 +315,7 @@ inoreabbrev teh the
 cnoreabbrev Wq wq
 cnoreabbrev WQ wq
 cnoreabbrev W w
-cnoreabbrev Q q
+cnoreabbrev Q ccl<cr>
 " }}}
 
 " Variables {{{
