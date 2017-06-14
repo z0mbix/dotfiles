@@ -315,7 +315,7 @@ inoreabbrev teh the
 cnoreabbrev Wq wq
 cnoreabbrev WQ wq
 cnoreabbrev W w
-cnoreabbrev Q ccl<cr>
+cnoreabbrev Q q
 " }}}
 
 " Variables {{{
@@ -803,9 +803,13 @@ if executable('ag')
 	let g:ctrlp_use_caching = 0
 endif
 
+" Open CtrlP if no file specified unless in home directory
 if argc() == 0
-    autocmd vimenter * CtrlP
+	if getcwd() != expand('~')
+		autocmd vimenter * CtrlP
+	endif
 endif
+
 " }}}
 
 " ctags {{{
