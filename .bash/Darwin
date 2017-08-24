@@ -14,7 +14,7 @@
 # Homebrew bash completion
 [ -f /usr/local/Library/Contributions/brew_bash_completion.sh ] && . /usr/local/Library/Contributions/brew_bash_completion.sh
 
-export HOMEBREW_INSTALL_BADGE=🎃
+export HOMEBREW_INSTALL_BADGE=📦
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 # User installed pip
@@ -41,6 +41,7 @@ alias gvim='mvim'
 alias c='osascript -e "set Volume 1000"; mpg321 -q ~/Dropbox/Documents/Sounds/countdown.mp3'
 alias ddh='osascript -e "set Volume 1000"; mpg321 -q ~/Dropbox/Documents/Sounds/double-dream-hands.mp3'
 alias pw='pwgen -sy -N1 32 | tr -d "\n" | pbcopy && echo "Password copied to clipboard"'
+alias myip="ifconfig en0 | grep 'inet ' | awk '{print \$2}'"
 
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 alias update-all-software='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm update npm -g; npm update -g; sudo gem update --system; sudo gem update'

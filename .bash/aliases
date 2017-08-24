@@ -36,6 +36,7 @@ alias serve_cwd='python -m SimpleHTTPServer'
 alias cat_without_comments="grep -v -E '^$|^[[:blank:]]*#|^;|^[[:blank:]]*//|(/\*([^*]|(\*+[^*/]))*\*+/)|(//.*)' $1"
 alias pubkey="cat ~/.ssh/id_rsa.pub | pbcopy | printf 'Public key copied to pasteboard.\n'";
 alias external-ip="dig +short myip.opendns.com @resolver1.opendns.com" # Get external IP address
+alias public-ip='curl https://icanhazip.com/'
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 alias j='jobs'
 alias p8='ping 8.8.8.8'
@@ -48,6 +49,7 @@ alias weather='clear; curl http://wttr.in/'
 alias mockproxy='mockserver -logLevel INFO -proxyPort 8080'
 alias tmux='TERM=screen-256color tmux'
 alias planetrock="mplayer 'http://tx.sharp-stream.com/icecast.php?i=planetrock.mp3'"
+alias showpath="echo $PATH | tr ':' '\n' | nl"
 
 # I cannot live without this, so this allow me to quickly copy a pastable HEREDOC on to new hosts :)
 alias copyinputrc='echo -e "cat > ~/.inputrc <<EOF $(echo; cat ~/.inputrc)\nEOF\nbind -f ~/.inputrc" | pbcopy'
@@ -80,6 +82,19 @@ alias gl='git lg'
 alias gdlc='git diff-last-commit'
 alias gp='git pull'
 alias gbt='git branch-toggle'
+alias gnb='git checkout -b'
+
+alias kccv='kitchen create && kitchen converge && kitchen verify'
+alias kcr='kitchen create'
+alias kcon='kitchen converge'
+alias kv='kitchen verify'
+alias kl='kitchen login'
+alias kt='kitchen test'
+alias kd='kitchen destroy'
+
+alias proxyon='source ~/.bash/proxy'
+alias proxyoff='unset {HTTP,HTTPS,FTP}_PROXY {http,https,ftp}_proxy no_proxy NO_PROXY'
+alias proxystatus='env | grep -i proxy | sort'
 
 # Is vim installed?
 if [ -f $(which vim) ]; then

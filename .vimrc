@@ -135,11 +135,12 @@ call plug#begin('~/.vim/plugged')
 
 " Language plugins
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'dougireton/vim-chef'
 Plug 'ekalinin/Dockerfile.vim', { 'for' : 'Dockerfile' }
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'empanda/vim-varnish', { 'for': 'varnish' }
 Plug 'evanmiller/nginx-vim-syntax', {'for': 'nginx' }
-Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 Plug 'fatih/vim-nginx', {'for' : 'nginx'}
 Plug 'groenewege/vim-less'
 Plug 'hashivim/vim-packer'
@@ -149,8 +150,9 @@ Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
 Plug 'phenomenes/ansible-snippets', { 'for': 'ansible' }
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
-Plug 'z0mbix/vim-terraform-snippets', { 'for': 'terraform' }
+Plug 'vim-scripts/bats.vim'
 Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
+Plug 'z0mbix/vim-terraform-snippets', { 'for': 'terraform' }
 
 " Other plugins
 Plug 'AndrewRadev/splitjoin.vim'
@@ -160,19 +162,15 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'amiorin/vim-project'
 Plug 'bling/vim-airline'
-Plug 'bling/vim-bufferline'
-Plug 'chr4/sslsecure.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'danro/rename.vim'
 Plug 'dougireton/vim-chef'
 Plug 'dracula/vim'
 Plug 'duff/vim-bufonly'
 Plug 'dyng/ctrlsf.vim'
-Plug 'editorconfig/editorconfig-vim'
 Plug 'enricobacis/vim-airline-clock'
 Plug 'garbas/vim-snipmate'
 Plug 'gregsexton/gitv'
@@ -180,13 +178,11 @@ Plug 'henrik/vim-reveal-in-finder'
 Plug 'honza/vim-snippets'
 Plug 'jiangmiao/auto-pairs'
 Plug 'joshdick/onedark.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-after-object'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
 Plug 'majutsushi/tagbar'
-Plug 'mhinz/vim-startify'
+Plug 'markcornick/vim-kitchen'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'mileszs/ack.vim'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -208,6 +204,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'trevordmiller/nova-vim'
 Plug 'tweekmonster/startuptime.vim'
 Plug 'vim-scripts/scratch.vim'
 Plug 'wellle/targets.vim'
@@ -232,6 +229,10 @@ set t_ut=
 " Highlight line if in insert mode
 autocmd InsertEnter * set cursorline
 autocmd InsertLeave * set nocursorline
+
+" Use relative line numbers in normal mode
+autocmd InsertEnter * set number
+autocmd InsertLeave * set relativenumber
 
 " git commit messages
 autocmd FileType gitcommit set textwidth=72
@@ -266,6 +267,8 @@ autocmd FileType javascript set ts=2 sw=2 tw=79 et sts=2 smartindent
 
 " JSON
 let g:vim_json_syntax_conceal = 0
+autocmd BufNewFile,BufRead *.json,*.json.j2 set ft=json
+autocmd FileType json set ts=2 sw=2 et sts=2 smartindent
 
 " The Jenkinsfile
 autocmd BufNewFile,BufRead Jenkinsfile set ft=groovy
@@ -280,7 +283,7 @@ autocmd FileType puppet set ts=2 sw=2 tw=79 et sts=2 smartindent
 autocmd FileType puppet set commentstring=#\ %s
 
 " Yum repos
-autocmd BufRead,BufNewFile *.repo set ft=yum
+autocmd BufRead,BufNewFile *.repo,*.repo.j2 set ft=yum
 
 " Source code gets wrapped at <80
 autocmd FileType asm,javascript,php,html,perl,c,cpp set tw=79 autoindent
@@ -307,6 +310,7 @@ autocmd VimResized * :wincmd =
 autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
 
 " autocmd BufWritePre *.sh :Shfmt
+" autocmd FileType sh autocmd BufWritePre <buffer> Shfmt
 " }}}
 
 " Abbreviations {{{
@@ -330,9 +334,9 @@ let g:neosnippet#snippets_directory='~/.vim/plugged/ansible-snippets/snippets'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#bufferline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 1
 
 " clever-f
 let g:clever_f_timeout_ms = 2000
@@ -455,6 +459,16 @@ nnoremap N Nzzzv
 noremap H ^
 noremap L $
 vnoremap L g_
+
+map <Tab>1 :b1<cr>
+map <Tab>2 :b2<cr>
+map <Tab>3 :b3<cr>
+map <Tab>4 :b5<cr>
+map <Tab>5 :b5<cr>
+map <Tab>6 :b6<cr>
+map <Tab>7 :b7<cr>
+map <Tab>8 :b8<cr>
+map <Tab>9 :b9<cr>
 
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
