@@ -39,11 +39,13 @@
 	df = diff
 	dc = diff --cached
 	ds = diff --stat
+	prune = fetch --prune
 	sl = stash list
 	sa = stash apply
 	ss = stash save
 	sp = stash pop
 	sd = stash show --patch
+	stash-all = stash save --include-untracked§
 	lol = log --decorate --pretty=oneline --abbrev-commit
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	ls = ls-files
@@ -61,9 +63,12 @@
 	branch-toggle = checkout -
 	alias = !git config -l | grep ^alias | cut -c 7- | sort
 	pr = !"pr() { git fetch origin pull/$1/head:pr-$1; git checkout pr-$1; }; pr"
+	branch-diff = !"f() { git diff master $@; }; f"
+	branch-commit-diff = !"f() { git log --graph --abbrev-commit --date=relative master..$@; }; f"
 [advice]
 	statusHints = false
 [diff]
+	tool = icdiff
 	renames = copies
 	mnemonicprefix = true
 [merge]
@@ -74,9 +79,6 @@
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path =
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
 [credential]
 	helper = osxkeychain
 [help]

@@ -4,7 +4,7 @@ scriptencoding utf-8
 set encoding=utf-8                                       " default to utf-8
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n      " dope statusline
 set shortmess=atOI                                       " disable start-up message
-set number                                               " show line numbers
+set relativenumber                                       " show relative line numbers
 set ruler                                                " show line and column no
 set hidden                                               " hidden buffers?
 set showcmd                                              " show command in last line
@@ -102,10 +102,10 @@ if has("gui_running")
 	elseif has("gui_win32")
 		set guifont=Hack\ 9
 	elseif has("gui_macvim")
-		set guifont=Sauce\ Code\ Powerline:h12
+		set guifont=Source\ Code\ Pro\ for\ Powerline:h12
 		" set fullscreen
 	elseif has("gui_vimr")
-		set guifont=Sauce\ Code\ Powerline:h12
+		set guifont=Source\ Code\ Pro\ for\ Powerline:h12
 	endif
 else
 	" Time out on key codes but not mappings.
@@ -153,6 +153,8 @@ Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'vim-scripts/bats.vim'
 Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
 Plug 'z0mbix/vim-terraform-snippets', { 'for': 'terraform' }
+Plug 'vim-syntastic/syntastic'
+Plug 'juliosueiras/vim-terraform-completion'
 
 " Other plugins
 Plug 'AndrewRadev/splitjoin.vim'
@@ -190,7 +192,6 @@ Plug 'rbgrouleff/bclose.vim'
 Plug 'rhysd/clever-f.vim'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'scrooloose/syntastic'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
@@ -309,8 +310,13 @@ autocmd VimResized * :wincmd =
 " vim-after-object - e.g. ca= / da= etc.
 autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
 
-" autocmd BufWritePre *.sh :Shfmt
-" autocmd FileType sh autocmd BufWritePre <buffer> Shfmt
+fun! <SID>AutoMakeDirectory()
+    let s:directory = expand("<afile>:p:h")
+    if !isdirectory(s:directory)
+            call mkdir(s:directory, "p")
+    endif
+endfun
+autocmd BufWritePre,FileWritePre * :call <SID>AutoMakeDirectory()
 " }}}
 
 " Abbreviations {{{
@@ -347,7 +353,8 @@ let g:clever_f_mark_char_color = "Type" " yellow from onedark theme
 let g:bufferline_echo = 0
 
 " Always use two space indentation for shell scripts
-let g:vimshfmt_extra_args = '-i 2'
+let g:shfmt_extra_args = '-i 2'
+let g:shfmt_fmt_on_save = 1
 " }}}
 
 " Neocomplete/Neosnippet {{{
@@ -749,7 +756,6 @@ let g:go_textobj_include_function_doc = 0
 " au Filetype go nnoremap <leader>v :vsp <CR>:exe "GoDef" <CR>
 " au Filetype go nnoremap <leader>s :sp <CR>:exe "GoDef"<CR>
 " au Filetype go nnoremap <leader>t :tab split <CR>:exe "GoDef"<CR>
-
 
 " Open :GoDeclsDir with ctrl-g
 nmap <C-g> :GoDeclsDir<cr>
