@@ -4,7 +4,7 @@ scriptencoding utf-8
 set encoding=utf-8                                       " default to utf-8
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n      " dope statusline
 set shortmess=atOI                                       " disable start-up message
-set number                                               " show line numbers
+set relativenumber                                       " show relative line numbers
 set ruler                                                " show line and column no
 set hidden                                               " hidden buffers?
 set showcmd                                              " show command in last line
@@ -20,7 +20,7 @@ set autoindent                                           " auto indent new lines
 set linebreak                                            " enable linebreaks
 set showbreak=>>                                         " what to put infront of linebreaks
 set breakindent                                          " preserve horizontal blocks
-" set formatoptions+=j formatoptions-=or                   " remove comments when joining lines
+set formatoptions+=j formatoptions-=or                   " remove comments when joining lines
 set formatoptions+=j                                     " remove comments when joining lines
 set nostartofline                                        " keep cursor in same column
 set history=200                                          " set command and search history
@@ -102,26 +102,32 @@ augroup FastEscape
 	au InsertLeave * set timeoutlen=1000
 augroup END
 
-let mapleader=","                                        " The <leader> key
+let mapleader=" "
 " }}}
 
 " Plugins {{{
 " Auto install vim-plug
-if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-	silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+if has('nvim')
+	let s:plug_dir = '~/.local/share/nvim/plugged'
+	let s:plug_file = '~/.local/share/nvim/site/autoload/plug.vim'
+else
+	let s:plug_dir = '~/.vim/plugged'
+	let s:plug_file = '~/.vim/autoload/plug.vim'
+endif
+
+if empty(glob(s:plug_file))
+	silent !curl -fLo s:plug_file --create-dirs
 		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
-
-call plug#begin('~/.local/share/nvim/plugged')
+call plug#begin(s:plug_dir)
 
 " Language plugins
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'dougireton/vim-chef', { 'for': 'chef' }
 Plug 'ekalinin/Dockerfile.vim', { 'for' : 'Dockerfile' }
 Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'evanmiller/nginx-vim-syntax', {'for': 'nginx' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'fatih/vim-nginx', {'for' : 'nginx'}
 Plug 'hashivim/vim-packer'
@@ -130,9 +136,8 @@ Plug 'ngmy/vim-rubocop', { 'for': 'ruby' }
 Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
 Plug 'phenomenes/ansible-snippets', { 'for': 'ansible' }
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
-" Plug 'tpope/vim-markdown', { 'for': 'markdown' }
-" Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
-" Plug 'z0mbix/vim-terraform-snippets', { 'for': 'terraform' }
+Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
+Plug 'juliosueiras/vim-terraform-completion'
 
 " Other plugins
 Plug 'AndrewRadev/splitjoin.vim'
@@ -144,37 +149,41 @@ Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
-Plug 'amiorin/vim-project'
 Plug 'bling/vim-airline'
 Plug 'bling/vim-bufferline'
 Plug 'chr4/sslsecure.vim'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'danro/rename.vim'
-Plug 'dracula/vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'duff/vim-bufonly'
-Plug 'dyng/ctrlsf.vim'
+Plug 'easysid/mod8.vim'
 Plug 'enricobacis/vim-airline-clock'
+Plug 'ervandew/supertab'
 Plug 'garbas/vim-snipmate'
 Plug 'gregsexton/gitv'
 Plug 'henrik/vim-reveal-in-finder'
 Plug 'honza/vim-snippets'
 Plug 'jiangmiao/auto-pairs'
 Plug 'joshdick/onedark.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-after-object'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
+Plug 'kana/vim-submode'
 Plug 'majutsushi/tagbar'
+Plug 'mbbill/undotree'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'mileszs/ack.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'rhysd/clever-f.vim'
-Plug 'rking/ag.vim'
+Plug 'rhysd/vim-color-spring-night'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
+Plug 'sodapopcan/vim-twiggy'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'thaerkh/vim-workspace'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-commentary'
@@ -187,7 +196,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tweekmonster/startuptime.vim'
 Plug 'wellle/targets.vim'
-Plug 'wincent/ferret'
 
 call plug#end()
 " }}}
@@ -199,7 +207,7 @@ let g:rehash256 = 1
 if (has("termguicolors"))
 	set termguicolors
 endif
-color onedark
+color dracula
 syntax on
 set t_ut=
 " }}}
@@ -245,7 +253,12 @@ let g:vim_json_syntax_conceal = 0
 autocmd BufNewFile,BufRead *.json,*.json.j2 set ft=json
 autocmd FileType json set ts=2 sw=2 et sts=2 smartindent
 
+" YAML
+autocmd BufNewFile,BufRead *.yaml,*.yml.j2,*.yaml.j2,*.yml.j2 set ft=yaml
+autocmd FileType yaml set ts=2 sw=2 et sts=2 smartindent
+
 " The Jenkinsfile
+autocmd BufNewFile,BufRead *.Jenkinsfile set ft=groovy
 autocmd BufNewFile,BufRead Jenkinsfile set ft=groovy
 
 " nginx
@@ -276,13 +289,14 @@ autocmd BufReadPost *
 autocmd BufWritePre * :%s/\s\+$//e
 
 " Automatically reload vimrc when it's saved
-autocmd BufWritePost .vimrc source $HOME/.vimrc
+" autocmd BufWritePost .vimrc source $HOME/.vimrc
+autocmd BufWritePost init.vim source $HOME/.config/nvim/init.vim
 
 " Resize splits when the window is resized
 autocmd VimResized * :wincmd =
 
 " vim-after-object - e.g. ca= / da= etc.
-" autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
+autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
 
 " autocmd BufWritePre *.sh :Shfmt
 " }}}
@@ -324,7 +338,9 @@ let g:bufferline_echo = 0
 let g:vimshfmt_extra_args = '-i 2'
 " }}}
 
-" Neocomplete/Neosnippet {{{
+" Deoplete/Neocomplete/Neosnippet {{{
+" let g:deoplete#enable_at_startup = 1
+
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
@@ -387,6 +403,34 @@ nnoremap <leader>A :silent ArgWrap<CR>
 " }}}
 
 " Mappings {{{
+" Undotree
+nmap <Leader>u :UndotreeToggle<CR>
+
+" splitjoin
+let g:splitjoin_split_mapping = ''
+let g:splitjoin_join_mapping = ''
+nnoremap gss :SplitJoinSplit<CR>
+nnoremap gsj :SplitJoinJoin<CR>
+
+nmap     <Leader>gs :Gstatus<CR>gg<c-n>
+nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>gb :Gblame<CR>
+
+" Search for words
+nnoremap <silent> <Leader>fi /<C-R><C-W><CR>
+nnoremap <silent> <Leader>fw :Rg <C-R><C-W><CR>
+nnoremap <silent> <Leader>fW :Rg <C-R><C-A><CR>
+xnoremap <silent> <Leader>fw y:Rg <C-R>"<CR>
+
+" Insert lines above/below
+nnoremap <Leader>o o<esc>
+nnoremap <Leader>O O<esc>
+
+nnoremap <leader>q :cclose<bar>lclose<cr>
+
+" vim-workspaces toggle
+nnoremap <leader>ws :ToggleWorkspace<CR>
+
 " Refill the default register with what was just pasted
 xnoremap p pgvy
 
@@ -411,16 +455,34 @@ nnoremap <Tab>e :bn<CR>
 nnoremap <S-Tab>e :bp<CR>
 
 " Bclose
-nnoremap <leader>x :Bclose<CR>
-nnoremap <leader>X :Bclose!<CR>
+nnoremap <silent> <leader>x :Bclose<CR>
+nnoremap <silent> <leader>X :Bclose!<CR>
+nnoremap <silent> ,x :Bclose<CR>
+nnoremap <silent> ,X :Bclose!<CR>
+
+nnoremap <leader>v V
+
+" vim-submode
+let g:submode_timeout = 0          " disable submode timeouts:
+let g:submode_keep_leaving_key = 1 " don':w>t consume submode-leaving key
+call submode#enter_with('next/prev', 'n', '', '<Tab>l', ':bn<CR>')
+call submode#enter_with('next/prev', 'n', '', '<Tab>h', ':bp<CR>')
+call submode#map('next/prev', 'n', '', 'l', ':bn<CR>')
+call submode#map('next/prev', 'n', '', 'h', ':bp<CR>')
+
+" Split the current line at the cursor position and paste above
+" the current line
+nnoremap K DO<C-r>"<ESC>_
 
 " :)
 map q: :q
 
-" Run current buffer through jq back in to the same buffer
-map <leader>J :%!jq .<CR>
-" Run current file through jq to see if it parses successfully
-map <leader>j :!jq -M -c . % 2>&1 >/dev/null<CR>
+if executable('jq')
+	" Run current buffer through jq back in to the same buffer
+	map <leader>J :%!jq .<CR>
+	" Run current file through jq to see if it parses successfully
+	map <leader>j :!jq -M -c . % 2>&1 >/dev/null<CR>
+endif
 
 runtime macros/matchit.vim
 map <tab> %
@@ -444,10 +506,6 @@ nmap <leader>a <Plug>(EasyAlign)
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gb :Gblame<CR>
-
-" Ranger
-nnoremap <leader>r :silent !ranger %:h<cr>:redraw!<cr>
-nnoremap <leader>R :silent !ranger<cr>:redraw!<cr>
 
 " Formatting, TextMate-style
 nnoremap Q gqip
@@ -477,8 +535,8 @@ nnoremap <F1> <nop>
 vnoremap <F1> <nop>
 
 " Split window
-nnoremap <leader>w <C-w>v<C-w>l
-nnoremap <leader>s <C-w>s<C-w>l
+nnoremap <leader>sv <C-w>v<C-w>l
+nnoremap <leader>sh <C-w>s<C-w>l
 
 " Show registers
 " nnoremap <leader>r :registers<cr>
@@ -524,15 +582,15 @@ nnoremap ` :NERDTreeToggle<CR> " Non-Macs
 map <leader>M :%s/^M//<CR>
 
 " Bubble single lines
-" nmap <C-k> [e
-" nmap <C-j> ]e
+nmap <C-K> [e
+nmap <C-J> ]e
 
 " Bubble multiple lines
-vmap <C-k> [egv
-vmap <C-j> ]egv
+vmap <C-K> [egv
+vmap <C-J> ]egv
 
-" Open PWD in finder
-" nnoremap <leader>F :silent !open .<cr>
+" Show current file in finder
+nnoremap <leader>F :silent :Reveal<cr>
 
 " select all
 map <leader>a ggVG
@@ -557,8 +615,8 @@ cnoremap <c-a> <home>
 cnoremap <c-e> <end>
 
 " Space to toggle folds.
-nnoremap <Space> za
-vnoremap <Space> za
+nnoremap <Enter> za
+" vnoremap <Enter> za
 
 " Command to write as root if we don't have permission
 cmap w!! %!sudo tee > /dev/null %
@@ -573,30 +631,62 @@ call expand_region#custom_text_objects({
 	\ 'ii' :0,
 	\ 'ai' :0,
 	\ })
-
-" Startify
-" Make Startify work with NERDTree
-" autocmd VimEnter *
-" 	\   if !argc()
-" 	\ |   Startify
-" 	\ |   NERDTree
-" 	\ |   wincmd w
-" 	\ | endif
 " }}}
 
-" Ferret {{{
-" find word under cursor
-nmap <leader>f <Plug>(FerretAckWord)
-" enter word to find
-nmap <leader>F <Plug>(FerretLack)
-" }}}
+" {{{ fzf
+let g:fzf_layout = { 'down': '~20%' }
+let g:fzf_colors =
+	\ { 'fg':    ['fg', 'Normal'],
+	\ 'bg':      ['bg', 'Normal'],
+	\ 'hl':      ['fg', 'Comment'],
+	\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+	\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+	\ 'hl+':     ['fg', 'Statement'],
+	\ 'info':    ['fg', 'PreProc'],
+	\ 'border':  ['fg', 'Ignore'],
+	\ 'prompt':  ['fg', 'Conditional'],
+	\ 'pointer': ['fg', 'Exception'],
+	\ 'marker':  ['fg', 'Keyword'],
+	\ 'spinner': ['fg', 'Label'],
+	\ 'header':  ['fg', 'Comment'] }
 
-" CtrlSF {{{
-let g:ctrlsf_ignore_dir = ['tags', 'npm_modules']
+" Use ripgrep instead of ag:
+if executable('rq')
+	command! -bang -nargs=* Rg
+		\ call fzf#vim#grep(
+		\   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+		\   <bang>0 ? fzf#vim#with_preview('up:60%')
+		\           : fzf#vim#with_preview('right:50%:hidden', '?'),
+		\   <bang>0)
+endif
 
-nmap <C-F>s <Plug>CtrlSFCwordExec
-vmap <C-F>s <Plug>CtrlSFVwordExec
-nmap <C-F>S <Plug>CtrlSFPrompt
+nmap <c-p> :Files<CR>
+nmap <Leader><Space> :Files<CR>
+nmap <Leader>ff :Files<CR>
+nmap <Leader>fF :GFiles<CR>
+nmap <Leader>fb :Buffers<CR>
+nmap <Leader>fh :History<CR>
+nmap <Leader>ft :Filetypes<CR>
+nmap <Leader>fT :Tags<CR>
+nmap <Leader>fl :BLines<CR>
+nmap <Leader>fL :Lines<CR>
+nmap <Leader>fm :Marks<CR>
+nmap <Leader>fa :Rg<Space>
+nmap <Leader>fc :Colors<CR>
+nmap <Leader>f/ :History/<Space>
+
+nmap <Leader>w :update<CR>
+
+" Open fzf if vim opened without any args except in home dir
+if argc() == 0
+	if getcwd() != expand("~")
+		if isdirectory('.git')
+			autocmd vimenter * GFiles
+		else
+			autocmd vimenter * Files
+		endif
+	endif
+endif
 " }}}
 
 " NERDTree {{{
@@ -643,30 +733,30 @@ let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exac
 let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
 let g:NERDTreeAutoDeleteBuffer = 1
 
-let s:brown = "905532"
-let s:aqua =  "3AFFDB"
-let s:blue = "58A4D7"
-let s:darkBlue = "2980B9"
-let s:purple = "A852D0"
-let s:lightPurple = "B97AD7"
-let s:red = "AE403F"
-let s:beige = "F5C06F"
-let s:yellow = "F09F17"
-let s:orange = "D4843E"
-let s:darkOrange = "F16529"
-let s:pink = "CB6F6F"
-let s:salmon = "EE6E73"
-let s:green = "8FAA54"
-let s:lightGreen = "31B53E"
-let s:white = "FFFFFF"
-let s:rspec_red = 'FE405F'
-let s:git_orange = 'F54D27'
+" let s:brown = "905532"
+" let s:aqua =  "3AFFDB"
+" let s:blue = "58A4D7"
+" let s:darkBlue = "2980B9"
+" let s:purple = "A852D0"
+" let s:lightPurple = "B97AD7"
+" let s:red = "AE403F"
+" let s:beige = "F5C06F"
+" let s:yellow = "F09F17"
+" let s:orange = "D4843E"
+" let s:darkOrange = "F16529"
+" let s:pink = "CB6F6F"
+" let s:salmon = "EE6E73"
+" let s:green = "8FAA54"
+" let s:lightGreen = "31B53E"
+" let s:white = "FFFFFF"
+" let s:rspec_red = 'FE405F'
+" let s:git_orange = 'F54D27'
 
-let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreeExtensionHighlightColor['yml'] = s:blue " sets the color of css files to blue
-let g:NERDTreeExtensionHighlightColor['tf'] = s:lightPurple " sets the color of css files to blue
-let g:NERDTreeExtensionHighlightColor['tfvars'] = s:lightPurple " sets the color of css files to blue
-let g:NERDTreeExtensionHighlightColor['md'] = s:salmon " sets the color of css files to blue
+" let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
+" let g:NERDTreeExtensionHighlightColor['yml'] = s:blue " sets the color of css files to blue
+" let g:NERDTreeExtensionHighlightColor['tf'] = s:lightPurple " sets the color of css files to blue
+" let g:NERDTreeExtensionHighlightColor['tfvars'] = s:lightPurple " sets the color of css files to blue
+" let g:NERDTreeExtensionHighlightColor['md'] = s:salmon " sets the color of css files to blue
 " }}}
 
 " syntastic {{{
@@ -714,7 +804,6 @@ let g:go_textobj_include_function_doc = 0
 " au Filetype go nnoremap <leader>s :sp <CR>:exe "GoDef"<CR>
 " au Filetype go nnoremap <leader>t :tab split <CR>:exe "GoDef"<CR>
 
-
 " Open :GoDeclsDir with ctrl-g
 nmap <C-g> :GoDeclsDir<cr>
 imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
@@ -758,32 +847,6 @@ function! s:build_go_files()
 		call go#cmd#Build(0)
 	endif
 endfunction
-" }}}
-
-" CtrlP {{{
-nnoremap <silent> <leader>o :CtrlP<CR>
-nnoremap <silent> <leader>t :CtrlPTag<cr>
-nnoremap <silent> <leader>b :CtrlPBuffer<cr>
-nnoremap <silent> <leader>l :CtrlPLine<cr>
-nnoremap <silent> <leader>m :CtrlPMRUFiles<CR>
-nnoremap <silent> <leader>B :TagbarToggle<CR>
-nnoremap <silent> ; :CtrlPBuffer<CR>
-
-let g:ctrlp_custom_ignore = {
-	\ 'dir':  '\v[\/]\.(git|hg|svn|pip_download_cache|wheel_cache)$',
-	\ 'file': '\v\.(png|jpg|jpeg|gif|DS_Store|pyc)$',
-	\ 'link': '',
-	\ }
-
-if executable('ag')
-	set grepprg=ag\ --nogroup\ --nocolor
-	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-	let g:ctrlp_use_caching = 0
-endif
-
-if argc() == 0
-    autocmd vimenter * CtrlP
-endif
 " }}}
 
 " ctags {{{
@@ -842,6 +905,20 @@ let g:tagbar_type_markdown = {
 	\ 'k:Heading_L3'
 	\ ]
 	\ }
+" }}}
+
+" functions/commands {{{
+" :Root
+function! s:root()
+  let root = systemlist('git rev-parse --show-toplevel')[0]
+  if v:shell_error
+    echo 'Not in git repo'
+  else
+    execute 'lcd' root
+    echo 'Changed directory to: '.root
+  endif
+endfunction
+command! Root call s:root()
 " }}}
 
 " Source Files {{{

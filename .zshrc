@@ -1,93 +1,91 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+[ -f /usr/local/share/antigen/antigen.zsh ] && source /usr/local/share/antigen/antigen.zsh
+[ -f ~/.antigen.zsh ] && source ~/.antigen.zsh
 
-ZSH_THEME="z0mbix"
+antigen use oh-my-zsh
 
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
+bindkey -e
 
-# Comment this out to disable weekly auto-update checks
-DISABLE_AUTO_UPDATE="true"
+# bash style ctrl-w/u
+bindkey '^U' backward-kill-line
+bindkey '^W' backward-delete-word
+autoload -U select-word-style
+select-word-style bash
 
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
+antigen bundles <<EOB
+  aws
+  command-not-found
+  docker
+  dracula
+  git
+  git-extras
+  go
+  golang
+  man
+  osx
+  pip
+  python
+  ssh-agent
+  terraform
+  vagrant
+  web-search
+  zsh-users/zsh-syntax-highlighting
+EOB
 
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
+antigen apply
 
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-#COMPLETION_WAITING_DOTS="true"
+WORDCHARS='`~!@#$%^&*()-_=+[{]}\|;:",<.>/?'"'"
+HISTSIZE=1000000
+SAVEHIST=1000000
+CASE_SENSITIVE="true"
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git osx brew ruby gem rvm ssh-agent vagrant)
-
-source $ZSH/oh-my-zsh.sh
+setopt no_beep
+setopt auto_cd
+setopt menu_complete
+setopt auto_list
+setopt complete_in_word
+setopt append_history
+setopt extended_history
+setopt hist_expire_dups_first
+setopt hist_find_no_dups
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_verify
+setopt hist_reduce_blanks
+setopt inc_append_history
+setopt share_history
 unsetopt correct_all
 
-# Set Standard PATH
-PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$HOME/bin
+local ret_status="%(?:%{$fg[green]%}➜ :%{$fg[red]%}➜ )"
 
-export GREP_OPTIONS="--color=auto"
-export EDITOR=vim
-export HISTSIZE=50000
-export SAVEHIST=50000
-export OS=`uname -s`
-export UNISONLOCALHOSTNAME=`hostname -s`
+PROMPT="${ret_status}%{$fg_bold[green]%}%p %{$reset_color%}[%{$fg[yellow]%}%T%{$reset_color%}] %{$fg[cyan]%}%m %{$fg_bold[blue]%}%~%1(j: (%j):) %{$reset_color%}» $(git_prompt_info)% %{$reset_color%}"
+
+ZSH_THEME_GIT_PROMPT_CLEAN=") %{$fg_bold[green]%}✔ "
+ZSH_THEME_GIT_PROMPT_DIRTY=") %{$fg_bold[yellow]%}✗ "
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[cyan]%}("
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
+
+export TERM="xterm-color"
 export LESS="-niSRX"
+export OS="$(uname -s)"
+export GOPATH="$HOME"
+export ANSIBLE_NOCOWS=1
+export EDITOR=vim
 
-# Home directory bin?
-[ -d ~/bin ] && PATH=$PATH:~/bin
+# support colors in less/manpages
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
 
-# Ruby gems?
-[ -d ~/.gem/ruby/1.8/bin ] && PATH=$PATH:~/.gem/ruby/1.8/bin
-[ -d /var/lib/gems/1.8/bin ] && PATH=$PATH:/var/lib/gems/1.8/bin
-[ -d ~/.gem/ruby/1.9/bin ] && PATH=$PATH:~/.gem/ruby/1.9/bin
-[ -d /var/lib/gems/1.9/bin ] && PATH=$PATH:/var/lib/gems/1.9/bin
+[ -d ~/Dropbox ] && PATH=~/Dropbox/bin:~/Dropbox/bin/$OS:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH
 
-# RVM?
-[ -d ~/.rvm ] && source ~/.rvm/scripts/rvm
-
-# /opt/local/{bin,sbin}?
-[ -d /opt/local/bin ] && PATH=$PATH:/opt/local/bin:/opt/local/sbin
-
-# Vagrant?
-[ -d /opt/vagrant/bin ] && PATH=$PATH:/opt/vagrant/bin
-
-# Suck up those aliases
-[ -f ~/.zsh/aliases ] && source ~/.zsh/aliases
-
-# Any private settings?
-[ -f ~/.zsh/private ] && source ~/.zsh/private
-
-# Import OS Specific stuff
-[ -f ~/.zsh/$OS ] && source ~/.zsh/$OS
-
-# Import functions
-[ -f ~/.zsh/functions ] && source ~/.zsh/functions
-
-# Output local TODO list if it exists
-[ -f ~/.todo ] && (echo "** TODO LIST **"; cat ~/.todo)
-
-autoload -U history-search-end
-
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^[[A" history-beginning-search-backward-end
-bindkey "^[[B" history-beginning-search-forward-end
-bindkey \^U backward-kill-line
-
-setopt completealiases
-zstyle ':completion:*' menu select
-
-setopt MENU_COMPLETE
-setopt AUTO_MENU
-setopt AUTO_LIST
-
-# Disable autocorrect
-unsetopt correct_all
-
-export PATH
-
+[ -f ~/.sh/aliases ] && source ~/.sh/aliases
+[ -f ~/.sh/private ] && source ~/.sh/private
+[ -f ~/.sh/functions ] && source ~/.sh/functions
+[ -f ~/.sh/$OS ] && source ~/.sh/$OS
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.todo ] && (echo "** TODO LIST **"; cat ~/.todo)

@@ -5,6 +5,5 @@ tags
 .vim/.netrwhist
 compare_git_to_home.sh
 diff_file.sh
-.bash/private
-.zsh/private
+.sh/private
 .vim/private
