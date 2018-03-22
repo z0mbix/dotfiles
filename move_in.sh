@@ -58,6 +58,8 @@ if [ ! -f ~/.git-prompt.sh ]; then
     https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
 fi
 
+# Setup shell
+curl -L git.io/antigen > ~/.antigen.zsh
 [ -f "~/.${SHELL##*/}rc" ] && source "~/.${SHELL##*/}rc"
 
 # Setup vim/neovim
