@@ -21,6 +21,7 @@ set linebreak                                            " enable linebreaks
 set showbreak=>>                                         " what to put infront of linebreaks
 set breakindent                                          " preserve horizontal blocks
 set formatoptions+=j formatoptions-=or                   " remove comments when joining lines
+set formatoptions+=j                                     " remove comments when joining lines
 set nostartofline                                        " keep cursor in same column
 set history=200                                          " set command and search history
 set noerrorbells                                         " don't annoy me
@@ -32,13 +33,10 @@ set foldmethod=indent                                    " fold lines with equal
 set foldlevel=20                                         " set fold close level
 set laststatus=2                                         " always show status line
 set ttyfast                                              " fast terminal conn for faster redraw
-set ttymouse=xterm2                                      " terminal type for mouse codes
-set ttyscroll=3                                          " speedup scrolling
 set pastetoggle=<F8>                                     " toggle pasting
 set clipboard=unnamed,unnamedplus                        " use system clipboard "
 set spellfile=~/.vimspell.add"                           " my words
 set confirm                                              " ask to save files
-set t_Co=256                                             " use all 256 colors
 set viminfo='100,f1                                      " save up to 100 marks, enable capital marks
 set listchars=tab:›\ ,eol:¬,trail:·,extends:❯,precedes:❮ " set the characters for the invisibles
 set list                                                 " Show invisible characters
@@ -54,7 +52,7 @@ set autoread                                             " detect files changed 
 set noshowmode                                           " don't show the default vim mode line
 set modeline                                             " don't show mode line
 set lazyredraw                                           " Redraw only when required
-set cursorline                                           " Highlight the current line
+" set cursorline                                           " Highlight the current line
 set mouse=a                                              " enable mouse support
 set nojoinspaces                                         " remove extra space when joining lines
 set wildmenu                                             " Tab completion
@@ -69,12 +67,10 @@ set wildignore+=*.sw?                                    " Vim swap files
 set wildignore+=*.DS_Store                               " OSX bullshit
 set wildignore+=*.luac                                   " Lua byte code
 set wildignore+=*.pyc                                    " Python byte code
-setlocal cryptmethod=blowfish2                           " Use blowfish2 for encryption"
 
 " undofile - This allows you to use undos after exiting and restarting
 " This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
 " :help undo-persistence
-" This is only present in 7.3+
 if exists("+undofile")
 	if isdirectory($HOME . '/.vim/undo') == 0
 		:silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
@@ -95,66 +91,56 @@ if &term == "screen" || &term == "xterm"
 	set title
 endif
 
-if has("gui_running")
-	set guioptions=
-	if has("gui_gtk2")
-		set guifont=Hack\ 9
-	elseif has("gui_win32")
-		set guifont=Hack\ 9
-	elseif has("gui_macvim")
-		set guifont=Source\ Code\ Pro\ for\ Powerline:h12
-		" set fullscreen
-	elseif has("gui_vimr")
-		set guifont=Source\ Code\ Pro\ for\ Powerline:h12
-	endif
-else
-	" Time out on key codes but not mappings.
-	" Basically this makes terminal Vim work sanely.
-	set notimeout
-	set ttimeout
-	set ttimeoutlen=10
-	augroup FastEscape
-		autocmd!
-		au InsertEnter * set timeoutlen=0
-		au InsertLeave * set timeoutlen=1000
-	augroup END
-endif
+" Time out on key codes but not mappings.
+" Basically this makes terminal Vim work sanely.
+set notimeout
+set ttimeout
+set ttimeoutlen=10
+augroup FastEscape
+	autocmd!
+	au InsertEnter * set timeoutlen=0
+	au InsertLeave * set timeoutlen=1000
+augroup END
 
-let mapleader=","                                        " The <leader> key
+let mapleader=" "
 " }}}
 
 " Plugins {{{
 " Auto install vim-plug
-if empty(glob('~/.vim/autoload/plug.vim'))
-	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+if has('nvim')
+	let s:plug_dir = '~/.local/share/nvim/plugged'
+	let s:plug_file = '~/.local/share/nvim/site/autoload/plug.vim'
+else
+	let s:plug_dir = '~/.vim/plugged'
+	let s:plug_file = '~/.vim/autoload/plug.vim'
+endif
+
+if empty(glob(s:plug_file))
+	silent !curl -fLo s:plug_file --create-dirs
 		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
-call plug#begin('~/.vim/plugged')
+call plug#begin(s:plug_dir)
 
 " Language plugins
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-Plug 'dougireton/vim-chef'
+Plug 'dougireton/vim-chef', { 'for': 'chef' }
 Plug 'ekalinin/Dockerfile.vim', { 'for' : 'Dockerfile' }
 Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'empanda/vim-varnish', { 'for': 'varnish' }
-Plug 'evanmiller/nginx-vim-syntax', {'for': 'nginx' }
-Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 Plug 'fatih/vim-nginx', {'for' : 'nginx'}
-Plug 'groenewege/vim-less'
 Plug 'hashivim/vim-packer'
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 Plug 'ngmy/vim-rubocop', { 'for': 'ruby' }
 Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
 Plug 'phenomenes/ansible-snippets', { 'for': 'ansible' }
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
-Plug 'tpope/vim-markdown', { 'for': 'markdown' }
-Plug 'vim-scripts/bats.vim'
 Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
-Plug 'z0mbix/vim-terraform-snippets', { 'for': 'terraform' }
-Plug 'vim-syntastic/syntastic'
 Plug 'juliosueiras/vim-terraform-completion'
+
+if executable('go')
+	Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
+endif
 
 " Other plugins
 Plug 'AndrewRadev/splitjoin.vim'
@@ -164,37 +150,43 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
-Plug 'amiorin/vim-project'
 Plug 'bling/vim-airline'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'bling/vim-bufferline'
+Plug 'chr4/sslsecure.vim'
 Plug 'danro/rename.vim'
-Plug 'dougireton/vim-chef'
-Plug 'dracula/vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'duff/vim-bufonly'
-Plug 'dyng/ctrlsf.vim'
+Plug 'easysid/mod8.vim'
 Plug 'enricobacis/vim-airline-clock'
+Plug 'ervandew/supertab'
 Plug 'garbas/vim-snipmate'
 Plug 'gregsexton/gitv'
 Plug 'henrik/vim-reveal-in-finder'
 Plug 'honza/vim-snippets'
 Plug 'jiangmiao/auto-pairs'
 Plug 'joshdick/onedark.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-after-object'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
+Plug 'kana/vim-submode'
 Plug 'majutsushi/tagbar'
-Plug 'markcornick/vim-kitchen'
+Plug 'mbbill/undotree'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'mileszs/ack.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'rhysd/clever-f.vim'
-Plug 'rking/ag.vim'
+Plug 'rhysd/vim-color-spring-night'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/syntastic'
+Plug 'sodapopcan/vim-twiggy'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'thaerkh/vim-workspace'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-commentary'
@@ -205,11 +197,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'trevordmiller/nova-vim'
 Plug 'tweekmonster/startuptime.vim'
-Plug 'vim-scripts/scratch.vim'
 Plug 'wellle/targets.vim'
-Plug 'wincent/ferret'
 
 call plug#end()
 " }}}
@@ -221,19 +210,15 @@ let g:rehash256 = 1
 if (has("termguicolors"))
 	set termguicolors
 endif
-color onedark
+color dracula
 syntax on
 set t_ut=
 " }}}
 
 " Auto Commands {{{
 " Highlight line if in insert mode
-autocmd InsertEnter * set cursorline
-autocmd InsertLeave * set nocursorline
-
-" Use relative line numbers in normal mode
-autocmd InsertEnter * set number
-autocmd InsertLeave * set relativenumber
+" autocmd InsertEnter * set cursorline
+" autocmd InsertLeave * set nocursorline
 
 " git commit messages
 autocmd FileType gitcommit set textwidth=72
@@ -271,7 +256,12 @@ let g:vim_json_syntax_conceal = 0
 autocmd BufNewFile,BufRead *.json,*.json.j2 set ft=json
 autocmd FileType json set ts=2 sw=2 et sts=2 smartindent
 
+" YAML
+autocmd BufNewFile,BufRead *.yaml,*.yml.j2,*.yaml.j2,*.yml.j2 set ft=yaml
+autocmd FileType yaml set ts=2 sw=2 et sts=2 smartindent
+
 " The Jenkinsfile
+autocmd BufNewFile,BufRead *.Jenkinsfile set ft=groovy
 autocmd BufNewFile,BufRead Jenkinsfile set ft=groovy
 
 " nginx
@@ -302,7 +292,8 @@ autocmd BufReadPost *
 autocmd BufWritePre * :%s/\s\+$//e
 
 " Automatically reload vimrc when it's saved
-autocmd BufWritePost .vimrc source $HOME/.vimrc
+" autocmd BufWritePost .vimrc source $HOME/.vimrc
+autocmd BufWritePost init.vim source $HOME/.config/nvim/init.vim
 
 " Resize splits when the window is resized
 autocmd VimResized * :wincmd =
@@ -310,13 +301,7 @@ autocmd VimResized * :wincmd =
 " vim-after-object - e.g. ca= / da= etc.
 autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
 
-fun! <SID>AutoMakeDirectory()
-    let s:directory = expand("<afile>:p:h")
-    if !isdirectory(s:directory)
-            call mkdir(s:directory, "p")
-    endif
-endfun
-autocmd BufWritePre,FileWritePre * :call <SID>AutoMakeDirectory()
+" autocmd BufWritePre *.sh :Shfmt
 " }}}
 
 " Abbreviations {{{
@@ -325,7 +310,7 @@ inoreabbrev teh the
 cnoreabbrev Wq wq
 cnoreabbrev WQ wq
 cnoreabbrev W w
-cnoreabbrev Q q
+cnoreabbrev Q ccl<cr>
 " }}}
 
 " Variables {{{
@@ -340,9 +325,9 @@ let g:neosnippet#snippets_directory='~/.vim/plugged/ansible-snippets/snippets'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#bufferline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#syntastic#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 1
 
 " clever-f
 let g:clever_f_timeout_ms = 2000
@@ -353,11 +338,12 @@ let g:clever_f_mark_char_color = "Type" " yellow from onedark theme
 let g:bufferline_echo = 0
 
 " Always use two space indentation for shell scripts
-let g:shfmt_extra_args = '-i 2'
-let g:shfmt_fmt_on_save = 1
+let g:vimshfmt_extra_args = '-i 2'
 " }}}
 
-" Neocomplete/Neosnippet {{{
+" Deoplete/Neocomplete/Neosnippet {{{
+" let g:deoplete#enable_at_startup = 1
+
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
@@ -420,6 +406,34 @@ nnoremap <leader>A :silent ArgWrap<CR>
 " }}}
 
 " Mappings {{{
+" Undotree
+nmap <Leader>u :UndotreeToggle<CR>
+
+" splitjoin
+let g:splitjoin_split_mapping = ''
+let g:splitjoin_join_mapping = ''
+nnoremap gss :SplitJoinSplit<CR>
+nnoremap gsj :SplitJoinJoin<CR>
+
+nmap     <Leader>gs :Gstatus<CR>gg<c-n>
+nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>gb :Gblame<CR>
+
+" Search for words
+nnoremap <silent> <Leader>fi /<C-R><C-W><CR>
+nnoremap <silent> <Leader>fw :Rg <C-R><C-W><CR>
+nnoremap <silent> <Leader>fW :Rg <C-R><C-A><CR>
+xnoremap <silent> <Leader>fw y:Rg <C-R>"<CR>
+
+" Insert lines above/below
+nnoremap <Leader>o o<esc>
+nnoremap <Leader>O O<esc>
+
+nnoremap <leader>q :cclose<bar>lclose<cr>
+
+" vim-workspaces toggle
+nnoremap <leader>ws :ToggleWorkspace<CR>
+
 " Refill the default register with what was just pasted
 xnoremap p pgvy
 
@@ -444,16 +458,34 @@ nnoremap <Tab>e :bn<CR>
 nnoremap <S-Tab>e :bp<CR>
 
 " Bclose
-nnoremap <leader>x :Bclose<CR>
-nnoremap <leader>X :Bclose!<CR>
+nnoremap <silent> <leader>x :Bclose<CR>
+nnoremap <silent> <leader>X :Bclose!<CR>
+nnoremap <silent> ,x :Bclose<CR>
+nnoremap <silent> ,X :Bclose!<CR>
+
+nnoremap <leader>v V
+
+" vim-submode
+let g:submode_timeout = 0          " disable submode timeouts:
+let g:submode_keep_leaving_key = 1 " don':w>t consume submode-leaving key
+call submode#enter_with('next/prev', 'n', '', '<Tab>l', ':bn<CR>')
+call submode#enter_with('next/prev', 'n', '', '<Tab>h', ':bp<CR>')
+call submode#map('next/prev', 'n', '', 'l', ':bn<CR>')
+call submode#map('next/prev', 'n', '', 'h', ':bp<CR>')
+
+" Split the current line at the cursor position and paste above
+" the current line
+nnoremap K DO<C-r>"<ESC>_
 
 " :)
 map q: :q
 
-" Run current buffer through jq back in to the same buffer
-map <leader>J :%!jq .<CR>
-" Run current file through jq to see if it parses successfully
-map <leader>j :!jq -M -c . % 2>&1 >/dev/null<CR>
+if executable('jq')
+	" Run current buffer through jq back in to the same buffer
+	map <leader>J :%!jq .<CR>
+	" Run current file through jq to see if it parses successfully
+	map <leader>j :!jq -M -c . % 2>&1 >/dev/null<CR>
+endif
 
 runtime macros/matchit.vim
 map <tab> %
@@ -467,16 +499,6 @@ noremap H ^
 noremap L $
 vnoremap L g_
 
-map <Tab>1 :b1<cr>
-map <Tab>2 :b2<cr>
-map <Tab>3 :b3<cr>
-map <Tab>4 :b5<cr>
-map <Tab>5 :b5<cr>
-map <Tab>6 :b6<cr>
-map <Tab>7 :b7<cr>
-map <Tab>8 :b8<cr>
-map <Tab>9 :b9<cr>
-
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
 
@@ -487,10 +509,6 @@ nmap <leader>a <Plug>(EasyAlign)
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gb :Gblame<CR>
-
-" Ranger
-nnoremap <leader>r :silent !ranger %:h<cr>:redraw!<cr>
-nnoremap <leader>R :silent !ranger<cr>:redraw!<cr>
 
 " Formatting, TextMate-style
 nnoremap Q gqip
@@ -520,8 +538,8 @@ nnoremap <F1> <nop>
 vnoremap <F1> <nop>
 
 " Split window
-nnoremap <leader>w <C-w>v<C-w>l
-nnoremap <leader>s <C-w>s<C-w>l
+nnoremap <leader>sv <C-w>v<C-w>l
+nnoremap <leader>sh <C-w>s<C-w>l
 
 " Show registers
 " nnoremap <leader>r :registers<cr>
@@ -567,15 +585,15 @@ nnoremap ` :NERDTreeToggle<CR> " Non-Macs
 map <leader>M :%s/^M//<CR>
 
 " Bubble single lines
-" nmap <C-k> [e
-" nmap <C-j> ]e
+nmap <C-K> [e
+nmap <C-J> ]e
 
 " Bubble multiple lines
-vmap <C-k> [egv
-vmap <C-j> ]egv
+vmap <C-K> [egv
+vmap <C-J> ]egv
 
-" Open PWD in finder
-" nnoremap <leader>F :silent !open .<cr>
+" Show current file in finder
+nnoremap <leader>F :silent :Reveal<cr>
 
 " select all
 map <leader>a ggVG
@@ -600,8 +618,8 @@ cnoremap <c-a> <home>
 cnoremap <c-e> <end>
 
 " Space to toggle folds.
-nnoremap <Space> za
-vnoremap <Space> za
+nnoremap <Enter> za
+vnoremap <Enter> za
 
 " Command to write as root if we don't have permission
 cmap w!! %!sudo tee > /dev/null %
@@ -616,30 +634,62 @@ call expand_region#custom_text_objects({
 	\ 'ii' :0,
 	\ 'ai' :0,
 	\ })
-
-" Startify
-" Make Startify work with NERDTree
-" autocmd VimEnter *
-" 	\   if !argc()
-" 	\ |   Startify
-" 	\ |   NERDTree
-" 	\ |   wincmd w
-" 	\ | endif
 " }}}
 
-" Ferret {{{
-" find word under cursor
-nmap <leader>f <Plug>(FerretAckWord)
-" enter word to find
-nmap <leader>F <Plug>(FerretLack)
-" }}}
+" {{{ fzf
+let g:fzf_layout = { 'down': '~20%' }
+let g:fzf_colors =
+	\ { 'fg':    ['fg', 'Normal'],
+	\ 'bg':      ['bg', 'Normal'],
+	\ 'hl':      ['fg', 'Comment'],
+	\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+	\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+	\ 'hl+':     ['fg', 'Statement'],
+	\ 'info':    ['fg', 'PreProc'],
+	\ 'border':  ['fg', 'Ignore'],
+	\ 'prompt':  ['fg', 'Conditional'],
+	\ 'pointer': ['fg', 'Exception'],
+	\ 'marker':  ['fg', 'Keyword'],
+	\ 'spinner': ['fg', 'Label'],
+	\ 'header':  ['fg', 'Comment'] }
 
-" CtrlSF {{{
-let g:ctrlsf_ignore_dir = ['tags', 'npm_modules']
+" Use ripgrep instead of ag:
+if executable('rq')
+	command! -bang -nargs=* Rg
+		\ call fzf#vim#grep(
+		\   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+		\   <bang>0 ? fzf#vim#with_preview('up:60%')
+		\           : fzf#vim#with_preview('right:50%:hidden', '?'),
+		\   <bang>0)
+endif
 
-nmap <C-F>s <Plug>CtrlSFCwordExec
-vmap <C-F>s <Plug>CtrlSFVwordExec
-nmap <C-F>S <Plug>CtrlSFPrompt
+nmap <c-p> :Files<CR>
+nmap <Leader><Space> :Files<CR>
+nmap <Leader>ff :Files<CR>
+nmap <Leader>fF :GFiles<CR>
+nmap <Leader>fb :Buffers<CR>
+nmap <Leader>fh :History<CR>
+nmap <Leader>ft :Filetypes<CR>
+nmap <Leader>fT :Tags<CR>
+nmap <Leader>fl :BLines<CR>
+nmap <Leader>fL :Lines<CR>
+nmap <Leader>fm :Marks<CR>
+nmap <Leader>fa :Rg<Space>
+nmap <Leader>fc :Colors<CR>
+nmap <Leader>f/ :History/<Space>
+
+nmap <Leader>w :update<CR>
+
+" Open fzf if vim opened without any args except in home dir
+if argc() == 0
+	if getcwd() != expand("~")
+		if isdirectory('.git')
+			autocmd vimenter * GFiles
+		else
+			autocmd vimenter * Files
+		endif
+	endif
+endif
 " }}}
 
 " NERDTree {{{
@@ -686,30 +736,30 @@ let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exac
 let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
 let g:NERDTreeAutoDeleteBuffer = 1
 
-let s:brown = "905532"
-let s:aqua =  "3AFFDB"
-let s:blue = "58A4D7"
-let s:darkBlue = "2980B9"
-let s:purple = "A852D0"
-let s:lightPurple = "B97AD7"
-let s:red = "AE403F"
-let s:beige = "F5C06F"
-let s:yellow = "F09F17"
-let s:orange = "D4843E"
-let s:darkOrange = "F16529"
-let s:pink = "CB6F6F"
-let s:salmon = "EE6E73"
-let s:green = "8FAA54"
-let s:lightGreen = "31B53E"
-let s:white = "FFFFFF"
-let s:rspec_red = 'FE405F'
-let s:git_orange = 'F54D27'
+" let s:brown = "905532"
+" let s:aqua =  "3AFFDB"
+" let s:blue = "58A4D7"
+" let s:darkBlue = "2980B9"
+" let s:purple = "A852D0"
+" let s:lightPurple = "B97AD7"
+" let s:red = "AE403F"
+" let s:beige = "F5C06F"
+" let s:yellow = "F09F17"
+" let s:orange = "D4843E"
+" let s:darkOrange = "F16529"
+" let s:pink = "CB6F6F"
+" let s:salmon = "EE6E73"
+" let s:green = "8FAA54"
+" let s:lightGreen = "31B53E"
+" let s:white = "FFFFFF"
+" let s:rspec_red = 'FE405F'
+" let s:git_orange = 'F54D27'
 
-let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreeExtensionHighlightColor['yml'] = s:blue " sets the color of css files to blue
-let g:NERDTreeExtensionHighlightColor['tf'] = s:lightPurple " sets the color of css files to blue
-let g:NERDTreeExtensionHighlightColor['tfvars'] = s:lightPurple " sets the color of css files to blue
-let g:NERDTreeExtensionHighlightColor['md'] = s:salmon " sets the color of css files to blue
+" let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
+" let g:NERDTreeExtensionHighlightColor['yml'] = s:blue " sets the color of css files to blue
+" let g:NERDTreeExtensionHighlightColor['tf'] = s:lightPurple " sets the color of css files to blue
+" let g:NERDTreeExtensionHighlightColor['tfvars'] = s:lightPurple " sets the color of css files to blue
+" let g:NERDTreeExtensionHighlightColor['md'] = s:salmon " sets the color of css files to blue
 " }}}
 
 " syntastic {{{
@@ -802,36 +852,6 @@ function! s:build_go_files()
 endfunction
 " }}}
 
-" CtrlP {{{
-nnoremap <silent> <leader>o :CtrlP<CR>
-nnoremap <silent> <leader>t :CtrlPTag<cr>
-nnoremap <silent> <leader>b :CtrlPBuffer<cr>
-nnoremap <silent> <leader>l :CtrlPLine<cr>
-nnoremap <silent> <leader>m :CtrlPMRUFiles<CR>
-nnoremap <silent> <leader>B :TagbarToggle<CR>
-nnoremap <silent> ; :CtrlPBuffer<CR>
-
-let g:ctrlp_custom_ignore = {
-	\ 'dir':  '\v[\/]\.(git|hg|svn|pip_download_cache|wheel_cache)$',
-	\ 'file': '\v\.(png|jpg|jpeg|gif|DS_Store|pyc)$',
-	\ 'link': '',
-	\ }
-
-if executable('ag')
-	set grepprg=ag\ --nogroup\ --nocolor
-	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-	let g:ctrlp_use_caching = 0
-endif
-
-" Open CtrlP if no file specified unless in home directory
-if argc() == 0
-	if getcwd() != expand('~')
-		autocmd vimenter * CtrlP
-	endif
-endif
-
-" }}}
-
 " ctags {{{
 " nnoremap <leader>f :ta<space>
 
@@ -888,6 +908,20 @@ let g:tagbar_type_markdown = {
 	\ 'k:Heading_L3'
 	\ ]
 	\ }
+" }}}
+
+" functions/commands {{{
+" :Root
+function! s:root()
+  let root = systemlist('git rev-parse --show-toplevel')[0]
+  if v:shell_error
+    echo 'Not in git repo'
+  else
+    execute 'lcd' root
+    echo 'Changed directory to: '.root
+  endif
+endfunction
+command! Root call s:root()
 " }}}
 
 " Source Files {{{

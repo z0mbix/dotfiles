@@ -58,10 +58,24 @@ if [ ! -f ~/.git-prompt.sh ]; then
     https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
 fi
 
+[ -f "~/.${SHELL##*/}rc" ] && source "~/.${SHELL##*/}rc"
+
+# Setup vim/neovim
+[ ! -d ~/.config/nvim ] && mkdir -p ~/.config/nvim
+ln -s ~/.vimrc ~/.config/nvim/init.vim
+
 if which git >/dev/null 2>&1; then
-  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  if which nvim >/dev/null 2>&1; then
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    if [ ! -d ~/.local/share/nvim/plugged ]; then
+      nvim +PlugInstall
+    fi
+  fi
+
   if which vim >/dev/null 2>&1; then
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     if [ ! -d ~/.vim/plugged ]; then
       vim +PlugInstall
     fi
