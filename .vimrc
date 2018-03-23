@@ -154,6 +154,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'bling/vim-bufferline'
+Plug 'bogado/file-line'
 Plug 'chr4/sslsecure.vim'
 Plug 'danro/rename.vim'
 Plug 'dracula/vim', { 'as': 'dracula' }
@@ -284,15 +285,15 @@ autocmd FileType make,c,cpp set ts=8 sw=8
 
 " When editing a file, always jump to the last cursor position
 autocmd BufReadPost *
-\ if line("'\"") > 0 && line ("'\"") <= line("$") |
-\   exe "normal! g'\"" |
-\ endif
+	\ if line("'\"") > 0 && line ("'\"") <= line("$") |
+	\   exe "normal! g'\"" |
+	\ endif
 
 " Clear whitespace at the end of lines automatically
 autocmd BufWritePre * :%s/\s\+$//e
 
 " Automatically reload vimrc when it's saved
-" autocmd BufWritePost .vimrc source $HOME/.vimrc
+autocmd BufWritePost .vimrc source $HOME/.vimrc
 autocmd BufWritePost init.vim source $HOME/.config/nvim/init.vim
 
 " Resize splits when the window is resized
