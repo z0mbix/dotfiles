@@ -118,7 +118,7 @@ endif
 if empty(glob(s:plug_file))
 	if executable('curl')
 		silent !curl -fLo s:plug_file --create-dirs
-			\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+					\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 		autocmd VimEnter * PlugInstall | source $MYVIMRC
 	endif
 endif
@@ -288,9 +288,9 @@ autocmd FileType make,c,cpp set ts=8 sw=8
 
 " When editing a file, always jump to the last cursor position
 autocmd BufReadPost *
-	\ if line("'\"") > 0 && line ("'\"") <= line("$") |
-	\   exe "normal! g'\"" |
-	\ endif
+			\ if line("'\"") > 0 && line ("'\"") <= line("$") |
+			\   exe "normal! g'\"" |
+			\ endif
 
 " Clear whitespace at the end of lines automatically
 autocmd BufWritePre * :%s/\s\+$//e
@@ -325,6 +325,9 @@ cnoreabbrev Q ccl<cr>
 " }}}
 
 " Variables {{{
+" vim-gitgutter
+let g:gitgutter_map_keys = 0
+
 " ansible-vim
 let g:ansible_extra_keywords_highlight = 1
 let g:ansible_attribute_highlight = "ob"
@@ -387,11 +390,11 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB>
-	\ pumvisible() ? "\<C-n>" :
-	\ neosnippet#expandable_or_jumpable() ?
-	\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+			\ pumvisible() ? "\<C-n>" :
+			\ neosnippet#expandable_or_jumpable() ?
+			\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-	\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+			\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " For conceal markers.
 if has('conceal')
@@ -460,14 +463,6 @@ vmap <C-/> gc
 " Re-idents entire file
 nnoremap <F7> mzgg=G`z
 
-" Switch buffers
-nnoremap <C-Tab> :bn<CR>
-nnoremap <C-S-Tab> :bp<CR>
-
-" Switch buffers in non-gui
-nnoremap <Tab>e :bn<CR>
-nnoremap <S-Tab>e :bp<CR>
-
 " Bclose
 nnoremap <silent> <leader>x :Bclose<CR>
 nnoremap <silent> <leader>X :Bclose!<CR>
@@ -476,20 +471,15 @@ nnoremap <silent> ,X :Bclose!<CR>
 
 nnoremap <leader>v V
 
-" vim-submode
-let g:submode_timeout = 0          " disable submode timeouts:
-let g:submode_keep_leaving_key = 1 " don't consume submode-leaving key
-call submode#enter_with('next/prev', 'n', '', '<Tab>l', ':bn<CR>')
-call submode#enter_with('next/prev', 'n', '', '<Tab>h', ':bp<CR>')
-call submode#map('next/prev', 'n', '', 'l', ':bn<CR>')
-call submode#map('next/prev', 'n', '', 'h', ':bp<CR>')
-
-let g:submode_timeout = 0          " disable submode timeouts:
-let g:submode_keep_leaving_key = 1 " don't consume submode-leaving key
-call submode#enter_with('next/prev', 'n', '', '<Leader>l', ':bn<CR>')
-call submode#enter_with('next/prev', 'n', '', '<Leader>h', ':bp<CR>')
-call submode#map('next/prev', 'n', '', 'l', ':bn<CR>')
-call submode#map('next/prev', 'n', '', 'h', ':bp<CR>')
+" Switch buffers - vim-submode
+let g:submode_timeout = 0
+" let g:submode_timeoutlen = 2
+let g:submode_keep_leaving_key = 1
+let g:submode_keyseqs_to_leave = ['Esc', 'Space']
+call submode#enter_with('bnext/bprev', 'n', '', '<Leader>l', ':bn<CR>')
+call submode#enter_with('bnext/bprev', 'n', '', '<Leader>h', ':bp<CR>')
+call submode#map('bnext/bprev',        'n', '', 'l', ':bn<CR>')
+call submode#map('bnext/bprev',        'n', '', 'h', ':bp<CR>')
 
 " Split the current line at the cursor position and paste above
 " the current line
@@ -645,40 +635,40 @@ cmap w!! %!sudo tee > /dev/null %
 
 " vim-expand-region {{{
 call expand_region#custom_text_objects({
-	\ "\/\\n\\n\<CR>": 1,
-	\ 'a]' :1,
-	\ 'ab' :1,
-	\ 'aB' :1,
-	\ 'ii' :0,
-	\ 'ai' :0,
-	\ })
+			\ "\/\\n\\n\<CR>": 1,
+			\ 'a]' :1,
+			\ 'ab' :1,
+			\ 'aB' :1,
+			\ 'ii' :0,
+			\ 'ai' :0,
+			\ })
 " }}}
 
 " {{{ fzf
 let g:fzf_layout = { 'down': '~20%' }
 let g:fzf_colors =
-	\ { 'fg':    ['fg', 'Normal'],
-	\ 'bg':      ['bg', 'Normal'],
-	\ 'hl':      ['fg', 'Comment'],
-	\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-	\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-	\ 'hl+':     ['fg', 'Statement'],
-	\ 'info':    ['fg', 'PreProc'],
-	\ 'border':  ['fg', 'Ignore'],
-	\ 'prompt':  ['fg', 'Conditional'],
-	\ 'pointer': ['fg', 'Exception'],
-	\ 'marker':  ['fg', 'Keyword'],
-	\ 'spinner': ['fg', 'Label'],
-	\ 'header':  ['fg', 'Comment'] }
+			\ { 'fg':    ['fg', 'Normal'],
+			\ 'bg':      ['bg', 'Normal'],
+			\ 'hl':      ['fg', 'Comment'],
+			\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+			\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+			\ 'hl+':     ['fg', 'Statement'],
+			\ 'info':    ['fg', 'PreProc'],
+			\ 'border':  ['fg', 'Ignore'],
+			\ 'prompt':  ['fg', 'Conditional'],
+			\ 'pointer': ['fg', 'Exception'],
+			\ 'marker':  ['fg', 'Keyword'],
+			\ 'spinner': ['fg', 'Label'],
+			\ 'header':  ['fg', 'Comment'] }
 
 " Use ripgrep instead of ag:
 if executable('rg')
 	command! -bang -nargs=* Rg
-		\ call fzf#vim#grep(
-		\   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-		\   <bang>0 ? fzf#vim#with_preview('up:60%')
-		\           : fzf#vim#with_preview('right:50%:hidden', '?'),
-		\   <bang>0)
+				\ call fzf#vim#grep(
+				\   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+				\   <bang>0 ? fzf#vim#with_preview('up:60%')
+				\           : fzf#vim#with_preview('right:50%:hidden', '?'),
+				\   <bang>0)
 endif
 
 nmap <c-p> :Files<CR>
@@ -786,16 +776,16 @@ let g:terraform_fmt_on_save = 1
 
 " Puppet stuff
 let g:syntastic_puppet_puppetlint_args='--no-80chars-check
-	\ --no-autoloader_layout-check
-	\ --no-quoted_booleans-check
-	\ --no-class_inherits_from_params_class-check'
+			\ --no-autoloader_layout-check
+			\ --no-quoted_booleans-check
+			\ --no-class_inherits_from_params_class-check'
 
 let g:syntastic_eruby_ruby_quiet_messages =
-	\ {'regex': 'possibly useless use of a variable in void context'}
+			\ {'regex': 'possibly useless use of a variable in void context'}
 
 " Exclude some annoying shellcheck checks
 let g:syntastic_sh_shellcheck_args='--exclude=SC2086
-	\ --exclude=SC2068'
+			\ --exclude=SC2068'
 
 " Use rubocop for ruby
 let g:syntastic_ruby_checkers = ['rubocop']
@@ -882,60 +872,60 @@ endif
 let g:tagbar_compact = 1
 
 let g:tagbar_type_ansible = {
-	\ 'ctagstype' : 'ansible',
-	\ 'kinds' : [
-	\ 't:tasks',
-	\ 'h:hosts'
-	\ ],
-	\ 'sort' : 0
-	\ }
+			\ 'ctagstype' : 'ansible',
+			\ 'kinds' : [
+			\ 't:tasks',
+			\ 'h:hosts'
+			\ ],
+			\ 'sort' : 0
+			\ }
 
 let g:tagbar_type_terraform = {
-	\ 'ctagstype' : 'terraform',
-	\ 'kinds' : [
-	\ 'r:resources',
-	\ 'm:modules',
-	\ 'o:outputs',
-	\ 'v:variables',
-	\ 'f:tfvars'
-	\ ],
-	\ 'sort' : 0
-	\ }
+			\ 'ctagstype' : 'terraform',
+			\ 'kinds' : [
+			\ 'r:resources',
+			\ 'm:modules',
+			\ 'o:outputs',
+			\ 'v:variables',
+			\ 'f:tfvars'
+			\ ],
+			\ 'sort' : 0
+			\ }
 
 let g:tagbar_type_make = {
-	\ 'kinds':[
-	\ 'm:macros',
-	\ 't:targets'
-	\ ]
-	\}
+			\ 'kinds':[
+			\ 'm:macros',
+			\ 't:targets'
+			\ ]
+			\}
 
 let g:tagbar_type_sh = {
-	\ 'kinds':[
-	\ 'f:functions',
-	\ 'c:constants'
-	\ ]
-	\}
+			\ 'kinds':[
+			\ 'f:functions',
+			\ 'c:constants'
+			\ ]
+			\}
 
 let g:tagbar_type_markdown = {
-	\ 'ctagstype' : 'markdown',
-	\ 'kinds' : [
-	\ 'h:Heading_L1',
-	\ 'i:Heading_L2',
-	\ 'k:Heading_L3'
-	\ ]
-	\ }
+			\ 'ctagstype' : 'markdown',
+			\ 'kinds' : [
+			\ 'h:Heading_L1',
+			\ 'i:Heading_L2',
+			\ 'k:Heading_L3'
+			\ ]
+			\ }
 " }}}
 
 " functions/commands {{{
 " :Root
 function! s:root()
-  let root = systemlist('git rev-parse --show-toplevel')[0]
-  if v:shell_error
-    echo 'Not in git repo'
-  else
-    execute 'lcd' root
-    echo 'Changed directory to: '.root
-  endif
+	let root = systemlist('git rev-parse --show-toplevel')[0]
+	if v:shell_error
+		echo 'Not in git repo'
+	else
+		execute 'lcd' root
+		echo 'Changed directory to: '.root
+	endif
 endfunction
 command! Root call s:root()
 " }}}
