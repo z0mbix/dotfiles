@@ -53,7 +53,6 @@ set autoread                                             " detect files changed 
 set noshowmode                                           " don't show the default vim mode line
 set modeline                                             " don't show mode line
 set lazyredraw                                           " Redraw only when required
-" set cursorline                                           " Highlight the current line
 set mouse=a                                              " enable mouse support
 set nojoinspaces                                         " remove extra space when joining lines
 set wildmenu                                             " Tab completion
@@ -117,15 +116,36 @@ else
 endif
 
 if empty(glob(s:plug_file))
-	silent !curl -fLo s:plug_file --create-dirs
-		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall | source $MYVIMRC
+	if executable('curl')
+		silent !curl -fLo s:plug_file --create-dirs
+			\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+		autocmd VimEnter * PlugInstall | source $MYVIMRC
+	endif
 endif
 
 call plug#begin(s:plug_dir)
 
+
+if has('python') || has('python3')
+	Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+	Plug 'SirVer/ultisnips'
+	Plug 'honza/vim-snippets'
+
+	if has('nvim')
+		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+	else
+		Plug 'Shougo/deoplete.nvim'
+		Plug 'roxma/nvim-yarp'
+		Plug 'roxma/vim-hug-neovim-rpc'
+	endif
+	let g:deoplete#enable_at_startup = 1
+endif
+
+if executable('go')
+	Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
+endif
+
 " Language plugins
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'dougireton/vim-chef', { 'for': 'chef' }
 Plug 'ekalinin/Dockerfile.vim', { 'for' : 'Dockerfile' }
 Plug 'elzr/vim-json', { 'for': 'json' }
@@ -138,10 +158,6 @@ Plug 'phenomenes/ansible-snippets', { 'for': 'ansible' }
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
 Plug 'juliosueiras/vim-terraform-completion'
-
-if executable('go')
-	Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
-endif
 
 " Other plugins
 Plug 'AndrewRadev/splitjoin.vim'
@@ -187,19 +203,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tweekmonster/startuptime.vim'
 Plug 'wellle/targets.vim'
-
-if has('python') || has('python3')
-	Plug 'SirVer/ultisnips'
-
-	if has('nvim')
-		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-	else
-		Plug 'Shougo/deoplete.nvim'
-		Plug 'roxma/nvim-yarp'
-		Plug 'roxma/vim-hug-neovim-rpc'
-	endif
-	let g:deoplete#enable_at_startup = 1
-endif
 
 call plug#end()
 " }}}
@@ -669,7 +672,7 @@ let g:fzf_colors =
 	\ 'header':  ['fg', 'Comment'] }
 
 " Use ripgrep instead of ag:
-if executable('rq')
+if executable('rg')
 	command! -bang -nargs=* Rg
 		\ call fzf#vim#grep(
 		\   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
@@ -696,13 +699,11 @@ nmap <Leader>f/ :History/<Space>
 nmap <Leader>w :update<CR>
 
 " Open fzf if vim opened without any args except in home dir
-if argc() == 0
-	if getcwd() != expand("~")
-		if isdirectory('.git')
-			autocmd vimenter * GFiles
-		else
-			autocmd vimenter * Files
-		endif
+if argc() == 0 && getcwd() != expand("~")
+	if isdirectory('.git')
+		autocmd vimenter * GFiles
+	else
+		autocmd vimenter * Files
 	endif
 endif
 " }}}
