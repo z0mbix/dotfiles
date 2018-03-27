@@ -4,6 +4,7 @@ scriptencoding utf-8
 set encoding=utf-8                                       " default to utf-8
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n      " dope statusline
 set shortmess=atOI                                       " disable start-up message
+set number                                               " show line numbers
 set relativenumber                                       " show relative line numbers
 set ruler                                                " show line and column no
 set hidden                                               " hidden buffers?
@@ -147,23 +148,15 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'FooSoft/vim-argwrap'
 Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'Shougo/neocomplete.vim'
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'bling/vim-bufferline'
 Plug 'bogado/file-line'
-Plug 'chr4/sslsecure.vim'
 Plug 'danro/rename.vim'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'duff/vim-bufonly'
-Plug 'easysid/mod8.vim'
 Plug 'enricobacis/vim-airline-clock'
 Plug 'ervandew/supertab'
-Plug 'garbas/vim-snipmate'
-Plug 'gregsexton/gitv'
 Plug 'henrik/vim-reveal-in-finder'
 Plug 'honza/vim-snippets'
 Plug 'jiangmiao/auto-pairs'
@@ -174,22 +167,16 @@ Plug 'junegunn/vim-after-object'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
 Plug 'kana/vim-submode'
-Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'rhysd/clever-f.vim'
-Plug 'rhysd/vim-color-spring-night'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
 Plug 'sodapopcan/vim-twiggy'
-Plug 'soramugi/auto-ctags.vim'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'thaerkh/vim-workspace'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-endwise'
@@ -200,6 +187,19 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tweekmonster/startuptime.vim'
 Plug 'wellle/targets.vim'
+
+if has('python') || has('python3')
+	Plug 'SirVer/ultisnips'
+
+	if has('nvim')
+		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+	else
+		Plug 'Shougo/deoplete.nvim'
+		Plug 'roxma/nvim-yarp'
+		Plug 'roxma/vim-hug-neovim-rpc'
+	endif
+	let g:deoplete#enable_at_startup = 1
+endif
 
 call plug#end()
 " }}}
@@ -218,8 +218,8 @@ set t_ut=
 
 " Auto Commands {{{
 " Highlight line if in insert mode
-" autocmd InsertEnter * set cursorline
-" autocmd InsertLeave * set nocursorline
+autocmd InsertEnter * set cursorline
+autocmd InsertLeave * set nocursorline
 
 " git commit messages
 autocmd FileType gitcommit set textwidth=72
@@ -253,9 +253,9 @@ autocmd BufNewFile,BufRead *.js set ft=javascript
 autocmd FileType javascript set ts=2 sw=2 tw=79 et sts=2 smartindent
 
 " JSON
-let g:vim_json_syntax_conceal = 0
 autocmd BufNewFile,BufRead *.json,*.json.j2 set ft=json
 autocmd FileType json set ts=2 sw=2 et sts=2 smartindent
+let g:vim_json_syntax_conceal = 0
 
 " YAML
 autocmd BufNewFile,BufRead *.yaml,*.yml.j2,*.yaml.j2,*.yml.j2 set ft=yaml
@@ -292,9 +292,8 @@ autocmd BufReadPost *
 " Clear whitespace at the end of lines automatically
 autocmd BufWritePre * :%s/\s\+$//e
 
-" Automatically reload vimrc when it's saved
-autocmd BufWritePost .vimrc source $HOME/.vimrc
-autocmd BufWritePost init.vim source $HOME/.config/nvim/init.vim
+" Automatically reload vim config when it's saved
+autocmd BufWritePost .vimrc,init.vim source $MYVIMRC
 
 " Resize splits when the window is resized
 autocmd VimResized * :wincmd =
@@ -302,7 +301,15 @@ autocmd VimResized * :wincmd =
 " vim-after-object - e.g. ca= / da= etc.
 autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
 
+" Auto run shfmt on save
 " autocmd BufWritePre *.sh :Shfmt
+
+" Toggle relativenumber in insert mode
+augroup numbertoggle
+	autocmd!
+	autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+	autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 " }}}
 
 " Abbreviations {{{
@@ -333,7 +340,7 @@ let g:airline#extensions#syntastic#enabled = 1
 " clever-f
 let g:clever_f_timeout_ms = 2000
 let g:clever_f_mark_char = 1
-let g:clever_f_mark_char_color = "Type" " yellow from onedark theme
+" let g:clever_f_mark_char_color = "Type" " yellow from onedark theme
 
 " Stop bufferline from echoing to command bar (vim-bufferline)
 let g:bufferline_echo = 0
@@ -468,9 +475,16 @@ nnoremap <leader>v V
 
 " vim-submode
 let g:submode_timeout = 0          " disable submode timeouts:
-let g:submode_keep_leaving_key = 1 " don':w>t consume submode-leaving key
+let g:submode_keep_leaving_key = 1 " don't consume submode-leaving key
 call submode#enter_with('next/prev', 'n', '', '<Tab>l', ':bn<CR>')
 call submode#enter_with('next/prev', 'n', '', '<Tab>h', ':bp<CR>')
+call submode#map('next/prev', 'n', '', 'l', ':bn<CR>')
+call submode#map('next/prev', 'n', '', 'h', ':bp<CR>')
+
+let g:submode_timeout = 0          " disable submode timeouts:
+let g:submode_keep_leaving_key = 1 " don't consume submode-leaving key
+call submode#enter_with('next/prev', 'n', '', '<Leader>l', ':bn<CR>')
+call submode#enter_with('next/prev', 'n', '', '<Leader>h', ':bp<CR>')
 call submode#map('next/prev', 'n', '', 'l', ':bn<CR>')
 call submode#map('next/prev', 'n', '', 'h', ':bp<CR>')
 

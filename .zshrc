@@ -87,5 +87,6 @@ export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH
 [ -f ~/.sh/private ] && source ~/.sh/private
 [ -f ~/.sh/functions ] && source ~/.sh/functions
 [ -f ~/.sh/$OS ] && source ~/.sh/$OS
+[ -f ~/.sh/$SHELL ] && source ~/.sh/$SHELL
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.todo ] && (echo "** TODO LIST **"; cat ~/.todo)
