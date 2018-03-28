@@ -92,16 +92,22 @@ alias kl='kitchen login'
 alias kt='kitchen test'
 alias kd='kitchen destroy'
 
-alias proxyon='source ~/.bash/proxy'
+alias proxyon='source ~/.sh/proxy'
 alias proxyoff='unset {HTTP,HTTPS,FTP}_PROXY {http,https,ftp}_proxy no_proxy NO_PROXY'
 alias proxystatus='env | grep -i proxy | sort'
 
-# Is vim installed?
-if [ -f $(which vim) ]; then
-	if [ ! -e ~/.vimrc ]; then
-		echo "You need to install your ~/.vimrc"
-	fi
-	alias vi='vim'
+# Setup vim/nvim/vi
+if [ -f $(which nvim) ]; then
+  if [ ! -e ~/.config/nvim/init.vim ]; then
+    echo "You need to install your init.vim"
+  fi
+  alias vim='nvim'
+  alias vi='nvim'
+elif [ -f $(which vim) ]; then
+  if [ ! -e ~/.vimrc ]; then
+    echo "You need to install your ~/.vimrc"
+  fi
+  alias vi='vim'
 else
-	alias vim='vi'
+  alias vim='vi'
 fi

@@ -68,6 +68,10 @@ set wildignore+=*.DS_Store                               " OSX bullshit
 set wildignore+=*.luac                                   " Lua byte code
 set wildignore+=*.pyc                                    " Python byte code
 
+if has('nvim')
+	set inccommand=nosplit
+endif
+
 " undofile - This allows you to use undos after exiting and restarting
 " This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
 " :help undo-persistence
@@ -125,12 +129,13 @@ endif
 
 call plug#begin(s:plug_dir)
 
-
 if has('python') || has('python3')
 	Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 	Plug 'SirVer/ultisnips'
 	Plug 'honza/vim-snippets'
+endif
 
+if has('python3')
 	if has('nvim')
 		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 	else
@@ -139,6 +144,10 @@ if has('python') || has('python3')
 		Plug 'roxma/vim-hug-neovim-rpc'
 	endif
 	let g:deoplete#enable_at_startup = 1
+endif
+
+if has('nvim') || v:version >= 800
+	Plug 'machakann/vim-highlightedyank'
 endif
 
 if executable('go')

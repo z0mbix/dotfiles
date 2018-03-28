@@ -1,0 +1,9 @@
+#proxy='http://127.0.0.1:3128'
+proxy=''
+
+if [[ -n $proxy ]]; then
+  export http_proxy="$proxy"
+  export https_proxy="$proxy"
+  export no_proxy='127.0.0.1,localhost,169.254.169.254'
+  echo "Enabled proxy: $proxy"
+fi

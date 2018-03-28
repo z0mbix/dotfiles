@@ -1,4 +1,5 @@
-source /usr/local/share/antigen/antigen.zsh
+[[ -f /usr/local/share/antigen/antigen.zsh ]] && source /usr/local/share/antigen/antigen.zsh
+[[ -f ~/.antigen.zsh ]] && source ~/.antigen.zsh
 
 antigen use oh-my-zsh
 
@@ -82,6 +83,7 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 [ -d ~/Dropbox ] && PATH=~/Dropbox/bin:~/Dropbox/bin/$OS:$PATH
 export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH
 
+[ -f ~/.sh/proxy ] && source ~/.sh/proxy
 [ -f ~/.sh/aliases ] && source ~/.sh/aliases
 [ -f ~/.sh/private ] && source ~/.sh/private
 [ -f ~/.sh/functions ] && source ~/.sh/functions
