@@ -925,7 +925,7 @@ let g:tagbar_type_markdown = {
 			\ }
 " }}}
 
-" functions/commands {{{
+" Functions/Commands {{{
 " :Root
 function! s:root()
 	let root = systemlist('git rev-parse --show-toplevel')[0]
@@ -937,6 +937,11 @@ function! s:root()
 	endif
 endfunction
 command! Root call s:root()
+
+" e.g. :Tfdoc aws_instance
+if executable('tfdoc')
+	command! -nargs=* Tfdoc :call system('tfdoc' . ' ' . <q-args>)
+endif
 " }}}
 
 " Source Files {{{
