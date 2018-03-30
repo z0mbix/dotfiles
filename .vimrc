@@ -429,6 +429,10 @@ nnoremap <leader>A :silent ArgWrap<CR>
 " }}}
 
 " Mappings {{{
+" zip a character left and right
+nnoremap zl :let @z=@"<cr>xBP:let @"=@z<cr>
+nnoremap zr :let @z=@"<cr>x$p:let @"=@z<cr>
+
 " Undotree
 nmap <Leader>u :UndotreeToggle<CR>
 
