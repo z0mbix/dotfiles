@@ -152,6 +152,11 @@ endif
 
 if executable('go')
 	Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
+	if has('nvim')
+		Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.local/share/nvim/plugged/gocode/nvim/symlink.sh' }
+	else
+		Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+	endif
 endif
 
 " Language plugins
@@ -161,12 +166,14 @@ Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'fatih/vim-nginx', {'for' : 'nginx'}
 Plug 'hashivim/vim-packer'
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
+Plug 'juliosueiras/vim-terraform-completion'
+Plug 'martinda/Jenkinsfile-vim-syntax', { 'for': 'Jenkinsfile' }
 Plug 'ngmy/vim-rubocop', { 'for': 'ruby' }
 Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
 Plug 'phenomenes/ansible-snippets', { 'for': 'ansible' }
+Plug 'rizzatti/dash.vim'
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
-Plug 'juliosueiras/vim-terraform-completion'
 
 " Other plugins
 Plug 'AndrewRadev/splitjoin.vim'
@@ -276,6 +283,7 @@ autocmd FileType yaml set ts=2 sw=2 et sts=2 smartindent
 " The Jenkinsfile
 autocmd BufNewFile,BufRead *.Jenkinsfile set ft=groovy
 autocmd BufNewFile,BufRead Jenkinsfile set ft=groovy
+autocmd BufNewFile,BufRead Jenkinsfile* set ft=groovy
 
 " nginx
 autocmd BufRead,BufNewFile */etc/nginx/* set ft=nginx ts=4 sw=4 sts=4 et smartindent
@@ -334,6 +342,9 @@ cnoreabbrev Q ccl<cr>
 " }}}
 
 " Variables {{{
+" supertab
+let g:SuperTabDefaultCompletionType = "context"
+
 " vim-gitgutter
 let g:gitgutter_map_keys = 0
 
@@ -364,66 +375,6 @@ let g:bufferline_echo = 0
 let g:vimshfmt_extra_args = '-i 2'
 " }}}
 
-" Deoplete/Neocomplete/Neosnippet {{{
-" let g:deoplete#enable_at_startup = 1
-
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Enable snipMate compatibility feature.
-let g:neosnippet#enable_snipmate_compatibility = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-	return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/.vim/plugged/vim-snippets/snippets'
-let g:neosnippet#snippets_directory='~/.vim/plugged/vim-terraform-snippets'
-
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-imap <expr><TAB>
-			\ pumvisible() ? "\<C-n>" :
-			\ neosnippet#expandable_or_jumpable() ?
-			\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-			\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For conceal markers.
-if has('conceal')
-	set conceallevel=2 concealcursor=niv
-endif
-
-" Make vim-multiple-cursors play nicely with neocomplete
-function! Multiple_cursors_before()
-	if exists(':NeoCompleteLock')==2
-		exe 'NeoCompleteLock'
-	endif
-endfunction
-
-function! Multiple_cursors_after()
-	if exists(':NeoCompleteUnlock')==2
-		exe 'NeoCompleteUnlock'
-	endif
-endfunction
-" }}}
-
 " ArgWrap {{{
 nnoremap <leader>A :silent ArgWrap<CR>
 " }}}
@@ -432,6 +383,17 @@ nnoremap <leader>A :silent ArgWrap<CR>
 " zip a character left and right
 nnoremap zl :let @z=@"<cr>xBP:let @"=@z<cr>
 nnoremap zr :let @z=@"<cr>x$p:let @"=@z<cr>
+
+" Closing/saving
+nmap <Leader>q :q<CR>
+nmap <Leader>w :update<CR>
+
+" Dash
+nmap <silent> <leader>dl <Plug>DashSearch
+vmap <silent> <leader>dl <Plug>DashSearch
+
+" Close quickfix
+nmap <Leader>c :cclose<CR>
 
 " Undotree
 nmap <Leader>u :UndotreeToggle<CR>
@@ -810,7 +772,7 @@ let g:syntastic_ruby_checkers = ['rubocop']
 let g:go_fmt_command = "goimports"
 let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
-
+let g:go_auto_type_info = 1
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
@@ -822,9 +784,10 @@ let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
 let g:go_textobj_include_function_doc = 0
 
-" au Filetype go nnoremap <leader>v :vsp <CR>:exe "GoDef" <CR>
-" au Filetype go nnoremap <leader>s :sp <CR>:exe "GoDef"<CR>
-" au Filetype go nnoremap <leader>t :tab split <CR>:exe "GoDef"<CR>
+au Filetype go nnoremap <leader>d :GoDef<CR>
+au Filetype go nnoremap <leader>god :vsp <CR>:exe "GoDef" <CR>
+au Filetype go nnoremap <leader>gov :vsp <CR>:exe "GoDef" <CR>
+au Filetype go nnoremap <leader>gos :sp <CR>:exe "GoDef"<CR>
 
 " Open :GoDeclsDir with ctrl-g
 nmap <C-g> :GoDeclsDir<cr>
@@ -841,13 +804,12 @@ augroup go
 	" :GoRun
 	autocmd FileType go nmap <leader>r  <Plug>(go-run)
 	" :GoDoc
-	autocmd FileType go nmap <Leader>d <Plug>(go-doc)
+	autocmd FileType go nmap <Leader>D <Plug>(go-doc)
 	" :GoCoverageToggle
-	autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 	" :GoInfo
 	autocmd FileType go nmap <Leader>i <Plug>(go-info)
 	" :GoMetaLinter
-	autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
+	autocmd FileType go nmap <Leader>m <Plug>(go-metalinter)
 	" :GoDef but opens in a vertical split
 	autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
 	" :GoDef but opens in a horizontal split
@@ -929,7 +891,7 @@ let g:tagbar_type_markdown = {
 			\ }
 " }}}
 
-" Functions/Commands {{{
+" functions/commands {{{
 " :Root
 function! s:root()
 	let root = systemlist('git rev-parse --show-toplevel')[0]
