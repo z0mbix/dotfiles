@@ -281,9 +281,9 @@ autocmd BufNewFile,BufRead *.yaml,*.yml.j2,*.yaml.j2,*.yml.j2 set ft=yaml
 autocmd FileType yaml set ts=2 sw=2 et sts=2 smartindent
 
 " The Jenkinsfile
-autocmd BufNewFile,BufRead *.Jenkinsfile set ft=groovy
-autocmd BufNewFile,BufRead Jenkinsfile set ft=groovy
-autocmd BufNewFile,BufRead Jenkinsfile* set ft=groovy
+autocmd BufNewFile,BufRead *.Jenkinsfile set ft=jenkinsfile
+autocmd BufNewFile,BufRead Jenkinsfile set ft=jenkinsfile
+autocmd BufNewFile,BufRead Jenkinsfile* set ft=jenkinsfile
 
 " nginx
 autocmd BufRead,BufNewFile */etc/nginx/* set ft=nginx ts=4 sw=4 sts=4 et smartindent
