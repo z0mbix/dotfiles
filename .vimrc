@@ -167,7 +167,7 @@ Plug 'fatih/vim-nginx', {'for' : 'nginx'}
 Plug 'hashivim/vim-packer'
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 Plug 'juliosueiras/vim-terraform-completion'
-Plug 'martinda/Jenkinsfile-vim-syntax', { 'for': 'Jenkinsfile' }
+Plug 'martinda/Jenkinsfile-vim-syntax', { 'for': 'jenkinsfile' }
 Plug 'ngmy/vim-rubocop', { 'for': 'ruby' }
 Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
 Plug 'phenomenes/ansible-snippets', { 'for': 'ansible' }
@@ -199,6 +199,7 @@ Plug 'junegunn/vim-after-object'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
 Plug 'kana/vim-submode'
+Plug 'luochen1990/rainbow'
 Plug 'mbbill/undotree'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -344,6 +345,11 @@ cnoreabbrev Q ccl<cr>
 " Variables {{{
 " supertab
 let g:SuperTabDefaultCompletionType = "context"
+" let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+
+" Rainbow
+let g:rainbow_active = 1
+let g:rainbow_conf = { 'guifgs': ['#f8f8f2', '#8be9fd', '#f1fa8c', '#bd93f9'] }
 
 " vim-gitgutter
 let g:gitgutter_map_keys = 0
@@ -380,6 +386,9 @@ nnoremap <leader>A :silent ArgWrap<CR>
 " }}}
 
 " Mappings {{{
+" Hit that file with a hammer
+cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
+
 " zip a character left and right
 nnoremap zl :let @z=@"<cr>xBP:let @"=@z<cr>
 nnoremap zr :let @z=@"<cr>x$p:let @"=@z<cr>
@@ -470,7 +479,6 @@ if executable('jq')
 	map <leader>j :!jq -M -c . % 2>&1 >/dev/null<CR>
 endif
 
-runtime macros/matchit.vim
 map <tab> %
 
 " Keep search matches in the middle of the window.
@@ -566,10 +574,6 @@ nnoremap ` :NERDTreeToggle<CR> " Non-Macs
 
 " Remove ^M from file
 map <leader>M :%s/^M//<CR>
-
-" Bubble single lines
-nmap <C-K> [e
-nmap <C-J> ]e
 
 " Bubble multiple lines
 vmap <C-K> [egv
@@ -805,7 +809,6 @@ augroup go
 	autocmd FileType go nmap <leader>r  <Plug>(go-run)
 	" :GoDoc
 	autocmd FileType go nmap <Leader>D <Plug>(go-doc)
-	" :GoCoverageToggle
 	" :GoInfo
 	autocmd FileType go nmap <Leader>i <Plug>(go-info)
 	" :GoMetaLinter
