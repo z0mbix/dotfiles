@@ -36,7 +36,7 @@ set laststatus=2                                         " always show status li
 set ttyfast                                              " fast terminal conn for faster redraw
 set pastetoggle=<F8>                                     " toggle pasting
 set clipboard=unnamed,unnamedplus                        " use system clipboard "
-set spellfile=~/.vimspell.add"                           " my words
+set spellfile=~/.vimspell.add                           " my words
 set confirm                                              " ask to save files
 set viminfo='100,f1                                      " save up to 100 marks, enable capital marks
 set listchars=tab:›\ ,eol:¬,trail:·,extends:❯,precedes:❮ " set the characters for the invisibles
@@ -121,8 +121,7 @@ endif
 
 if empty(glob(s:plug_file))
 	if executable('curl')
-		silent !curl -fLo s:plug_file --create-dirs
-					\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+		silent execute '!curl -fLo ' . s:plug_file . ' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 		autocmd VimEnter * PlugInstall | source $MYVIMRC
 	endif
 endif
@@ -220,6 +219,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tweekmonster/startuptime.vim'
 Plug 'wellle/targets.vim'
+Plug 'arcticicestudio/nord-vim'
 
 call plug#end()
 " }}}
@@ -231,7 +231,7 @@ let g:rehash256 = 1
 if (has("termguicolors"))
 	set termguicolors
 endif
-color dracula
+color nord
 syntax on
 set t_ut=
 " }}}
