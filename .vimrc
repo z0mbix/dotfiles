@@ -36,10 +36,10 @@ set laststatus=2                                         " always show status li
 set ttyfast                                              " fast terminal conn for faster redraw
 set pastetoggle=<F8>                                     " toggle pasting
 set clipboard=unnamed,unnamedplus                        " use system clipboard "
-set spellfile=~/.vimspell.add                           " my words
+set spellfile=~/.vimspell.add                            " my words
 set confirm                                              " ask to save files
 set viminfo='100,f1                                      " save up to 100 marks, enable capital marks
-set listchars=tab:›\ ,eol:¬,trail:·,extends:❯,precedes:❮ " set the characters for the invisibles
+set listchars=tab:›\ ,eol:¬,trail:·,extends:❯,precedes:❮,nbsp:_ " set the characters for the invisibles
 set list                                                 " Show invisible characters
 set splitbelow                                           " splits show up below by default
 set splitright                                           " splits go to the right by default
@@ -162,10 +162,10 @@ endif
 Plug 'dougireton/vim-chef', { 'for': 'chef' }
 Plug 'ekalinin/Dockerfile.vim', { 'for' : 'Dockerfile' }
 Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'fatih/vim-nginx', {'for' : 'nginx'}
-Plug 'hashivim/vim-packer'
+Plug 'fatih/vim-nginx', { 'for': 'nginx' }
+Plug 'hashivim/vim-packer', { 'for': 'json' }
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
-Plug 'juliosueiras/vim-terraform-completion'
+Plug 'juliosueiras/vim-terraform-completion', { 'for': 'terraform' }
 Plug 'martinda/Jenkinsfile-vim-syntax', { 'for': 'jenkinsfile' }
 Plug 'ngmy/vim-rubocop', { 'for': 'ruby' }
 Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
@@ -180,7 +180,8 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'FooSoft/vim-argwrap'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'airblade/vim-gitgutter'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'bling/vim-bufferline'
 Plug 'bogado/file-line'
 Plug 'danro/rename.vim'
@@ -220,6 +221,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tweekmonster/startuptime.vim'
 Plug 'wellle/targets.vim'
 Plug 'arcticicestudio/nord-vim'
+Plug 'valloric/listtoggle'
 
 call plug#end()
 " }}}
@@ -264,9 +266,11 @@ let php_htmlInStrings=1
 
 " Python
 autocmd BufNewFile,BufRead .py set ft=python
-autocmd FileType python set ts=4 sw=4 tw=79 et sts=4 smartindent
+autocmd FileType python set ts=4 sw=4 tw=160 et sts=4 smartindent
 autocmd FileType python map <buffer> <F7> :call Autopep8()<CR>
-let g:autopep8_disable_show_diff=1
+let g:autopep8_disable_show_diff = 1
+let g:autopep8_max_line_length = 160
+let g:autopep8_on_save = 1
 
 " JavaScript
 autocmd BufNewFile,BufRead *.js set ft=javascript
@@ -354,6 +358,12 @@ let g:rainbow_conf = { 'guifgs': ['#f8f8f2', '#8be9fd', '#f1fa8c', '#bd93f9'] }
 " vim-gitgutter
 let g:gitgutter_map_keys = 0
 
+" UltiSnips
+let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
 " ansible-vim
 let g:ansible_extra_keywords_highlight = 1
 let g:ansible_attribute_highlight = "ob"
@@ -363,7 +373,7 @@ let g:neosnippet#snippets_directory='~/.vim/plugged/ansible-snippets/snippets'
 
 " simple separators for buffer list
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#bufferline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
@@ -381,11 +391,9 @@ let g:bufferline_echo = 0
 let g:vimshfmt_extra_args = '-i 2'
 " }}}
 
-" ArgWrap {{{
-nnoremap <leader>A :silent ArgWrap<CR>
-" }}}
-
 " Mappings {{{
+nnoremap <leader>A :silent ArgWrap<CR>
+
 " Hit that file with a hammer
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
@@ -454,6 +462,10 @@ nnoremap <silent> ,x :Bclose<CR>
 nnoremap <silent> ,X :Bclose!<CR>
 
 nnoremap <leader>v V
+
+" listtoggle
+let g:lt_location_list_toggle_map = '<leader>ll'
+let g:lt_quickfix_list_toggle_map = '<leader>qq'
 
 " Switch buffers - vim-submode
 let g:submode_timeout = 0
@@ -769,6 +781,8 @@ let g:syntastic_sh_shellcheck_args='--exclude=SC2086
 " Use rubocop for ruby
 let g:syntastic_ruby_checkers = ['rubocop']
 
+let g:syntastic_python_checkers = ['flake8']
+
 " }}}
 
 " vim-go {{{
@@ -906,6 +920,20 @@ function! s:root()
 	endif
 endfunction
 command! Root call s:root()
+
+" When using `dd` in the quickfix list, remove the item from the quickfix list.
+" https://stackoverflow.com/questions/42905008/quickfix-list-how-to-add-and-remove-entries
+
+function! RemoveQuickfixItem()
+	let curqfidx = line('.') - 1
+	let qfall = getqflist()
+	call remove(qfall, curqfidx)
+	call setqflist(qfall, 'r')
+	execute curqfidx + 1 . "cfirst"
+	:copen
+endfunction
+
+autocmd FileType qf map <buffer> dd :call RemoveQuickfixItem()<cr>
 
 " e.g. :Tfdoc aws_instance
 if executable('tfdoc')
