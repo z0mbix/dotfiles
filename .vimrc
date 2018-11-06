@@ -327,7 +327,8 @@ autocmd VimResized * :wincmd =
 autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
 
 " Auto run shfmt on save
-" autocmd BufWritePre *.sh :Shfmt
+let g:shfmt_fmt_on_save = 1
+let g:shfmt_extra_args = '-i 2'
 
 " Toggle relativenumber in insert mode
 augroup numbertoggle
