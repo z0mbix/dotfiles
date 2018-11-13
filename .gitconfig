@@ -9,7 +9,7 @@
 [github]
 	user = z0mbix
 [push]
-	default = tracking
+	default = current
 [color]
     ui = auto
 [color "branch"]
@@ -83,3 +83,5 @@
 	helper = osxkeychain
 [help]
 	autocorrect = 1
+[pull]
+	default = current
