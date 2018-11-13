@@ -180,8 +180,7 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'FooSoft/vim-argwrap'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'airblade/vim-gitgutter'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'arcticicestudio/nord-vim'
 Plug 'bling/vim-bufferline'
 Plug 'bogado/file-line'
 Plug 'danro/rename.vim'
@@ -199,12 +198,13 @@ Plug 'junegunn/vim-after-object'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
 Plug 'kana/vim-submode'
-Plug 'luochen1990/rainbow'
+Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'rhysd/clever-f.vim'
+Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
 Plug 'sodapopcan/vim-twiggy'
@@ -219,9 +219,11 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tweekmonster/startuptime.vim'
-Plug 'wellle/targets.vim'
-Plug 'arcticicestudio/nord-vim'
 Plug 'valloric/listtoggle'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'wellle/targets.vim'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 call plug#end()
 " }}}
@@ -351,10 +353,19 @@ cnoreabbrev Q ccl<cr>
 " supertab
 let g:SuperTabDefaultCompletionType = "context"
 " let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+"
+let g:webdevicons_enable_airline_statusline = 1
+let g:webdevicons_enable_airline_tabline = 1
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1 " enable folder glyph flag
+let g:DevIconsEnableFoldersOpenClose = 1
+let g:DevIconsEnableFolderExtensionPatternMatching = 1
+let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
+let g:WebDevIconsOS = 'Darwin'
 
 " Rainbow
-let g:rainbow_active = 1
-let g:rainbow_conf = { 'guifgs': ['#f8f8f2', '#8be9fd', '#f1fa8c', '#bd93f9'] }
+" let g:rainbow_active = 1
+" let g:rainbow_conf = { 'guifgs': ['#f8f8f2', '#8be9fd', '#f1fa8c', '#bd93f9'] }
 
 " vim-gitgutter
 let g:gitgutter_map_keys = 0
@@ -374,7 +385,7 @@ let g:neosnippet#snippets_directory='~/.vim/plugged/ansible-snippets/snippets'
 
 " simple separators for buffer list
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#bufferline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
@@ -393,6 +404,10 @@ let g:vimshfmt_extra_args = '-i 2'
 " }}}
 
 " Mappings {{{
+" inoremap <expr> <cr> ((pumvisible())?("\<C-y>"):("\<cr>"))
+
+nmap <leader>tb :TagbarToggle<CR>
+
 nnoremap <leader>A :silent ArgWrap<CR>
 
 " Hit that file with a hammer
@@ -465,8 +480,8 @@ nnoremap <silent> ,X :Bclose!<CR>
 nnoremap <leader>v V
 
 " listtoggle
-let g:lt_location_list_toggle_map = '<leader>ll'
-let g:lt_quickfix_list_toggle_map = '<leader>qq'
+let g:lt_location_list_toggle_map = '<leader>L'
+let g:lt_quickfix_list_toggle_map = '<leader>Q'
 
 " Switch buffers - vim-submode
 let g:submode_timeout = 0
@@ -733,6 +748,9 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
 let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
 let g:NERDTreeAutoDeleteBuffer = 1
+let g:NERDTreeDirArrowExpandable = "\u00a0" " make arrows invisible
+let g:NERDTreeDirArrowCollapsible = "\u00a0" " make arrows invisible
+let g:NERDTreeNodeDelimiter = "\u263a" " smiley face
 
 " let s:brown = "905532"
 " let s:aqua =  "3AFFDB"
@@ -855,7 +873,7 @@ endfunction
 " nnoremap <leader>f :ta<space>
 
 " Auto open the TagBar when file is supported
-" autocmd FileType * nested :call tagbar#autoopen(0)
+autocmd FileType * nested :call tagbar#autoopen(0)
 
 " Auto run ctags on file save
 if !empty(glob(".ctags"))
