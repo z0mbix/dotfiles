@@ -238,6 +238,8 @@ endif
 color nord
 syntax on
 set t_ut=
+set fillchars+=vert:│
+hi VertSplit ctermbg=none guibg=none
 " }}}
 
 " Auto Commands {{{
