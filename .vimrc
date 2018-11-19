@@ -72,6 +72,7 @@ if has('nvim')
 	set inccommand=nosplit
 endif
 
+
 " undofile - This allows you to use undos after exiting and restarting
 " This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
 " :help undo-persistence
@@ -142,6 +143,8 @@ if has('python3')
 		Plug 'roxma/nvim-yarp'
 		Plug 'roxma/vim-hug-neovim-rpc'
 	endif
+	Plug 'zchee/deoplete-jedi'
+	Plug 'zchee/deoplete-go', { 'do': 'make' }
 	let g:deoplete#enable_at_startup = 1
 endif
 
@@ -206,10 +209,10 @@ Plug 'rbgrouleff/bclose.vim'
 Plug 'rhysd/clever-f.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'scrooloose/syntastic'
 Plug 'sodapopcan/vim-twiggy'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-endwise'
@@ -222,8 +225,8 @@ Plug 'tweekmonster/startuptime.vim'
 Plug 'valloric/listtoggle'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 call plug#end()
 " }}}
@@ -354,7 +357,10 @@ cnoreabbrev Q ccl<cr>
 " Variables {{{
 " supertab
 let g:SuperTabDefaultCompletionType = "context"
-" let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+"
+" jedi
+let g:deoplete#sources#jedi#show_docstring = 1
 "
 let g:webdevicons_enable_airline_statusline = 1
 let g:webdevicons_enable_airline_tabline = 1
@@ -364,10 +370,6 @@ let g:DevIconsEnableFolderExtensionPatternMatching = 1
 let g:webdevicons_conceal_nerdtree_brackets = 1
 let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 let g:WebDevIconsOS = 'Darwin'
-
-" Rainbow
-" let g:rainbow_active = 1
-" let g:rainbow_conf = { 'guifgs': ['#f8f8f2', '#8be9fd', '#f1fa8c', '#bd93f9'] }
 
 " vim-gitgutter
 let g:gitgutter_map_keys = 0
@@ -391,7 +393,6 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#bufferline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#syntastic#enabled = 1
 
 " clever-f
 let g:clever_f_timeout_ms = 2000
@@ -509,7 +510,7 @@ if executable('jq')
 	map <leader>j :!jq -M -c . % 2>&1 >/dev/null<CR>
 endif
 
-map <tab> %
+" map <tab> %
 
 " Keep search matches in the middle of the window.
 nnoremap n nzzzv
@@ -681,7 +682,7 @@ if executable('rg')
 endif
 
 nmap <c-p> :Files<CR>
-nmap <Leader><Space> :Files<CR>
+nmap <Leader><Space> :BLines<CR>
 nmap <Leader>ff :Files<CR>
 nmap <Leader>fF :GFiles<CR>
 nmap <Leader>fb :Buffers<CR>
@@ -780,30 +781,26 @@ let g:NERDTreeNodeDelimiter = "\u263a" " smiley face
 " let g:NERDTreeExtensionHighlightColor['md'] = s:salmon " sets the color of css files to blue
 " }}}
 
-" syntastic {{{
-" let g:syntastic_check_on_open = 1
-let g:syntastic_enable_signs = 1
-let g:syntastic_error_symbol = '✖︎'
-let g:terraform_fmt_on_save = 1
+" ALE {{{
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'python': ['flake8', 'pylint'],
+\   'terraform': ['terraform']
+\}
 
-" Puppet stuff
-let g:syntastic_puppet_puppetlint_args='--no-80chars-check
-			\ --no-autoloader_layout-check
-			\ --no-quoted_booleans-check
-			\ --no-class_inherits_from_params_class-check'
+let g:ale_fixers = {
+\   'python': ['autopep8', 'yapf'],
+\   'terraform': ['terraform']
+\}
 
-let g:syntastic_eruby_ruby_quiet_messages =
-			\ {'regex': 'possibly useless use of a variable in void context'}
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚠'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_fix_on_save = 1
 
-" Exclude some annoying shellcheck checks
-let g:syntastic_sh_shellcheck_args='--exclude=SC2086
-			\ --exclude=SC2068'
-
-" Use rubocop for ruby
-let g:syntastic_ruby_checkers = ['rubocop']
-
-let g:syntastic_python_checkers = ['flake8']
-
+let g:ale_sh_shellcheck_exclusions = 'SC2068,SC2086'
 " }}}
 
 " vim-go {{{
