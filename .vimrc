@@ -246,6 +246,7 @@ hi VertSplit ctermbg=none guibg=none
 " }}}
 
 " Auto Commands {{{
+
 " Highlight line if in insert mode
 autocmd InsertEnter * set cursorline
 autocmd InsertLeave * set nocursorline
@@ -333,16 +334,15 @@ autocmd VimResized * :wincmd =
 " vim-after-object - e.g. ca= / da= etc.
 autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
 
-" Auto run shfmt on save
-let g:shfmt_fmt_on_save = 1
-let g:shfmt_extra_args = '-i 2'
-
 " Toggle relativenumber in insert mode
 augroup numbertoggle
 	autocmd!
 	autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
 	autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
+
+" git re-uses the same filename all the time, so ignore viminfo
+autocmd BufNewFile,BufRead *.git/* call setpos('.', [0, 1, 1, 0])
 " }}}
 
 " Abbreviations {{{
@@ -355,6 +355,11 @@ cnoreabbrev Q ccl<cr>
 " }}}
 
 " Variables {{{
+
+" Auto run shfmt on save
+let g:shfmt_fmt_on_save = 1
+let g:shfmt_extra_args = '-i 2'
+
 " supertab
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
@@ -794,7 +799,7 @@ let g:ale_fixers = {
 \}
 
 let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '⚠'
+let g:ale_sign_warning = '⚡'
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
@@ -968,5 +973,10 @@ xnoremap <silent> <Leader>tfd y:Tfdoc -d <C-R>"<CR>
 " Stuff I don't want up on github
 if filereadable(glob("~/.vim/private"))
 	source ~/.vim/private
+endif
+
+" Stuff I don't want up on github
+if filereadable(glob(".vimrc"))
+	source .vimrc
 endif
 " }}}
