@@ -976,7 +976,7 @@ if filereadable(glob("~/.vim/private"))
 endif
 
 " Stuff I don't want up on github
-if filereadable(glob(".vimrc"))
-	source .vimrc
+if filereadable(glob(".vimrc.local"))
+	source .vimrc.local
 endif
 " }}}

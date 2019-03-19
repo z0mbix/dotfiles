@@ -92,6 +92,10 @@ alias kl='kitchen login'
 alias kt='kitchen test'
 alias kd='kitchen destroy'
 
+alias k='kubectl'
+alias kdump='kubectl get all --all-namespaces'
+
+
 alias proxyon='source ~/.sh/proxy'
 alias proxyoff='unset {HTTP,HTTPS,FTP}_PROXY {http,https,ftp}_proxy no_proxy NO_PROXY'
 alias proxystatus='env | grep -i proxy | sort'
