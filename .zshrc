@@ -1,7 +1,29 @@
-[[ -f /usr/local/share/antigen/antigen.zsh ]] && source /usr/local/share/antigen/antigen.zsh
-[[ -f ~/.antigen.zsh ]] && source ~/.antigen.zsh
+source "${HOME}/.zgen/zgen.zsh"
 
-antigen use oh-my-zsh
+if ! zgen saved; then
+  zgen oh-my-zsh
+
+  zgen oh-my-zsh plugins/aws
+  zgen oh-my-zsh plugins/command-not-found
+  zgen oh-my-zsh plugins/docker
+  zgen oh-my-zsh plugins/dracula
+  zgen oh-my-zsh plugins/git
+  zgen oh-my-zsh plugins/git-extras
+  zgen oh-my-zsh plugins/go
+  zgen oh-my-zsh plugins/golang
+  zgen oh-my-zsh plugins/man
+  zgen oh-my-zsh plugins/osx
+  zgen oh-my-zsh plugins/pip
+  zgen oh-my-zsh plugins/python
+  zgen oh-my-zsh plugins/ssh-agent
+  zgen oh-my-zsh plugins/terraform
+  zgen oh-my-zsh plugins/vagrant
+  zgen oh-my-zsh plugins/web-search
+
+  zgen load zsh-users/zsh-syntax-highlighting
+
+  zgen save
+fi
 
 bindkey -e
 
@@ -10,28 +32,6 @@ bindkey '^U' backward-kill-line
 bindkey '^W' backward-delete-word
 autoload -U select-word-style
 select-word-style bash
-
-antigen bundles <<EOB
-  aws
-  command-not-found
-  docker
-  dracula
-  git
-  git-extras
-  go
-  golang
-  man
-  osx
-  pip
-  python
-  ssh-agent
-  terraform
-  vagrant
-  web-search
-  zsh-users/zsh-syntax-highlighting
-EOB
-
-antigen apply
 
 WORDCHARS='`~!@#$%^&*()-_=+[{]}\|;:",<.>/?'"'"
 HISTSIZE=1000000
