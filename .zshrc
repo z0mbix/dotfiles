@@ -1,3 +1,6 @@
+if [[ ! -f "${HOME}/.zgen/zgen.zsh" ]]; then
+  git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
+fi
 source "${HOME}/.zgen/zgen.zsh"
 
 if ! zgen saved; then
@@ -89,5 +92,8 @@ export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH
 [ -f ~/.sh/functions ] && source ~/.sh/functions
 [ -f ~/.sh/$OS ] && source ~/.sh/$OS
 [ -f ~/.sh/$SHELL ] && source ~/.sh/$SHELL
+[ -f ~/.sh/local ] && source ~/.sh/local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.todo ] && (echo "** TODO LIST **"; cat ~/.todo)
+
+eval "$(direnv hook zsh)"

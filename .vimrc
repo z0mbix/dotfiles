@@ -544,6 +544,11 @@ vnoremap Q gq
 " Keep the cursor in place while joining lines
 nnoremap J mzJ`z
 
+
+if exists('veonim')
+	set guifont=RobotoMono\ Nerd\ Font:h12
+endif
+
 if has('gui_macvim')
 	"  switch OSX windows with swipes
 	nnoremap <silent> <SwipeLeft> :macaction _cycleWindowsBackwards:<CR>
