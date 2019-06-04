@@ -4,6 +4,6 @@ tags
 .DS_Store
 .vim/.netrwhist
 compare_git_to_home.sh
-diff_file.sh
+diff-file
 .sh/private
 .vim/private

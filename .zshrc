@@ -22,8 +22,10 @@ if ! zgen saved; then
   zgen oh-my-zsh plugins/terraform
   zgen oh-my-zsh plugins/vagrant
   zgen oh-my-zsh plugins/web-search
+  zgen oh-my-zsh plugins/z
 
   zgen load zsh-users/zsh-syntax-highlighting
+  zgen load andrewferrier/fzf-z
 
   zgen save
 fi
@@ -33,8 +35,7 @@ bindkey -e
 # bash style ctrl-w/u
 bindkey '^U' backward-kill-line
 bindkey '^W' backward-delete-word
-autoload -U select-word-style
-select-word-style bash
+autoload -U select-word-style select-word-style bash
 
 WORDCHARS='`~!@#$%^&*()-_=+[{]}\|;:",<.>/?'"'"
 HISTSIZE=1000000
@@ -67,26 +68,11 @@ ZSH_THEME_GIT_PROMPT_DIRTY=") %{$fg_bold[yellow]%}✗ "
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[cyan]%}("
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 
-export TERM="xterm-color"
-export LESS="-niSRX"
-export OS="$(uname -s)"
-export GOPATH="$HOME"
-export ANSIBLE_NOCOWS=1
-export EDITOR=vim
-
-# support colors in less/manpages
-export LESS_TERMCAP_mb=$'\E[01;31m'
-export LESS_TERMCAP_md=$'\E[01;31m'
-export LESS_TERMCAP_me=$'\E[0m'
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;44;33m'
-export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[01;32m'
-
 [ -d ~/Dropbox ] && PATH=~/Dropbox/bin:~/Dropbox/bin/$OS:$PATH
-export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/.local/bin:$PATH
 
 [ -f ~/.sh/proxy ] && source ~/.sh/proxy
+[ -f ~/.sh/all ] && source ~/.sh/all
 [ -f ~/.sh/aliases ] && source ~/.sh/aliases
 [ -f ~/.sh/private ] && source ~/.sh/private
 [ -f ~/.sh/functions ] && source ~/.sh/functions
