@@ -59,9 +59,12 @@ setopt inc_append_history
 setopt share_history
 unsetopt correct_all
 
-local ret_status="%(?:%{$fg[green]%}➜ :%{$fg[red]%}➜ )"
+# local ret_status="%(?:%{$fg[green]%}➜ :%{$fg[red]%}➜ )"
+local ret_status="%(?:%{$fg[green]%}»:%{$fg[red]%}»)"
 
-PROMPT='${ret_status}%{$fg_bold[green]%}%p %{$reset_color%}[%{$fg[yellow]%}%T%{$reset_color%}] %{$fg[cyan]%}%m %{$fg_bold[blue]%}%~%1(j: (%j):) %{$reset_color%}» $(git_prompt_info)% %{$reset_color%}'
+# PROMPT='${ret_status}%{$fg_bold[green]%}%p %{$reset_color%}[%{$fg[yellow]%}%T%{$reset_color%}] %{$fg[cyan]%}%m %{$fg_bold[blue]%}%~%1(j: (%j):) %{$reset_color%}» $(git_prompt_info)% %{$reset_color%}'
+newline=$'\n'
+PROMPT='%{$fg_bold[green]%}%p%{$reset_color%}[%{$fg[yellow]%}%T%{$reset_color%}] %{$fg[cyan]%}%m %{$fg_bold[blue]%}%~%1(j: (%j):) %{$reset_color%}$(git_prompt_info)${newline}${ret_status}%{$reset_color%} '
 
 ZSH_THEME_GIT_PROMPT_CLEAN=") %{$fg_bold[green]%}✔ "
 ZSH_THEME_GIT_PROMPT_DIRTY=") %{$fg_bold[yellow]%}✗ "
@@ -83,3 +86,18 @@ export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/.local/bin:$PATH
 [ -f ~/.todo ] && (echo "** TODO LIST **"; cat ~/.todo)
 
 eval "$(direnv hook zsh)"
+
+function auto_pipenv_shell {
+    if [ ! -n "${PIPENV_ACTIVE+1}" ]; then
+        if [ -f "Pipfile" ] ; then
+            pipenv shell
+        fi
+    fi
+}
+
+function cd {
+    builtin cd "$@"
+    auto_pipenv_shell
+}
+
+auto_pipenv_shell
