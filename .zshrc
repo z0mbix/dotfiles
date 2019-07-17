@@ -85,7 +85,7 @@ export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/.local/bin:$PATH
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.todo ] && (echo "** TODO LIST **"; cat ~/.todo)
 
-if command -v >/dev/null 2>&1; then
+if command -v direnv >/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
 
