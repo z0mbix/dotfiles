@@ -1,6 +1,11 @@
-function cdls {
+function cdls() {
     builtin cd "$@"
 	ls -l
+}
+
+ip-from-hostname() {
+  local hostname=$1
+  echo $1 | gsed -r 's/ip-([0-9]{1,3})-([0-9]{1,3})-([0-9]{1,3})-([0-9]{1,3}).*/\1.\2.\3.\4/g'
 }
 
 clone() {

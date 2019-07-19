@@ -1,0 +1,103 @@
+{
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "window.title": "${folderName} :: ${activeEditorMedium} ",
+    "explorer.confirmDragAndDrop": false,
+    "explorer.openEditors.visible": 0,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/*.pyc": true,
+        "**/__pycache__": true
+    },
+    "editor.renderWhitespace": "boundary",
+    "editor.fontFamily": "'Source Code Pro for powerline', Menlo, Monaco, 'Courier New', monospace",
+    "editor.formatOnSave": true,
+    "editor.minimap.enabled": false,
+    "editor.autoClosingBrackets": "beforeWhitespace",
+    "editor.autoClosingQuotes": "beforeWhitespace",
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": false,
+        "strings": true
+    },
+    "window.zoomLevel": 0,
+    "workbench.colorTheme": "Nord",
+    "http.proxyStrictSSL": true,
+    "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.rendererType": "dom",
+    "vim.leader": "<space>",
+    "vim.useSystemClipboard": true,
+    "terraform.format": {
+        "enable": true,
+        "formatOnSave": true
+    },
+    "terraform.path": "/usr/local/bin/terraform",
+    "terraform.lintPath": "/usr/local/bin/tflint",
+    "terraform.indexing": {
+        "enabled": true,
+        "liveIndexing": true,
+        "delay": 500,
+        "exclude": [
+            "**/.terraform/**/*"
+        ]
+    },
+    "terraform.telemetry.enabled": false,
+    "terraform.codelens.enabled": false,
+    "python.autoComplete.showAdvancedMembers": true,
+    "python.autoComplete.addBrackets": true,
+    "python.linting.prospectorEnabled": true,
+    "python.linting.pep8Enabled": true,
+    "python.linting.pep8Args": [
+        "--max-line-length=120"
+    ],
+    "python.formatting.autopep8Args": [
+        "--max-line-length=120",
+        "--ignore",
+        "E402"
+    ],
+    "python.disableInstallationCheck": true,
+    "gitlens.defaultDateStyle": "absolute",
+    "gitlens.codeLens.enabled": false,
+    "gitlens.currentLine.enabled": false,
+    "gitlens.keymap": "alternate",
+    "gitlens.hovers.enabled": false,
+    "gitlens.hovers.currentLine.over": "line",
+    "gitlens.statusBar.format": "${author}, ${date} (${ago}) - ${message}",
+    "gitlens.recentChanges.highlight.locations": [
+        "line",
+        "overview",
+        "gutter"
+    ],
+    "gitlens.advanced.messages": {
+        "suppressShowKeyBindingsNotice": true,
+        "suppressWelcomeNotice": true
+    },
+    "shellcheck.exclude": [
+        "SC2086",
+        "SC2155",
+        "SC2148"
+    ],
+    "vim.enableNeovim": true,
+    "vim.neovimPath": "/usr/local/bin/nvim",
+    "vim.easymotion": true,
+    "vim.highlightedyank.enable": true,
+    "vim.hlsearch": true,
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#434C5E",
+        "statusBar.noFolderBackground": "#434C5E",
+        "statusBar.debuggingBackground": "#434C5E"
+    },
+    "vim.statusBarColors.insert": "#EBCB8B",
+    "vim.statusBarColors.visual": "#BF616A",
+    "vim.statusBarColors.visualblock": "#BF616A",
+    "vim.statusBarColors.visualline": "#BF616A",
+    "vim.statusBarColors.normal": "#434C5E",
+    "workbench.iconTheme": "vscode-great-icons",
+    "editor.lineNumbers": "relative",
+    "vim.highlightedyank.duration": 300
+}

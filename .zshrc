@@ -3,13 +3,16 @@ if [[ ! -f "${HOME}/.zgen/zgen.zsh" ]]; then
 fi
 source "${HOME}/.zgen/zgen.zsh"
 
+if command -v brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
+
 if ! zgen saved; then
   zgen oh-my-zsh
 
   zgen oh-my-zsh plugins/aws
   zgen oh-my-zsh plugins/command-not-found
   zgen oh-my-zsh plugins/docker
-  zgen oh-my-zsh plugins/dracula
   zgen oh-my-zsh plugins/git
   zgen oh-my-zsh plugins/git-extras
   zgen oh-my-zsh plugins/go
@@ -21,11 +24,8 @@ if ! zgen saved; then
   zgen oh-my-zsh plugins/ssh-agent
   zgen oh-my-zsh plugins/terraform
   zgen oh-my-zsh plugins/vagrant
-  zgen oh-my-zsh plugins/web-search
-  zgen oh-my-zsh plugins/z
 
   zgen load zsh-users/zsh-syntax-highlighting
-  zgen load andrewferrier/fzf-z
 
   zgen save
 fi
@@ -84,10 +84,6 @@ export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/.local/bin:$PATH
 [ -f ~/.sh/local ] && source ~/.sh/local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.todo ] && (echo "** TODO LIST **"; cat ~/.todo)
-
-if command -v direnv >/dev/null 2>&1; then
-  eval "$(direnv hook zsh)"
-fi
 
 function auto_pipenv_shell {
     if [ ! -n "${PIPENV_ACTIVE+1}" ]; then
