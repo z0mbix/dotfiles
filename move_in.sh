@@ -46,11 +46,16 @@ if [ $os == "OpenBSD" ]; then
   rm -f .cshrc .login .mailrc
 fi
 
+if [ ! -d ~/.zsh/completion ]; then
+  mkdir -p ~/.zsh/completion
+fi
+
 # Dump stuff we don't need on OS X?
 if [ $os = "Darwin" ]; then
   rm -rf ~/.fluxbox
-  rm -f ~/.conkyrc
-  rm -f ~/.xsession
+  rm -f ~/.conkyrc .Xdefaults ~/.xsession ~/.xinitrc ~/.profile-openbsd ~/.packages.openbsd
+  ln -sf ~/.config/Code/User/settings.json ~/Library/Application\ Support/Code/User/settings.json
+  ln -sf ~/.config/Code/User/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
 fi
 
 if [ ! -f ~/.git-prompt.sh ]; then
@@ -59,15 +64,14 @@ if [ ! -f ~/.git-prompt.sh ]; then
 fi
 
 # Setup shell
-curl -L git.io/antigen > ~/.antigen.zsh
 [ -f "~/.${SHELL##*/}rc" ] && source "~/.${SHELL##*/}rc"
 
 # Setup vim/neovim
 [ ! -d ~/.config/nvim ] && mkdir -p ~/.config/nvim
 ln -s ~/.vimrc ~/.config/nvim/init.vim
 
-if which git >/dev/null 2>&1; then
-  if which nvim >/dev/null 2>&1; then
+if command -v git >/dev/null 2>&1; then
+  if command -v nvim >/dev/null 2>&1; then
     curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     if [ ! -d ~/.local/share/nvim/plugged ]; then
@@ -75,7 +79,7 @@ if which git >/dev/null 2>&1; then
     fi
   fi
 
-  if which vim >/dev/null 2>&1; then
+  if command -v vim >/dev/null 2>&1; then
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     if [ ! -d ~/.vim/plugged ]; then

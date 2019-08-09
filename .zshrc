@@ -37,7 +37,6 @@ bindkey '^U' backward-kill-line
 bindkey '^W' backward-delete-word
 autoload -U select-word-style select-word-style bash
 
-WORDCHARS='`~!@#$%^&*()-_=+[{]}\|;:",<.>/?'"'"
 HISTSIZE=1000000
 SAVEHIST=1000000
 CASE_SENSITIVE="true"
@@ -59,10 +58,8 @@ setopt inc_append_history
 setopt share_history
 unsetopt correct_all
 
-# local ret_status="%(?:%{$fg[green]%}➜ :%{$fg[red]%}➜ )"
 local ret_status="%(?:%{$fg[green]%}»:%{$fg[red]%}»)"
 
-# PROMPT='${ret_status}%{$fg_bold[green]%}%p %{$reset_color%}[%{$fg[yellow]%}%T%{$reset_color%}] %{$fg[cyan]%}%m %{$fg_bold[blue]%}%~%1(j: (%j):) %{$reset_color%}» $(git_prompt_info)% %{$reset_color%}'
 newline=$'\n'
 PROMPT='%{$fg_bold[green]%}%p%{$reset_color%}[%{$fg[yellow]%}%T%{$reset_color%}] %{$fg[cyan]%}%m %{$fg_bold[blue]%}%~%1(j: (%j):) %{$reset_color%}$(git_prompt_info)${newline}${ret_status}%{$reset_color%} '
 
@@ -84,6 +81,9 @@ export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/.local/bin:$PATH
 [ -f ~/.sh/local ] && source ~/.sh/local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.todo ] && (echo "** TODO LIST **"; cat ~/.todo)
+
+# local zsh completions
+[ -d ~/.zsh/completion ] && fpath=(~/.zsh/completion $fpath)
 
 function auto_pipenv_shell {
     if [ ! -n "${PIPENV_ACTIVE+1}" ]; then
