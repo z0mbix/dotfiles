@@ -1,0 +1,4 @@
+[directory]
+truncation_length = 8
+fish_style_pwd_dir_length = 1
+style = "bright-green"
