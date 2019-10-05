@@ -11,7 +11,7 @@ set mark-symlinked-directories on
 set visible-stats on
 set skip-completed-text on
 set bell-style none
-set completion-ignore-case on
+set completion-ignore-case off
 set match-hidden-files off
 
 # Fix backspace/end etc. on FreeBSD

@@ -6,7 +6,7 @@ export GOPATH="$HOME"
 export ANSIBLE_NOCOWS=1
 export SHELLCHECK_OPTS="-e SC2155"
 export CHECKPOINT_DISABLE=1
-export TF_PLUGIN_CACHE_DIR=~/.terraform.d/plugin-cache
+export TF_PLUGIN_CACHE_DIR="${HOME}/.terraform.d/plugin-cache"
 export AWS_VAULT_KEYCHAIN_NAME=login
 export SHELL_NAME="$(basename $SHELL)"
 
@@ -18,6 +18,13 @@ export LESS_TERMCAP_se=$'\E[0m'
 export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
+
+[ -d ${HOME}/Dropbox ] && PATH=${HOME}/Dropbox/bin:${HOME}/Dropbox/bin/$OS:$PATH
+[ -d ${HOME}/Sync/bin ] && PATH="${HOME}/Sync/bin:$PATH"
+[ -d ${HOME}/Sync/bin/$OS ] && PATH="${HOME}/Sync/bin/$OS:$PATH"
+[ -d /usr/local/opt/ruby/bin ] && PATH="/usr/local/opt/ruby/bin:$PATH"
+
+export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/.local/bin:$PATH
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
@@ -33,3 +40,20 @@ fi
 if command -v direnv >/dev/null 2>&1; then
   eval "$(direnv hook $SHELL_NAME)"
 fi
+
+if command -v molecule >/dev/null 2>&1; then
+  eval "$(_MOLECULE_COMPLETE=source molecule)"
+fi
+
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init $SHELL_NAME)"
+fi
+
+if command -v kubectl >/dev/null 2>&1; then
+  source <(kubectl completion zsh)
+fi
+
+if [[ -e $HOME/.krew/bin/kubectl-krew ]]; then
+  export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+fi
+

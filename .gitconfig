@@ -45,6 +45,7 @@
 	df = diff
 	diff-last-commit = diff HEAD^ HEAD
 	ds = diff --stat
+	home = rev-parse --show-toplevel
 	in = !git fetch && git log --pretty=oneline --abbrev-commit --graph ..@{upstream}
 	last = cat-file commit HEAD
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
@@ -55,7 +56,7 @@
 	out = log --graph --oneline --pretty=format:'%Cred%h%Cgreen %cd %Creset- %s' --abbrev-commit --date=relative --graph @{upstream}..
 	pr = !"pr() { git fetch origin pull/$1/head:pr-$1; git checkout pr-$1; }; pr"
 	prune = fetch --prune
-	home = rev-parse --show-toplevel
+	push-and-pr = !git push && git open-pr
 	sa = stash apply
 	sd = stash show --patch
 	since = !git log $(git merge-base --fork-point master)..HEAD

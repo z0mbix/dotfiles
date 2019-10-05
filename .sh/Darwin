@@ -2,11 +2,9 @@
 
 [ -d /Developer/usr/bin ] && PATH=$PATH:/Developer/usr/bin
 
-# Is Dropbox installed?
-[ -d ~/Dropbox/bin/Darwin ] && PATH=$PATH:~/Dropbox/bin/Darwin
-
 export HOMEBREW_INSTALL_BADGE=📦
 export HOMEBREW_NO_AUTO_UPDATE=1
+export AWS_VAULT_KEYCHAIN_NAME=login
 
 # User installed pip
 export PATH=$PATH:~/Library/Python/2.7/bin

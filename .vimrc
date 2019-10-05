@@ -169,6 +169,7 @@ Plug 'fatih/vim-nginx', { 'for': 'nginx' }
 Plug 'hashivim/vim-packer', { 'for': 'json' }
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 Plug 'juliosueiras/vim-terraform-completion', { 'for': 'terraform' }
+Plug 'leafgarland/typescript-vim'
 Plug 'martinda/Jenkinsfile-vim-syntax', { 'for': 'jenkinsfile' }
 Plug 'ngmy/vim-rubocop', { 'for': 'ruby' }
 Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }

@@ -50,6 +50,8 @@ alias mockproxy='mockserver -logLevel INFO -proxyPort 8080'
 alias tmux='TERM=screen-256color tmux'
 alias planetrock="mplayer 'http://tx.sharp-stream.com/icecast.php?i=planetrock.mp3'"
 alias showpath="echo $PATH | tr ':' '\n' | nl"
+alias da='direnv allow'
+alias n='navi --print'
 
 # I cannot live without this, so this allow me to quickly copy a pastable HEREDOC on to new hosts :)
 alias copyinputrc='echo -e "cat > ~/.inputrc <<EOF $(echo; cat ~/.inputrc)\nEOF\nbind -f ~/.inputrc" | pbcopy'
@@ -95,10 +97,11 @@ alias kd='kitchen destroy'
 alias k='kubectl'
 alias kdump='kubectl get all --all-namespaces'
 
-
 alias proxyon='source ~/.sh/proxy'
 alias proxyoff='unset {HTTP,HTTPS,FTP}_PROXY {http,https,ftp}_proxy no_proxy NO_PROXY'
 alias proxystatus='env | grep -i proxy | sort'
+
+alias tg_cache_clear='find . -name .terragrunt-cache | xargs -n1 rm -rf'
 
 # Setup vim/nvim/vi
 if [ -f $(which nvim) ]; then
