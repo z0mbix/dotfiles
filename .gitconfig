@@ -73,6 +73,7 @@
 	tool = icdiff
 	renames = copies
 	mnemonicprefix = true
+	noprefix = true
 [merge]
 	stat = true
 	summary = true
