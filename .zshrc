@@ -1,11 +1,20 @@
+export ZGEN_RESET_ON_CHANGE=(${HOME}/.zshrc)
+export HISTSIZE=1000000
+export SAVEHIST=1000000
+export CASE_SENSITIVE="true"
+
 if [[ ! -f "${HOME}/.zgen/zgen.zsh" ]]; then
   git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
 fi
 source "${HOME}/.zgen/zgen.zsh"
 
 if command -v brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+  FPATH=/usr/local/share/zsh/site-functions:$FPATH
 fi
+
+# sensible ctrl-w/u & alt arrow behaviour
+autoload -U select-word-style
+select-word-style bash
 
 if ! zgen saved; then
   zgen oh-my-zsh
@@ -30,17 +39,6 @@ if ! zgen saved; then
   zgen save
 fi
 
-bindkey -e
-
-# bash style ctrl-w/u
-bindkey '^U' backward-kill-line
-bindkey '^W' backward-delete-word
-autoload -U select-word-style select-word-style bash
-
-HISTSIZE=1000000
-SAVEHIST=1000000
-CASE_SENSITIVE="true"
-
 setopt no_beep
 setopt auto_cd
 setopt menu_complete
@@ -56,6 +54,7 @@ setopt hist_verify
 setopt hist_reduce_blanks
 setopt inc_append_history
 setopt share_history
+setopt no_auto_remove_slash
 unsetopt correct_all
 
 local ret_status="%(?:%{$fg[green]%}»:%{$fg[red]%}»)"
@@ -67,9 +66,6 @@ ZSH_THEME_GIT_PROMPT_CLEAN=") %{$fg_bold[green]%}✔ "
 ZSH_THEME_GIT_PROMPT_DIRTY=") %{$fg_bold[yellow]%}✗ "
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[cyan]%}("
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
-
-[ -d ~/Dropbox ] && PATH=~/Dropbox/bin:~/Dropbox/bin/$OS:$PATH
-export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/.local/bin:$PATH
 
 [ -f ~/.sh/proxy ] && source ~/.sh/proxy
 [ -f ~/.sh/all ] && source ~/.sh/all
@@ -99,3 +95,4 @@ function cd {
 }
 
 auto_pipenv_shell
+
