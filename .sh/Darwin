@@ -6,9 +6,6 @@ export HOMEBREW_INSTALL_BADGE=📦
 export HOMEBREW_NO_AUTO_UPDATE=1
 export AWS_VAULT_KEYCHAIN_NAME=login
 
-# User installed pip
-export PATH=$PATH:~/Library/Python/2.7/bin
-
 # Start GPG Agent
 if [ ! -S ~/.gnupg/S.gpg-agent ]; then
   eval $(gpg-agent --daemon)
@@ -30,10 +27,12 @@ alias pw='pwgen -sy -N1 32 | tr -d "\n" | pbcopy && echo "Password copied to cli
 alias myip="ifconfig en0 | grep 'inet ' | awk '{print \$2}'"
 
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update-all-software='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm update npm -g; npm update -g; sudo gem update --system; sudo gem update'
+alias update-all-software='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup'
 
 # Lock the screen (when going AFK)
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
 # Start screensaver
 alias screensaver='open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app'
+
+alias kubernetic='/Applications/Kubernetic.app/Contents/MacOS/Kubernetic'

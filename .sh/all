@@ -57,3 +57,6 @@ if [[ -e $HOME/.krew/bin/kubectl-krew ]]; then
   export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 fi
 
+if [[ -e $HOME/.poetry/bin/poetry ]]; then
+  export PATH="$HOME/.poetry/bin:$PATH"
+fi
