@@ -1,72 +1,76 @@
 " vim:foldmethod=marker:foldlevel=0
 " Settings {{{
+
 scriptencoding utf-8
-set encoding=utf-8                                       " default to utf-8
-set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n      " dope statusline
-set shortmess=atOI                                       " disable start-up message
-set number                                               " show line numbers
-set relativenumber                                       " show relative line numbers
-set ruler                                                " show line and column no
-set hidden                                               " hidden buffers?
-set showcmd                                              " show command in last line
-set nocompatible                                         " not compatible with vi
-set ignorecase                                           " ignore case when searching
-set incsearch                                            " search while typing
-set backspace=indent,eol,start                           " super backspacing
-set smartcase                                            " smart searching
-set tabstop=4                                            " default tabs to 4 spaces
-set shiftwidth=4                                         " match default tab spacing
-set hlsearch                                             " highlight search results
-set autoindent                                           " auto indent new lines
-set linebreak                                            " enable linebreaks
-set showbreak=>>                                         " what to put infront of linebreaks
-set breakindent                                          " preserve horizontal blocks
-set formatoptions+=j formatoptions-=or                   " remove comments when joining lines
-set formatoptions+=j                                     " remove comments when joining lines
-set nostartofline                                        " keep cursor in same column
-set history=200                                          " set command and search history
-set noerrorbells                                         " don't annoy me
-set novisualbell                                         " disable visual bell
-set report=0                                             " always report lines changed
-set showmatch                                            " show matching brackets
-set foldenable                                           " enable folding
-set foldmethod=indent                                    " fold lines with equal indent
-set foldlevel=20                                         " set fold close level
-set laststatus=2                                         " always show status line
-set ttyfast                                              " fast terminal conn for faster redraw
-set pastetoggle=<F8>                                     " toggle pasting
-set clipboard=unnamed,unnamedplus                        " use system clipboard "
-set spellfile=~/.vimspell.add                            " my words
-set confirm                                              " ask to save files
-set viminfo='100,f1                                      " save up to 100 marks, enable capital marks
+set encoding=utf-8										 " default to utf-8
+set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n		 " dope statusline
+set shortmess=atOIc										 " disable start-up message
+set number												 " show line numbers
+set relativenumber										 " show relative line numbers
+set ruler												 " show line and column no
+set hidden												 " hidden buffers?
+set showcmd												 " show command in last line
+set nocompatible										 " not compatible with vi
+set ignorecase											 " ignore case when searching
+set incsearch											 " search while typing
+set backspace=indent,eol,start							 " super backspacing
+set smartcase											 " smart searching
+set tabstop=4											 " default tabs to 4 spaces
+set shiftwidth=4										 " match default tab spacing
+set hlsearch											 " highlight search results
+set autoindent											 " auto indent new lines
+set linebreak											 " enable linebreaks
+set showbreak=>>										 " what to put infront of linebreaks
+set breakindent											 " preserve horizontal blocks
+set formatoptions+=j formatoptions-=or					 " remove comments when joining lines
+set formatoptions+=j									 " remove comments when joining lines
+set nostartofline										 " keep cursor in same column
+set history=200											 " set command and search history
+set noerrorbells										 " don't annoy me
+set novisualbell										 " disable visual bell
+set report=0											 " always report lines changed
+set showmatch											 " show matching brackets
+set foldenable											 " enable folding
+set foldmethod=indent									 " fold lines with equal indent
+set foldlevel=20										 " set fold close level
+set laststatus=2										 " always show status line
+set ttyfast												 " fast terminal conn for faster redraw
+set pastetoggle=<F8>									 " toggle pasting
+set clipboard=unnamed,unnamedplus						 " use system clipboard "
+set spellfile=~/.vimspell.add							 " my words
+set confirm												 " ask to save files
+set viminfo='100,f1										 " save up to 100 marks, enable capital marks
 set listchars=tab:›\ ,eol:¬,trail:·,extends:❯,precedes:❮,nbsp:_ " set the characters for the invisibles
-set list                                                 " Show invisible characters
-set splitbelow                                           " splits show up below by default
-set splitright                                           " splits go to the right by default
-set scrolloff=4                                          " start scrolling when we're 4 lines away from margins
-set sidescrolloff=15                                     " start scrolling when we're 15 lines away from margins
-set sidescroll=1                                         " enable side scrolling
-set nrformats=                                           " treat numbers as decimal instead of octal
-set noswapfile                                           " we live in the future
-set showtabline=1                                        " only show the tabline when more than one tab open
-set autoread                                             " detect files changed outside of vim
-set noshowmode                                           " don't show the default vim mode line
-set modeline                                             " don't show mode line
-set lazyredraw                                           " Redraw only when required
-set mouse=a                                              " enable mouse support
-set nojoinspaces                                         " remove extra space when joining lines
-set wildmenu                                             " Tab completion
-set wildmode=list:longest,full                           " Wildcard matches show a list, matching the longest first
-set wildignore+=.git,.hg,.svn                            " Ignore version control repos
-set wildignore+=*.6                                      " Ignore Go compiled files
-set wildignore+=.hg,.git,.svn                            " Version control
-set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg           " binary images
-set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest         " compiled object files
-set wildignore+=*.spl                                    " compiled spelling word lists
-set wildignore+=*.sw?                                    " Vim swap files
-set wildignore+=*.DS_Store                               " OSX bullshit
-set wildignore+=*.luac                                   " Lua byte code
-set wildignore+=*.pyc                                    " Python byte code
+set list												 " Show invisible characters
+set splitbelow											 " splits show up below by default
+set splitright											 " splits go to the right by default
+set scrolloff=4											 " start scrolling when we're 4 lines away from margins
+set sidescrolloff=15									 " start scrolling when we're 15 lines away from margins
+set sidescroll=1										 " enable side scrolling
+set nrformats=											 " treat numbers as decimal instead of octal
+set noswapfile											 " we live in the future
+set showtabline=1										 " only show the tabline when more than one tab open
+set autoread											 " detect files changed outside of vim
+set noshowmode											 " don't show the default vim mode line
+set modeline											 " don't show mode line
+set lazyredraw											 " Redraw only when required
+set mouse=a												 " enable mouse support
+set nojoinspaces										 " remove extra space when joining lines
+set cmdheight=2											 " Better display for messages
+set updatetime=300										 " Required for coc
+set signcolumn=yes										 " Always use signcolumn
+set wildmenu											 " Tab completion
+set wildmode=list:longest,full							 " Wildcard matches show a list, matching the longest first
+set wildignore+=.git,.hg,.svn							 " Ignore version control repos
+set wildignore+=*.6										 " Ignore Go compiled files
+set wildignore+=.hg,.git,.svn							 " Version control
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg			 " binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest		 " compiled object files
+set wildignore+=*.spl									 " compiled spelling word lists
+set wildignore+=*.sw?									 " Vim swap files
+set wildignore+=*.DS_Store								 " OSX bullshit
+set wildignore+=*.luac									 " Lua byte code
+set wildignore+=*.pyc									 " Python byte code
 
 if has('nvim')
 	set inccommand=nosplit
@@ -92,6 +96,7 @@ if &term == "screen"
 	set t_ts=k
 	set t_fs=\
 endif
+
 if &term == "screen" || &term == "xterm"
 	set title
 endif
@@ -111,6 +116,7 @@ let mapleader=" "
 " }}}
 
 " Plugins {{{
+
 " Auto install vim-plug
 if has('nvim')
 	let s:plug_dir = '~/.local/share/nvim/plugged'
@@ -171,6 +177,7 @@ Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 Plug 'juliosueiras/vim-terraform-completion', { 'for': 'terraform' }
 Plug 'leafgarland/typescript-vim'
 Plug 'martinda/Jenkinsfile-vim-syntax', { 'for': 'jenkinsfile' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ngmy/vim-rubocop', { 'for': 'ruby' }
 Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
 Plug 'phenomenes/ansible-snippets', { 'for': 'ansible' }
@@ -179,6 +186,7 @@ Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
 
 " Other plugins
+" Plug 'jiangmiao/auto-pairs'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'FooSoft/vim-argwrap'
@@ -191,10 +199,9 @@ Plug 'danro/rename.vim'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'duff/vim-bufonly'
 Plug 'enricobacis/vim-airline-clock'
-Plug 'ervandew/supertab'
 Plug 'henrik/vim-reveal-in-finder'
 Plug 'honza/vim-snippets'
-Plug 'jiangmiao/auto-pairs'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'joshdick/onedark.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -217,7 +224,6 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
@@ -234,6 +240,7 @@ call plug#end()
 " }}}
 
 " Colours/Theme {{{
+
 " Set colour after vim-colorschemes
 set background=dark
 let g:rehash256 = 1
@@ -321,7 +328,7 @@ autocmd FileType make,c,cpp set ts=8 sw=8
 " When editing a file, always jump to the last cursor position
 autocmd BufReadPost *
 			\ if line("'\"") > 0 && line ("'\"") <= line("$") |
-			\   exe "normal! g'\"" |
+			\	exe "normal! g'\"" |
 			\ endif
 
 " Clear whitespace at the end of lines automatically
@@ -340,7 +347,7 @@ autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
 augroup numbertoggle
 	autocmd!
 	autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-	autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+	autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
 augroup END
 
 " git re-uses the same filename all the time, so ignore viminfo
@@ -348,7 +355,7 @@ autocmd BufNewFile,BufRead *.git/* call setpos('.', [0, 1, 1, 0])
 " }}}
 
 " Abbreviations {{{
-" abbreviations
+
 inoreabbrev teh the
 cnoreabbrev Wq wq
 cnoreabbrev WQ wq
@@ -357,6 +364,9 @@ cnoreabbrev Q ccl<cr>
 " }}}
 
 " Variables {{{
+
+" Disable <cr> for auto-pairs due to conflicts with autocomplete plugins
+let g:AutoPairsMapCR=0
 
 " Auto run shfmt on save
 let g:shfmt_fmt_on_save = 1
@@ -368,7 +378,8 @@ let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 "
 " jedi
 let g:deoplete#sources#jedi#show_docstring = 1
-"
+
+" vim-devicons
 let g:webdevicons_enable_airline_statusline = 1
 let g:webdevicons_enable_airline_tabline = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1 " enable folder glyph flag
@@ -380,6 +391,10 @@ let g:WebDevIconsOS = 'Darwin'
 
 " vim-gitgutter
 let g:gitgutter_map_keys = 0
+nmap ghs <Plug>(GitGutterPreviewHunk)
+nmap ghn <Plug>(GitGutterNextHunk)
+nmap ghp <Plug>(GitGutterPrevHunk)
+nmap ghu <Plug>(GitGutterUndoHunk)
 
 " UltiSnips
 let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
@@ -414,7 +429,9 @@ let g:vimshfmt_extra_args = '-i 2'
 " }}}
 
 " Mappings {{{
-" inoremap <expr> <cr> ((pumvisible())?("\<C-y>"):("\<cr>"))
+
+" Auto open the TagBar when file is supported
+autocmd FileType * call tagbar#autoopen(0)
 
 nmap <leader>tb :TagbarToggle<CR>
 
@@ -428,18 +445,18 @@ nnoremap zl :let @z=@"<cr>xBP:let @"=@z<cr>
 nnoremap zr :let @z=@"<cr>x$p:let @"=@z<cr>
 
 " Closing/saving
-nmap <Leader>q :q<CR>
-nmap <Leader>w :update<CR>
+nmap <leader>q :q<CR>
+nmap <leader>w :update<CR>
 
 " Dash
 nmap <silent> <leader>dl <Plug>DashSearch
 vmap <silent> <leader>dl <Plug>DashSearch
 
 " Close quickfix
-nmap <Leader>c :cclose<CR>
+nmap <leader>c :cclose<CR>
 
 " Undotree
-nmap <Leader>u :UndotreeToggle<CR>
+nmap <leader>u :UndotreeToggle<CR>
 
 " splitjoin
 let g:splitjoin_split_mapping = ''
@@ -447,19 +464,19 @@ let g:splitjoin_join_mapping = ''
 nnoremap gss :SplitJoinSplit<CR>
 nnoremap gsj :SplitJoinJoin<CR>
 
-nmap     <Leader>gs :Gstatus<CR>gg<c-n>
-nnoremap <Leader>gd :Gdiff<CR>
-nnoremap <Leader>gb :Gblame<CR>
+nmap	 <leader>gs :Gstatus<CR>gg<c-n>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gb :Gblame<CR>
 
 " Search for words
-nnoremap <silent> <Leader>fi /<C-R><C-W><CR>
-nnoremap <silent> <Leader>fw :Rg <C-R><C-W><CR>
-nnoremap <silent> <Leader>fW :Rg <C-R><C-A><CR>
-xnoremap <silent> <Leader>fw y:Rg <C-R>"<CR>
+nnoremap <silent> <leader>fi /<C-R><C-W><CR>
+nnoremap <silent> <leader>fw :Rg <C-R><C-W><CR>
+nnoremap <silent> <leader>fW :Rg <C-R><C-A><CR>
+xnoremap <silent> <leader>fw y:Rg <C-R>"<CR>
 
 " Insert lines above/below
-nnoremap <Leader>o o<esc>
-nnoremap <Leader>O O<esc>
+nnoremap <leader>o o<esc>
+nnoremap <leader>O O<esc>
 
 nnoremap <leader>q :cclose<bar>lclose<cr>
 
@@ -498,10 +515,10 @@ let g:submode_timeout = 0
 " let g:submode_timeoutlen = 2
 let g:submode_keep_leaving_key = 1
 let g:submode_keyseqs_to_leave = ['Esc', 'Space']
-call submode#enter_with('bnext/bprev', 'n', '', '<Leader>l', ':bn<CR>')
-call submode#enter_with('bnext/bprev', 'n', '', '<Leader>h', ':bp<CR>')
-call submode#map('bnext/bprev',        'n', '', 'l', ':bn<CR>')
-call submode#map('bnext/bprev',        'n', '', 'h', ':bp<CR>')
+call submode#enter_with('bnext/bprev', 'n', '', '<leader>l', ':bn<CR>')
+call submode#enter_with('bnext/bprev', 'n', '', '<leader>h', ':bp<CR>')
+call submode#map('bnext/bprev', 'n', '', 'l', ':bn<CR>')
+call submode#map('bnext/bprev', 'n', '', 'h', ':bp<CR>')
 
 " Split the current line at the cursor position and paste above
 " the current line
@@ -531,7 +548,7 @@ vnoremap L g_
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
 
-" Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
+" Start interactive EasyAlign for a motion/text object (e.g. <leader>aip)
 nmap <leader>a <Plug>(EasyAlign)
 
 " Fugitive
@@ -552,7 +569,7 @@ if exists('veonim')
 endif
 
 if has('gui_macvim')
-	"  switch OSX windows with swipes
+	" Switch OSX windows with swipes
 	nnoremap <silent> <SwipeLeft> :macaction _cycleWindowsBackwards:<CR>
 	nnoremap <silent> <SwipeRight> :macaction _cycleWindows:<CR>
 
@@ -656,6 +673,7 @@ cmap w!! %!sudo tee > /dev/null %
 " }}}
 
 " vim-expand-region {{{
+
 call expand_region#custom_text_objects({
 			\ "\/\\n\\n\<CR>": 1,
 			\ 'a]' :1,
@@ -667,15 +685,16 @@ call expand_region#custom_text_objects({
 " }}}
 
 " {{{ fzf
+
 let g:fzf_layout = { 'down': '~20%' }
 let g:fzf_colors =
-			\ { 'fg':    ['fg', 'Normal'],
-			\ 'bg':      ['bg', 'Normal'],
-			\ 'hl':      ['fg', 'Comment'],
-			\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-			\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-			\ 'hl+':     ['fg', 'Statement'],
-			\ 'info':    ['fg', 'PreProc'],
+			\ { 'fg':	 ['fg', 'Normal'],
+			\ 'bg':		 ['bg', 'Normal'],
+			\ 'hl':		 ['fg', 'Comment'],
+			\ 'fg+':	 ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+			\ 'bg+':	 ['bg', 'CursorLine', 'CursorColumn'],
+			\ 'hl+':	 ['fg', 'Statement'],
+			\ 'info':	 ['fg', 'PreProc'],
 			\ 'border':  ['fg', 'Ignore'],
 			\ 'prompt':  ['fg', 'Conditional'],
 			\ 'pointer': ['fg', 'Exception'],
@@ -687,28 +706,28 @@ let g:fzf_colors =
 if executable('rg')
 	command! -bang -nargs=* Rg
 				\ call fzf#vim#grep(
-				\   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-				\   <bang>0 ? fzf#vim#with_preview('up:60%')
-				\           : fzf#vim#with_preview('right:50%:hidden', '?'),
-				\   <bang>0)
+				\	'rg --column --ignore-vcs --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+				\	<bang>0 ? fzf#vim#with_preview('up:60%')
+				\			: fzf#vim#with_preview('right:50%:hidden', '?'),
+				\	<bang>0)
 endif
 
 nmap <c-p> :Files<CR>
-nmap <Leader><Space> :BLines<CR>
-nmap <Leader>ff :Files<CR>
-nmap <Leader>fF :GFiles<CR>
-nmap <Leader>fb :Buffers<CR>
-nmap <Leader>fh :History<CR>
-nmap <Leader>ft :Filetypes<CR>
-nmap <Leader>fT :Tags<CR>
-nmap <Leader>fl :BLines<CR>
-nmap <Leader>fL :Lines<CR>
-nmap <Leader>fm :Marks<CR>
-nmap <Leader>fa :Rg<Space>
-nmap <Leader>fc :Colors<CR>
-nmap <Leader>f/ :History/<Space>
+nmap <leader><Space> :BLines<CR>
+nmap <leader>ff :GFiles<CR>
+nmap <leader>fF :Files<CR>
+nmap <leader>fb :Buffers<CR>
+nmap <leader>fh :History<CR>
+nmap <leader>ft :Filetypes<CR>
+nmap <leader>fT :Tags<CR>
+nmap <leader>fl :BLines<CR>
+nmap <leader>fL :Lines<CR>
+nmap <leader>fm :Marks<CR>
+nmap <leader>fa :Rg<Space>
+nmap <leader>fc :Colors<CR>
+nmap <leader>f/ :History/<Space>
 
-nmap <Leader>w :update<CR>
+nmap <leader>w :update<CR>
 
 " Open fzf if vim opened without any args except in home dir
 if argc() == 0 && getcwd() != expand("~")
@@ -721,21 +740,27 @@ endif
 " }}}
 
 " NERDTree {{{
+
+" Disabled as I run fzf GFiles when no file is specified
 " Open NERDTree automatically when vim starts up if no file is specified
 " autocmd StdinReadPre * let s:std_in=1
 " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
+" Disabled as it's slow
 " Auto refresh NERDTree on focus
 " autocmd WinEnter * if exists('b:NERDTree') | execute 'normal R' | endif
+"
+" Check if NERDTree is open or active
+function! s:isNERDTreeOpen()
+	return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+endfunction
 
 " Close all open buffers on entering a window if the only
 " buffer that's left is the NERDTree buffer
 function! s:CloseIfOnlyNerdTreeLeft()
-	if exists("t:NERDTreeBufName")
-		if bufwinnr(t:NERDTreeBufName) != -1
-			if winnr("$") == 1
-				q
-			endif
+	if s:isNERDTreeOpen()
+		if winnr("$") == 1
+			q
 		endif
 	endif
 endfunction
@@ -743,6 +768,7 @@ endfunction
 " Quit NERDTree when last file closed
 autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 
+" Easy NERDTree resizing
 augroup ps_nerdtree
 	au!
 	au Filetype nerdtree setlocal nolist
@@ -751,11 +777,6 @@ augroup ps_nerdtree
 augroup END
 
 let NERDTreeHighlightCursorline = 1
-" let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index',
-"                     \ 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json',
-"                     \ '.*\.o$', 'db.db', 'tags.bak', '.*\.pdf$', '.*\.mid$',
-"                     \ '.*\.midi$']
-
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
@@ -768,7 +789,7 @@ let g:NERDTreeDirArrowCollapsible = "\u00a0" " make arrows invisible
 let g:NERDTreeNodeDelimiter = "\u263a" " smiley face
 
 " let s:brown = "905532"
-" let s:aqua =  "3AFFDB"
+" let s:aqua =	"3AFFDB"
 " let s:blue = "58A4D7"
 " let s:darkBlue = "2980B9"
 " let s:purple = "A852D0"
@@ -794,15 +815,16 @@ let g:NERDTreeNodeDelimiter = "\u263a" " smiley face
 " }}}
 
 " ALE {{{
+
 let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'python': ['flake8', 'pylint'],
-\   'terraform': ['terraform']
+\	'javascript': ['eslint'],
+\	'python': ['flake8', 'pylint'],
+\	'terraform': ['terraform']
 \}
 
 let g:ale_fixers = {
-\   'python': ['autopep8', 'yapf'],
-\   'terraform': ['terraform']
+\	'python': ['autopep8', 'yapf'],
+\	'terraform': ['terraform']
 \}
 
 let g:ale_sign_error = '✗'
@@ -816,6 +838,7 @@ let g:ale_sh_shellcheck_exclusions = 'SC2068,SC2086'
 " }}}
 
 " vim-go {{{
+
 " Taken from https://github.com/fatih/vim-go-tutorial/blob/master/vimrc
 let g:go_fmt_command = "goimports"
 let g:go_autodetect_gopath = 1
@@ -848,20 +871,20 @@ augroup go
 	" :GoBuild and :GoTestCompile
 	autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 	" :GoTest
-	autocmd FileType go nmap <leader>t  <Plug>(go-test)
+	autocmd FileType go nmap <leader>t	<Plug>(go-test)
 	" :GoRun
-	autocmd FileType go nmap <leader>r  <Plug>(go-run)
+	autocmd FileType go nmap <leader>r	<Plug>(go-run)
 	" :GoDoc
-	autocmd FileType go nmap <Leader>D <Plug>(go-doc)
+	autocmd FileType go nmap <leader>D <Plug>(go-doc)
 	" :GoInfo
-	autocmd FileType go nmap <Leader>i <Plug>(go-info)
+	autocmd FileType go nmap <leader>i <Plug>(go-info)
 	" :GoMetaLinter
-	autocmd FileType go nmap <Leader>m <Plug>(go-metalinter)
+	autocmd FileType go nmap <leader>m <Plug>(go-metalinter)
 	" :GoDef but opens in a vertical split
-	autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
+	autocmd FileType go nmap <leader>v <Plug>(go-def-vertical)
 	" :GoDef but opens in a horizontal split
-	autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
-	" :GoAlternate  commands :A, :AV, :AS and :AT
+	autocmd FileType go nmap <leader>s <Plug>(go-def-split)
+	" :GoAlternate	commands :A, :AV, :AS and :AT
 	autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
 	autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
 	autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
@@ -880,11 +903,87 @@ function! s:build_go_files()
 endfunction
 " }}}
 
-" ctags {{{
-" nnoremap <leader>f :ta<space>
+" coc {{{
 
-" Auto open the TagBar when file is supported
-autocmd FileType * nested :call tagbar#autoopen(0)
+let g:coc_global_extensions = [
+	\ 'coc-snippets',
+	\ 'coc-ultisnips',
+	\ 'coc-pairs',
+	\ 'coc-python',
+	\ 'coc-json'
+\ ]
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+	\ pumvisible() ? "\<C-n>" :
+	\ <SID>check_back_space() ? "\<TAB>" :
+	\ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]	=~# '\s'
+endfunction
+
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() :
+										\"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! s:check_back_space() abort
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]	=~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+	if (index(['vim','help'], &filetype) >= 0)
+		execute 'h '.expand('<cword>')
+	else
+		call CocAction('doHover')
+	endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <F2> <Plug>(coc-rename)
+
+nmap <silent> <C-c> <Plug>(coc-cursors-position)
+
+nmap <expr> <silent> <C-d> <SID>select_current_word()
+function! s:select_current_word()
+	if !get(g:, 'coc_cursors_activated', 0)
+		return "\<Plug>(coc-cursors-word)"
+	endif
+	return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+endfunc
+" }}}
+
+" ctags {{{
 
 " Auto run ctags on file save
 if !empty(glob(".ctags"))
@@ -939,6 +1038,7 @@ let g:tagbar_type_markdown = {
 " }}}
 
 " functions/commands {{{
+
 " :Root
 function! s:root()
 	let root = systemlist('git rev-parse --show-toplevel')[0]
@@ -970,13 +1070,14 @@ if executable('tfdoc')
 	command! -nargs=* Tfdoc :call system('tfdoc' . ' ' . <q-args>)
 endif
 
-nnoremap <silent> <Leader>tfr :Tfdoc <C-R><C-W><CR>
-nnoremap <silent> <Leader>tfd :Tfdoc -d <C-R><C-W><CR>
-xnoremap <silent> <Leader>tfr y:Tfdoc <C-R>"<CR>
-xnoremap <silent> <Leader>tfd y:Tfdoc -d <C-R>"<CR>
+nnoremap <silent> <leader>tfr :Tfdoc <C-R><C-W><CR>
+nnoremap <silent> <leader>tfd :Tfdoc -d <C-R><C-W><CR>
+xnoremap <silent> <leader>tfr y:Tfdoc <C-R>"<CR>
+xnoremap <silent> <leader>tfd y:Tfdoc -d <C-R>"<CR>
 " }}}
 
 " Source Files {{{
+
 " Stuff I don't want up on github
 if filereadable(glob("~/.vim/private"))
 	source ~/.vim/private
