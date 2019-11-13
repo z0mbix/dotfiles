@@ -67,7 +67,7 @@ ZSH_THEME_GIT_PROMPT_DIRTY=") %{$fg_bold[yellow]%}✗ "
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[cyan]%}("
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 
-precmd() { export AWS_CREDS_MSG=$(~/Sync/bin/creds-status) }
+precmd() { export AWS_CREDS_MSG=$(creds-status) }
 
 [ -f ~/.sh/proxy ] && source ~/.sh/proxy
 [ -f ~/.sh/all ] && source ~/.sh/all
