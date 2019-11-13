@@ -67,6 +67,8 @@ ZSH_THEME_GIT_PROMPT_DIRTY=") %{$fg_bold[yellow]%}✗ "
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[cyan]%}("
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 
+precmd() { export AWS_CREDS_MSG=$(~/Sync/bin/creds-status) }
+
 [ -f ~/.sh/proxy ] && source ~/.sh/proxy
 [ -f ~/.sh/all ] && source ~/.sh/all
 [ -f ~/.sh/aliases ] && source ~/.sh/aliases
@@ -89,10 +91,20 @@ function auto_pipenv_shell {
     fi
 }
 
+function auto_poetry_shell {
+    if [ ! -n "${POETRY_ACTIVE+1}" ]; then
+        if [ -f "pyproject.toml" ] && [[ -f "poetry.lock" ]] ; then
+            poetry shell
+        fi
+    fi
+}
+
 function cd {
     builtin cd "$@"
     auto_pipenv_shell
+    auto_poetry_shell
 }
 
 auto_pipenv_shell
+auto_poetry_shell
 
