@@ -1,0 +1,95 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+    {
+        "key": "f",
+        "command": "explorer.newFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "shift+f",
+        "command": "explorer.newFolder",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "enter",
+        "command": "-renameFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
+    },
+    {
+        "key": "cmd+enter",
+        "command": "renameFile",
+        "when": "explorerViewletVisible && filesExplorerFocus"
+    },
+    {
+        "key": "enter",
+        "command": "list.select",
+        "when": "listFocus && !inputFocus"
+    },
+    {
+        "key": "shift+cmd+g",
+        "command": "workbench.view.scm"
+    },
+    {
+        "key": "ctrl+shift+g",
+        "command": "-workbench.view.scm"
+    },
+    {
+        "key": "shift+cmd+[",
+        "command": "workbench.action.previousEditor",
+        "when": "!terminalFocus"
+    },
+    {
+        "key": "shift+cmd+[",
+        "command": "-workbench.action.previousEditor"
+    },
+    {
+        "key": "shift+cmd+]",
+        "command": "workbench.action.nextEditor",
+        "when": "!terminalFocus"
+    },
+    {
+        "key": "shift+cmd+]",
+        "command": "-workbench.action.nextEditor"
+    },
+    {
+        "key": "shift+cmd+]",
+        "command": "workbench.action.terminal.focusNextPane",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "alt+cmd+right",
+        "command": "-workbench.action.terminal.focusNextPane",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "shift+cmd+[",
+        "command": "workbench.action.terminal.focusPreviousPane",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "alt+cmd+left",
+        "command": "-workbench.action.terminal.focusPreviousPane",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "shift+cmd+d",
+        "command": "workbench.view.debug",
+        "when": "!terminalFocus"
+    },
+    {
+        "key": "shift+cmd+d",
+        "command": "-workbench.view.debug"
+    },
+    {
+        "key": "ctrl+shift+cmd+t",
+        "command": "workbench.action.terminal.newInActiveWorkspace"
+    },
+    {
+        "key": "shift+cmd+c",
+        "command": "workbench.action.terminal.toggleTerminal"
+    },
+    {
+        "key": "ctrl+`",
+        "command": "-workbench.action.terminal.toggleTerminal"
+    },
+]
