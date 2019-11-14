@@ -222,6 +222,7 @@ Plug 'sodapopcan/vim-twiggy'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'tonchis/vim-to-github'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
@@ -835,6 +836,8 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_fix_on_save = 1
 
 let g:ale_sh_shellcheck_exclusions = 'SC2068,SC2086'
+let g:ale_sh_shellcheck_dialect = 'bash'
+
 " }}}
 
 " vim-go {{{
