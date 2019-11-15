@@ -12,6 +12,8 @@
 --regex-terraform=/^variable "(.+)"/\1/v,variables/
 --regex-terraform=/^module "(.+)"/\1/m,modules/
 --regex-terraform=/^output "(.+)"/\1/o,outputs/
+--regex-terraform=/^provider "(.+)"/\1/p,providers/
+--regex-terraform=/^data "(.+)"/\1/d,data/
 --regex-terraform=/^([a-z0-9_]+) =/\1/f,tfvars/
 --languages=ansible,python,sh,terraform,make
 --langdef=markdown
