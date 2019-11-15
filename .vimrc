@@ -186,7 +186,7 @@ Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
 
 " Other plugins
-" Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'FooSoft/vim-argwrap'
@@ -236,6 +236,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
+Plug 'voldikss/vim-floaterm'
 
 call plug#end()
 " }}}
@@ -365,6 +366,13 @@ cnoreabbrev Q ccl<cr>
 " }}}
 
 " Variables {{{
+
+" floaterm
+nnoremap <leader>tt :FloatermToggle<cr>
+
+let g:floaterm_keymap_toggle = '<leader>tt'
+let g:floaterm_position = 'center'
+let g:floaterm_winblen = '90'
 
 " Disable <cr> for auto-pairs due to conflicts with autocomplete plugins
 let g:AutoPairsMapCR=0
