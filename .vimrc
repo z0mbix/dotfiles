@@ -687,7 +687,33 @@ call expand_region#custom_text_objects({
 
 " {{{ fzf
 
-let g:fzf_layout = { 'down': '~20%' }
+let $FZF_DEFAULT_OPTS=' --color=dark --color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:0,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,2'
+
+" highlight NormalFloat cterm=NONE ctermfg=14 ctermbg=0 gui=NONE guifg=#93a1a1 guibg=#002931
+function! FloatingFZF()
+	let buf = nvim_create_buf(v:false, v:true)
+	call setbufvar(buf, '&signcolumn', 'no')
+
+	let height = float2nr(&lines * 0.3) " 30% of the height
+	let width = float2nr(&columns * 0.6) " 60% of the width
+	let horizontal = float2nr((&columns - width) / 2) " horizontal position (centralized)
+	let vertical = float2nr(&lines / 2) - (height / 2) " in the middle
+
+	let opts = {
+		\ 'relative': 'editor',
+		\ 'row': vertical,
+		\ 'col': horizontal,
+		\ 'width': width,
+		\ 'height': height,
+		\ 'style': 'minimal'
+	\ }
+
+	let win = nvim_open_win(buf, v:true, opts)
+	call setwinvar(win, '&number', 0)
+endfunction
+
+let g:fzf_layout = { 'down': '20%', 'window': 'call FloatingFZF()' }
+
 let g:fzf_colors =
 			\ { 'fg':	 ['fg', 'Normal'],
 			\ 'bg':		 ['bg', 'Normal'],
