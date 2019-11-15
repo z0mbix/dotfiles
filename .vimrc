@@ -753,6 +753,7 @@ nmap <leader>fm :Marks<CR>
 nmap <leader>fa :Rg<Space>
 nmap <leader>fc :Colors<CR>
 nmap <leader>f/ :History/<Space>
+nmap <leader>fp :Rg<cr>
 
 nmap <leader>w :update<CR>
 
@@ -1024,46 +1025,48 @@ let g:tagbar_compact = 1
 let g:tagbar_type_ansible = {
 			\ 'ctagstype' : 'ansible',
 			\ 'kinds' : [
-			\ 't:tasks',
-			\ 'h:hosts'
+				\ 't:tasks',
+				\ 'h:hosts'
 			\ ],
 			\ 'sort' : 0
-			\ }
+		\ }
 
 let g:tagbar_type_terraform = {
 			\ 'ctagstype' : 'terraform',
 			\ 'kinds' : [
-			\ 'r:resources',
-			\ 'm:modules',
-			\ 'o:outputs',
-			\ 'v:variables',
-			\ 'f:tfvars'
+				\ 'd:data',
+				\ 'f:tfvars',
+				\ 'm:modules',
+				\ 'o:outputs',
+				\ 'p:providers',
+				\ 'r:resources',
+				\ 'v:variables'
 			\ ],
 			\ 'sort' : 0
-			\ }
+		\ }
 
 let g:tagbar_type_make = {
 			\ 'kinds':[
-			\ 'm:macros',
-			\ 't:targets'
+				\ 'm:macros',
+				\ 't:targets'
 			\ ]
-			\}
+		\}
 
 let g:tagbar_type_sh = {
 			\ 'kinds':[
-			\ 'f:functions',
-			\ 'c:constants'
+				\ 'f:functions',
+				\ 'c:constants'
 			\ ]
-			\}
+		\}
 
 let g:tagbar_type_markdown = {
 			\ 'ctagstype' : 'markdown',
 			\ 'kinds' : [
-			\ 'h:Heading_L1',
-			\ 'i:Heading_L2',
-			\ 'k:Heading_L3'
+				\ 'h:Heading_L1',
+				\ 'i:Heading_L2',
+				\ 'k:Heading_L3'
 			\ ]
-			\ }
+		\ }
 " }}}
 
 " functions/commands {{{
