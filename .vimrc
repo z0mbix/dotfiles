@@ -2,80 +2,78 @@
 " Settings {{{
 
 scriptencoding utf-8
-set encoding=utf-8										 " default to utf-8
-set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n		 " dope statusline
-set shortmess=atOIc										 " disable start-up message
-set number												 " show line numbers
-set relativenumber										 " show relative line numbers
-set ruler												 " show line and column no
-set hidden												 " hidden buffers?
-set showcmd												 " show command in last line
-set nocompatible										 " not compatible with vi
-set ignorecase											 " ignore case when searching
-set incsearch											 " search while typing
-set backspace=indent,eol,start							 " super backspacing
-set smartcase											 " smart searching
-set tabstop=4											 " default tabs to 4 spaces
-set shiftwidth=4										 " match default tab spacing
-set hlsearch											 " highlight search results
-set autoindent											 " auto indent new lines
-set linebreak											 " enable linebreaks
-set showbreak=>>										 " what to put infront of linebreaks
-set breakindent											 " preserve horizontal blocks
-set formatoptions+=j formatoptions-=or					 " remove comments when joining lines
-set formatoptions+=j									 " remove comments when joining lines
-set nostartofline										 " keep cursor in same column
-set history=200											 " set command and search history
-set noerrorbells										 " don't annoy me
-set novisualbell										 " disable visual bell
-set report=0											 " always report lines changed
-set showmatch											 " show matching brackets
-set foldenable											 " enable folding
-set foldmethod=indent									 " fold lines with equal indent
-set foldlevel=20										 " set fold close level
-set laststatus=2										 " always show status line
-set ttyfast												 " fast terminal conn for faster redraw
-set pastetoggle=<F8>									 " toggle pasting
-set clipboard=unnamed,unnamedplus						 " use system clipboard "
-set spellfile=~/.vimspell.add							 " my words
-set confirm												 " ask to save files
-set viminfo='100,f1										 " save up to 100 marks, enable capital marks
+set encoding=utf-8										" default to utf-8
+set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n		" dope statusline
+set shortmess=atOIc										" disable start-up message
+set number												" show line numbers
+set relativenumber										" show relative line numbers
+set ruler												" show line and column no
+set hidden												" hidden buffers?
+set showcmd												" show command in last line
+set nocompatible										" not compatible with vi
+set ignorecase											" ignore case when searching
+set incsearch											" search while typing
+set backspace=indent,eol,start							" super backspacing
+set smartcase											" smart searching
+set tabstop=4											" default tabs to 4 spaces
+set shiftwidth=4										" match default tab spacing
+set hlsearch											" highlight search results
+set autoindent											" auto indent new lines
+set linebreak											" enable linebreaks
+set showbreak=>>										" what to put infront of linebreaks
+set breakindent											" preserve horizontal blocks
+set formatoptions+=j									" remove comments when joining lines
+set nostartofline										" keep cursor in same column
+set history=200											" set command and search history
+set noerrorbells										" don't annoy me
+set novisualbell										" disable visual bell
+set report=0											" always report lines changed
+set showmatch											" show matching brackets
+set foldenable											" enable folding
+set foldmethod=indent									" fold lines with equal indent
+set foldlevel=20										" set fold close level
+set laststatus=2										" always show status line
+set ttyfast												" fast terminal conn for faster redraw
+set pastetoggle=<F8>									" toggle pasting
+set clipboard=unnamed,unnamedplus						" use system clipboard "
+set spellfile=~/.vimspell.add							" my words
+set confirm												" ask to save files
+set viminfo='100,f1										" save up to 100 marks, enable capital marks
 set listchars=tab:›\ ,eol:¬,trail:·,extends:❯,precedes:❮,nbsp:_ " set the characters for the invisibles
-set list												 " Show invisible characters
-set splitbelow											 " splits show up below by default
-set splitright											 " splits go to the right by default
-set scrolloff=4											 " start scrolling when we're 4 lines away from margins
-set sidescrolloff=15									 " start scrolling when we're 15 lines away from margins
-set sidescroll=1										 " enable side scrolling
-set nrformats=											 " treat numbers as decimal instead of octal
-set noswapfile											 " we live in the future
-set showtabline=1										 " only show the tabline when more than one tab open
-set autoread											 " detect files changed outside of vim
-set noshowmode											 " don't show the default vim mode line
-set modeline											 " don't show mode line
-set lazyredraw											 " Redraw only when required
-set mouse=a												 " enable mouse support
-set nojoinspaces										 " remove extra space when joining lines
-set cmdheight=2											 " Better display for messages
-set updatetime=300										 " Required for coc
-set signcolumn=yes										 " Always use signcolumn
-set wildmenu											 " Tab completion
-set wildmode=list:longest,full							 " Wildcard matches show a list, matching the longest first
-set wildignore+=.git,.hg,.svn							 " Ignore version control repos
-set wildignore+=*.6										 " Ignore Go compiled files
-set wildignore+=.hg,.git,.svn							 " Version control
-set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg			 " binary images
-set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest		 " compiled object files
-set wildignore+=*.spl									 " compiled spelling word lists
-set wildignore+=*.sw?									 " Vim swap files
-set wildignore+=*.DS_Store								 " OSX bullshit
-set wildignore+=*.luac									 " Lua byte code
-set wildignore+=*.pyc									 " Python byte code
+set list												" Show invisible characters
+set splitbelow											" splits show up below by default
+set splitright											" splits go to the right by default
+set scrolloff=4											" start scrolling when we're 4 lines away from margins
+set sidescrolloff=15									" start scrolling when we're 15 lines away from margins
+set sidescroll=1										" enable side scrolling
+set nrformats=											" treat numbers as decimal instead of octal
+set noswapfile											" we live in the future
+set showtabline=1										" only show the tabline when more than one tab open
+set autoread											" detect files changed outside of vim
+set noshowmode											" don't show the default vim mode line
+set modeline											" don't show mode line
+set lazyredraw											" Redraw only when required
+set mouse=a												" enable mouse support
+set nojoinspaces										" remove extra space when joining lines
+set cmdheight=1											" Better display for messages
+set updatetime=300										" Required for coc
+set signcolumn=yes										" Always use signcolumn
+set wildmenu											" Tab completion
+set wildmode=list:longest,full							" Wildcard matches show a list, matching the longest first
+set wildignore+=.git,.hg,.svn							" Ignore version control repos
+set wildignore+=*.6										" Ignore Go compiled files
+set wildignore+=.hg,.git,.svn							" Version control
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg			" binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest		" compiled object files
+set wildignore+=*.spl									" compiled spelling word lists
+set wildignore+=*.sw?									" Vim swap files
+set wildignore+=*.DS_Store								" OSX bullshit
+set wildignore+=*.luac									" Lua byte code
+set wildignore+=*.pyc									" Python byte code
 
 if has('nvim')
 	set inccommand=nosplit
 endif
-
 
 " undofile - This allows you to use undos after exiting and restarting
 " This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
@@ -186,7 +184,6 @@ Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
 
 " Other plugins
-Plug 'jiangmiao/auto-pairs'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'FooSoft/vim-argwrap'
@@ -195,6 +192,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'arcticicestudio/nord-vim'
 Plug 'bling/vim-bufferline'
 Plug 'bogado/file-line'
+Plug 'brooth/far.vim'
 Plug 'danro/rename.vim'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'duff/vim-bufonly'
@@ -202,6 +200,7 @@ Plug 'enricobacis/vim-airline-clock'
 Plug 'henrik/vim-reveal-in-finder'
 Plug 'honza/vim-snippets'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'jiangmiao/auto-pairs'
 Plug 'joshdick/onedark.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -234,9 +233,9 @@ Plug 'tweekmonster/startuptime.vim'
 Plug 'valloric/listtoggle'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'voldikss/vim-floaterm'
 Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
-Plug 'voldikss/vim-floaterm'
 
 call plug#end()
 " }}}
@@ -369,10 +368,8 @@ cnoreabbrev Q ccl<cr>
 
 " floaterm
 nnoremap <leader>tt :FloatermToggle<cr>
-
-let g:floaterm_keymap_toggle = '<leader>tt'
 let g:floaterm_position = 'center'
-let g:floaterm_winblen = '90'
+let g:floaterm_winblend = '0'
 
 " Disable <cr> for auto-pairs due to conflicts with autocomplete plugins
 let g:AutoPairsMapCR=0
@@ -428,7 +425,10 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 " clever-f
 let g:clever_f_timeout_ms = 2000
 let g:clever_f_mark_char = 1
-" let g:clever_f_mark_char_color = "Type" " yellow from onedark theme
+let g:clever_f_mark_char_color = "Number"
+
+map ; <Plug>(clever-f-repeat-forward)
+map , <Plug>(clever-f-repeat-back)
 
 " Stop bufferline from echoing to command bar (vim-bufferline)
 let g:bufferline_echo = 0
@@ -438,6 +438,16 @@ let g:vimshfmt_extra_args = '-i 2'
 " }}}
 
 " Mappings {{{
+
+" Set working directory
+nnoremap <leader>. :lcd %:p:h<CR>
+
+" Opens an edit command with the path of the currently edited file filled in
+noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+
+" Move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 
 " Auto open the TagBar when file is supported
 autocmd FileType * call tagbar#autoopen(0)
@@ -513,6 +523,7 @@ nnoremap <silent> <leader>X :Bclose!<CR>
 nnoremap <silent> ,x :Bclose<CR>
 nnoremap <silent> ,X :Bclose!<CR>
 
+" Select entire line
 nnoremap <leader>v V
 
 " listtoggle
@@ -521,7 +532,7 @@ let g:lt_quickfix_list_toggle_map = '<leader>Q'
 
 " Switch buffers - vim-submode
 let g:submode_timeout = 0
-" let g:submode_timeoutlen = 2
+let g:submode_timeoutlen = 2
 let g:submode_keep_leaving_key = 1
 let g:submode_keyseqs_to_leave = ['Esc', 'Space']
 call submode#enter_with('bnext/bprev', 'n', '', '<leader>l', ':bn<CR>')
@@ -535,15 +546,6 @@ nnoremap K DO<C-r>"<ESC>_
 
 " :)
 map q: :q
-
-if executable('jq')
-	" Run current buffer through jq back in to the same buffer
-	map <leader>J :%!jq .<CR>
-	" Run current file through jq to see if it parses successfully
-	map <leader>j :!jq -M -c . % 2>&1 >/dev/null<CR>
-endif
-
-" map <tab> %
 
 " Keep search matches in the middle of the window.
 nnoremap n nzzzv
@@ -868,6 +870,7 @@ let g:ale_sign_warning = '⚡'
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_sign_highlight_linenrs = 1
 let g:ale_fix_on_save = 1
 
 let g:ale_sh_shellcheck_exclusions = 'SC2068,SC2086'
