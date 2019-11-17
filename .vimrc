@@ -366,6 +366,9 @@ cnoreabbrev Q ccl<cr>
 
 " Variables {{{
 
+" far
+let g:far#source = "rgnvim"
+
 " floaterm
 nnoremap <leader>tt :FloatermToggle<cr>
 let g:floaterm_position = 'center'
@@ -604,7 +607,7 @@ nnoremap <leader>sv <C-w>v<C-w>l
 nnoremap <leader>sh <C-w>s<C-w>l
 
 " Show registers
-" nnoremap <leader>r :registers<cr>
+nnoremap <leader>r :registers<cr>
 
 " Retab and Format the File with Spaces
 nnoremap <leader>T :set expandtab<cr>:retab!<cr>
@@ -699,7 +702,6 @@ call expand_region#custom_text_objects({
 
 let $FZF_DEFAULT_OPTS=' --color=dark --color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:0,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,2'
 
-" highlight NormalFloat cterm=NONE ctermfg=14 ctermbg=0 gui=NONE guifg=#93a1a1 guibg=#002931
 function! FloatingFZF()
 	let buf = nvim_create_buf(v:false, v:true)
 	call setbufvar(buf, '&signcolumn', 'no')
@@ -724,35 +726,26 @@ endfunction
 
 let g:fzf_layout = { 'down': '20%', 'window': 'call FloatingFZF()' }
 
-let g:fzf_colors =
-			\ { 'fg':	 ['fg', 'Normal'],
-			\ 'bg':		 ['bg', 'Normal'],
-			\ 'hl':		 ['fg', 'Comment'],
-			\ 'fg+':	 ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-			\ 'bg+':	 ['bg', 'CursorLine', 'CursorColumn'],
-			\ 'hl+':	 ['fg', 'Statement'],
-			\ 'info':	 ['fg', 'PreProc'],
-			\ 'border':  ['fg', 'Ignore'],
-			\ 'prompt':  ['fg', 'Conditional'],
-			\ 'pointer': ['fg', 'Exception'],
-			\ 'marker':  ['fg', 'Keyword'],
-			\ 'spinner': ['fg', 'Label'],
-			\ 'header':  ['fg', 'Comment'] }
-
-" Use ripgrep instead of ag:
-if executable('rg')
-	command! -bang -nargs=* Rg
-				\ call fzf#vim#grep(
-				\	'rg --column --ignore-vcs --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-				\	<bang>0 ? fzf#vim#with_preview('up:60%')
-				\			: fzf#vim#with_preview('right:50%:hidden', '?'),
-				\	<bang>0)
-endif
+let g:fzf_colors = {
+	\ 'fg':	 ['fg', 'Normal'],
+	\ 'bg':		 ['bg', 'Normal'],
+	\ 'hl':		 ['fg', 'Comment'],
+	\ 'fg+':	 ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+	\ 'bg+':	 ['bg', 'CursorLine', 'CursorColumn'],
+	\ 'hl+':	 ['fg', 'Statement'],
+	\ 'info':	 ['fg', 'PreProc'],
+	\ 'border':  ['fg', 'Ignore'],
+	\ 'prompt':  ['fg', 'Conditional'],
+	\ 'pointer': ['fg', 'Exception'],
+	\ 'marker':  ['fg', 'Keyword'],
+	\ 'spinner': ['fg', 'Label'],
+	\ 'header':  ['fg', 'Comment']
+\ }
 
 nmap <c-p> :Files<CR>
 nmap <leader><Space> :BLines<CR>
-nmap <leader>ff :GFiles<CR>
-nmap <leader>fF :Files<CR>
+nmap <leader>ff :Files<CR>
+nmap <leader>fF :GFiles<CR>
 nmap <leader>fb :Buffers<CR>
 nmap <leader>fh :History<CR>
 nmap <leader>ft :Filetypes<CR>
@@ -1034,50 +1027,78 @@ endif
 let g:tagbar_compact = 1
 
 let g:tagbar_type_ansible = {
-			\ 'ctagstype' : 'ansible',
-			\ 'kinds' : [
-				\ 't:tasks',
-				\ 'h:hosts'
-			\ ],
-			\ 'sort' : 0
-		\ }
+	\ 'ctagstype' : 'ansible',
+	\ 'kinds' : [
+		\ 't:tasks',
+		\ 'h:hosts'
+	\ ],
+	\ 'sort' : 0
+\ }
 
 let g:tagbar_type_terraform = {
-			\ 'ctagstype' : 'terraform',
-			\ 'kinds' : [
-				\ 'd:data',
-				\ 'f:tfvars',
-				\ 'm:modules',
-				\ 'o:outputs',
-				\ 'p:providers',
-				\ 'r:resources',
-				\ 'v:variables'
-			\ ],
-			\ 'sort' : 0
-		\ }
+	\ 'ctagstype' : 'terraform',
+	\ 'kinds' : [
+		\ 'd:data',
+		\ 'f:tfvars',
+		\ 'm:modules',
+		\ 'o:outputs',
+		\ 'p:providers',
+		\ 'r:resources',
+		\ 'v:variables'
+	\ ],
+	\ 'sort' : 0
+\ }
 
 let g:tagbar_type_make = {
-			\ 'kinds':[
-				\ 'm:macros',
-				\ 't:targets'
-			\ ]
-		\}
+	\ 'kinds':[
+		\ 'm:macros',
+		\ 't:targets'
+	\ ]
+\}
 
 let g:tagbar_type_sh = {
-			\ 'kinds':[
-				\ 'f:functions',
-				\ 'c:constants'
-			\ ]
-		\}
+	\ 'kinds':[
+		\ 'f:functions',
+		\ 'c:constants'
+	\ ]
+\}
 
 let g:tagbar_type_markdown = {
-			\ 'ctagstype' : 'markdown',
-			\ 'kinds' : [
-				\ 'h:Heading_L1',
-				\ 'i:Heading_L2',
-				\ 'k:Heading_L3'
-			\ ]
-		\ }
+	\ 'ctagstype' : 'markdown',
+	\ 'kinds' : [
+		\ 'h:Heading_L1',
+		\ 'i:Heading_L2',
+		\ 'k:Heading_L3'
+	\ ]
+\ }
+
+ let g:tagbar_type_go = {
+	\ 'ctagstype' : 'go',
+	\ 'kinds'     : [
+		\ 'p:package',
+		\ 'i:imports:1',
+		\ 'c:constants',
+		\ 'v:variables',
+		\ 't:types',
+		\ 'n:interfaces',
+		\ 'w:fields',
+		\ 'e:embedded',
+		\ 'm:methods',
+		\ 'r:constructor',
+		\ 'f:functions'
+	\ ],
+	\ 'sro' : '.',
+	\ 'kind2scope' : {
+		\ 't' : 'ctype',
+		\ 'n' : 'ntype'
+	\ },
+	\ 'scope2kind' : {
+		\ 'ctype' : 't',
+		\ 'ntype' : 'n'
+	\ },
+	\ 'ctagsbin'  : 'gotags',
+	\ 'ctagsargs' : '-sort -silent'
+\ }
 " }}}
 
 " functions/commands {{{
