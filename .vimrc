@@ -442,6 +442,9 @@ let g:vimshfmt_extra_args = '-i 2'
 
 " Mappings {{{
 
+" Write when the buffer has been modified
+nnoremap <leader>w :update<CR>
+
 " Set working directory
 nnoremap <leader>. :lcd %:p:h<CR>
 
@@ -727,19 +730,19 @@ endfunction
 let g:fzf_layout = { 'down': '20%', 'window': 'call FloatingFZF()' }
 
 let g:fzf_colors = {
-	\ 'fg':	 ['fg', 'Normal'],
-	\ 'bg':		 ['bg', 'Normal'],
-	\ 'hl':		 ['fg', 'Comment'],
-	\ 'fg+':	 ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-	\ 'bg+':	 ['bg', 'CursorLine', 'CursorColumn'],
-	\ 'hl+':	 ['fg', 'Statement'],
-	\ 'info':	 ['fg', 'PreProc'],
-	\ 'border':  ['fg', 'Ignore'],
-	\ 'prompt':  ['fg', 'Conditional'],
+	\ 'fg': ['fg', 'Normal'],
+	\ 'bg': ['bg', 'Normal'],
+	\ 'hl': ['fg', 'Comment'],
+	\ 'fg+': ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+	\ 'bg+': ['bg', 'CursorLine', 'CursorColumn'],
+	\ 'hl+': ['fg', 'Statement'],
+	\ 'info': ['fg', 'PreProc'],
+	\ 'border': ['fg', 'Ignore'],
+	\ 'prompt': ['fg', 'Conditional'],
 	\ 'pointer': ['fg', 'Exception'],
-	\ 'marker':  ['fg', 'Keyword'],
+	\ 'marker': ['fg', 'Keyword'],
 	\ 'spinner': ['fg', 'Label'],
-	\ 'header':  ['fg', 'Comment']
+	\ 'header': ['fg', 'Comment']
 \ }
 
 nmap <c-p> :Files<CR>
@@ -748,17 +751,18 @@ nmap <leader>ff :Files<CR>
 nmap <leader>fF :GFiles<CR>
 nmap <leader>fb :Buffers<CR>
 nmap <leader>fh :History<CR>
+nmap <leader>fH :History:<CR>
+nmap <leader>f/ :History/<CR>
 nmap <leader>ft :Filetypes<CR>
 nmap <leader>fT :Tags<CR>
 nmap <leader>fl :BLines<CR>
 nmap <leader>fL :Lines<CR>
 nmap <leader>fm :Marks<CR>
 nmap <leader>fa :Rg<Space>
-nmap <leader>fc :Colors<CR>
-nmap <leader>f/ :History/<Space>
+nmap <leader>fgc :Commits<CR>
+nmap <leader>fgbc :BCommits<CR>
 nmap <leader>fp :Rg<cr>
 
-nmap <leader>w :update<CR>
 
 " Open fzf if vim opened without any args except in home dir
 if argc() == 0 && getcwd() != expand("~")
