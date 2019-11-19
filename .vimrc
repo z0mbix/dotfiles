@@ -478,7 +478,22 @@ nmap <silent> <leader>dl <Plug>DashSearch
 vmap <silent> <leader>dl <Plug>DashSearch
 
 " Close quickfix
-nmap <leader>c :cclose<CR>
+" nmap <leader>c :cclose<CR>
+
+" Copy file path to clipboard
+if has("mac")
+	nnoremap <silent> <leader>cfp :let @*=expand("%:p:h")<CR>
+	nnoremap <silent> <leader>cfP :let @+=expand("%:p")<CR>
+	nnoremap <silent> <leader>cfn :let @*=expand("%:t")<CR>
+	nnoremap <silent> <leader>cfN :let @*=expand("%")<CR>
+endif
+
+if has("unix")
+	nnoremap <silent> <leader>cfp :let @+=expand("%:p:h")<CR>
+	nnoremap <silent> <leader>cfP :let @*=expand("%:p")<CR>
+	nnoremap <silent> <leader>cfn :let @+=expand("%:t")<CR>
+	nnoremap <silent> <leader>cfN :let @+=expand("%")<CR>
+endif
 
 " Undotree
 nmap <leader>u :UndotreeToggle<CR>
