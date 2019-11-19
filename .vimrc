@@ -237,6 +237,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'voldikss/vim-floaterm'
 Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
+Plug 'unblevable/quick-scope'
 
 call plug#end()
 " }}}
