@@ -212,6 +212,7 @@ Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'psliwka/vim-smoothie'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'rbong/vim-flog'
 Plug 'rhysd/clever-f.vim'
@@ -336,7 +337,10 @@ autocmd BufReadPost *
 autocmd BufWritePre * :%s/\s\+$//e
 
 " Automatically reload vim config when it's saved
-autocmd BufWritePost .vimrc,init.vim source $MYVIMRC
+augroup vimrc
+	autocmd!
+	autocmd BufWritePost .vimrc,init.vim source $MYVIMRC
+augroup end
 
 " Resize splits when the window is resized
 autocmd VimResized * :wincmd =
@@ -375,23 +379,19 @@ let g:floaterm_position = 'center'
 let g:floaterm_winblend = '0'
 
 " Disable <cr> for auto-pairs due to conflicts with autocomplete plugins
-let g:AutoPairsMapCR=0
+" let g:AutoPairsMapCR=0
 
-" Auto run shfmt on save
-let g:shfmt_fmt_on_save = 1
-let g:shfmt_extra_args = '-i 2'
+" vim-shfmt
+let g:shfmt_fmt_on_save = 1 " Auto run shfmt on save
+let g:shfmt_extra_args = '-i 2' " Always use two space indentation for shell scripts
 
-" supertab
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-"
 " jedi
 let g:deoplete#sources#jedi#show_docstring = 1
 
 " vim-devicons
 let g:webdevicons_enable_airline_statusline = 1
 let g:webdevicons_enable_airline_tabline = 1
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1 " enable folder glyph flag
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFoldersOpenClose = 1
 let g:DevIconsEnableFolderExtensionPatternMatching = 1
 let g:webdevicons_conceal_nerdtree_brackets = 1
@@ -435,9 +435,6 @@ map , <Plug>(clever-f-repeat-back)
 
 " Stop bufferline from echoing to command bar (vim-bufferline)
 let g:bufferline_echo = 0
-
-" Always use two space indentation for shell scripts
-let g:vimshfmt_extra_args = '-i 2'
 " }}}
 
 " Mappings {{{
@@ -659,11 +656,6 @@ vmap <leader>T: :Tabularize /:\zs<CR>
 " Quickly toggle `set list` (Show/Hide invisible characters)
 nmap <leader>' :set list!<CR>
 
-" NERDTree mappings
-nnoremap <leader>n :NERDTreeToggle<CR>
-nnoremap § :NERDTreeToggle<CR> " Macs
-nnoremap ` :NERDTreeToggle<CR> " Non-Macs
-
 " Remove ^M from file
 map <leader>M :%s/^M//<CR>
 
@@ -778,7 +770,6 @@ nmap <leader>fgc :Commits<CR>
 nmap <leader>fgbc :BCommits<CR>
 nmap <leader>fp :Rg<cr>
 
-
 " Open fzf if vim opened without any args except in home dir
 if argc() == 0 && getcwd() != expand("~")
 	if isdirectory('.git')
@@ -791,15 +782,11 @@ endif
 
 " NERDTree {{{
 
-" Disabled as I run fzf GFiles when no file is specified
-" Open NERDTree automatically when vim starts up if no file is specified
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" NERDTree mappings
+nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap § :NERDTreeToggle<CR> " Macs
+nnoremap ` :NERDTreeToggle<CR> " Non-Macs
 
-" Disabled as it's slow
-" Auto refresh NERDTree on focus
-" autocmd WinEnter * if exists('b:NERDTree') | execute 'normal R' | endif
-"
 " Check if NERDTree is open or active
 function! s:isNERDTreeOpen()
 	return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
@@ -907,6 +894,8 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
 let g:go_textobj_include_function_doc = 0
+let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+let g:go_metalinter_enabled = ['vet', 'golint']
 
 au Filetype go nnoremap <leader>d :GoDef<CR>
 au Filetype go nnoremap <leader>god :vsp <CR>:exe "GoDef" <CR>
