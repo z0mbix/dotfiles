@@ -99,8 +99,7 @@ if &term == "screen" || &term == "xterm"
 	set title
 endif
 
-" Time out on key codes but not mappings.
-" Basically this makes terminal Vim work sanely.
+" Time out on key codes but not mappings. This makes terminal Vim work sanely.
 set notimeout
 set ttimeout
 set ttimeoutlen=10
@@ -134,22 +133,8 @@ endif
 call plug#begin(s:plug_dir)
 
 if has('python') || has('python3')
-	Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 	Plug 'SirVer/ultisnips'
 	Plug 'honza/vim-snippets'
-endif
-
-if has('python3')
-	if has('nvim')
-		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-	else
-		Plug 'Shougo/deoplete.nvim'
-		Plug 'roxma/nvim-yarp'
-		Plug 'roxma/vim-hug-neovim-rpc'
-	endif
-	Plug 'zchee/deoplete-jedi'
-	Plug 'zchee/deoplete-go', { 'do': 'make' }
-	let g:deoplete#enable_at_startup = 1
 endif
 
 if has('nvim') || v:version >= 800
@@ -182,6 +167,7 @@ Plug 'phenomenes/ansible-snippets', { 'for': 'ansible' }
 Plug 'rizzatti/dash.vim'
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
+Plug 'sheerun/vim-polyglot'
 
 " Other plugins
 Plug 'AndrewRadev/splitjoin.vim'
@@ -238,6 +224,8 @@ Plug 'voldikss/vim-floaterm'
 Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
 Plug 'unblevable/quick-scope'
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'RRethy/vim-illuminate'
 
 call plug#end()
 " }}}
@@ -380,7 +368,7 @@ let g:floaterm_position = 'center'
 let g:floaterm_winblend = '0'
 
 " Disable <cr> for auto-pairs due to conflicts with autocomplete plugins
-" let g:AutoPairsMapCR=0
+let g:AutoPairsMapCR = 0
 
 " vim-shfmt
 let g:shfmt_fmt_on_save = 1 " Auto run shfmt on save
@@ -439,6 +427,9 @@ let g:bufferline_echo = 0
 " }}}
 
 " Mappings {{{
+
+" I almost never want to go to the first column
+nnoremap 0 ^
 
 " Write when the buffer has been modified
 nnoremap <leader>w :update<CR>
@@ -1112,7 +1103,7 @@ let g:tagbar_type_markdown = {
 
 " functions/commands {{{
 
-" :Root
+" :Root - change to root directory of git repo
 function! s:root()
 	let root = systemlist('git rev-parse --show-toplevel')[0]
 	if v:shell_error
@@ -1126,7 +1117,6 @@ command! Root call s:root()
 
 " When using `dd` in the quickfix list, remove the item from the quickfix list.
 " https://stackoverflow.com/questions/42905008/quickfix-list-how-to-add-and-remove-entries
-
 function! RemoveQuickfixItem()
 	let curqfidx = line('.') - 1
 	let qfall = getqflist()
@@ -1138,15 +1128,25 @@ endfunction
 
 autocmd FileType qf map <buffer> dd :call RemoveQuickfixItem()<cr>
 
+" Trim trailing empty lines
+function TrimEndLines()
+    let save_cursor = getpos(".")
+    :silent! %s#\($\n\s*\)\+\%$##
+    call setpos('.', save_cursor)
+endfunction
+
+au BufWritePre * call TrimEndLines()
+
 " e.g. :Tfdoc aws_instance
 if executable('tfdoc')
 	command! -nargs=* Tfdoc :call system('tfdoc' . ' ' . <q-args>)
+
+	nnoremap <silent> <leader>tfr :Tfdoc <C-R><C-W><CR>
+	nnoremap <silent> <leader>tfd :Tfdoc -d <C-R><C-W><CR>
+	xnoremap <silent> <leader>tfr y:Tfdoc <C-R>"<CR>
+	xnoremap <silent> <leader>tfd y:Tfdoc -d <C-R>"<CR>
 endif
 
-nnoremap <silent> <leader>tfr :Tfdoc <C-R><C-W><CR>
-nnoremap <silent> <leader>tfd :Tfdoc -d <C-R><C-W><CR>
-xnoremap <silent> <leader>tfr y:Tfdoc <C-R>"<CR>
-xnoremap <silent> <leader>tfd y:Tfdoc -d <C-R>"<CR>
 " }}}
 
 " Source Files {{{
