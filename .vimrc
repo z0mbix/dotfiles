@@ -46,6 +46,7 @@ set splitright											" splits go to the right by default
 set scrolloff=4											" start scrolling when we're 4 lines away from margins
 set sidescrolloff=15									" start scrolling when we're 15 lines away from margins
 set sidescroll=1										" enable side scrolling
+set scrolljump=8										" minimum lines to scroll at end of screen
 set nrformats=											" treat numbers as decimal instead of octal
 set noswapfile											" we live in the future
 set showtabline=1										" only show the tabline when more than one tab open
@@ -75,6 +76,10 @@ if has('nvim')
 	set inccommand=nosplit
 endif
 
+if exists('veonim')
+	set guifont=Fira\ Code:h12
+endif
+
 " undofile - This allows you to use undos after exiting and restarting
 " This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
 " :help undo-persistence
@@ -99,15 +104,7 @@ if &term == "screen" || &term == "xterm"
 	set title
 endif
 
-" Time out on key codes but not mappings. This makes terminal Vim work sanely.
-set notimeout
-set ttimeout
-set ttimeoutlen=10
-augroup FastEscape
-	autocmd!
-	au InsertEnter * set timeoutlen=0
-	au InsertLeave * set timeoutlen=1000
-augroup END
+hi NonText cterm=NONE ctermfg=NONE
 
 let mapleader=" "
 " }}}
@@ -132,24 +129,6 @@ endif
 
 call plug#begin(s:plug_dir)
 
-if has('python') || has('python3')
-	Plug 'SirVer/ultisnips'
-	Plug 'honza/vim-snippets'
-endif
-
-if has('nvim') || v:version >= 800
-	Plug 'machakann/vim-highlightedyank'
-endif
-
-if executable('go')
-	Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
-	if has('nvim')
-		Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.local/share/nvim/plugged/gocode/nvim/symlink.sh' }
-	else
-		Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
-	endif
-endif
-
 " Language plugins
 Plug 'dougireton/vim-chef', { 'for': 'chef' }
 Plug 'ekalinin/Dockerfile.vim', { 'for' : 'Dockerfile' }
@@ -158,22 +137,21 @@ Plug 'fatih/vim-nginx', { 'for': 'nginx' }
 Plug 'hashivim/vim-packer', { 'for': 'json' }
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 Plug 'juliosueiras/vim-terraform-completion', { 'for': 'terraform' }
-Plug 'leafgarland/typescript-vim'
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'martinda/Jenkinsfile-vim-syntax', { 'for': 'jenkinsfile' }
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ngmy/vim-rubocop', { 'for': 'ruby' }
 Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
 Plug 'phenomenes/ansible-snippets', { 'for': 'ansible' }
-Plug 'rizzatti/dash.vim'
+Plug 'sheerun/vim-polyglot'
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
-Plug 'sheerun/vim-polyglot'
 
 " Other plugins
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'FooSoft/vim-argwrap'
 Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'RRethy/vim-illuminate'
 Plug 'airblade/vim-gitgutter'
 Plug 'arcticicestudio/nord-vim'
 Plug 'bling/vim-bufferline'
@@ -183,13 +161,13 @@ Plug 'danro/rename.vim'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'duff/vim-bufonly'
 Plug 'enricobacis/vim-airline-clock'
-Plug 'henrik/vim-reveal-in-finder'
 Plug 'honza/vim-snippets'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'jiangmiao/auto-pairs'
 Plug 'joshdick/onedark.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-after-object'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
@@ -202,7 +180,6 @@ Plug 'psliwka/vim-smoothie'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'rbong/vim-flog'
 Plug 'rhysd/clever-f.vim'
-Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'sodapopcan/vim-twiggy'
 Plug 'terryma/vim-expand-region'
@@ -216,16 +193,45 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'tweekmonster/startuptime.vim'
+Plug 'unblevable/quick-scope'
 Plug 'valloric/listtoggle'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'voldikss/vim-floaterm'
 Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
-Plug 'unblevable/quick-scope'
-Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'RRethy/vim-illuminate'
+
+" conditional plugins
+if has('python') || has('python3')
+	Plug 'SirVer/ultisnips'
+	Plug 'honza/vim-snippets'
+endif
+
+if has('nvim') || v:version >= 800
+	Plug 'machakann/vim-highlightedyank'
+endif
+
+if has('nvim')
+	Plug 'voldikss/vim-floaterm'
+endif
+
+if executable('go')
+	Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
+	if has('nvim')
+		Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.local/share/nvim/plugged/gocode/nvim/symlink.sh' }
+	else
+		Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+	endif
+endif
+
+if executable('node')
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+endif
+
+if has("mac")
+	Plug 'rizzatti/dash.vim'
+	Plug 'henrik/vim-reveal-in-finder'
+	Plug 'ryanoasis/vim-devicons'
+endif
 
 call plug#end()
 " }}}
@@ -318,9 +324,9 @@ autocmd FileType make,c,cpp set ts=8 sw=8
 
 " When editing a file, always jump to the last cursor position
 autocmd BufReadPost *
-			\ if line("'\"") > 0 && line ("'\"") <= line("$") |
-			\	exe "normal! g'\"" |
-			\ endif
+	\ if line("'\"") > 0 && line ("'\"") <= line("$") |
+	\ 	exe "normal! g'\"" |
+	\ endif
 
 " Clear whitespace at the end of lines automatically
 autocmd BufWritePre * :%s/\s\+$//e
@@ -396,7 +402,7 @@ nmap ghu <Plug>(GitGutterUndoHunk)
 
 " UltiSnips
 let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
-let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsExpandTrigger = "<nop>" " setting to <tab> conflicts with coc
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
@@ -428,6 +434,8 @@ let g:bufferline_echo = 0
 
 " Mappings {{{
 
+" Resize
+
 " I almost never want to go to the first column
 nnoremap 0 ^
 
@@ -439,10 +447,6 @@ nnoremap <leader>. :lcd %:p:h<CR>
 
 " Opens an edit command with the path of the currently edited file filled in
 noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
-
-" Move visual block
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
 
 " Auto open the TagBar when file is supported
 autocmd FileType * call tagbar#autoopen(0)
@@ -584,17 +588,12 @@ vnoremap Q gq
 " Keep the cursor in place while joining lines
 nnoremap J mzJ`z
 
-
-if exists('veonim')
-	set guifont=RobotoMono\ Nerd\ Font:h12
-endif
-
 if has('gui_macvim')
 	" Switch OSX windows with swipes
 	nnoremap <silent> <SwipeLeft> :macaction _cycleWindowsBackwards:<CR>
 	nnoremap <silent> <SwipeRight> :macaction _cycleWindows:<CR>
 
-	" TextMate indentation key mappings for mvim Cmd+[ and Cmd+]
+	" Indentation key mappings for Cmd+[ and Cmd+]
 	nmap <D-[> <<
 	nmap <D-]> >>
 	vmap <D-[> <gv
@@ -645,7 +644,7 @@ vmap <leader>T= :Tabularize /=<CR>
 nmap <leader>T: :Tabularize /:\zs<CR>
 vmap <leader>T: :Tabularize /:\zs<CR>
 
-" Quickly toggle `set list` (Show/Hide invisible characters)
+" Show/Hide invisible characters
 nmap <leader>' :set list!<CR>
 
 " Remove ^M from file
@@ -654,6 +653,12 @@ map <leader>M :%s/^M//<CR>
 " Bubble multiple lines
 vmap <C-K> [egv
 vmap <C-J> ]egv
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+nmap <A-k> ddkP
+nmap <A-j> ddp
+nmap <A-Up> ddkP
+nmap <A-Down> ddp
 
 " Show current file in finder
 nnoremap <leader>F :silent :Reveal<cr>
@@ -668,11 +673,11 @@ map <leader>p "*p
 " Clear search highlighting
 noremap <silent><leader>/ :nohlsearch<cr>
 
-" " Easy window resizing
-" nnoremap <Tab><Left> :vertical resize +5<CR>
-" nnoremap <Tab><Right> :vertical resize -5<CR>
-" nnoremap <Tab><Down> :res +5<CR>
-" nnoremap <Tab><Up> :res -5<CR>
+" Easy window resizing
+nnoremap <Tab><Left> :vertical resize +5<CR>
+nnoremap <Tab><Right> :vertical resize -5<CR>
+nnoremap <Tab><Down> :res +5<CR>
+nnoremap <Tab><Up> :res -5<CR>
 
 " Hop to start/end of line
 inoremap <c-a> <esc>I
@@ -938,7 +943,7 @@ endfunction
 " }}}
 
 " coc {{{
-
+"
 let g:coc_global_extensions = [
 	\ 'coc-snippets',
 	\ 'coc-ultisnips',
@@ -989,16 +994,16 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" " Use K to show documentation in preview window
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
-	if (index(['vim','help'], &filetype) >= 0)
-		execute 'h '.expand('<cword>')
-	else
-		call CocAction('doHover')
-	endif
-endfunction
+" function! s:show_documentation()
+" 	if (index(['vim','help'], &filetype) >= 0)
+" 		execute 'h '.expand('<cword>')
+" 	else
+" 		call CocAction('doHover')
+" 	endif
+" endfunction
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -1130,9 +1135,9 @@ autocmd FileType qf map <buffer> dd :call RemoveQuickfixItem()<cr>
 
 " Trim trailing empty lines
 function TrimEndLines()
-    let save_cursor = getpos(".")
-    :silent! %s#\($\n\s*\)\+\%$##
-    call setpos('.', save_cursor)
+	let save_cursor = getpos(".")
+	:silent! %s#\($\n\s*\)\+\%$##
+	call setpos('.', save_cursor)
 endfunction
 
 au BufWritePre * call TrimEndLines()
