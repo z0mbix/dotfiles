@@ -71,6 +71,8 @@ set wildignore+=*.sw?									" Vim swap files
 set wildignore+=*.DS_Store								" OSX bullshit
 set wildignore+=*.luac									" Lua byte code
 set wildignore+=*.pyc									" Python byte code
+set pumblend=20											" Popup menu transparency
+set winblend=20											" Popup window transparency
 
 if has('nvim')
 	set inccommand=nosplit

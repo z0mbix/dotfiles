@@ -14,7 +14,6 @@ alias p='ps aux'
 alias find_git_repos='find ~ -type d -name ".git" -print|egrep -v "$HOME/Library|$HOME/.Trash"'
 alias svim='sudo -e'
 alias scat='sudo cat'
-alias car='cat' # Can't get used to the new air keyboard!
 alias c='clear'
 alias cd..='cd ..'
 alias cd...='cd ../..'
@@ -24,15 +23,14 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias d='df -h'
+alias dk='docker'
+alias h='history'
 alias recall='history | grep'
 alias rsync='rsync --progress --stats'
-alias homempc='ncmpcpp -h 192.168.69.10'
 alias colours='for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i} "; done'
 alias pign='ping' # doh!
-alias running_vms='VBoxManage list runningvms|cut -f2 -d\"'
-alias ppv='puppet parser validate'
+alias running_vms='VBoxManage list runningvms | cut -f2 -d\"'
 alias serve_cwd='python -m SimpleHTTPServer'
-#alias serve_cwd='ruby -r webrick -e "s = WEBrick::HTTPServer.new(:Port => 9090, :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start"'
 alias cat_without_comments="grep -v -E '^$|^[[:blank:]]*#|^;|^[[:blank:]]*//|(/\*([^*]|(\*+[^*/]))*\*+/)|(//.*)' $1"
 alias pubkey="cat ~/.ssh/id_rsa.pub | pbcopy | printf 'Public key copied to pasteboard.\n'";
 alias external-ip="dig +short myip.opendns.com @resolver1.opendns.com" # Get external IP address
@@ -41,19 +39,17 @@ alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.ar
 alias j='jobs'
 alias p8='ping 8.8.8.8'
 alias vd='vimdiff'
-alias vim-bundle-install="vim +BundleInstall +qall"
 alias countdown='mpg321 -q ~/Dropbox/Documents/Sounds/countdown.mp3'
-alias get-composer='curl -sS https://getcomposer.org/installer | php'
 alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3'
 alias weather='clear; curl http://wttr.in/'
-alias mockproxy='mockserver -logLevel INFO -proxyPort 8080'
 alias tmux='TERM=screen-256color tmux'
 alias planetrock="mplayer 'http://tx.sharp-stream.com/icecast.php?i=planetrock.mp3'"
 alias showpath="echo $PATH | tr ':' '\n' | nl"
 alias da='direnv allow'
 alias n='navi --print'
+alias shrug='echo -n "¯\\_(ツ)_/¯"'
 
-# I cannot live without this, so this allow me to quickly copy a pastable HEREDOC on to new hosts :)
+# This, allows me to quickly copy a pastable HEREDOC on to new hosts :)
 alias copyinputrc='echo -e "cat > ~/.inputrc <<EOF $(echo; cat ~/.inputrc)\nEOF\nbind -f ~/.inputrc" | pbcopy'
 
 # MySQL
@@ -96,25 +92,36 @@ alias kd='kitchen destroy'
 
 alias k='kubectl'
 alias kdump='kubectl get all --all-namespaces'
+alias ns='kubens'
+alias ctx='kubectx'
 
 alias proxyon='source ~/.sh/proxy'
 alias proxyoff='unset {HTTP,HTTPS,FTP}_PROXY {http,https,ftp}_proxy no_proxy NO_PROXY'
 alias proxystatus='env | grep -i proxy | sort'
 
+alias tg='terragrunt'
 alias tg_cache_clear='find . -name .terragrunt-cache | xargs -n1 rm -rf'
 
 # Setup vim/nvim/vi
-if [ -f $(which nvim) ]; then
+if command -v nvim >/dev/null 2>&1; then
   if [ ! -e ~/.config/nvim/init.vim ]; then
     echo "You need to install your init.vim"
   fi
   alias vim='nvim'
   alias vi='nvim'
-elif [ -f $(which vim) ]; then
+elif command -v vim >/dev/null 2>&1; then
   if [ ! -e ~/.vimrc ]; then
     echo "You need to install your ~/.vimrc"
   fi
   alias vi='vim'
 else
   alias vim='vi'
+fi
+
+if command -v gopass >/dev/null 2>&1; then
+  alias pass='gopass'
+fi
+
+if command -v ccat >/dev/null 2>&1; then
+  alias cat='ccat'
 fi
