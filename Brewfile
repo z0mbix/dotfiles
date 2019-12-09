@@ -1,160 +1,119 @@
-tap 'caskroom/cask'
-tap 'homebrew/binary'
-tap 'homebrew/boneyard'
-tap 'homebrew/bundle'
-tap 'homebrew/completions'
-tap 'homebrew/core'
-tap 'homebrew/services'
-tap 'neovim/neovim'
-tap 'wata727/tflint'
-tap 'caskroom/fonts'
-brew 'libyaml'
-brew 'openssl@1.1'
-brew 'gdbm'
-brew 'openssl'
-brew 'readline'
-brew 'sqlite'
-brew 'python'
-brew 'ansible'
-brew 'xz'
-brew 'python3'
-brew 'asciinema'
-brew 'autoconf'
-brew 'automake'
-brew 'awscli'
-brew 'bash'
-brew 'bash-completion'
-brew 'ccat'
-brew 'libtool'
-brew 'cfssl'
-brew 'cmake'
-brew 'coreutils'
-brew 'cscope'
-brew 'ctags'
-brew 'direnv'
-brew 'libgpg-error'
-brew 'libassuan'
-brew 'libgcrypt'
-brew 'libksba'
-brew 'pth'
-brew 'dirmngr'
-brew 'entr'
-brew 'exercism'
-brew 'fex'
-brew 'lame'
-brew 'x264'
-brew 'xvid'
-brew 'ffmpeg'
-brew 'figlet'
-brew 'gettext'
-brew 'git-archive-all'
-brew 'git-crypt'
-brew 'git-flow'
-brew 'git-fresh'
-brew 'go'
-brew 'glide'
-brew 'gmp'
-brew 'gnu-getopt'
-brew 'gnu-sed'
-brew 'pinentry'
-brew 'gpg-agent'
-brew 'libusb'
-brew 'libusb-compat'
-brew 'gnupg2'
-brew 'libtasn1'
-brew 'nettle'
-brew 'gnutls'
-brew 'libpng'
-brew 'graphviz'
-brew 'htop'
-brew 'httpstat'
-brew 'jemalloc'
-brew 'jo'
-brew 'oniguruma'
-brew 'jq'
-brew 'kubernetes-cli'
-brew 'libao'
-brew 'libevent'
-brew 'libid3tag'
-brew 'libssh'
-brew 'libtermkey'
-brew 'libuv'
-brew 'libvterm'
-brew 'lua'
-brew 'luajit'
-brew 'macvim', args: ['with-lua', 'with-luajit', 'with-override-system-vim']
-brew 'mad'
-brew 'mas'
-brew 'protobuf'
-brew 'mobile-shell'
-brew 'mpg321'
-brew 'mplayer'
-brew 'msgpack'
-brew 'ncdu'
-brew 'node'
-brew 'noti'
-brew 'packer'
-brew 'pwgen'
-brew 'tree'
-brew 'pass'
-brew 'pcre'
-brew 'pdsh'
-brew 'peco'
-brew 'perl'
-brew 'pigz'
-brew 'pkg-config'
-brew 'postgresql'
-brew 'pstree'
-brew 'pv'
-brew 'rclone'
-brew 'ruby'
-brew 'shellcheck'
-brew 'shmux'
-brew 'siege'
-brew 'sl'
-brew 'syncthing'
-brew 'terraform'
-brew 'the_silver_searcher'
-brew 'tig'
-brew 'tmate'
-brew 'tmux'
-brew 'unibilium'
-brew 'unrar'
-brew 'utf8proc'
-brew 'vagrant-completion'
-brew 'vim', args: ['with-lua']
-brew 'watch'
-brew 'weechat'
-brew 'wget'
-brew 'xmlstarlet'
-brew 'youtube-dl'
-brew 'homebrew/boneyard/samba'
-brew 'neovim/neovim/neovim'
-cask 'font-hack-nerd-font'
-cask 'font-robotomono-nerd-font'
-cask 'font-meslo-nerd-font'
-cask 'font-sourcecodepro-nerd-font'
-cask 'chefdk'
-cask 'minikube'
-cask 'ngrok'
-cask 'vagrant-manager'
-cask 'virtualbox'
-cask 'virtualbox-extension-pack'
-mas 'Cappuccino', id: 492594411
-mas 'Converto', id: 576421334
-mas 'DaisyDisk', id: 411643860
-mas 'Flycut', id: 442160987
-mas 'GarageBand', id: 682658836
-mas 'Gestimer', id: 990588172
-mas 'Kindle', id: 405399194
-mas 'LanScan', id: 472226235
-mas 'LastPass', id: 926036361
-mas 'Microsoft Remote Desktop', id: 715768417
-mas 'Pages', id: 409201541
-mas 'Pixelmator', id: 407963104
-mas 'Simplenote', id: 692867256
-mas 'Slack', id: 803453959
-mas 'TheHub', id: 819619479
-mas 'VirtualDJ Home', id: 417934534
-mas 'Writed', id: 973510001
-mas 'Xcode', id: 497799835
+tap "caskroom/fonts"
+tap "denisidoro/tools"
+tap "derailed/k9s"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/core"
+tap "nickolasburr/pfa"
+tap "reactiveops/tap"
+brew "sqlite"
+brew "asciinema"
+brew "awscli"
+brew "bash"
+brew "bash-completion"
+brew "bat"
+brew "ccat"
+brew "cfssl"
+brew "cli53"
+brew "cmake"
+brew "ctags"
+brew "direnv"
+brew "dnsdist"
+brew "dnsmap"
+brew "dnstop"
+brew "entr"
+brew "fd"
+brew "fish"
+brew "fzf"
+brew "gnu-sed"
+brew "libtasn1"
+brew "unbound"
+brew "gnutls"
+brew "go"
+brew "helm"
+brew "htop"
+brew "jemalloc"
+brew "jid"
+brew "oniguruma"
+brew "jq"
+brew "kubernetes-cli"
+brew "kubectx"
+brew "libgcrypt"
+brew "libusb"
+brew "libuv"
+brew "lolcat"
+brew "make"
+brew "mas"
+brew "minikube"
+brew "mitmproxy"
+brew "mpg321"
+brew "ncdu"
+brew "neovim"
+brew "node"
+brew "packer"
+brew "pigz"
+brew "pinentry-mac"
+brew "pipenv"
+brew "postgresql"
+brew "pstree"
+brew "pv"
+brew "pwgen"
+brew "pyenv"
+brew "redis"
+brew "ripgrep"
+brew "rlwrap"
+brew "ruby"
+brew "sc-im"
+brew "shellcheck"
+brew "skaffold"
+brew "ssh-copy-id"
+brew "starship"
+brew "step"
+brew "tig"
+brew "tinyproxy"
+brew "tmux"
+brew "typescript"
+brew "vagrant-completion"
+brew "vault"
+brew "watch"
+brew "wget"
+brew "youtube-dl"
+brew "yq"
+brew "zsh"
+brew "denisidoro/tools/navi"
+brew "derailed/k9s/k9s"
+brew "reactiveops/tap/polaris"
+cask "arq"
+cask "docker"
+cask "dropbox"
+cask "font-fira-code"
+cask "font-firacode-nerd-font"
+cask "font-firacode-nerd-font-mono"
+cask "font-firamono-nerd-font"
+cask "font-hack-nerd-font"
+cask "font-sourcecodepro-nerd-font-mono"
+cask "gpg-suite"
+cask "gpg-suite-pinentry"
+cask "intel-power-gadget"
+cask "iterm2"
+cask "keybase"
+cask "ngrok"
+cask "pgadmin4"
+cask "tableplus"
+cask "vagrant"
+cask "vagrant-vmware-utility"
+cask "virtualbox"
+cask "viscosity"
+cask "visual-studio-code"
+cask "zerotier-one"
+mas "Bear", id: 1091189122
+mas "ClipNinja", id: 1452097937
+mas "DaisyDisk", id: 411643860
+mas "Day One", id: 1055511498
+mas "Gestimer", id: 990588172
+mas "iStat Menus", id: 1319778037
+mas "LastPass", id: 926036361
+mas "Magnet", id: 441258766
+mas "Slack", id: 803453959
+mas "SQLPro for SQLite", id: 586001240
+mas "Todoist", id: 585829637
