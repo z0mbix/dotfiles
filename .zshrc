@@ -15,6 +15,7 @@ fi
 # sensible ctrl-w/u & alt arrow behaviour
 autoload -U select-word-style
 select-word-style bash
+bindkey \^U backward-kill-line
 
 if ! zgen saved; then
   zgen oh-my-zsh
@@ -107,4 +108,3 @@ function cd {
 
 auto_pipenv_shell
 auto_poetry_shell
-
