@@ -14,7 +14,8 @@
     "**/playbooks/**/*.yml": "ansible-advanced",
     "**/*ansible*/**/*.yml": "ansible-advanced",
     "**/vars/**/*.yml": "ansible-advanced",
-    "**/inventory/*/*": "ansible-advanced"
+    "**/inventory/*/*": "ansible-advanced",
+    "Runfile": "makefile"
   },
   "files.exclude": {
     "**/__pycache__": true,
@@ -66,10 +67,10 @@
   "python.autoComplete.addBrackets": true,
   "python.linting.pycodestyleEnabled": true,
   "python.linting.pycodestyleArgs": [
-    "--max-line-length=120"
+    "--max-line-length=160"
   ],
   "python.formatting.autopep8Args": [
-    "--max-line-length=120",
+    "--max-line-length=160",
     "--ignore",
     "E402"
   ],
@@ -126,7 +127,7 @@
     "editor.defaultFormatter": "redhat.vscode-yaml"
   },
   "yaml.format.printWidth": 160,
-  "editor.fontFamily": "'Fira Code', 'SauceCodePro Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontFamily": "'JetBrains Mono', 'Fira Code', 'SauceCodePro Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace",
   "editor.fontSize": 13,
   "editor.fontLigatures": "'ss02', 'ss19'",
   "terminal.explorerKind": "external",
@@ -145,5 +146,12 @@
   "terminal.integrated.shell.osx": "/usr/local/bin/zsh",
   "git.untrackedChanges": "separate",
   "debug.showBreakpointsInOverviewRuler": true,
-  "workspaceExplorer.workspaceStorageDirectory": "/Users/z0mbix/Sync/Configs/Workspaces"
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "python.jediEnabled": false,
+  "[terraform]": {},
+  "vs-kubernetes": {
+    "vs-kubernetes.minikube-path": "/Users/z0mbix/.vs-kubernetes/tools/minikube/darwin-amd64/minikube"
+  },
+  "yaml.format.enable": false
 }
