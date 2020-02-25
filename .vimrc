@@ -371,7 +371,7 @@ cnoreabbrev Q ccl<cr>
 let g:far#source = "rgnvim"
 
 " floaterm
-nnoremap <leader>tt :FloatermToggle<cr>
+let g:floaterm_keymap_toggle = '<leader>tt'
 let g:floaterm_position = 'center'
 let g:floaterm_winblend = '0'
 
