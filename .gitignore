@@ -3,7 +3,8 @@ tags
 .*.swp
 .DS_Store
 .vim/.netrwhist
-compare_git_to_home.sh
+compare-git-to-home
 diff-file
 .sh/private
+.sh/local
 .vim/private
