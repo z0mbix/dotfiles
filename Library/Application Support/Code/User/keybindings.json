@@ -150,5 +150,9 @@
         "key": "cmd+n",
         "command": "workbench.action.terminal.newInActiveWorkspace",
         "when": "terminalFocus"
+    },
+    {
+        "key": "alt+cmd+o",
+        "command": "workbench.action.openWorkspace"
     }
 ]

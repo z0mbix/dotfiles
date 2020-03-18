@@ -60,3 +60,7 @@ fi
 if [[ -e $HOME/.poetry/bin/poetry ]]; then
   export PATH="$HOME/.poetry/bin:$PATH"
 fi
+
+if [[ -e $HOME/.cargo/bin ]]; then
+  export PATH="$PATH:$HOME/.cargo/bin"
+fi

@@ -15,7 +15,8 @@
     "**/*ansible*/**/*.yml": "ansible-advanced",
     "**/vars/**/*.yml": "ansible-advanced",
     "**/inventory/*/*": "ansible-advanced",
-    "Runfile": "makefile"
+    "Runfile": "makefile",
+    ".envrc": "shellscript"
   },
   "files.exclude": {
     "**/__pycache__": true,
@@ -151,7 +152,8 @@
   "python.jediEnabled": false,
   "[terraform]": {},
   "vs-kubernetes": {
-    "vs-kubernetes.minikube-path": "/Users/z0mbix/.vs-kubernetes/tools/minikube/darwin-amd64/minikube"
+    "vs-kubernetes.minikube-path": "/Users/z0mbix/.vs-kubernetes/tools/minikube/darwin-amd64/minikube",
+    "vs-kubernetes.minikube-path.mac": "/Users/z0mbix/.vs-kubernetes/tools/minikube/darwin-amd64/minikube"
   },
   "yaml.format.enable": false
 }

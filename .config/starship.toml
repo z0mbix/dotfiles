@@ -6,19 +6,22 @@ symbol = "»"
 [directory]
 truncation_length = 8
 
+[hostname]
+ssh_only = false
+disabled = false
+
 [time]
 disabled = false
 format = "%T"
 style = "bold bright-blue"
 
 [kubernetes]
-symbol = "⛵ "
-style = "bright-purple"
 disabled = false
+style = "bright-blue"
 
-[env_var]
-variable = "AWS_CREDS_MSG"
-style = "dimmed green"
+[aws.region_aliases]
+eu-west-1 = "ire"
+eu-west-2 = "lon"
 
 [java]
 disabled = true

@@ -2,6 +2,7 @@ export ZGEN_RESET_ON_CHANGE=(${HOME}/.zshrc)
 export HISTSIZE=1000000
 export SAVEHIST=1000000
 export CASE_SENSITIVE="true"
+export SHOW_AWS_PROMPT="false"
 
 if [[ ! -f "${HOME}/.zgen/zgen.zsh" ]]; then
   git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
@@ -34,6 +35,7 @@ if ! zgen saved; then
   zgen oh-my-zsh plugins/ssh-agent
   zgen oh-my-zsh plugins/terraform
   zgen oh-my-zsh plugins/vagrant
+  zgen load ajeetdsouza/zoxide
 
   zgen load zsh-users/zsh-syntax-highlighting
 
@@ -68,7 +70,7 @@ ZSH_THEME_GIT_PROMPT_DIRTY=") %{$fg_bold[yellow]%}✗ "
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[cyan]%}("
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 
-precmd() { export AWS_CREDS_MSG=$(creds-status) }
+#precmd() { export AWS_CREDS_MSG=$(creds-status) }
 
 [ -f ~/.sh/proxy ] && source ~/.sh/proxy
 [ -f ~/.sh/all ] && source ~/.sh/all

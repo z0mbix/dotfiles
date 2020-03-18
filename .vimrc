@@ -201,6 +201,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
+Plug 'pechorin/any-jump.vim'
 
 " conditional plugins
 if has('python') || has('python3')
