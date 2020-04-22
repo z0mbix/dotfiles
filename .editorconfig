@@ -1,0 +1,21 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+indent_size = 2
+indent_style = space
+trim_trailing_whitespace = true
+
+[*.py]
+indent_style = space
+indent_size = 4
+
+[*.{java,xml}]
+indent_size = 8
+indent_style = space
+
+[{Makefile,go.mod,go.sum,*.go}]
+indent_size = 8
+indent_style = tab
