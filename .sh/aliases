@@ -1,5 +1,5 @@
 # Enable color support of ls and also add handy aliases
-[ -x /usr/bin/dircolors ] && eval "`dircolors -b`"
+[ -x /usr/bin/dircolors ] && eval "$(dircolors -b)"
 
 # Generic aliases
 alias l='ls -l'
@@ -23,14 +23,6 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias d='df -h'
-alias dk='docker'
-alias dkb='docker build'
-alias dki='docker images'
-alias dkl='docker login'
-alias dkp='docker ps'
-alias dkr='docker run'
-alias dkrm='docker rm'
-alias dkrmi='docker rmi'
 alias h='history'
 alias recall='history | grep'
 alias rsync='rsync --progress --stats'
@@ -39,8 +31,7 @@ alias pign='ping' # doh!
 alias running_vms='VBoxManage list runningvms | cut -f2 -d\"'
 alias serve_cwd='python -m SimpleHTTPServer'
 alias cat_without_comments="grep -v -E '^$|^[[:blank:]]*#|^;|^[[:blank:]]*//|(/\*([^*]|(\*+[^*/]))*\*+/)|(//.*)' $1"
-alias pubkey="cat ~/.ssh/id_rsa.pub | pbcopy | printf 'Public key copied to pasteboard.\n'";
-alias external-ip="dig +short myip.opendns.com @resolver1.opendns.com" # Get external IP address
+alias pubkey="cat ~/.ssh/id_ed25519.pub | pbcopy | printf 'Public key copied to pasteboard.\n'"
 alias public-ip='curl https://icanhazip.com/'
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 alias j='jobs'
@@ -63,20 +54,7 @@ alias copyinputrc='echo -e "cat > ~/.inputrc <<EOF $(echo; cat ~/.inputrc)\nEOF\
 alias mydbs='mysql -e "show databases"'
 alias mytables="mysql $1 -e 'show tables'"
 
-# Vagrant
-alias v="vagrant"
-alias vst="vagrant status"
-alias vup="vagrant up"
-alias vdown="vagrant halt"
-alias vupp="vagrant up --provision"
-alias vupnp="vagrant up --no-provision"
-alias vpr="vagrant provision"
-alias vhl="vagrant halt"
-alias vre="vagrant reload"
-alias vssh="vagrant ssh"
-alias vupssh="vagrant up && vagrant ssh"
-
-# Git stuff
+# Git
 alias gc='git commit -m'
 alias gs='git st'
 alias gd='git diff'
@@ -93,6 +71,17 @@ alias gf='git fetch'
 alias gpap='git push-and-pr'
 alias gcomagp='git checkout master && git pull'
 
+# Docker
+alias dk='docker'
+alias dkb='docker build'
+alias dki='docker images'
+alias dkl='docker login'
+alias dkp='docker ps'
+alias dkr='docker run'
+alias dkrm='docker rm'
+alias dkrmi='docker rmi'
+
+# Kitchen
 alias kccv='kitchen create && kitchen converge && kitchen verify'
 alias kcr='kitchen create'
 alias kcon='kitchen converge'
@@ -101,33 +90,45 @@ alias kl='kitchen login'
 alias kt='kitchen test'
 alias kd='kitchen destroy'
 
+# Terraform
+alias tf='terraform'
+alias tg='terragrunt'
+alias tg_cache_clear='find . -name .terragrunt-cache | xargs -n1 rm -rf'
+
+# Kubernetes
 alias k='kubectl'
 alias kl='kubectl logs -f'
 alias ke='kubectl get events -w'
+alias kpf='kubectl port-forward'
 alias kdump='kubectl get all --all-namespaces'
+alias kubefwd='sudo kubefwd'
+alias kp='kube-prompt'
 alias ns='kubens'
 alias ctx='kubectx'
-alias aws-account-id='aws sts get-caller-identity | jq -r .Account'
 
+# AWS
+alias aws-account-id='aws sts get-caller-identity | jq -r .Account'
+alias aws-running-instances='aws ec2 describe-instances --output=json --filters "Name=instance-state-name,Values=running"'
+
+# Directories
 alias projects='cd ~/Dropbox/Projects'
 alias dotfiles='cd ~/Dropbox/Configs/dotfiles'
 alias study='cd ~/Dropbox/Study'
+alias downloads='cd ~/Downloads'
 
+# Proxy
 alias proxyon='source ~/.sh/proxy'
 alias proxyoff='unset {HTTP,HTTPS,FTP}_PROXY {http,https,ftp}_proxy no_proxy NO_PROXY'
 alias proxystatus='env | grep -i proxy | sort'
 
-alias tg='terragrunt'
-alias tg_cache_clear='find . -name .terragrunt-cache | xargs -n1 rm -rf'
-
 # Setup vim/nvim/vi
-if command -v nvim >/dev/null 2>&1; then
+if command -v nvim > /dev/null 2>&1; then
   if [ ! -e ~/.config/nvim/init.vim ]; then
     echo "You need to install your init.vim"
   fi
   alias vim='nvim'
   alias vi='nvim'
-elif command -v vim >/dev/null 2>&1; then
+elif command -v vim > /dev/null 2>&1; then
   if [ ! -e ~/.vimrc ]; then
     echo "You need to install your ~/.vimrc"
   fi
@@ -136,10 +137,10 @@ else
   alias vim='vi'
 fi
 
-if command -v gopass >/dev/null 2>&1; then
+if command -v gopass > /dev/null 2>&1; then
   alias pass='gopass'
 fi
 
-if command -v ccat >/dev/null 2>&1; then
-  alias cat='ccat'
+if command -v bat > /dev/null 2>&1; then
+  alias cat='bat'
 fi
