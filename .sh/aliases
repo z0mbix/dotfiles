@@ -115,6 +115,7 @@ alias projects='cd ~/Dropbox/Projects'
 alias dotfiles='cd ~/Dropbox/Configs/dotfiles'
 alias study='cd ~/Dropbox/Study'
 alias downloads='cd ~/Downloads'
+alias work='cd $WORK_DIR'
 
 # Proxy
 alias proxyon='source ~/.sh/proxy'

@@ -1,30 +1,27 @@
 #!/usr/bin/env bash
 #
 # Idea shamelessly stolen from joshua stein:
-#  https://github.com/jcs/dotfiles/blob/master/move_in.sh
-#
-# Linux/Mac/FreeBSD:
-#  curl -L -o - https://github.com/z0mbix/dotfiles/raw/master/move_in.sh | bash
-#
-# OpenBSD:
-#  ftp -o - https://github.com/z0mbix/dotfiles/raw/master/move_in.sh | sh
+#   https://github.com/jcs/dotfiles/
 #
 
-gh_user=z0mbix
-url=https://github.com/${gh_user}/dotfiles/tarball/master
-os=`uname`
-td=`mktemp -d XXXXXX`
-tar=tar
+gh_user="z0mbix"
+url="https://github.com/${gh_user}/dotfiles/tarball/master"
+os="$(uname)"
+td="$(mktemp -d XXXXXX)"
+tar="tar"
 fetch="curl -s -L"
 
 # OS Specific Stuff
-[ $os = "OpenBSD" ] && fetch="ftp -o -"
-[ $os = "SunOS" ] && tar='gtar'
+[ $os == "OpenBSD" ] && fetch="ftp -o -"
+[ $os == "SunOS" ] && tar="gtar"
 
 $fetch $url | $tar -C $td -xzf -
 
-rm -f $td/${gh_user}-*/{README,move_in.sh}
-cd $td/${gh_user}-* && $tar -cf - . | (cd; tar -xvf -)
+rm -f $td/${gh_user}-*/{README,move-in}
+cd $td/${gh_user}-* && $tar -cf - . | (
+  cd
+  tar -xvf -
+)
 cd -
 rm -rf $td
 
@@ -51,7 +48,7 @@ if [ ! -d ~/.zsh/completion ]; then
 fi
 
 # Dump stuff we don't need on OS X?
-if [ $os = "Darwin" ]; then
+if [ $os == "Darwin" ]; then
   rm -rf ~/.fluxbox
   rm -f ~/.conkyrc .Xdefaults ~/.xsession ~/.xinitrc ~/.profile-openbsd ~/.packages.openbsd
   ln -sf ~/.config/Code/User/settings.json ~/Library/Application\ Support/Code/User/settings.json
@@ -64,7 +61,7 @@ if [ ! -f ~/.git-prompt.sh ]; then
 fi
 
 # Setup shell
-[ -f "~/.${SHELL##*/}rc" ] && source "~/.${SHELL##*/}rc"
+[ -f "$HOME/.${SHELL##*/}rc" ] && source "$HOME/.${SHELL##*/}rc"
 
 # Setup vim/neovim
 [ ! -d ~/.config/nvim ] && mkdir -p ~/.config/nvim
@@ -75,7 +72,7 @@ if command -v git >/dev/null 2>&1; then
     curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     if [ ! -d ~/.local/share/nvim/plugged ]; then
-      nvim +PlugInstall
+      nvim +PlugInstall +qall
     fi
   fi
 
@@ -83,11 +80,11 @@ if command -v git >/dev/null 2>&1; then
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     if [ ! -d ~/.vim/plugged ]; then
-      vim +PlugInstall
+      vim +PlugInstall +qall
     fi
   else
-    echo 'You need to install vim'
+    echo "You need to install vim"
   fi
 else
-  echo 'You need to install git'
+  echo "You need to install git"
 fi

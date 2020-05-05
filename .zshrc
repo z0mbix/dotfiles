@@ -94,19 +94,22 @@ function auto_pipenv_shell {
     fi
 }
 
-function auto_poetry_shell {
-    if [ ! -n "${POETRY_ACTIVE+1}" ]; then
-        if [ -f "pyproject.toml" ] && [[ -f "poetry.lock" ]] ; then
-            poetry shell
-        fi
-    fi
-}
+# function auto_poetry_shell {
+#     if [ ! -n "${POETRY_ACTIVE+1}" ]; then
+#         if [ -f "pyproject.toml" ] && [[ -f "poetry.lock" ]] ; then
+#             poetry shell
+#         fi
+#     fi
+# }
 
 function cd {
     builtin cd "$@"
     auto_pipenv_shell
-    auto_poetry_shell
+    # auto_poetry_shell
 }
 
 auto_pipenv_shell
-auto_poetry_shell
+# auto_poetry_shell
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/consul consul

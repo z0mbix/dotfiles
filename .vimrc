@@ -59,6 +59,7 @@ set nojoinspaces										" remove extra space when joining lines
 set cmdheight=1											" Better display for messages
 set updatetime=300										" Required for coc
 set signcolumn=yes										" Always use signcolumn
+set completeopt=menuone,preview
 set wildmenu											" Tab completion
 set wildmode=list:longest,full							" Wildcard matches show a list, matching the longest first
 set wildignore+=.git,.hg,.svn							" Ignore version control repos
@@ -71,11 +72,11 @@ set wildignore+=*.sw?									" Vim swap files
 set wildignore+=*.DS_Store								" OSX bullshit
 set wildignore+=*.luac									" Lua byte code
 set wildignore+=*.pyc									" Python byte code
-set pumblend=20											" Popup menu transparency
-set winblend=20											" Popup window transparency
 
 if has('nvim')
 	set inccommand=nosplit
+	set pumblend=20											" Popup menu transparency
+	set winblend=20											" Popup window transparency
 endif
 
 if exists('veonim')
@@ -117,6 +118,7 @@ let mapleader=" "
 if has('nvim')
 	let s:plug_dir = '~/.local/share/nvim/plugged'
 	let s:plug_file = '~/.local/share/nvim/site/autoload/plug.vim'
+
 else
 	let s:plug_dir = '~/.vim/plugged'
 	let s:plug_file = '~/.vim/autoload/plug.vim'
@@ -160,13 +162,11 @@ Plug 'bling/vim-bufferline'
 Plug 'bogado/file-line'
 Plug 'brooth/far.vim'
 Plug 'danro/rename.vim'
-Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'duff/vim-bufonly'
 Plug 'enricobacis/vim-airline-clock'
 Plug 'honza/vim-snippets'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'jiangmiao/auto-pairs'
-Plug 'joshdick/onedark.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -185,7 +185,7 @@ Plug 'rhysd/clever-f.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'sodapopcan/vim-twiggy'
 Plug 'terryma/vim-expand-region'
-Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tonchis/vim-to-github'
 Plug 'tpope/vim-commentary'
@@ -202,6 +202,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
 Plug 'pechorin/any-jump.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 
 " conditional plugins
 if has('python') || has('python3')
@@ -238,7 +240,7 @@ endif
 
 call plug#end()
 " }}}
-
+'
 " Colours/Theme {{{
 
 " Set colour after vim-colorschemes
@@ -256,6 +258,12 @@ hi VertSplit ctermbg=none guibg=none
 
 " Auto Commands {{{
 
+" when writing new files, mkdir -p their paths
+augroup BWCCreateDir
+    au!
+    au BufWritePre * if expand("<afile>")!~#'^\w\+:/' && !isdirectory(expand("%:h")) | execute "silent! !mkdir -p ".shellescape(expand('%:h'), 1) | redraw! | endif
+augroup END
+
 " Highlight line if in insert mode
 autocmd InsertEnter * set cursorline
 autocmd InsertLeave * set nocursorline
@@ -265,7 +273,7 @@ autocmd FileType gitcommit set textwidth=72
 autocmd FileType gitcommit set colorcolumn=73
 
 " Shell files
-autocmd BufNewFile,BufRead *.rc,*.sh set ft=sh
+autocmd BufNewFile,BufRead *.rc,*.sh,.envrc,~/.sh/* set ft=sh
 autocmd FileType sh set ts=2 sw=2 et smartindent
 
 " Ruby
@@ -381,7 +389,7 @@ let g:AutoPairsMapCR = 0
 
 " vim-shfmt
 let g:shfmt_fmt_on_save = 1 " Auto run shfmt on save
-let g:shfmt_extra_args = '-i 2' " Always use two space indentation for shell scripts
+let g:shfmt_extra_args = '-i 2 -ci -sr' " Always use two space indentation for shell scripts
 
 " jedi
 let g:deoplete#sources#jedi#show_docstring = 1
@@ -436,8 +444,6 @@ let g:bufferline_echo = 0
 " }}}
 
 " Mappings {{{
-
-" Resize
 
 " I almost never want to go to the first column
 nnoremap 0 ^
@@ -640,6 +646,12 @@ nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-h> <C-w>h
 nmap <C-l> <C-w>l
+
+" Resize windows easily
+nnoremap <C-Left> :vertical resize +3
+nnoremap <C-Right> :vertical resize -3
+nnoremap <C-Up> :resize +3
+nnoremap <C-Down> :resize +3
 
 " Easily fix = & : alignments
 nmap <leader>T= :Tabularize /=<CR>
@@ -1023,6 +1035,39 @@ function! s:select_current_word()
 	endif
 	return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
 endfunc
+" }}}
+
+" goyo {{{
+
+let g:goyo_height = '90%'
+let g:goyo_width = '80%'
+
+function! s:goyo_enter()
+  if executable('tmux') && strlen($TMUX)
+    silent !tmux set status off
+    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  endif
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  Limelight
+  " ...
+endfunction
+
+function! s:goyo_leave()
+  if executable('tmux') && strlen($TMUX)
+    silent !tmux set status on
+    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  endif
+  set showmode
+  set showcmd
+  set scrolloff=5
+  Limelight!
+  " ...
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 " }}}
 
 " ctags {{{

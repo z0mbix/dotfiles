@@ -5,6 +5,7 @@ tags
 .vim/.netrwhist
 compare-git-to-home
 diff-file
+.aws/credentials
 .sh/private
 .sh/local
 .vim/private

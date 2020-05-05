@@ -7,8 +7,9 @@ export ANSIBLE_NOCOWS=1
 export SHELLCHECK_OPTS="-e SC2155"
 export CHECKPOINT_DISABLE=1
 export TF_PLUGIN_CACHE_DIR="${HOME}/.terraform.d/plugin-cache"
-export AWS_VAULT_KEYCHAIN_NAME=login
 export SHELL_NAME="$(basename $SHELL)"
+export AWS_VAULT_KEYCHAIN_NAME=login
+export AWS_PAGER=""
 
 # support colors in less/manpages
 export LESS_TERMCAP_mb=$'\E[01;31m'
@@ -63,4 +64,8 @@ fi
 
 if [[ -e $HOME/.cargo/bin ]]; then
   export PATH="$PATH:$HOME/.cargo/bin"
+fi
+
+if [[ -e $HOME/.tfenv/bin ]]; then
+  export PATH="$HOME/.tfenv/bin:$PATH"
 fi
