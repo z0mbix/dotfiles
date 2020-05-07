@@ -29,11 +29,14 @@
 [core]
 	whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	excludesfile = ~/.gitignore
-	pager = less -FRSX
+	#pager = less -FRSX
+	pager = delta --theme='Nord'
 	quotepath = false
+[interactive]
+	diffFilter = delta --color-only --theme='Nord''
 [alias]
 	alias = !git config -l | grep ^alias | cut -c 7- | sort
-	br = branch
+	br = branch --sort=-committerdate
 	branch-commit-diff = !"f() { git log --graph --abbrev-commit --date=relative master..$@; }; f"
 	branch-diff = !"f() { git diff master $@; }; f"
 	branch-toggle = checkout -
@@ -57,6 +60,7 @@
 	pr = !"pr() { git fetch origin pull/$1/head:pr-$1; git checkout pr-$1; }; pr"
 	prune = fetch --prune
 	push-and-pr = !git push && git open-pr
+	root = rev-parse --show-toplevel
 	sa = stash apply
 	sd = stash show --patch
 	since = !git log $(git merge-base --fork-point master)..HEAD
@@ -79,8 +83,6 @@
 	summary = true
 [diff "exif"]
 	textconv = exif
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path =
 [credential]
 	helper = osxkeychain

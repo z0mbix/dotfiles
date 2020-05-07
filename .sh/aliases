@@ -11,7 +11,6 @@ alias lal='ls -al'
 alias lalR='ls -alR'
 alias lsd='ls -l | grep "^d"'
 alias p='ps aux'
-alias find_git_repos='find ~ -type d -name ".git" -print|egrep -v "$HOME/Library|$HOME/.Trash"'
 alias svim='sudo -e'
 alias scat='sudo cat'
 alias c='clear'
@@ -46,6 +45,7 @@ alias showpath="echo $PATH | tr ':' '\n' | nl"
 alias da='direnv allow'
 alias n='navi --print'
 alias shrug='echo -n "¯\\_(ツ)_/¯"'
+alias bandwhich='sudo bandwhich'
 
 # This, allows me to quickly copy a pastable HEREDOC on to new hosts :)
 alias copyinputrc='echo -e "cat > ~/.inputrc <<EOF $(echo; cat ~/.inputrc)\nEOF\nbind -f ~/.inputrc" | pbcopy'
@@ -123,13 +123,13 @@ alias proxyoff='unset {HTTP,HTTPS,FTP}_PROXY {http,https,ftp}_proxy no_proxy NO_
 alias proxystatus='env | grep -i proxy | sort'
 
 # Setup vim/nvim/vi
-if command -v nvim > /dev/null 2>&1; then
+if command -v nvim >/dev/null 2>&1; then
   if [ ! -e ~/.config/nvim/init.vim ]; then
     echo "You need to install your init.vim"
   fi
   alias vim='nvim'
   alias vi='nvim'
-elif command -v vim > /dev/null 2>&1; then
+elif command -v vim >/dev/null 2>&1; then
   if [ ! -e ~/.vimrc ]; then
     echo "You need to install your ~/.vimrc"
   fi
@@ -138,10 +138,11 @@ else
   alias vim='vi'
 fi
 
-if command -v gopass > /dev/null 2>&1; then
+if command -v gopass >/dev/null 2>&1; then
   alias pass='gopass'
 fi
 
-if command -v bat > /dev/null 2>&1; then
-  alias cat='bat'
+if command -v bat >/dev/null 2>&1; then
+  alias cat='bat -p --decorations=never'
+  alias batp='bat -p --decorations=never'
 fi
