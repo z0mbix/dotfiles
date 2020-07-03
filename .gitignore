@@ -1,11 +1,12 @@
-tags
 *.pyc
 .*.swp
 .DS_Store
+.aws/credentials
+.sh/local
+.sh/private
 .vim/.netrwhist
+.vim/private
+.zsh_history
 compare-git-to-home
 diff-file
-.aws/credentials
-.sh/private
-.sh/local
-.vim/private
+tags

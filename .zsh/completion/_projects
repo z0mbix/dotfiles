@@ -1,0 +1,7 @@
+#compdef projects
+
+_projects() {
+  _values 'directories' $(find "$HOME/Dropbox/Projects" -maxdepth 1 -mindepth 1 -type d -not -name ".*" -exec basename {} \; | sort -d)
+}
+
+_projects "$@"

@@ -162,13 +162,15 @@ Plug 'bling/vim-bufferline'
 Plug 'bogado/file-line'
 Plug 'brooth/far.vim'
 Plug 'danro/rename.vim'
+Plug 'doums/coBra'
 Plug 'duff/vim-bufonly'
 Plug 'enricobacis/vim-airline-clock'
 Plug 'honza/vim-snippets'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
-Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-after-object'
 Plug 'junegunn/vim-easy-align'
@@ -176,8 +178,10 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'kana/vim-submode'
 Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
+Plug 'mg979/vim-visual-multi'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'pechorin/any-jump.vim'
 Plug 'psliwka/vim-smoothie'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'rbong/vim-flog'
@@ -185,7 +189,6 @@ Plug 'rhysd/clever-f.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'sodapopcan/vim-twiggy'
 Plug 'terryma/vim-expand-region'
-Plug 'mg979/vim-visual-multi'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tonchis/vim-to-github'
 Plug 'tpope/vim-commentary'
@@ -201,9 +204,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
-Plug 'pechorin/any-jump.vim'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
 
 " conditional plugins
 if has('python') || has('python3')
@@ -368,6 +368,9 @@ autocmd BufNewFile,BufRead *.git/* call setpos('.', [0, 1, 1, 0])
 " Abbreviations {{{
 
 inoreabbrev teh the
+inoreabbrev chnage change
+inoreabbrev zzo zombie@zombix.org
+inoreabbrev gte get
 cnoreabbrev Wq wq
 cnoreabbrev WQ wq
 cnoreabbrev W w
@@ -389,7 +392,7 @@ let g:AutoPairsMapCR = 0
 
 " vim-shfmt
 let g:shfmt_fmt_on_save = 1 " Auto run shfmt on save
-let g:shfmt_extra_args = '-i 2 -ci -sr' " Always use two space indentation for shell scripts
+let g:shfmt_extra_args = '-i 2 -ci' " Always use two space indentation for shell scripts
 
 " jedi
 let g:deoplete#sources#jedi#show_docstring = 1
@@ -458,7 +461,7 @@ nnoremap <leader>. :lcd %:p:h<CR>
 noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
 " Auto open the TagBar when file is supported
-autocmd FileType * call tagbar#autoopen(0)
+autocmd FileType go call tagbar#autoopen(0)
 
 nmap <leader>tb :TagbarToggle<CR>
 
@@ -467,9 +470,13 @@ nnoremap <leader>A :silent ArgWrap<CR>
 " Hit that file with a hammer
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
-" zip a character left and right
-nnoremap zl :let @z=@"<cr>xBP:let @"=@z<cr>
-nnoremap zr :let @z=@"<cr>x$p:let @"=@z<cr>
+" move a character to the beginning or end of the line
+nnoremap mH :let @z=@"<cr>x0P:let @"=@z<cr>
+nnoremap mL :let @z=@"<cr>x$p:let @"=@z<cr>
+
+" move a character to the beginning or end of the word
+nnoremap mh :let @z=@"<cr>xBP:let @"=@z<cr>
+nnoremap ml :let @z=@"<cr>xep:let @"=@z<cr>
 
 " Closing/saving
 nmap <leader>q :q<CR>

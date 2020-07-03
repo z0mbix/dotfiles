@@ -8,6 +8,7 @@ alias lR='ls -lR'
 alias la='ls -a'
 alias laR='ls -aR'
 alias lal='ls -al'
+alias lh='ls -lh'
 alias lalR='ls -alR'
 alias lsd='ls -l | grep "^d"'
 alias p='ps aux'
@@ -29,7 +30,7 @@ alias colours='for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i} "; done'
 alias pign='ping' # doh!
 alias running_vms='VBoxManage list runningvms | cut -f2 -d\"'
 alias serve_cwd='python -m SimpleHTTPServer'
-alias cat_without_comments="grep -v -E '^$|^[[:blank:]]*#|^;|^[[:blank:]]*//|(/\*([^*]|(\*+[^*/]))*\*+/)|(//.*)' $1"
+alias cat-without-comments="grep -v -E '^$|^[[:blank:]]*#|^;|^[[:blank:]]*//|(/\*([^*]|(\*+[^*/]))*\*+/)|(//.*)'"
 alias pubkey="cat ~/.ssh/id_ed25519.pub | pbcopy | printf 'Public key copied to pasteboard.\n'"
 alias public-ip='curl https://icanhazip.com/'
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
@@ -41,7 +42,6 @@ alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3'
 alias weather='clear; curl http://wttr.in/'
 alias tmux='TERM=screen-256color tmux'
 alias planetrock="mplayer 'http://tx.sharp-stream.com/icecast.php?i=planetrock.mp3'"
-alias showpath="echo $PATH | tr ':' '\n' | nl"
 alias da='direnv allow'
 alias n='navi --print'
 alias shrug='echo -n "¯\\_(ツ)_/¯"'
@@ -52,7 +52,6 @@ alias copyinputrc='echo -e "cat > ~/.inputrc <<EOF $(echo; cat ~/.inputrc)\nEOF\
 
 # MySQL
 alias mydbs='mysql -e "show databases"'
-alias mytables="mysql $1 -e 'show tables'"
 
 # Git
 alias gc='git commit -m'
@@ -61,7 +60,6 @@ alias gd='git diff'
 alias gdc='git diff --cached'
 alias gr='git remote -v'
 alias gpom='git push origin master'
-alias gl='git lg'
 alias gdlc='git diff-last-commit'
 alias gp='git pull'
 alias gbt='git branch-toggle'
@@ -100,6 +98,10 @@ alias k='kubectl'
 alias kl='kubectl logs -f'
 alias ke='kubectl get events -w'
 alias kpf='kubectl port-forward'
+alias kgp='kubectl get pods'
+alias kgn='kubectl get nodes'
+alias kgs='kubectl get secrets'
+alias wkgp='watch -n3 "kubectl get pods"'
 alias kdump='kubectl get all --all-namespaces'
 alias kubefwd='sudo kubefwd'
 alias kp='kube-prompt'
@@ -107,14 +109,16 @@ alias ns='kubens'
 alias ctx='kubectx'
 
 # AWS
-alias aws-account-id='aws sts get-caller-identity | jq -r .Account'
+alias aws-account-id='aws sts get-caller-identity | jq -r ".Account"'
+alias aws-account-alias='aws iam list-account-aliases | jq -r ".AccountAliases[]"'
 alias aws-running-instances='aws ec2 describe-instances --output=json --filters "Name=instance-state-name,Values=running"'
 
 # Directories
-alias projects='cd ~/Dropbox/Projects'
+alias dropbox='cd $HOME/Dropbox'
 alias dotfiles='cd ~/Dropbox/Configs/dotfiles'
 alias study='cd ~/Dropbox/Study'
 alias downloads='cd ~/Downloads'
+alias icd='cd ~/iCloudDrive'
 alias work='cd $WORK_DIR'
 
 # Proxy
@@ -145,4 +149,6 @@ fi
 if command -v bat >/dev/null 2>&1; then
   alias cat='bat -p --decorations=never'
   alias batp='bat -p --decorations=never'
+  alias baty='bat -l yaml'
+  alias batj='bat -l json'
 fi

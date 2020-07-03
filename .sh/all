@@ -30,6 +30,10 @@ export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/.local/bin:$PATH
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
+# if command -v yubikey-agent >/dev/null; then
+#   export SSH_AUTH_SOCK="/usr/local/var/run/yubikey-agent.sock"
+# fi
+
 if command -v nvim >/dev/null 2>&1; then
   export EDITOR=nvim
 fi
