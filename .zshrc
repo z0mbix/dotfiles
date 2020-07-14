@@ -3,6 +3,7 @@ export HISTSIZE=1000000
 export SAVEHIST=1000000
 export CASE_SENSITIVE="true"
 export SHOW_AWS_PROMPT="false"
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#B48EAD"
 
 if [[ ! -f "${HOME}/.zgen/zgen.zsh" ]]; then
   git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
@@ -26,7 +27,6 @@ if ! zgen saved; then
   zgen oh-my-zsh plugins/docker
   zgen oh-my-zsh plugins/git
   zgen oh-my-zsh plugins/git-extras
-  zgen oh-my-zsh plugins/go
   zgen oh-my-zsh plugins/golang
   zgen oh-my-zsh plugins/man
   zgen oh-my-zsh plugins/osx
@@ -37,6 +37,7 @@ if ! zgen saved; then
   zgen oh-my-zsh plugins/vagrant
   zgen load ajeetdsouza/zoxide
 
+  zgen load zsh-users/zsh-autosuggestions
   zgen load zsh-users/zsh-syntax-highlighting
 
   zgen save

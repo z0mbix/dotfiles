@@ -37,7 +37,7 @@ alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.ar
 alias j='jobs'
 alias p8='ping 8.8.8.8'
 alias vd='vimdiff'
-alias countdown='mpg321 -q ~/Dropbox/Documents/Sounds/countdown.mp3'
+alias countdown='mpg321 -q ~/iCloudDrive/Documents/Sounds/countdown.mp3'
 alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3'
 alias weather='clear; curl http://wttr.in/'
 alias tmux='TERM=screen-256color tmux'
@@ -46,6 +46,8 @@ alias da='direnv allow'
 alias n='navi --print'
 alias shrug='echo -n "¯\\_(ツ)_/¯"'
 alias bandwhich='sudo bandwhich'
+alias fzfp='fzf --preview "bat --style=numbers --color=always --line-range :500 {}" --border --height 50%'
+alias vimf='vim $(fzfp)'
 
 # This, allows me to quickly copy a pastable HEREDOC on to new hosts :)
 alias copyinputrc='echo -e "cat > ~/.inputrc <<EOF $(echo; cat ~/.inputrc)\nEOF\nbind -f ~/.inputrc" | pbcopy'
@@ -114,9 +116,9 @@ alias aws-account-alias='aws iam list-account-aliases | jq -r ".AccountAliases[]
 alias aws-running-instances='aws ec2 describe-instances --output=json --filters "Name=instance-state-name,Values=running"'
 
 # Directories
-alias dropbox='cd $HOME/Dropbox'
-alias dotfiles='cd ~/Dropbox/Configs/dotfiles'
-alias study='cd ~/Dropbox/Study'
+alias dropbox='cd $HOME/iCloudDrive'
+alias dotfiles='cd ~/iCloudDrive/Configs/dotfiles'
+alias study='cd ~/iCloudDrive/Study'
 alias downloads='cd ~/Downloads'
 alias icd='cd ~/iCloudDrive'
 alias work='cd $WORK_DIR'

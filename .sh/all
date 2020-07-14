@@ -9,7 +9,9 @@ export CHECKPOINT_DISABLE=1
 export TF_PLUGIN_CACHE_DIR="${HOME}/.terraform.d/plugin-cache"
 export SHELL_NAME="$(basename $SHELL)"
 export AWS_VAULT_KEYCHAIN_NAME=login
+export AWS_DEFAULT_REGION="eu-west-1"
 export AWS_PAGER=""
+export AWS_SDK_LOAD_CONFIG=1 # For terraform/terragrunt SSO support
 
 # support colors in less/manpages
 export LESS_TERMCAP_mb=$'\E[01;31m'
@@ -29,10 +31,6 @@ export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/.local/bin:$PATH
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-
-# if command -v yubikey-agent >/dev/null; then
-#   export SSH_AUTH_SOCK="/usr/local/var/run/yubikey-agent.sock"
-# fi
 
 if command -v nvim >/dev/null 2>&1; then
   export EDITOR=nvim

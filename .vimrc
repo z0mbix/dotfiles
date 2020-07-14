@@ -57,7 +57,7 @@ set lazyredraw											" Redraw only when required
 set mouse=a												" enable mouse support
 set nojoinspaces										" remove extra space when joining lines
 set cmdheight=1											" Better display for messages
-set updatetime=300										" Required for coc
+set updatetime=200										" Required for coc
 set signcolumn=yes										" Always use signcolumn
 set completeopt=menuone,preview
 set wildmenu											" Tab completion
@@ -260,8 +260,8 @@ hi VertSplit ctermbg=none guibg=none
 
 " when writing new files, mkdir -p their paths
 augroup BWCCreateDir
-    au!
-    au BufWritePre * if expand("<afile>")!~#'^\w\+:/' && !isdirectory(expand("%:h")) | execute "silent! !mkdir -p ".shellescape(expand('%:h'), 1) | redraw! | endif
+	au!
+	au BufWritePre * if expand("<afile>")!~#'^\w\+:/' && !isdirectory(expand("%:h")) | execute "silent! !mkdir -p ".shellescape(expand('%:h'), 1) | redraw! | endif
 augroup END
 
 " Highlight line if in insert mode
@@ -336,7 +336,7 @@ autocmd FileType make,c,cpp set ts=8 sw=8
 " When editing a file, always jump to the last cursor position
 autocmd BufReadPost *
 	\ if line("'\"") > 0 && line ("'\"") <= line("$") |
-	\ 	exe "normal! g'\"" |
+	\	exe "normal! g'\"" |
 	\ endif
 
 " Clear whitespace at the end of lines automatically
@@ -447,6 +447,9 @@ let g:bufferline_echo = 0
 " }}}
 
 " Mappings {{{
+
+" Toggle between most recent files
+nnoremap <leader>; <C-^>
 
 " I almost never want to go to the first column
 nnoremap 0 ^
@@ -879,6 +882,9 @@ let g:ale_linters = {
 \}
 
 let g:ale_fixers = {
+\	'javascript': ['prettier', 'eslint'],
+\	'typescript': ['eslint', 'tslint', 'tsserver'],
+\	'vue': ['prettier', 'eslint'],
 \	'python': ['autopep8', 'yapf'],
 \	'terraform': ['terraform']
 \}
@@ -967,11 +973,19 @@ endfunction
 " coc {{{
 "
 let g:coc_global_extensions = [
-	\ 'coc-snippets',
-	\ 'coc-ultisnips',
+	\ 'coc-css',
+	\ 'coc-eslint',
+	\ 'coc-git',
+	\ 'coc-go',
+	\ 'coc-html',
+	\ 'coc-json',
 	\ 'coc-pairs',
 	\ 'coc-python',
-	\ 'coc-json'
+	\ 'coc-sh',
+	\ 'coc-snippets',
+	\ 'coc-tsserver',
+	\ 'coc-ultisnips',
+	\ 'coc-vetur',
 \ ]
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -1020,15 +1034,17 @@ nmap <silent> gr <Plug>(coc-references)
 " nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " function! s:show_documentation()
-" 	if (index(['vim','help'], &filetype) >= 0)
-" 		execute 'h '.expand('<cword>')
-" 	else
-" 		call CocAction('doHover')
-" 	endif
+"	if (index(['vim','help'], &filetype) >= 0)
+"		execute 'h '.expand('<cword>')
+"	else
+"		call CocAction('doHover')
+"	endif
 " endfunction
 
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+if !&diff
+	autocmd CursorHold * silent call CocActionAsync('highlight')
+endif
 
 " Remap for rename current word
 nmap <F2> <Plug>(coc-rename)
@@ -1051,8 +1067,8 @@ let g:goyo_width = '80%'
 
 function! s:goyo_enter()
   if executable('tmux') && strlen($TMUX)
-    silent !tmux set status off
-    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+	silent !tmux set status off
+	silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
   endif
   set noshowmode
   set noshowcmd
@@ -1063,8 +1079,8 @@ endfunction
 
 function! s:goyo_leave()
   if executable('tmux') && strlen($TMUX)
-    silent !tmux set status on
-    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+	silent !tmux set status on
+	silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
   endif
   set showmode
   set showcmd
@@ -1134,7 +1150,7 @@ let g:tagbar_type_markdown = {
 
  let g:tagbar_type_go = {
 	\ 'ctagstype' : 'go',
-	\ 'kinds'     : [
+	\ 'kinds'	  : [
 		\ 'p:package',
 		\ 'i:imports:1',
 		\ 'c:constants',
