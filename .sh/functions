@@ -4,13 +4,18 @@ kubeutil() {
     xargs -I {} sh -c 'echo {} ; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo'
 }
 
+get-ami-name() {
+  local ami_id="$1"
+  aws ec2 describe-images --image-ids $ami_id | jq -r '.Images[0].Name'
+}
+
 showpath() {
   echo $PATH | tr ':' '\n' | nl
 }
 
 unalias gl
 gl() {
-  declare arg="$1"
+  local arg="$1"
   if [ -n "$arg" ]; then
     git --no-pager lg -$arg
   else

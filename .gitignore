@@ -4,8 +4,10 @@
 .aws/credentials
 .sh/local
 .sh/private
+.ssh/
 .vim/.netrwhist
 .vim/private
+.zsh/completion/
 .zsh_history
 compare-git-to-home
 diff-file
