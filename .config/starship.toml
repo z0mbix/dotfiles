@@ -1,7 +1,9 @@
 add_newline = false
 
 [character]
-symbol = "»"
+format = "$symbol "
+success_symbol = "[»](bold green)"
+error_symbol = "[»](bold red)"
 
 [directory]
 truncation_length = 8
@@ -12,16 +14,32 @@ disabled = false
 
 [time]
 disabled = false
-format = "%T"
+format = "[$time]($style) "
 style = "bold bright-blue"
 
 [kubernetes]
 disabled = false
 style = "bright-blue"
 
+[aws]
+style = "bright-green"
+
 [aws.region_aliases]
+ap-southeast-1 = "sin"
+eu-central-1 = "fra"
 eu-west-1 = "ire"
 eu-west-2 = "lon"
 
+[gcloud]
+format = "on [$symbol (\\($project\\))]($style) "
+
+[gcloud.aliases]
+europe-west2 = "lon"
+
 [java]
 disabled = true
+
+[custom.foo]
+command = "tgsrc-status"
+files = ["terragrunt.hcl"]
+style = "red"
