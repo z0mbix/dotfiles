@@ -1,3 +1,5 @@
+# vim: set ft=sh
+
 # Linux
 
 export PUPPET_DIR=/etc/puppet

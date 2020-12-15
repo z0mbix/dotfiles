@@ -1,3 +1,5 @@
+# vim: set ft=sh
+
 kubeutil() {
   kubectl get nodes --no-headers |
     awk '{print $1}' |

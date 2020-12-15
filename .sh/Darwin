@@ -1,3 +1,5 @@
+# vim: set ft=sh
+
 # Darwin (Mac OS X)
 
 [ -d /Developer/usr/bin ] && PATH=$PATH:/Developer/usr/bin

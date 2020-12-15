@@ -1,3 +1,5 @@
+# vim: set ft=sh
+
 # OpenBSD
 
 export CVS_RSH=ssh

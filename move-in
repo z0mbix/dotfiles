@@ -55,11 +55,6 @@ if [ $os == "Darwin" ]; then
   ln -sf ~/.config/Code/User/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
 fi
 
-if [ ! -f ~/.git-prompt.sh ]; then
-  curl -s -o ~/.git-prompt.sh \
-    https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
-fi
-
 # Setup shell
 [ -f "$HOME/.${SHELL##*/}rc" ] && source "$HOME/.${SHELL##*/}rc"
 
@@ -67,24 +62,37 @@ fi
 [ ! -d ~/.config/nvim ] && mkdir -p ~/.config/nvim
 ln -s ~/.vimrc ~/.config/nvim/init.vim
 
-if command -v git >/dev/null 2>&1; then
-  if command -v nvim >/dev/null 2>&1; then
-    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    if [ ! -d ~/.local/share/nvim/plugged ]; then
-      nvim +PlugInstall +qall
-    fi
-  fi
+if ! command -v git >/dev/null 2>&1; then
+  echo "You need to install git"
+  exit 1
+fi
 
-  if command -v vim >/dev/null 2>&1; then
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    if [ ! -d ~/.vim/plugged ]; then
-      vim +PlugInstall +qall
-    fi
-  else
-    echo "You need to install vim"
+if command -v nvim >/dev/null 2>&1; then
+  curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  if [ ! -d ~/.local/share/nvim/plugged ]; then
+    nvim +PlugInstall +qall
+  fi
+fi
+
+if command -v vim >/dev/null 2>&1; then
+  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  if [ ! -d ~/.vim/plugged ]; then
+    vim +PlugInstall +qall
   fi
 else
-  echo "You need to install git"
+  echo "You need to install vim"
+fi
+
+# Install starship
+if ! command -v /usr/bin/starship >/dev/null; then
+  if [ $os == "Linux" ]; then
+    curl -fsSL https://starship.rs/install.sh | bash
+  fi
+  if [ $os == "Darwin" ]; then
+    if command -v brew >/dev/null; then
+      brew install starship
+    fi
+  fi
 fi

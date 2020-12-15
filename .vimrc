@@ -75,8 +75,8 @@ set wildignore+=*.pyc									" Python byte code
 
 if has('nvim')
 	set inccommand=nosplit
-	set pumblend=20											" Popup menu transparency
-	set winblend=20											" Popup window transparency
+	set pumblend=15											" Popup menu transparency
+	set winblend=15											" Popup window transparency
 endif
 
 if exists('veonim')
@@ -151,6 +151,7 @@ Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
 
 " Other plugins
+Plug 'AndrewRadev/sideways.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'FooSoft/vim-argwrap'
@@ -202,7 +203,6 @@ Plug 'unblevable/quick-scope'
 Plug 'valloric/listtoggle'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
 
 " conditional plugins
@@ -259,7 +259,7 @@ hi VertSplit ctermbg=none guibg=none
 " Auto Commands {{{
 
 " when writing new files, mkdir -p their paths
-augroup BWCCreateDir
+augroup AutoCreateDir
 	au!
 	au BufWritePre * if expand("<afile>")!~#'^\w\+:/' && !isdirectory(expand("%:h")) | execute "silent! !mkdir -p ".shellescape(expand('%:h'), 1) | redraw! | endif
 augroup END
@@ -299,7 +299,11 @@ let g:autopep8_on_save = 1
 
 " JavaScript
 autocmd BufNewFile,BufRead *.js set ft=javascript
-autocmd FileType javascript set ts=2 sw=2 tw=79 et sts=2 smartindent
+autocmd FileType javascript set ts=2 sw=2 tw=120 et sts=2 smartindent
+
+" Typescript
+autocmd BufNewFile,BufRead *.ts set ft=typescript
+autocmd FileType typescript set ts=2 sw=2 tw=120 et sts=2 smartindent
 
 " JSON
 autocmd BufNewFile,BufRead *.json,*.json.j2 set ft=json
@@ -326,6 +330,10 @@ autocmd FileType puppet set commentstring=#\ %s
 
 " Yum repos
 autocmd BufRead,BufNewFile *.repo,*.repo.j2 set ft=yum
+
+" HCL
+autocmd BufNewFile,BufRead *.hcl set ft=hcl
+autocmd FileType hcl set ts=2 sw=2 et sts=2 smartindent
 
 " Source code gets wrapped at <80
 autocmd FileType asm,javascript,php,html,perl,c,cpp set tw=79 autoindent
@@ -409,6 +417,7 @@ let g:WebDevIconsOS = 'Darwin'
 
 " vim-gitgutter
 let g:gitgutter_map_keys = 0
+nmap ghd <Plug>(GitGutterPreviewHunk)
 nmap ghs <Plug>(GitGutterPreviewHunk)
 nmap ghn <Plug>(GitGutterNextHunk)
 nmap ghp <Plug>(GitGutterPrevHunk)
@@ -739,7 +748,7 @@ function! FloatingFZF()
 	call setbufvar(buf, '&signcolumn', 'no')
 
 	let height = float2nr(&lines * 0.3) " 30% of the height
-	let width = float2nr(&columns * 0.6) " 60% of the width
+	let width = float2nr(&columns * 0.7) " 70% of the width
 	let horizontal = float2nr((&columns - width) / 2) " horizontal position (centralized)
 	let vertical = float2nr(&lines / 2) - (height / 2) " in the middle
 
@@ -791,6 +800,8 @@ nmap <leader>fa :Rg<Space>
 nmap <leader>fgc :Commits<CR>
 nmap <leader>fgbc :BCommits<CR>
 nmap <leader>fp :Rg<cr>
+nmap <leader>fP :Rg <c-r><c-w><cr>
+vmap <leader>fP :Rg <c-r><c-w><cr>
 
 " Open fzf if vim opened without any args except in home dir
 if argc() == 0 && getcwd() != expand("~")
@@ -831,8 +842,8 @@ autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 augroup ps_nerdtree
 	au!
 	au Filetype nerdtree setlocal nolist
-	au Filetype nerdtree nnoremap <buffer> H :vertical resize -10<cr>
-	au Filetype nerdtree nnoremap <buffer> L :vertical resize +10<cr>
+	au Filetype nerdtree nnoremap <buffer> H :vertical resize -5<cr>
+	au Filetype nerdtree nnoremap <buffer> L :vertical resize +5<cr>
 augroup END
 
 let NERDTreeHighlightCursorline = 1

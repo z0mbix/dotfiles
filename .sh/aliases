@@ -1,3 +1,5 @@
+# vim: set ft=sh
+
 # Enable color support of ls and also add handy aliases
 [ -x /usr/bin/dircolors ] && eval "$(dircolors -b)"
 
@@ -100,9 +102,24 @@ alias k='kubectl'
 alias kl='kubectl logs -f'
 alias ke='kubectl get events -w'
 alias kpf='kubectl port-forward'
+alias kg='kubectl get'
+alias kd='kubectl describe'
+alias kga='kubectl get all'
+alias kgj='kubectl get jobs'
 alias kgp='kubectl get pods'
+alias kgd='kubectl get deploy'
+alias kgi='kubectl get ing'
 alias kgn='kubectl get nodes'
 alias kgs='kubectl get secrets'
+alias kgdp='kubectl get deploy,pods'
+alias kgdps='kubectl get deploy,pods,svc'
+alias kda='kubectl describe all'
+alias kdj='kubectl describe jobs'
+alias kdp='kubectl describe pods'
+alias kdd='kubectl describe deploy'
+alias kdi='kubectl describe ing'
+alias kdn='kubectl describe nodes'
+alias kds='kubectl describe secrets'
 alias wkgp='watch -n3 "kubectl get pods"'
 alias kdump='kubectl get all --all-namespaces'
 alias kubefwd='sudo kubefwd'

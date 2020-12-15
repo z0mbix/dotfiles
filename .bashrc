@@ -76,26 +76,28 @@ shopt -s no_empty_cmd_completion
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # Make ssh-agent work in tmux
-if [ ! -z "$SSH_AUTH_SOCK" -a "$SSH_AUTH_SOCK" != "$HOME/.ssh/agent_sock" ] ; then
-    unlink "$HOME/.ssh/agent_sock" 2>/dev/null
-    ln -s "$SSH_AUTH_SOCK" "$HOME/.ssh/agent_sock"
-    export SSH_AUTH_SOCK="$HOME/.ssh/agent_sock"
+if [ ! -z "$SSH_AUTH_SOCK" -a "$SSH_AUTH_SOCK" != "$HOME/.ssh/agent_sock" ]; then
+  unlink "$HOME/.ssh/agent_sock" 2>/dev/null
+  ln -s "$SSH_AUTH_SOCK" "$HOME/.ssh/agent_sock"
+  export SSH_AUTH_SOCK="$HOME/.ssh/agent_sock"
 fi
 
-[ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
+# [ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
 
-# Set badass prompt
-case $(hostname -s) in
-    "murphy") HOSTCOLOUR=${red} ;;
-    "shanks") HOSTCOLOUR=${yellow} ;;
-    "eggers") HOSTCOLOUR=${blue} ;;
-    "hesh")   HOSTCOLOUR=${lt_purple} ;;
-    holb*) HOSTCOLOUR=${lt_red} ;;
-    *) HOSTCOLOUR=${yellow} ;;
-esac
+# # Set badass prompt
+# case $(hostname -s) in
+#     "murphy") HOSTCOLOUR=${red} ;;
+#     "shanks") HOSTCOLOUR=${yellow} ;;
+#     "eggers") HOSTCOLOUR=${blue} ;;
+#     "hesh")   HOSTCOLOUR=${lt_purple} ;;
+#     holb*) HOSTCOLOUR=${lt_red} ;;
+#     *) HOSTCOLOUR=${yellow} ;;
+# esac
 
-PROMPT_COMMAND='history -a; if [ $? -ne 0 ]; then ERROR_FLAG=1; else ERROR_FLAG=; fi; hasjobs=$(jobs -p)'
-PS1=${norm}'['${green}'\@'${norm}'] ('${HOSTCOLOUR}'$HOSTNAME'${norm}') '${yellow}'\w '${lt_blue}'$(__git_ps1 "(%s) ")'${norm}''${lt_blue}'${hasjobs:+(\j) }'${norm}'${ERROR_FLAG:+'${lt_red}'}\n»${ERROR_FLAG:+'${norm}'} '
+# PROMPT_COMMAND='history -a; if [ $? -ne 0 ]; then ERROR_FLAG=1; else ERROR_FLAG=; fi; hasjobs=$(jobs -p)'
+# PS1=${norm}'['${green}'\@'${norm}'] ('${HOSTCOLOUR}'$HOSTNAME'${norm}') '${yellow}'\w '${lt_blue}'$(__git_ps1 "(%s) ")'${norm}''${lt_blue}'${hasjobs:+(\j) }'${norm}'${ERROR_FLAG:+'${lt_red}'}\n»${ERROR_FLAG:+'${norm}'} '
+
+eval "$(starship init bash)"
 
 # Home directory bin?
 [ -d ~/bin ] && PATH=$PATH:~/bin
@@ -134,7 +136,10 @@ PS1=${norm}'['${green}'\@'${norm}'] ('${HOSTCOLOUR}'$HOSTNAME'${norm}') '${yello
 [ -f ~/.bash/functions ] && . ~/.bash/functions
 
 # Output local TODO list if it exists
-[ -f ~/.todo ] && (echo "** TODO LIST **"; cat ~/.todo)
+[ -f ~/.todo ] && (
+  echo "** TODO LIST **"
+  cat ~/.todo
+)
 
 # Additional completions
 [ -f ~/.bash/completions ] && . ~/.bash/completions
@@ -160,3 +165,5 @@ complete -f -c sudo
 
 # Export important envirnoment variables
 export TERM PATH PROMPT_COMMAND PROMPT_TIME PS1 GOPATH
+
+complete -C /usr/local/bin/consul consul

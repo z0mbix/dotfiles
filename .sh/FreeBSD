@@ -1,3 +1,5 @@
+# vim: set ft=sh
+
 # FreeBSD
 
 export PUPPET_DIR=/usr/local/etc/puppet
