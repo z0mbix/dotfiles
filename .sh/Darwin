@@ -2,19 +2,35 @@
 
 # Darwin (Mac OS X)
 
+export HOMEBREW_INSTALL_BADGE=📦
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_ROOT='/usr/local'
+export AWS_VAULT_KEYCHAIN_NAME=login
+
 [ -d /Developer/usr/bin ] && PATH=$PATH:/Developer/usr/bin
 
 if [ -d /usr/local/opt/openjdk@11/bin ]; then
   export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
 fi
 
-export HOMEBREW_INSTALL_BADGE=📦
-export HOMEBREW_NO_AUTO_UPDATE=1
-export AWS_VAULT_KEYCHAIN_NAME=login
+# GPG agent
+if [ -d /usr/local/MacGPG2/bin ]; then
+  if [ ! -S ~/.gnupg/S.gpg-agent ]; then
+    eval $(gpg-agent --daemon)
+  fi
 
-# Start GPG Agent
-if [ ! -S ~/.gnupg/S.gpg-agent ]; then
-  eval $(gpg-agent --daemon)
+  export GPG_TTY=$(tty)
+  gpg-connect-agent updatestartuptty /bye >/dev/null
+  unset SSH_AGENT_PID
+  export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+fi
+
+# https://github.com/gyf304/vmcli
+if [[ $ARCH == "arm64" ]]; then
+  export VMCTLDIR="$HOME/VMs"
+  if [[ ! -d $VMCTLDIR ]]; then
+    mkdir -p $VMCTLDIR
+  fi
 fi
 
 # Aliases
@@ -26,7 +42,6 @@ alias update_dotfiles='curl -L -s -o - https://github.com/z0mbix/dotfiles/raw/ma
 alias ldd='otool -L'
 alias flushdns='sudo killall -HUP mDNSResponder'
 alias flushchromedns='chrome-cli open chrome://net-internals/#dns' # https://github.com/prasmussen/chrome-cli
-alias gvim='mvim'
 alias c='osascript -e "set Volume 1000"; mpg321 -q ~/iCloudDrive/Sounds/countdown.mp3'
 alias ddh='osascript -e "set Volume 1000"; mpg321 -q ~/iCloudDrive/Sounds/double-dream-hands.mp3'
 alias pw='pwgen -sy -N1 32 | tr -d "\n" | pbcopy && echo "Password copied to clipboard"'
@@ -35,9 +50,6 @@ alias xclip='pbcopy'
 
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 alias update-all-software='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup'
-
-# Lock the screen (when going AFK)
-alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
 # Start screensaver
 alias screensaver='open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app'
