@@ -1,9 +1,11 @@
 *.pyc
 .*.swp
 .DS_Store
+.config/gopass/config.yml
 .aws/credentials
 .sh/local
 .sh/private
+.sh/work
 .ssh/
 .vim/.netrwhist
 .vim/private

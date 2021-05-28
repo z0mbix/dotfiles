@@ -4,6 +4,7 @@
 scriptencoding utf-8
 set encoding=utf-8										" default to utf-8
 set statusline=%<%f%h%m%r%w%y%=%l/%L,%c\ %P\ \|\ %n		" dope statusline
+set exrc												" source .vimrc files
 set shortmess=atOIc										" disable start-up message
 set number												" show line numbers
 set relativenumber										" show relative line numbers
@@ -39,8 +40,8 @@ set clipboard=unnamed,unnamedplus						" use system clipboard "
 set spellfile=~/.vimspell.add							" my words
 set confirm												" ask to save files
 set viminfo='100,f1										" save up to 100 marks, enable capital marks
-set listchars=tab:›\ ,eol:¬,trail:·,extends:❯,precedes:❮,nbsp:_ " set the characters for the invisibles
 set list												" Show invisible characters
+set listchars=tab:›\ ,eol:¬,trail:·,extends:❯,precedes:❮,nbsp:_ " set the characters for the invisibles
 set splitbelow											" splits show up below by default
 set splitright											" splits go to the right by default
 set scrolloff=4											" start scrolling when we're 4 lines away from margins
@@ -96,15 +97,12 @@ if exists("+undofile")
 endif
 
 " Set title string and push it to xterm/screen window title
-set titlestring=vim\ %<%F%(\ %)%m%h%w%=%l/%L-%P
+set title
+set titlestring=vim:\ %-25.55F\ %a%r%m titlelen=70
 set titlelen=70
 if &term == "screen"
 	set t_ts=k
 	set t_fs=\
-endif
-
-if &term == "screen" || &term == "xterm"
-	set title
 endif
 
 hi NonText cterm=NONE ctermfg=NONE
@@ -134,7 +132,6 @@ endif
 call plug#begin(s:plug_dir)
 
 " Language plugins
-Plug 'dougireton/vim-chef', { 'for': 'chef' }
 Plug 'ekalinin/Dockerfile.vim', { 'for' : 'Dockerfile' }
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'fatih/vim-nginx', { 'for': 'nginx' }
@@ -145,10 +142,13 @@ Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'martinda/Jenkinsfile-vim-syntax', { 'for': 'jenkinsfile' }
 Plug 'ngmy/vim-rubocop', { 'for': 'ruby' }
 Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
-Plug 'phenomenes/ansible-snippets', { 'for': 'ansible' }
 Plug 'sheerun/vim-polyglot'
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
+
+" Colours
+Plug 'arcticicestudio/nord-vim'
+Plug 'kaicataldo/material.vim'
 
 " Other plugins
 Plug 'AndrewRadev/sideways.vim'
@@ -158,7 +158,6 @@ Plug 'FooSoft/vim-argwrap'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'RRethy/vim-illuminate'
 Plug 'airblade/vim-gitgutter'
-Plug 'arcticicestudio/nord-vim'
 Plug 'bling/vim-bufferline'
 Plug 'bogado/file-line'
 Plug 'brooth/far.vim'
@@ -240,7 +239,7 @@ endif
 
 call plug#end()
 " }}}
-'
+
 " Colours/Theme {{{
 
 " Set colour after vim-colorschemes
@@ -249,10 +248,15 @@ let g:rehash256 = 1
 if (has("termguicolors"))
 	set termguicolors
 endif
-color nord
+
+color material
+let g:material_theme_style = 'palenight'
+
 syntax on
-set t_ut=
-set fillchars+=vert:│
+
+set t_ut= " disable background color erase
+set fillchars+=vert:│ " set split window character
+set fillchars+=eob:\  " remove end of buffer tilde
 hi VertSplit ctermbg=none guibg=none
 " }}}
 
@@ -387,6 +391,9 @@ cnoreabbrev Q ccl<cr>
 
 " Variables {{{
 
+" vim-airline
+let g:airline_theme = 'material'
+
 " far
 let g:far#source = "rgnvim"
 
@@ -495,26 +502,26 @@ nmap <leader>q :q<CR>
 nmap <leader>w :update<CR>
 
 " Dash
-nmap <silent> <leader>dl <Plug>DashSearch
-vmap <silent> <leader>dl <Plug>DashSearch
+" nmap <silent> <leader>dl <Plug>DashSearch
+" vmap <silent> <leader>dl <Plug>DashSearch
 
 " Close quickfix
 " nmap <leader>c :cclose<CR>
 
 " Copy file path to clipboard
-if has("mac")
-	nnoremap <silent> <leader>cfp :let @*=expand("%:p:h")<CR>
-	nnoremap <silent> <leader>cfP :let @+=expand("%:p")<CR>
-	nnoremap <silent> <leader>cfn :let @*=expand("%:t")<CR>
-	nnoremap <silent> <leader>cfN :let @*=expand("%")<CR>
-endif
+" if has("mac")
+" 	nnoremap <silent> <leader>cfp :let @*=expand("%:p:h")<CR>
+" 	nnoremap <silent> <leader>cfP :let @+=expand("%:p")<CR>
+" 	nnoremap <silent> <leader>cfn :let @*=expand("%:t")<CR>
+" 	nnoremap <silent> <leader>cfN :let @*=expand("%")<CR>
+" endif
 
-if has("unix")
-	nnoremap <silent> <leader>cfp :let @+=expand("%:p:h")<CR>
-	nnoremap <silent> <leader>cfP :let @*=expand("%:p")<CR>
-	nnoremap <silent> <leader>cfn :let @+=expand("%:t")<CR>
-	nnoremap <silent> <leader>cfN :let @+=expand("%")<CR>
-endif
+" if has("unix")
+" 	nnoremap <silent> <leader>cfp :let @+=expand("%:p:h")<CR>
+" 	nnoremap <silent> <leader>cfP :let @*=expand("%:p")<CR>
+" 	nnoremap <silent> <leader>cfn :let @+=expand("%:t")<CR>
+" 	nnoremap <silent> <leader>cfN :let @+=expand("%")<CR>
+" endif
 
 " Undotree
 nmap <leader>u :UndotreeToggle<CR>
@@ -701,8 +708,15 @@ nnoremap <leader>F :silent :Reveal<cr>
 map <leader>a ggVG
 
 " Shortcut to yanking to the system clipboard
-map <leader>y "*y
-map <leader>p "*p
+" map <leader>y "*y
+" map <leader>p "*p
+
+" Delete without cutting
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
+
+" Project search
+nnoremap <leader>psw :CocSearch <C-R>=expand("<cword>")<CR><CR>
 
 " Clear search highlighting
 noremap <silent><leader>/ :nohlsearch<cr>
@@ -916,7 +930,9 @@ let g:ale_sh_shellcheck_dialect = 'bash'
 " vim-go {{{
 
 " Taken from https://github.com/fatih/vim-go-tutorial/blob/master/vimrc
-let g:go_fmt_command = "goimports"
+" let g:go_fmt_command = "goimports"
+let g:go_fmt_command="gopls"
+let g:go_gopls_gofumpt=1
 let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
 let g:go_auto_type_info = 1
@@ -933,15 +949,6 @@ let g:go_textobj_include_function_doc = 0
 let g:go_metalinter_autosave_enabled = ['vet', 'golint']
 let g:go_metalinter_enabled = ['vet', 'golint']
 
-au Filetype go nnoremap <leader>d :GoDef<CR>
-au Filetype go nnoremap <leader>god :vsp <CR>:exe "GoDef" <CR>
-au Filetype go nnoremap <leader>gov :vsp <CR>:exe "GoDef" <CR>
-au Filetype go nnoremap <leader>gos :sp <CR>:exe "GoDef"<CR>
-
-" Open :GoDeclsDir with ctrl-g
-nmap <C-g> :GoDeclsDir<cr>
-imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
-
 augroup go
 	autocmd!
 	" Show by default 4 spaces for a tab
@@ -951,7 +958,7 @@ augroup go
 	" :GoTest
 	autocmd FileType go nmap <leader>t	<Plug>(go-test)
 	" :GoRun
-	autocmd FileType go nmap <leader>r	<Plug>(go-run)
+	autocmd FileType go nmap <leader>r <Plug>(go-run)
 	" :GoDoc
 	autocmd FileType go nmap <leader>D <Plug>(go-doc)
 	" :GoInfo
@@ -1213,7 +1220,9 @@ function! RemoveQuickfixItem()
 	:copen
 endfunction
 
-autocmd FileType qf map <buffer> dd :call RemoveQuickfixItem()<cr>
+augroup QUICKFIX
+	autocmd FileType qf map <buffer> dd :call RemoveQuickfixItem()<cr>
+augroup END
 
 " Trim trailing empty lines
 function TrimEndLines()
@@ -1222,7 +1231,9 @@ function TrimEndLines()
 	call setpos('.', save_cursor)
 endfunction
 
-au BufWritePre * call TrimEndLines()
+augroup TRIM
+	au BufWritePre * call TrimEndLines()
+augroup END
 
 " e.g. :Tfdoc aws_instance
 if executable('tfdoc')

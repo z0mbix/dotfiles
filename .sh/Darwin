@@ -9,8 +9,8 @@ export AWS_VAULT_KEYCHAIN_NAME=login
 
 [ -d /Developer/usr/bin ] && PATH=$PATH:/Developer/usr/bin
 
-if [ -d /usr/local/opt/openjdk@11/bin ]; then
-  export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
+if [ -d /opt/homebrew/opt/openjdk/bin ]; then
+  export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 fi
 
 # GPG agent

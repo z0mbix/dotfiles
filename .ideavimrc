@@ -1,3 +1,71 @@
-set surround
-set multiple-cursors
+let mapleader = ' '
+
+set number
+set relativenumber
+set incsearch hlsearch
+set ignorecase smartcase
+set clipboard=unnamed
+set scrolloff=5
+set showmode
 set commentary
+set surround
+set textobj-entire
+set argtextobj
+set multiple-cursors
+set ideajoin
+set ReplaceWithRegister
+set highlightedyank
+set multiple-cursors
+set easymotion
+
+let g:highlightedyank_highlight_duration = "1000"
+" let g:highlightedyank_highlight_color = "rgba(255, 83, 112, 1)"
+
+nnoremap <leader><leader> :action SearchEverywhere<cr>
+nnoremap <leader>ff :action FindInPath<cr>
+nnoremap <leader>fu :action FindUsages<cr>
+nnoremap <leader>su :action ShowUsages<cr>
+nnoremap <leader>cv :action ChangeView<cr>
+nnoremap <leader>bb :action ToggleLineBreakpoint<cr>
+nnoremap <leader>br :action ViewBreakpoints<cr>
+nnoremap <leader>ic :action InspectCode<cr>
+nnoremap <leader>oi :action OptimizeImports<cr>
+nnoremap <leader>re :action RenameElement<cr>
+nnoremap <leader>rf :action RenameFile<cr>
+nnoremap <leader>gq :action ReformatCode<cr>
+nnoremap <leader>dd :action Debug<cr>
+nnoremap <leader>dc :action ChooseDebugConfiguration<cr>
+nnoremap <leader>rr :action Run<cr>
+nnoremap <leader>rc :action ChooseRunConfiguration<cr>
+nnoremap <leader>q  :action CloseActiveTab<cr>
+nnoremap <leader>ga :action GotoAction<cr>
+nnoremap <leader>gi :action GotoImplementation<cr>
+nnoremap <leader>gs :action GotoSuperMethod<cr>
+nnoremap <leader>gd :action GotoDeclaration<cr>
+nnoremap <leader>gt :action GotoTest<cr>
+nnoremap <leader>gr :action GotoRelated<cr>
+nnoremap <leader>gb :action Annotate<cr>
+
+nnoremap <Enter> za
+vnoremap <Enter> za
+nnoremap Y y$
+
+" faster movement to end and beggining of the line
+nnoremap L $
+nnoremap H ^
+vnoremap L $
+vnoremap H ^
+
+" make paste not override the register
+vnoremap p "_dP
+
+" Bubble multiple lines
+nnoremap <C-K> ddkP
+nnoremap <C-J> ddp
+vmap <C-K> xkP`[V`]
+vmap <C-J> xp`[V`]
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l

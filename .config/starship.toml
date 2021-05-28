@@ -8,9 +8,13 @@ error_symbol = "[»](bold red)"
 [directory]
 truncation_length = 8
 
+[username]
+format = "[$user]($style) on "
+
 [hostname]
 ssh_only = false
-disabled = false
+style = "bright-green"
+format = "[$hostname](bold green) "
 
 [time]
 disabled = false
@@ -22,7 +26,8 @@ disabled = false
 style = "bright-blue"
 
 [aws]
-style = "bright-green"
+style = "yellow"
+#format = '[$symbol($profile )(\($region\) )(\[$duration\])]($style)'
 
 [aws.region_aliases]
 ap-southeast-1 = "sin"
@@ -30,13 +35,13 @@ eu-central-1 = "fra"
 eu-west-1 = "ire"
 eu-west-2 = "lon"
 
-[gcloud]
-format = "on [$symbol (\\($project\\))]($style) "
-
-[gcloud.aliases]
-europe-west2 = "lon"
+[python]
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
 
 [java]
+disabled = true
+
+[vagrant]
 disabled = true
 
 [custom.foo]

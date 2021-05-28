@@ -1,10 +1,12 @@
+source ~/.sh/vars
+
 export ZGEN_RESET_ON_CHANGE=(${HOME}/.zshrc)
 export HISTSIZE=1000000
 export SAVEHIST=1000000
 export CASE_SENSITIVE="true"
 export SHOW_AWS_PROMPT="false"
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#B48EAD"
 
+# zgen
 if [[ ! -f "${HOME}/.zgen/zgen.zsh" ]]; then
   git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
 fi
@@ -29,13 +31,22 @@ if ! zgen saved; then
   zgen oh-my-zsh plugins/git-extras
   zgen oh-my-zsh plugins/golang
   zgen oh-my-zsh plugins/man
-  zgen oh-my-zsh plugins/osx
   zgen oh-my-zsh plugins/pip
   zgen oh-my-zsh plugins/python
   zgen oh-my-zsh plugins/ssh-agent
   zgen oh-my-zsh plugins/terraform
-  zgen oh-my-zsh plugins/vagrant
-  zgen load ajeetdsouza/zoxide
+
+  if [[ $ARCH == "x86_64" ]]; then
+    zgen oh-my-zsh plugins/vagrant
+  fi
+
+  if [[ $OS == "Darwin" ]]; then
+    zgen oh-my-zsh plugins/osx
+  fi
+
+  if command -v zoxide; then
+    zgen load ajeetdsouza/zoxide
+  fi
 
   zgen load zsh-users/zsh-autosuggestions
   zgen load zsh-users/zsh-syntax-highlighting
@@ -77,6 +88,7 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 [ -f ~/.sh/all ] && source ~/.sh/all
 [ -f ~/.sh/aliases ] && source ~/.sh/aliases
 [ -f ~/.sh/private ] && source ~/.sh/private
+[ -f ~/.sh/work ] && source ~/.sh/work
 [ -f ~/.sh/functions ] && source ~/.sh/functions
 [ -f ~/.sh/$OS ] && source ~/.sh/$OS
 [ -f ~/.sh/$SHELL ] && source ~/.sh/$SHELL
@@ -88,11 +100,11 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 [ -d ~/.zsh/completion ] && fpath=(~/.zsh/completion $fpath)
 
 function auto_pipenv_shell {
-    if [ ! -n "${PIPENV_ACTIVE+1}" ]; then
-        if [ -f "Pipfile" ] ; then
-            pipenv shell
-        fi
+  if [ ! -n "${PIPENV_ACTIVE+1}" ]; then
+    if [ -f Pipfile ] ; then
+      pipenv shell
     fi
+  fi
 }
 
 # function auto_poetry_shell {
@@ -105,15 +117,12 @@ function auto_pipenv_shell {
 
 function cd {
     builtin cd "$@"
-    auto_pipenv_shell
+    # auto_pipenv_shell
     # auto_poetry_shell
 }
 
-auto_pipenv_shell
+# auto_pipenv_shell
 # auto_poetry_shell
 
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/consul consul
-
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+complete -o nospace -C /usr/local/bin/vault vault
