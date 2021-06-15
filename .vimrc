@@ -60,7 +60,7 @@ set nojoinspaces										" remove extra space when joining lines
 set cmdheight=1											" Better display for messages
 set updatetime=200										" Required for coc
 set signcolumn=yes										" Always use signcolumn
-set completeopt=menuone,preview
+set completeopt=menuone,noselect
 set wildmenu											" Tab completion
 set wildmode=list:longest,full							" Wildcard matches show a list, matching the longest first
 set wildignore+=.git,.hg,.svn							" Ignore version control repos
@@ -160,15 +160,13 @@ Plug 'RRethy/vim-illuminate'
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-bufferline'
 Plug 'bogado/file-line'
-Plug 'brooth/far.vim'
 Plug 'danro/rename.vim'
 Plug 'doums/coBra'
 Plug 'duff/vim-bufonly'
 Plug 'enricobacis/vim-airline-clock'
+Plug 'ggandor/lightspeed.nvim'
 Plug 'honza/vim-snippets'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -204,6 +202,17 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'wellle/targets.vim'
 
+Plug 'hrsh7th/nvim-compe'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
+Plug 'mfussenegger/nvim-lint'
+
 " conditional plugins
 if has('python') || has('python3')
 	Plug 'SirVer/ultisnips'
@@ -227,9 +236,9 @@ if executable('go')
 	endif
 endif
 
-if executable('node')
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
-endif
+" if executable('node')
+" 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" endif
 
 if has("mac")
 	Plug 'rizzatti/dash.vim'
@@ -297,6 +306,7 @@ let php_htmlInStrings=1
 autocmd BufNewFile,BufRead .py set ft=python
 autocmd FileType python set ts=4 sw=4 tw=160 et sts=4 smartindent
 autocmd FileType python map <buffer> <F7> :call Autopep8()<CR>
+autocmd Filetype python setlocal omnifunc=v:lua.vim.lsp.omnifunc
 let g:autopep8_disable_show_diff = 1
 let g:autopep8_max_line_length = 160
 let g:autopep8_on_save = 1
@@ -393,9 +403,7 @@ cnoreabbrev Q ccl<cr>
 
 " vim-airline
 let g:airline_theme = 'material'
-
-" far
-let g:far#source = "rgnvim"
+let g:airline#extensions#lsp#enabled = 1
 
 " floaterm
 let g:floaterm_keymap_toggle = '<leader>tt'
@@ -439,16 +447,14 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " ansible-vim
 let g:ansible_extra_keywords_highlight = 1
 let g:ansible_attribute_highlight = "ob"
-
-" ansible-snippets
-let g:neosnippet#snippets_directory='~/.vim/plugged/ansible-snippets/snippets'
-
-" simple separators for buffer list
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#bufferline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
+
+" ansible-snippets
+let g:neosnippet#snippets_directory='~/.vim/plugged/ansible-snippets/snippets'
 
 " clever-f
 let g:clever_f_timeout_ms = 2000
@@ -460,6 +466,9 @@ map , <Plug>(clever-f-repeat-back)
 
 " Stop bufferline from echoing to command bar (vim-bufferline)
 let g:bufferline_echo = 0
+
+" terraform
+let g:terraform_fmt_on_save=1
 " }}}
 
 " Mappings {{{
@@ -477,7 +486,21 @@ nnoremap <leader>w :update<CR>
 nnoremap <leader>. :lcd %:p:h<CR>
 
 " Opens an edit command with the path of the currently edited file filled in
-noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+noremap <Leader>ef :e <C-R>=expand("%:p:h") . "/" <CR>
+
+" Work with the config file
+" Open the config file in a split fi a buffer is already open
+function! s:OpenVimrc()
+	if (0==strlen(bufname('%'))) && (1==line('$')) && (0==strlen(getline('$')))
+		exe "e $MYVIMRC"
+	else
+		exe "vsp $MYVIMRC"
+	endif
+endfunction
+
+" noremap <Leader>ec :vsp $MYVIMRC<CR>
+noremap <Leader>ec :call <sid>OpenVimrc()<cr>
+noremap <Leader>sc :source $MYVIMRC<CR>
 
 " Auto open the TagBar when file is supported
 autocmd FileType go call tagbar#autoopen(0)
@@ -716,7 +739,7 @@ nnoremap <leader>d "_d
 vnoremap <leader>d "_d
 
 " Project search
-nnoremap <leader>psw :CocSearch <C-R>=expand("<cword>")<CR><CR>
+" nnoremap <leader>psw :CocSearch <C-R>=expand("<cword>")<CR><CR>
 
 " Clear search highlighting
 noremap <silent><leader>/ :nohlsearch<cr>
@@ -753,76 +776,36 @@ call expand_region#custom_text_objects({
 			\ })
 " }}}
 
-" {{{ fzf
-
-let $FZF_DEFAULT_OPTS=' --color=dark --color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:0,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,2'
-
-function! FloatingFZF()
-	let buf = nvim_create_buf(v:false, v:true)
-	call setbufvar(buf, '&signcolumn', 'no')
-
-	let height = float2nr(&lines * 0.3) " 30% of the height
-	let width = float2nr(&columns * 0.7) " 70% of the width
-	let horizontal = float2nr((&columns - width) / 2) " horizontal position (centralized)
-	let vertical = float2nr(&lines / 2) - (height / 2) " in the middle
-
-	let opts = {
-		\ 'relative': 'editor',
-		\ 'row': vertical,
-		\ 'col': horizontal,
-		\ 'width': width,
-		\ 'height': height,
-		\ 'style': 'minimal'
-	\ }
-
-	let win = nvim_open_win(buf, v:true, opts)
-	call setwinvar(win, '&number', 0)
-endfunction
-
-let g:fzf_layout = { 'down': '20%', 'window': 'call FloatingFZF()' }
-
-let g:fzf_colors = {
-	\ 'fg': ['fg', 'Normal'],
-	\ 'bg': ['bg', 'Normal'],
-	\ 'hl': ['fg', 'Comment'],
-	\ 'fg+': ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-	\ 'bg+': ['bg', 'CursorLine', 'CursorColumn'],
-	\ 'hl+': ['fg', 'Statement'],
-	\ 'info': ['fg', 'PreProc'],
-	\ 'border': ['fg', 'Ignore'],
-	\ 'prompt': ['fg', 'Conditional'],
-	\ 'pointer': ['fg', 'Exception'],
-	\ 'marker': ['fg', 'Keyword'],
-	\ 'spinner': ['fg', 'Label'],
-	\ 'header': ['fg', 'Comment']
-\ }
-
-nmap <c-p> :Files<CR>
-nmap <leader><Space> :BLines<CR>
-nmap <leader>ff :Files<CR>
-nmap <leader>fF :GFiles<CR>
-nmap <leader>fb :Buffers<CR>
-nmap <leader>fh :History<CR>
-nmap <leader>fH :History:<CR>
-nmap <leader>f/ :History/<CR>
-nmap <leader>ft :Filetypes<CR>
-nmap <leader>fT :Tags<CR>
-nmap <leader>fl :BLines<CR>
-nmap <leader>fL :Lines<CR>
-nmap <leader>fm :Marks<CR>
-nmap <leader>fa :Rg<Space>
-nmap <leader>fgc :Commits<CR>
-nmap <leader>fgbc :BCommits<CR>
+" {{{ telescope
+nmap <leader>ts :Telescope<CR>
+nmap <leader><Space> :Telescope current_buffer_fuzzy_find sorting_strategy=ascending prompt_position=top<CR>
+nmap <leader>fl :Telescope current_buffer_fuzzy_find sorting_strategy=ascending prompt_position=top<CR>
+nmap <leader>ff :Telescope find_files<CR>
+nmap <leader>fb :Telescope file_browser<CR>
+nmap <leader>fc :Telescope commands<CR>
+nmap <leader>fF :Telescope git_files<CR>
+nmap <leader>fb :Telescope buffers<CR>
+nmap <leader>fh :Telescope command_history<CR>
+nmap <leader>ft :Telescope filetypes<CR>
+nmap <leader>fT :Telescope tags<CR>
+nmap <leader>fm :Telescope marks<CR>
+nmap <leader>fa :Telescope live_grep<CR>
+nmap <leader>fw :Telescope grep_string<CR>
+nmap <leader>fgs :Telescope git_status<CR>
+nmap <leader>fgc :Telescope git_commits<CR>
+nmap <leader>fgb :Telescope git_branches<CR>
 nmap <leader>fp :Rg<cr>
 nmap <leader>fP :Rg <c-r><c-w><cr>
 vmap <leader>fP :Rg <c-r><c-w><cr>
 
-" Open fzf if vim opened without any args except in home dir
+" Open fuzzy finder if vim opened without any args except in home dir
 if argc() == 0 && getcwd() != expand("~")
 	if isdirectory('.git')
-		autocmd vimenter * GFiles
+		" autocmd vimenter * GFiles
+		autocmd vimenter * Telescope git_files
 	else
-		autocmd vimenter * Files
+		" autocmd vimenter * Files
+		autocmd vimenter * Telescope find_files
 	endif
 endif
 " }}}
@@ -872,181 +855,94 @@ let g:NERDTreeDirArrowExpandable = "\u00a0" " make arrows invisible
 let g:NERDTreeDirArrowCollapsible = "\u00a0" " make arrows invisible
 let g:NERDTreeNodeDelimiter = "\u263a" " smiley face
 
-" let s:brown = "905532"
-" let s:aqua =	"3AFFDB"
-" let s:blue = "58A4D7"
-" let s:darkBlue = "2980B9"
-" let s:purple = "A852D0"
-" let s:lightPurple = "B97AD7"
-" let s:red = "AE403F"
-" let s:beige = "F5C06F"
-" let s:yellow = "F09F17"
-" let s:orange = "D4843E"
-" let s:darkOrange = "F16529"
-" let s:pink = "CB6F6F"
-" let s:salmon = "EE6E73"
-" let s:green = "8FAA54"
-" let s:lightGreen = "31B53E"
-" let s:white = "FFFFFF"
-" let s:rspec_red = 'FE405F'
-" let s:git_orange = 'F54D27'
-
-" let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
-" let g:NERDTreeExtensionHighlightColor['yml'] = s:blue " sets the color of css files to blue
-" let g:NERDTreeExtensionHighlightColor['tf'] = s:lightPurple " sets the color of css files to blue
-" let g:NERDTreeExtensionHighlightColor['tfvars'] = s:lightPurple " sets the color of css files to blue
-" let g:NERDTreeExtensionHighlightColor['md'] = s:salmon " sets the color of css files to blue
 " }}}
-
-" ALE {{{
-
-let g:ale_linters = {
-\	'javascript': ['eslint'],
-\	'python': ['flake8', 'pylint'],
-\	'terraform': ['terraform']
-\}
-
-let g:ale_fixers = {
-\	'javascript': ['prettier', 'eslint'],
-\	'typescript': ['eslint', 'tslint', 'tsserver'],
-\	'vue': ['prettier', 'eslint'],
-\	'python': ['autopep8', 'yapf'],
-\	'terraform': ['terraform']
-\}
-
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '⚡'
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_sign_highlight_linenrs = 1
-let g:ale_fix_on_save = 1
 
 let g:ale_sh_shellcheck_exclusions = 'SC2068,SC2086'
 let g:ale_sh_shellcheck_dialect = 'bash'
-
-" }}}
 
 " vim-go {{{
 
 " Taken from https://github.com/fatih/vim-go-tutorial/blob/master/vimrc
 " let g:go_fmt_command = "goimports"
-let g:go_fmt_command="gopls"
-let g:go_gopls_gofumpt=1
-let g:go_autodetect_gopath = 1
-let g:go_list_type = "quickfix"
-let g:go_auto_type_info = 1
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_generate_tags = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_textobj_include_function_doc = 0
-let g:go_metalinter_autosave_enabled = ['vet', 'golint']
-let g:go_metalinter_enabled = ['vet', 'golint']
+" let g:go_fmt_command="gopls"
+" let g:go_gopls_gofumpt=1
+" let g:go_autodetect_gopath = 1
+" let g:go_list_type = "quickfix"
+" let g:go_auto_type_info = 1
+" let g:go_highlight_types = 1
+" let g:go_highlight_fields = 1
+" let g:go_highlight_functions = 1
+" let g:go_highlight_methods = 1
+" let g:go_highlight_extra_types = 1
+" let g:go_highlight_generate_tags = 1
+" let g:go_highlight_operators = 1
+" let g:go_highlight_build_constraints = 1
+" let g:go_highlight_extra_types = 1
+" let g:go_textobj_include_function_doc = 0
+" let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+" let g:go_metalinter_enabled = ['vet', 'golint']
 
-augroup go
-	autocmd!
-	" Show by default 4 spaces for a tab
-	autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
-	" :GoBuild and :GoTestCompile
-	autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-	" :GoTest
-	autocmd FileType go nmap <leader>t	<Plug>(go-test)
-	" :GoRun
-	autocmd FileType go nmap <leader>r <Plug>(go-run)
-	" :GoDoc
-	autocmd FileType go nmap <leader>D <Plug>(go-doc)
-	" :GoInfo
-	autocmd FileType go nmap <leader>i <Plug>(go-info)
-	" :GoMetaLinter
-	autocmd FileType go nmap <leader>m <Plug>(go-metalinter)
-	" :GoDef but opens in a vertical split
-	autocmd FileType go nmap <leader>v <Plug>(go-def-vertical)
-	" :GoDef but opens in a horizontal split
-	autocmd FileType go nmap <leader>s <Plug>(go-def-split)
-	" :GoAlternate	commands :A, :AV, :AS and :AT
-	autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-	autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-	autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-	autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-augroup END
-
-" build_go_files is a custom function that builds or compiles the test file.
-" It calls :GoBuild if its a Go file, or :GoTestCompile if it's a test file
-function! s:build_go_files()
-	let l:file = expand('%')
-	if l:file =~# '^\f\+_test\.go$'
-		call go#cmd#Test(0, 1)
-	elseif l:file =~# '^\f\+\.go$'
-		call go#cmd#Build(0)
-	endif
-endfunction
 " }}}
 
 " coc {{{
-"
-let g:coc_global_extensions = [
-	\ 'coc-css',
-	\ 'coc-eslint',
-	\ 'coc-git',
-	\ 'coc-go',
-	\ 'coc-html',
-	\ 'coc-json',
-	\ 'coc-pairs',
-	\ 'coc-python',
-	\ 'coc-sh',
-	\ 'coc-snippets',
-	\ 'coc-tsserver',
-	\ 'coc-ultisnips',
-	\ 'coc-vetur',
-\ ]
+
+" let g:coc_global_extensions = [
+" 	\ 'coc-css',
+" 	\ 'coc-eslint',
+" 	\ 'coc-git',
+" 	\ 'coc-go',
+" 	\ 'coc-html',
+" 	\ 'coc-json',
+" 	\ 'coc-pairs',
+" 	\ 'coc-python',
+" 	\ 'coc-sh',
+" 	\ 'coc-snippets',
+" 	\ 'coc-tsserver',
+" 	\ 'coc-ultisnips',
+" 	\ 'coc-vetur',
+" \ ]
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-	\ pumvisible() ? "\<C-n>" :
-	\ <SID>check_back_space() ? "\<TAB>" :
-	\ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <silent><expr> <TAB>
+" 	\ pumvisible() ? "\<C-n>" :
+" 	\ <SID>check_back_space() ? "\<TAB>" :
+" 	\ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
-	let col = col('.') - 1
-	return !col || getline('.')[col - 1]	=~# '\s'
-endfunction
+" function! s:check_back_space() abort
+" 	let col = col('.') - 1
+" 	return !col || getline('.')[col - 1]	=~# '\s'
+" endfunction
 
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() :
+" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() :
 										\"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-function! s:check_back_space() abort
-	let col = col('.') - 1
-	return !col || getline('.')[col - 1]	=~# '\s'
-endfunction
+" function! s:check_back_space() abort
+" 	let col = col('.') - 1
+" 	return !col || getline('.')[col - 1]	=~# '\s'
+" endfunction
 
-let g:coc_snippet_next = '<tab>'
+" let g:coc_snippet_next = '<tab>'
 
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+" inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Or use `complete_info` if your vim support it, like:
-inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
 
 " " Use K to show documentation in preview window
 " nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -1060,22 +956,22 @@ nmap <silent> gr <Plug>(coc-references)
 " endfunction
 
 " Highlight symbol under cursor on CursorHold
-if !&diff
-	autocmd CursorHold * silent call CocActionAsync('highlight')
-endif
+" if !&diff
+" 	autocmd CursorHold * silent call CocActionAsync('highlight')
+" endif
 
 " Remap for rename current word
-nmap <F2> <Plug>(coc-rename)
+" nmap <F2> <Plug>(coc-rename)
 
-nmap <silent> <C-c> <Plug>(coc-cursors-position)
+" nmap <silent> <C-c> <Plug>(coc-cursors-position)
 
-nmap <expr> <silent> <C-d> <SID>select_current_word()
-function! s:select_current_word()
-	if !get(g:, 'coc_cursors_activated', 0)
-		return "\<Plug>(coc-cursors-word)"
-	endif
-	return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
-endfunc
+" nmap <expr> <silent> <C-d> <SID>select_current_word()
+" function! s:select_current_word()
+" 	if !get(g:, 'coc_cursors_activated', 0)
+" 		return "\<Plug>(coc-cursors-word)"
+" 	endif
+" 	return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+" endfunc
 " }}}
 
 " goyo {{{
@@ -1246,6 +1142,25 @@ if executable('tfdoc')
 endif
 
 " }}}
+
+" nvim-compe {{{
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+
+inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+highlight link CompeDocumentation NormalFloat
+" }}}
+
+" lua {{{
+lua require('init')
+" }}}
+
+au BufWritePost <buffer> lua require('lint').try_lint()
 
 " Source Files {{{
 
