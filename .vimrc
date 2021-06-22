@@ -59,13 +59,12 @@ set mouse=a												" enable mouse support
 set nojoinspaces										" remove extra space when joining lines
 set cmdheight=1											" Better display for messages
 set updatetime=200										" Required for coc
-set signcolumn=yes										" Always use signcolumn
-set completeopt=menuone,noselect
+set signcolumn=number									" Show signcolumn in number column
+set completeopt=menuone,noselect						" For nvim-compe
 set wildmenu											" Tab completion
-set wildmode=list:longest,full							" Wildcard matches show a list, matching the longest first
+set wildmode=longest,full								" Wildcard matches show a list, matching the longest first
 set wildignore+=.git,.hg,.svn							" Ignore version control repos
 set wildignore+=*.6										" Ignore Go compiled files
-set wildignore+=.hg,.git,.svn							" Version control
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg			" binary images
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest		" compiled object files
 set wildignore+=*.spl									" compiled spelling word lists
@@ -201,6 +200,7 @@ Plug 'valloric/listtoggle'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'wellle/targets.vim'
+Plug 'dense-analysis/ale'
 
 Plug 'hrsh7th/nvim-compe'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -212,6 +212,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 Plug 'mfussenegger/nvim-lint'
+Plug 'kdheepak/lazygit.nvim'
 
 " conditional plugins
 if has('python') || has('python3')
@@ -469,6 +470,9 @@ let g:bufferline_echo = 0
 
 " terraform
 let g:terraform_fmt_on_save=1
+
+" markdown Language highlighting
+let g:markdown_fenced_languages = ['go', 'html', 'java', 'javascript', 'json', 'python', 'ruby', 'rust', 'typescript', 'vim', 'yaml']
 " }}}
 
 " Mappings {{{
@@ -762,6 +766,14 @@ vnoremap <Enter> za
 
 " Command to write as root if we don't have permission
 cmap w!! %!sudo tee > /dev/null %
+
+" Fix split window ratios
+noremap <leader>we <C-w>=
+
+" Convert json to pretty printed version
+nnoremap <leader>ppj !%jq .<CR>
+
+nnoremap <leader>gg :LazyGit<CR>
 " }}}
 
 " vim-expand-region {{{
@@ -857,8 +869,35 @@ let g:NERDTreeNodeDelimiter = "\u263a" " smiley face
 
 " }}}
 
+" ALE {{{
+
+let g:ale_linters = {
+\	'javascript': ['eslint'],
+\	'python': ['flake8', 'pylint'],
+\	'sh': ['shellcheck'],
+\	'terraform': ['terraform']
+\}
+
+let g:ale_fixers = {
+\	'javascript': ['prettier', 'eslint'],
+\	'typescript': ['eslint', 'tslint', 'tsserver'],
+\	'vue': ['prettier', 'eslint'],
+\	'python': ['autopep8', 'yapf'],
+\	'terraform': ['terraform']
+\}
+
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚡'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_sign_highlight_linenrs = 1
+let g:ale_fix_on_save = 1
+
 let g:ale_sh_shellcheck_exclusions = 'SC2068,SC2086'
 let g:ale_sh_shellcheck_dialect = 'bash'
+
+" }}}
 
 " vim-go {{{
 
@@ -1159,8 +1198,6 @@ highlight link CompeDocumentation NormalFloat
 " lua {{{
 lua require('init')
 " }}}
-
-au BufWritePost <buffer> lua require('lint').try_lint()
 
 " Source Files {{{
 
