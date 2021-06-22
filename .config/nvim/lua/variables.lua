@@ -70,5 +70,5 @@ vim.g.goyo_width = '80%'
 -- nvim-tree
 vim.g.nvim_tree_highlight_opened_files = 1
 vim.g.nvim_tree_auto_close = 1 -- 0 by default, closes the tree when it's the last window
-vim.g.nvim_tree_ignore = { '.git', 'node_modules', '.cache', '__pycache' }
+vim.g.nvim_tree_ignore = { '.git', 'node_modules', '.cache', '__pycache__', '.idea', '.vagrant' }
 vim.g.nvim_tree_special_files = { 'init.lua' }
