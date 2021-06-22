@@ -73,12 +73,6 @@ set wildignore+=*.DS_Store								" OSX bullshit
 set wildignore+=*.luac									" Lua byte code
 set wildignore+=*.pyc									" Python byte code
 
-if has('nvim')
-	set inccommand=nosplit
-	set pumblend=15											" Popup menu transparency
-	set winblend=15											" Popup window transparency
-endif
-
 if exists('veonim')
 	set guifont=Fira\ Code:h12
 endif
@@ -112,14 +106,8 @@ let mapleader=" "
 " Plugins {{{
 
 " Auto install vim-plug
-if has('nvim')
-	let s:plug_dir = '~/.local/share/nvim/plugged'
-	let s:plug_file = '~/.local/share/nvim/site/autoload/plug.vim'
-
-else
-	let s:plug_dir = '~/.vim/plugged'
-	let s:plug_file = '~/.vim/autoload/plug.vim'
-endif
+let s:plug_dir = '~/.vim/plugged'
+let s:plug_file = '~/.vim/autoload/plug.vim'
 
 if empty(glob(s:plug_file))
 	if executable('curl')
@@ -201,17 +189,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'wellle/targets.vim'
 Plug 'dense-analysis/ale'
-
-Plug 'hrsh7th/nvim-compe'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/playground'
-Plug 'mfussenegger/nvim-lint'
 Plug 'kdheepak/lazygit.nvim'
 
 " conditional plugins
@@ -220,21 +197,8 @@ if has('python') || has('python3')
 	Plug 'honza/vim-snippets'
 endif
 
-if has('nvim') || v:version >= 800
+if v:version >= 800
 	Plug 'machakann/vim-highlightedyank'
-endif
-
-if has('nvim')
-	Plug 'voldikss/vim-floaterm'
-endif
-
-if executable('go')
-	Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
-	if has('nvim')
-		Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.local/share/nvim/plugged/gocode/nvim/symlink.sh' }
-	else
-		Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
-	endif
 endif
 
 " if executable('node')
@@ -265,8 +229,8 @@ let g:material_theme_style = 'palenight'
 syntax on
 
 set t_ut= " disable background color erase
-set fillchars+=vert:│ " set split window character
-set fillchars+=eob:\  " remove end of buffer tilde
+" set fillchars+=vert:│ " set split window character
+" set fillchars+=eob:\  " remove end of buffer tilde
 hi VertSplit ctermbg=none guibg=none
 " }}}
 
@@ -788,40 +752,6 @@ call expand_region#custom_text_objects({
 			\ })
 " }}}
 
-" {{{ telescope
-nmap <leader>ts :Telescope<CR>
-nmap <leader><Space> :Telescope current_buffer_fuzzy_find sorting_strategy=ascending prompt_position=top<CR>
-nmap <leader>fl :Telescope current_buffer_fuzzy_find sorting_strategy=ascending prompt_position=top<CR>
-nmap <leader>ff :Telescope find_files<CR>
-nmap <leader>fb :Telescope file_browser<CR>
-nmap <leader>fc :Telescope commands<CR>
-nmap <leader>fF :Telescope git_files<CR>
-nmap <leader>fb :Telescope buffers<CR>
-nmap <leader>fh :Telescope command_history<CR>
-nmap <leader>ft :Telescope filetypes<CR>
-nmap <leader>fT :Telescope tags<CR>
-nmap <leader>fm :Telescope marks<CR>
-nmap <leader>fa :Telescope live_grep<CR>
-nmap <leader>fw :Telescope grep_string<CR>
-nmap <leader>fgs :Telescope git_status<CR>
-nmap <leader>fgc :Telescope git_commits<CR>
-nmap <leader>fgb :Telescope git_branches<CR>
-nmap <leader>fp :Rg<cr>
-nmap <leader>fP :Rg <c-r><c-w><cr>
-vmap <leader>fP :Rg <c-r><c-w><cr>
-
-" Open fuzzy finder if vim opened without any args except in home dir
-if argc() == 0 && getcwd() != expand("~")
-	if isdirectory('.git')
-		" autocmd vimenter * GFiles
-		autocmd vimenter * Telescope git_files
-	else
-		" autocmd vimenter * Files
-		autocmd vimenter * Telescope find_files
-	endif
-endif
-" }}}
-
 " NERDTree {{{
 
 " NERDTree mappings
@@ -1179,25 +1109,6 @@ if executable('tfdoc')
 	xnoremap <silent> <leader>tfr y:Tfdoc <C-R>"<CR>
 	xnoremap <silent> <leader>tfd y:Tfdoc -d <C-R>"<CR>
 endif
-
-" }}}
-
-" nvim-compe {{{
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
-
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-highlight link CompeDocumentation NormalFloat
-" }}}
-
-" lua {{{
-lua require('init')
-" }}}
 
 " Source Files {{{
 
