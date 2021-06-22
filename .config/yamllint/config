@@ -3,5 +3,7 @@ extends: default
 rules:
   document-start: disable
   line-length: disable
+  indentation:
+    indent-sequences: consistent
   comments:
     min-spaces-from-content: 1
