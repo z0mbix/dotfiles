@@ -8,6 +8,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 return require('packer').startup(function()
+  use 'windwp/nvim-autopairs'
 	use 'jeffkreeftmeijer/vim-numbertoggle'
 	use 'RRethy/vim-illuminate'
 	use 'b3nj5m1n/kommentary'
