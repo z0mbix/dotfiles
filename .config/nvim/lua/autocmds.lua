@@ -1,4 +1,5 @@
 vim.cmd([[
+
 	" when writing new files, mkdir -p their paths
 	augroup AutoCreateDir
 		au!
@@ -92,4 +93,8 @@ vim.cmd([[
 
 	" git re-uses the same filename all the time, so ignore viminfo
 	autocmd BufNewFile,BufRead *.git/* call setpos('.', [0, 1, 1, 0])
+
+	" disable auto comment new line
+	autocmd FileType * set fo-=c fo-=r fo-=o fo+=j
+
 ]])

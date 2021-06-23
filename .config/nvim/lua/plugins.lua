@@ -8,20 +8,20 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 return require('packer').startup(function()
-	use 'andymass/vim-matchup'
-	use 'kevinhwang91/nvim-bqf'
-  use 'windwp/nvim-autopairs'
-	use 'jeffkreeftmeijer/vim-numbertoggle'
 	use 'RRethy/vim-illuminate'
+	use 'alexaandru/nvim-lspupdate'
+	use 'andymass/vim-matchup'
 	use 'b3nj5m1n/kommentary'
 	use 'bogado/file-line'
 	use 'cappyzawa/trim.nvim'
 	use 'christianchiarulli/nvcode-color-schemes.vim'
 	use 'danro/rename.vim'
 	use 'dense-analysis/ale'
+	use 'f-person/git-blame.nvim'
 	use 'ggandor/lightspeed.nvim'
 	use 'hoob3rt/lualine.nvim'
 	use 'hrsh7th/nvim-compe'
+	use 'jeffkreeftmeijer/vim-numbertoggle'
 	use 'junegunn/goyo.vim'
 	use 'junegunn/limelight.vim'
 	use 'junegunn/rainbow_parentheses.vim'
@@ -30,6 +30,7 @@ return require('packer').startup(function()
 	use 'junegunn/vim-peekaboo'
 	use 'kana/vim-submode'
 	use 'kdheepak/lazygit.nvim'
+	use 'kevinhwang91/nvim-bqf'
 	use 'kyazdani42/nvim-tree.lua'
 	use 'kyazdani42/nvim-web-devicons'
 	use 'machakann/vim-highlightedyank'
@@ -55,4 +56,5 @@ return require('packer').startup(function()
 	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 	use { 'pearofducks/ansible-vim', ft = 'ansible' }
 	use { 'z0mbix/vim-shfmt', ft = 'sh' }
+  use 'windwp/nvim-autopairs'
 end)

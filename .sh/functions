@@ -15,16 +15,6 @@ showpath() {
   echo $PATH | tr ':' '\n' | nl
 }
 
-unalias gl
-gl() {
-  local arg="$1"
-  if [ -n "$arg" ]; then
-    git --no-pager lg -$arg
-  else
-    git lg
-  fi
-}
-
 projects() {
   cd "$HOME/iCloudDrive/Projects/$1" || exit
 }
@@ -162,7 +152,7 @@ centre() {
 # Files modified today
 today() {
   TODAY=$(date +'%d-%m-%Y')
-  ls -l "$@" | grep "$TODAY" | more
+  ls -l "$@" | grep "$TODAY"
 }
 
 lnp() {
@@ -193,14 +183,9 @@ extract() {
   esac
 }
 
-mkdircd() {
+# make a dir and immediately move in to it
+mcd() {
   local dir="$1"
   mkdir -p "$dir"
   cd "$dir" || exit
-}
-
-kgsd() {
-  local args="$*"
-  echo "kubectl get secret $args -o json | jq '.data | map_values(@base64d)'"
-  kubectl get secret $args -o json | jq '.data | map_values(@base64d)'
 }

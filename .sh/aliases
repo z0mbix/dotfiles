@@ -49,7 +49,7 @@ alias n='navi --print'
 alias shrug='echo -n "¯\\_(ツ)_/¯"'
 alias bandwhich='sudo bandwhich'
 alias fzfp='fzf --preview "bat --style=numbers --color=always --line-range :500 {}" --border --height 50%'
-alias vimf='vim $(fzfp)'
+alias lg='lazygit'
 
 # This, allows me to quickly copy a pastable HEREDOC on to new hosts :)
 alias copyinputrc='echo -e "cat > ~/.inputrc <<EOF $(echo; cat ~/.inputrc)\nEOF\nbind -f ~/.inputrc" | pbcopy'
@@ -149,8 +149,8 @@ alias proxystatus='env | grep -i proxy | sort'
 
 # Setup vim/nvim/vi
 if command -v nvim >/dev/null 2>&1; then
-  if [ ! -e ~/.config/nvim/init.vim ]; then
-    echo "You need to install your init.vim"
+  if [ ! -e ~/.config/nvim/init.lua ]; then
+    echo "You need to install your init.lua"
   fi
   alias vim='nvim'
   alias vi='nvim'

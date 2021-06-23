@@ -1,6 +1,7 @@
 -- lualine
 require('lualine').setup{
-	options = {theme = 'palenight'}
+	options = {theme = vim.g.colorscheme_name},
+	extensions = {'quickfix', 'nvim-tree'}
 }
 
 -- treesitter

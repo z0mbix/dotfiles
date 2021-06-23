@@ -38,7 +38,7 @@ remap('n', '<leader>u', ':UndotreeToggle<CR>', { noremap = true, silent = true }
 -- Git
 remap('n', '<leader>gs', ':Gstatus<CR>gg<c-n>', { noremap = true, silent = true })
 remap('n', '<leader>gd', ':Gitsigns toggle_linehl<CR>', { noremap = true, silent = true })
-remap('n', '<leader>gb', ':Gitsigns blame_line<CR>', { noremap = true, silent = true })
+remap('n', '<leader>gb', ':GitBlameToggle<CR>', { noremap = true, silent = true })
 remap('n', '<leader>ghp', ':Gitsigns preview_hunk<CR>', { noremap = true, silent = true })
 remap('n', '<leader>ghr', ':Gitsigns reset_hunk<CR>', { noremap = true, silent = true })
 remap('n', '<leader>gg', ':LazyGit<CR>', { noremap = true, silent = true })
