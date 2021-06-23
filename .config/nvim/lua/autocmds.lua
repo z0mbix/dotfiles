@@ -1,5 +1,8 @@
 vim.cmd([[
 
+	" remember where I am in the file
+	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
+
 	" when writing new files, mkdir -p their paths
 	augroup AutoCreateDir
 		au!
