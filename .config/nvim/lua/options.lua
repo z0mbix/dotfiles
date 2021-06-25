@@ -1,9 +1,8 @@
 local opt = vim.opt
-local bo = vim.bo
 
-vim.api.nvim_command('colorscheme '..vim.g.colorscheme_name)
+vim.api.nvim_command('colorscheme '.. vim.g.colorscheme_name)
 
-vim.g.mapleader = " "
+vim.g.mapleader = " "												-- this is the way
 
 opt.termguicolors = true										 -- use all the colours
 opt.background = "dark"											 -- dark things
@@ -29,7 +28,7 @@ opt.hlsearch = true													 -- highlight search results
 opt.autoindent = true												 -- auto indent new lines
 opt.linebreak = true												 -- enable linebreaks
 opt.showbreak = "↪ "												 -- what to put infront of linebreaks
-opt.breakindent = true											 -- preserve horizontal blocks
+opt.breakindent = true											 -- preserve horizontal blockssumneko
 opt.startofline = false											 -- keep cursor in same column
 opt.history = 200														 -- search history
 opt.errorbells = false											 -- don't annoy me
@@ -106,4 +105,10 @@ opt.wildignore = {
  ".svn",
 }
 
-opt.shada = { "!", "'1000", "<50", "s10", "h" }
+opt.shada = {
+	"!",			-- global variables that start with an uppercase letter and don't contain lowercase letters
+	"'1000",	-- how many files to save marks for
+	"<50",		-- maximum number of lines saved for each register
+	"s10",		-- maximum size of an item contents in KiB
+	"h",			-- disable 'hlsearch' highlighting when starting neovim
+}

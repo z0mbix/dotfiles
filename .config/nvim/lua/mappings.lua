@@ -116,19 +116,10 @@ remap('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
 remap('n', '<leader>we', '<C-w>=', { noremap = true, silent = true })
 
 -- Bubble multiple lines
-remap('v', '<C-K>', '[egv', { noremap = true, silent = true })
-remap('v', '<C-J>', ']egv', { noremap = true, silent = true })
--- remap('v', 'J', ':m '>+1<CR>gv=gv', { noremap = true, silent = true })
--- remap('v', 'K', ':m '<-2<CR>gv=gv', { noremap = true, silent = true })
---
--- vmap <C-K> [egv
--- vmap <C-J> ]egv
--- vnoremap J :m '>+1<CR>gv=gv
--- vnoremap K :m '<-2<CR>gv=gv
--- nmap <A-k> ddkP
--- nmap <A-j> ddp
--- nmap <A-Up> ddkP
--- nmap <A-Down> ddp
+remap('v', '<C-k>', ':m \'<-2<CR>gv=gv', { noremap = true, silent = false })
+remap('v', '<C-j>', ':m \'>+1<CR>gv=gv', { noremap = true, silent = false })
+remap('v', '<Up>', ':m \'<-2<CR>gv=gv', { noremap = true, silent = false })
+remap('v', '<Down>', ':m \'>+1<CR>gv=gv', { noremap = true, silent = false })
 
 -- Reselect visual block after indent/outdent
 remap('v', '<', '<gv', { noremap = true, silent = true })
@@ -139,6 +130,7 @@ remap('n', 'j', 'gj', { noremap = true, silent = true })
 remap('n', 'k', 'gk', { noremap = true, silent = true })
 
 -- Show current file in finder
+remap('n', '<leader>F', ':Reveal<CR>', { noremap = true, silent = true })
 -- nnoremap <leader>F :silent :Reveal<cr>
 
 -- select all
@@ -159,5 +151,5 @@ remap('n', 'J', 'mzJ`z', { noremap = true, silent = true })
 remap('n', '<leader>d', '"_d', { noremap = true, silent = true })
 remap('v', '<leader>d', '"_d', { noremap = true, silent = true })
 
--- goyo
-remap('n', '<leader>oo', ':Goyo<CR>', { noremap = true, silent = true })
+-- zen-mode
+remap('n', '<leader>z', ':ZenMode<CR>', { noremap = true, silent = true })

@@ -6,9 +6,25 @@ require('lualine').setup{
 
 -- treesitter
 require('nvim-treesitter.configs').setup {
-	ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+	ensure_installed = "maintained",
 	highlight = {
 		enable = true,
+		disable = {
+			"beancount",
+			"c",
+			"c_sharp",
+			"clojure",
+			"commonlisp",
+			"cpp",
+			"dart",
+			"elixir",
+			"erlang",
+			"haskell",
+			"java",
+			"kotlin",
+			"rust",
+			"zig",
+		}
 	},
 }
 
@@ -37,42 +53,25 @@ require('telescope').setup {
 				width_padding = 0.1,
 				height_padding = 0.1,
 				preview_width = 0.6,
-				-- mirror = false,
 			},
 			vertical = {
 				width_padding = 0.05,
 				height_padding = 1,
 				preview_height = 0.5,
-				-- mirror = true,
 			}
 		},
 		file_ignore_patterns = { 'tags' },
 		extensions = {
 			fzf = {
-				fuzzy = true,										 -- false will only do exact matching
-				override_file_sorter = true,		 -- override the file sorter
-				case_mode = "smart_case",				 -- or "ignore_case" or "respect_case"
+				fuzzy = true,
+				override_file_sorter = true,
+				case_mode = "smart_case",
 			}
 		}
 	}
 }
 
 require('telescope').load_extension('fzf')
-
--- lsp
-require('lspconfig').bashls.setup{}
-require('lspconfig').terraformls.setup{}
-
-require('lspconfig').pylsp.setup {
-	on_attach = function(client)
-		require 'illuminate'.on_attach(client)
-	end,
-}
-require('lspconfig').gopls.setup {
-	on_attach = function(client)
-		require 'illuminate'.on_attach(client)
-	end,
-}
 
 -- nvim-compe
 require('compe').setup {
@@ -123,3 +122,18 @@ require('gitsigns').setup()
 
 -- nvim-autopairs
 require('nvim-autopairs').setup()
+
+-- zen-mode
+require("zen-mode").setup {
+	window = {
+		backdrop = 0.70,
+		height = 0.95,
+		width = 0.95,
+	}
+}
+
+-- gitsigns
+require('gitsigns').setup {
+	keymaps = {},
+	current_line_blame = true,
+}
