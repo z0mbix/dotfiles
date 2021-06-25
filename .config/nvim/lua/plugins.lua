@@ -49,12 +49,12 @@ return require('packer').startup(function()
 	use 'wellle/targets.vim'
 	use 'windwp/nvim-autopairs'
 
-	use { 'kdheepak/lazygit.nvim', cond = "vim.fn.executable('lazygit')"}
 	use { 'ekalinin/Dockerfile.vim', ft = 'Dockerfile' }
 	use { 'elzr/vim-json', ft = 'json' }
 	use { 'hashivim/vim-packer', ft = { 'hcl', 'json'} }
 	use { 'hashivim/vim-terraform', ft = { 'hcl', 'terraform'} }
 	use { 'henrik/vim-reveal-in-finder', cond = "vim.fn.has('mac') == 1" }
+	use { 'kdheepak/lazygit.nvim', cond = "vim.fn.executable('lazygit')"}
 	use { 'leafgarland/typescript-vim', ft = 'typescript' }
 	use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 	use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = "vim.fn.executable('fzf')" }
