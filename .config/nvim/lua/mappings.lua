@@ -1,80 +1,79 @@
 local remap = vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
 
 -- source/edit init.lua
-remap('n', '<leader>ec', ':edit $MYVIMRC<cr>', { noremap = true, silent = true })
-remap('n', '<leader>sc', ':source $MYVIMRC<CR>', { noremap = true, silent = true })
+remap('n', '<leader>ec', ':edit $MYVIMRC<cr>', opts)
+remap('n', '<leader>sc', ':source $MYVIMRC<CR>', opts)
 
 -- move a character to the beginning or end of the line
-remap('n', 'mH', ':let @z=@"<cr>x0P:let @"=@z<cr>', { noremap = true, silent = true })
-remap('n', 'mL', ':let @z=@"<cr>x$p:let @"=@z<cr>', { noremap = true, silent = true })
+remap('n', 'mH', ':let @z=@"<cr>x0P:let @"=@z<cr>', opts)
+remap('n', 'mL', ':let @z=@"<cr>x$p:let @"=@z<cr>', opts)
 
 -- Show/Hide invisible characters
-remap('n', '<leader>\'', ':set list!<CR>', { noremap = true, silent = true })
+remap('n', '<leader>\'', ':set list!<CR>', opts)
 
 -- move a character to the beginning or end of the word
-remap('n', 'mh', ':let @z=@"<cr>xBP:let @"=@z<cr>', { noremap = true, silent = true })
-remap('n', 'ml', ':let @z=@"<cr>xep:let @"=@z<cr>', { noremap = true, silent = true })
+remap('n', 'mh', ':let @z=@"<cr>xBP:let @"=@z<cr>', opts)
+remap('n', 'ml', ':let @z=@"<cr>xep:let @"=@z<cr>', opts)
 
 -- Go to first character, not column 0
-remap('n', '0', '^', { noremap = true, silent = true })
+remap('n', '0', '^', opts)
 
 -- Easier to type, and I never use the default behavior.
-remap('n', 'H', '^', { noremap = true, silent = true })
-remap('n', 'L', '$', { noremap = true, silent = true })
-remap('v', 'H', '^', { noremap = true, silent = true })
-remap('v', 'L', 'g_', { noremap = true, silent = true })
+remap('n', 'H', '^', opts)
+remap('n', 'L', '$', opts)
+remap('v', 'H', '^', opts)
+remap('v', 'L', 'g_', opts)
 
 -- Close/save files
-remap('n', '<leader>q', ':q<CR>' , { noremap = true, silent = true })
-remap('n', '<leader>w', ':update<CR>', { noremap = true, silent = true })
+remap('n', '<leader>q', ':q<CR>' , opts)
+remap('n', '<leader>w', ':update<CR>', opts)
 
 -- Buffers
-remap('n', '<leader>x', ':BufferClose<CR>', { noremap = true, silent = true })
-remap('n', '<leader>X', ':BufferClose!<CR>', { noremap = true, silent = true })
+remap('n', '<leader>x', ':BufferClose<CR>', opts)
+remap('n', '<leader>X', ':BufferClose!<CR>', opts)
+remap('n', '<C-q>', ':BufferClose<CR>', opts)
+remap('n', '<C-x>', ':BufferClose<CR>', opts)
 
 -- Undotree
-remap('n', '<leader>u', ':UndotreeToggle<CR>', { noremap = true, silent = true })
+remap('n', '<leader>u', ':UndotreeToggle<CR>', opts)
 
 -- Git
-remap('n', '<leader>gs', ':Gstatus<CR>gg<c-n>', { noremap = true, silent = true })
-remap('n', '<leader>gd', ':Gitsigns toggle_linehl<CR>', { noremap = true, silent = true })
-remap('n', '<leader>gb', ':GitBlameToggle<CR>', { noremap = true, silent = true })
-remap('n', '<leader>ghp', ':Gitsigns preview_hunk<CR>', { noremap = true, silent = true })
-remap('n', '<leader>ghr', ':Gitsigns reset_hunk<CR>', { noremap = true, silent = true })
-remap('n', '<leader>gg', ':LazyGit<CR>', { noremap = true, silent = true })
+remap('n', '<leader>gs', ':Gstatus<CR>gg<c-n>', opts)
+remap('n', '<leader>gd', ':Gitsigns toggle_linehl<CR>', opts)
+remap('n', '<leader>gb', ':GitBlameToggle<CR>', opts)
+remap('n', '<leader>ghp', ':Gitsigns preview_hunk<CR>', opts)
+remap('n', '<leader>ghr', ':Gitsigns reset_hunk<CR>', opts)
+remap('n', '<leader>gg', ':LazyGit<CR>', opts)
 
 -- Convert json to pretty printed version
-remap('n', '<leader>ppj', '!%jq .<CR>', { noremap = true, silent = true })
+remap('n', '<leader>ppj', '!%jq .<CR>', opts)
 
 -- Write as root if we don't have permission
-remap('c', 'w!!', '%!sudo tee > /dev/null %', { noremap = true, silent = true })
+remap('c', 'w!!', '%!sudo tee > /dev/null %', opts)
 
 -- Clear search highlighting
-remap('n', '<leader>/', ':nohlsearch<CR>', { noremap = true, silent = true })
+remap('n', '<leader>/', ':nohlsearch<CR>', opts)
 
 -- Telescope
-remap('n', '<leader>ts', ':Telescope<CR>', { noremap = true, silent = true })
-remap('n', '<leader><Space>', ':Telescope current_buffer_fuzzy_find sorting_strategy=ascending prompt_position=top<CR>', { noremap = true, silent = true })
-remap('n', '<leader>fl', ':Telescope current_buffer_fuzzy_find sorting_strategy=ascending prompt_position=top<CR>', { noremap = true, silent = true })
-remap('n', '<leader>ff', ':Telescope find_files<CR>', { noremap = true, silent = true })
-remap('n', '<leader>fb', ':Telescope file_browser<CR>', { noremap = true, silent = true })
-remap('n', '<leader>fc', ':Telescope commands<CR>', { noremap = true, silent = true })
-remap('n', '<leader>fF', ':Telescope git_files<CR>', { noremap = true, silent = true })
-remap('n', '<leader>fb', ':Telescope buffers<CR>', { noremap = true, silent = true })
-remap('n', '<leader>fh', ':Telescope command_history<CR>', { noremap = true, silent = true })
-remap('n', '<leader>ft', ':Telescope filetypes<CR>', { noremap = true, silent = true })
-remap('n', '<leader>fT', ':Telescope tags<CR>', { noremap = true, silent = true })
-remap('n', '<leader>fm', ':Telescope marks<CR>', { noremap = true, silent = true })
-remap('n', '<leader>fa', ':Telescope live_grep<CR>', { noremap = true, silent = true })
-remap('n', '<leader>fp', ':Telescope live_grep<CR>', { noremap = true, silent = true })
-remap('n', '<leader>fw', ':Telescope grep_string<CR>', { noremap = true, silent = true })
-remap('n', '<leader>fgs', ':Telescope git_status<CR>', { noremap = true, silent = true })
-remap('n', '<leader>fgc', ':Telescope git_commits<CR>', { noremap = true, silent = true })
-remap('n', '<leader>fgb', ':Telescope git_branches<CR>', { noremap = true, silent = true })
-
-if vim.v.argc == 0 then
-	print('NO ARGS')
-end
+remap('n', '<leader>ts', ':Telescope<CR>', opts)
+remap('n', '<leader><Space>', ':Telescope current_buffer_fuzzy_find sorting_strategy=ascending prompt_position=top<CR>', opts)
+remap('n', '<leader>fl', ':Telescope current_buffer_fuzzy_find sorting_strategy=ascending prompt_position=top<CR>', opts)
+remap('n', '<leader>ff', ':Telescope find_files<CR>', opts)
+remap('n', '<leader>fb', ':Telescope file_browser<CR>', opts)
+remap('n', '<leader>fc', ':Telescope commands<CR>', opts)
+remap('n', '<leader>fF', ':Telescope git_files<CR>', opts)
+remap('n', '<leader>fb', ':Telescope buffers<CR>', opts)
+remap('n', '<leader>fh', ':Telescope command_history<CR>', opts)
+remap('n', '<leader>ft', ':Telescope filetypes<CR>', opts)
+remap('n', '<leader>fT', ':Telescope tags<CR>', opts)
+remap('n', '<leader>fm', ':Telescope marks<CR>', opts)
+remap('n', '<leader>fa', ':Telescope live_grep<CR>', opts)
+remap('n', '<leader>fp', ':Telescope live_grep<CR>', opts)
+remap('n', '<leader>fw', ':Telescope grep_string<CR>', opts)
+remap('n', '<leader>fgs', ':Telescope git_status<CR>', opts)
+remap('n', '<leader>fgc', ':Telescope git_commits<CR>', opts)
+remap('n', '<leader>fgb', ':Telescope git_branches<CR>', opts)
 
 -- Open fuzzy finder if vim opened without any args except in home dir
 vim.cmd([[
@@ -99,57 +98,60 @@ vim.cmd([[
 	call submode#map('bnext/bprev', 'n', 's', 'h', ':bp<CR>')
 ]])
 
+-- Switch buffers with tab/shift-tab
+remap('n', '<TAB>', ':bnext!<CR>', opts)
+remap('n', '<S-TAB>', ':bprevious!<CR>', opts)
+
 -- nvim-tree
-remap('n', '<leader>n', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+remap('n', '<leader>n', ':NvimTreeToggle<CR>', opts)
 
 -- Folds
-remap('n', '<Enter>', 'za', { noremap = true, silent = true })
-remap('v', '<Enter>', 'za', { noremap = true, silent = true })
+remap('n', '<Enter>', 'za', opts)
+remap('v', '<Enter>', 'za', opts)
 
 -- Make navigating around splits easier
-remap('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
-remap('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
-remap('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
-remap('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
+remap('n', '<C-j>', '<C-w>j', opts)
+remap('n', '<C-k>', '<C-w>k', opts)
+remap('n', '<C-h>', '<C-w>h', opts)
+remap('n', '<C-l>', '<C-w>l', opts)
 
 -- Fix split window ratios
-remap('n', '<leader>we', '<C-w>=', { noremap = true, silent = true })
+remap('n', '<leader>we', '<C-w>=', opts)
 
 -- Bubble multiple lines
-remap('v', '<C-k>', ':m \'<-2<CR>gv=gv', { noremap = true, silent = false })
-remap('v', '<C-j>', ':m \'>+1<CR>gv=gv', { noremap = true, silent = false })
-remap('v', '<Up>', ':m \'<-2<CR>gv=gv', { noremap = true, silent = false })
-remap('v', '<Down>', ':m \'>+1<CR>gv=gv', { noremap = true, silent = false })
+remap('v', '<C-j>', ':move \'>+1<CR>gv=gv', { noremap = true, silent = false })
+remap('v', '<C-k>', ':move \'<-2<CR>gv=gv', { noremap = true, silent = false })
+remap('v', '<Up>', ':move \'<-2<CR>gv=gv', { noremap = true, silent = false })
+remap('v', '<Down>', ':move \'>+1<CR>gv=gv', { noremap = true, silent = false })
 
 -- Reselect visual block after indent/outdent
-remap('v', '<', '<gv', { noremap = true, silent = true })
-remap('v', '>', '>gv', { noremap = true, silent = true })
+remap('v', '<', '<gv', opts)
+remap('v', '>', '>gv', opts)
 
 -- Improve up/down movement on wrapped lines
-remap('n', 'j', 'gj', { noremap = true, silent = true })
-remap('n', 'k', 'gk', { noremap = true, silent = true })
+remap('n', 'j', 'gj', opts)
+remap('n', 'k', 'gk', opts)
 
 -- Show current file in finder
-remap('n', '<leader>F', ':Reveal<CR>', { noremap = true, silent = true })
--- nnoremap <leader>F :silent :Reveal<cr>
+remap('n', '<leader>F', ':Reveal<CR>', opts)
 
--- select all
-remap('n', '<leader>a', 'ggVG', { noremap = true, silent = true })
+-- Select all
+remap('n', '<leader>a', 'ggVG', opts)
 
 -- Remove annoying F1 help
-remap('i', '<F1>', '<nop>', { noremap = true, silent = true })
-remap('n', '<F1>', '<nop>', { noremap = true, silent = true })
-remap('v', '<F1>', '<nop>', { noremap = true, silent = true })
+remap('i', '<F1>', '<nop>', opts)
+remap('n', '<F1>', '<nop>', opts)
+remap('v', '<F1>', '<nop>', opts)
 
 -- Show registers
-remap('n', '<leader>r', ':registers<CR>', { noremap = true, silent = true })
+remap('n', '<leader>r', ':registers<CR>', opts)
 
 -- Keep the cursor in place while joining lines
-remap('n', 'J', 'mzJ`z', { noremap = true, silent = true })
+remap('n', 'J', 'mzJ`z', opts)
 
 -- Delete without cutting
-remap('n', '<leader>d', '"_d', { noremap = true, silent = true })
-remap('v', '<leader>d', '"_d', { noremap = true, silent = true })
+remap('n', '<leader>d', '"_d', opts)
+remap('v', '<leader>d', '"_d', opts)
 
 -- zen-mode
-remap('n', '<leader>z', ':ZenMode<CR>', { noremap = true, silent = true })
+remap('n', '<leader>z', ':ZenMode<CR>', opts)

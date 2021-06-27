@@ -3,19 +3,17 @@ local g = vim.g
 -- set formatoptions to override all the shit plugins do to it
 g.mysyntaxfile = '~/.config/nvim/after/ftplugin/all.vim'
 
+-- python provider for neovim
+-- g.python3_host_prog='~/.venvs/neovim3/bin/python'
+
 -- colours
 g.colorscheme_name = 'palenight'
 g.nvcode_termcolors = 256
-
---	shfmt
-g.shfmt_fmt_on_save = 1 -- Auto run shfmt on save
-g.shfmt_extra_args = '-i 2 -ci' -- Always use two space indentation for shell scripts
 
 -- submode
 g.submode_timeout = 0
 g.submode_timeoutlen = 2
 g.submode_keep_leaving_key = 1
--- g.submode_keyseqs_to_leave = {'Esc'}
 
 --	terraform
 g.terraform_fmt_on_save = 1
@@ -49,6 +47,8 @@ g.ale_fixers = {
 	terraform = {'terraform'},
 	typescript = {'eslint', 'tslint', 'tsserver'},
 	vue = {'prettier', 'eslint'},
+	sh = {'shfmt'},
+	go = {'goimports'},
 }
 
 g.ale_sign_error = '✗'
@@ -60,6 +60,7 @@ g.ale_sign_highlight_linenrs = 1
 g.ale_fix_on_save = 1
 g.ale_sh_shellcheck_exclusions = 'SC2068,SC2086'
 g.ale_sh_shellcheck_dialect = 'bash'
+g.ale_sh_shfmt_options = '-i 2 -ci'
 
 -- json
 g.json_syntax_conceal = 0
@@ -85,6 +86,7 @@ g.nvim_tree_show_icons = {
 }
 
 g.nvim_tree_ignore = {
+	'.DS_Store',
 	'.cache',
 	'.git',
 	'.idea',

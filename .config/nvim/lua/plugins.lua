@@ -30,6 +30,7 @@ return require('packer').startup(function()
 	use 'junegunn/vim-easy-align'
 	use 'junegunn/vim-peekaboo'
 	use 'kana/vim-submode'
+	use 'kdheepak/lazygit.nvim'
 	use 'kevinhwang91/nvim-bqf'
 	use 'kyazdani42/nvim-tree.lua'
 	use 'kyazdani42/nvim-web-devicons'
@@ -54,12 +55,10 @@ return require('packer').startup(function()
 	use { 'hashivim/vim-packer', ft = { 'hcl', 'json'} }
 	use { 'hashivim/vim-terraform', ft = { 'hcl', 'terraform'} }
 	use { 'henrik/vim-reveal-in-finder', cond = "vim.fn.has('mac') == 1" }
-	use { 'kdheepak/lazygit.nvim', cond = "vim.fn.executable('lazygit')"}
 	use { 'leafgarland/typescript-vim', ft = 'typescript' }
 	use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
-	use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = "vim.fn.executable('fzf')" }
+	use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 	use { 'pearofducks/ansible-vim', ft = 'ansible' }
-	use { 'z0mbix/vim-shfmt', ft = 'sh' }
 
 end)

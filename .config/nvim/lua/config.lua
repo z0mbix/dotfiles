@@ -65,7 +65,6 @@ require('telescope').setup {
 			fzf = {
 				fuzzy = true,
 				override_file_sorter = true,
-				case_mode = "smart_case",
 			}
 		}
 	}
@@ -117,9 +116,6 @@ require('trim').setup {
 	disable = {"markdown"},
 }
 
--- gitsigns
-require('gitsigns').setup()
-
 -- nvim-autopairs
 require('nvim-autopairs').setup()
 
@@ -135,5 +131,5 @@ require("zen-mode").setup {
 -- gitsigns
 require('gitsigns').setup {
 	keymaps = {},
-	current_line_blame = true,
+	current_line_blame = false,
 }
