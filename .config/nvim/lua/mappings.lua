@@ -44,6 +44,8 @@ remap('n', '<leader>gd', ':Gitsigns toggle_linehl<CR>', opts)
 remap('n', '<leader>gb', ':GitBlameToggle<CR>', opts)
 remap('n', '<leader>ghp', ':Gitsigns preview_hunk<CR>', opts)
 remap('n', '<leader>ghr', ':Gitsigns reset_hunk<CR>', opts)
+remap('n', '<leader>ghj', ':Gitsigns next_hunk<CR>', opts)
+remap('n', '<leader>ghk', ':Gitsigns prev_hunk<CR>', opts)
 remap('n', '<leader>gg', ':LazyGit<CR>', opts)
 
 -- Convert json to pretty printed version
@@ -155,3 +157,6 @@ remap('v', '<leader>d', '"_d', opts)
 
 -- zen-mode
 remap('n', '<leader>z', ':ZenMode<CR>', opts)
+
+-- minimap.vim
+remap('n', '<leader>mm', ':MinimapToggle<CR>', opts)

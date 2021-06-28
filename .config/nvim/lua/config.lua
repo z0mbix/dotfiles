@@ -1,6 +1,9 @@
 -- lualine
 require('lualine').setup{
-	options = {theme = vim.g.colorscheme_name},
+	options = {
+		theme = vim.g.colorscheme_name,
+		-- disabled_filetypes = {'NvimTree', 'minimap'}
+	},
 	extensions = {'quickfix', 'nvim-tree'}
 }
 

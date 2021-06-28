@@ -48,6 +48,7 @@ return require('packer').startup(function()
 	use 'tpope/vim-surround'
 	use 'wbthomason/packer.nvim'
 	use 'wellle/targets.vim'
+	use 'wfxr/minimap.vim'
 	use 'windwp/nvim-autopairs'
 
 	use { 'ekalinin/Dockerfile.vim', ft = 'Dockerfile' }
