@@ -2,9 +2,16 @@ local cmd = vim.cmd
 
 local abbreviations = {
 	inoreabbrev = {
-		zzo = 'zombie@zombix.org',
+		adn = 'and',
+		awkward = '	•͡˘㇁•͡˘',
 		gte = 'get',
-
+		lod = 'ಠ_ಠ',
+		sadface = 'ʘ︵ʘ',
+		shrug = '¯\\_(ツ)_/¯',
+		strong = 'ᕙ(⇀‸↼‶)ᕗ',
+		taht = 'that',
+		wehn = 'when',
+		zzo = 'zombie@zombix.org',
 	},
 	cnoreabbrev = {
 		Wq = "wq!",

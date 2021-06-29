@@ -10,7 +10,6 @@ opt.wildmode = { "longest", "full" }										-- nice things
 opt.wildmenu = true																			-- tab completion
 opt.number = true																				-- allow numbers when in insert mode
 opt.relativenumber = true																-- relative numbers when not in insert mode
-opt.encoding = "utf-8"																	-- use UTF-8
 opt.exrc = true																					-- source .vimrc files
 opt.cursorline = true																		-- highlight the current line
 opt.shortmess = "atOIc"																	-- disable start-up message
@@ -69,6 +68,7 @@ opt.wrap = true																					-- wrap lines
 opt.list = true																					-- show invisible characters
 opt.switchbuf = "useopen,vsplit"												-- sensible buffer switching
 opt.grepprg = "rg --hidden --vimgrep --smart-case --"		-- use ripgrep instead of grep
+opt.secure = true																				-- disable autocmds in .exrc/.nvimrc
 
 -- characters for invisibles
 opt.listchars = {
@@ -79,17 +79,6 @@ opt.listchars = {
  precedes = "❮",
  nbsp = "_",
 }
-
--- opt.formatoptions = opt.formatoptions
--- - "a" -- Auto formatting is BAD.
--- - "t" -- Don't auto format my code. I got linters for that.
--- - "c" -- In general, I like it when comments respect textwidth
--- + "q" -- Allow formatting comments w/ gq
--- - "o" -- O and o, don't continue comments
--- - "r" -- But do continue when pressing enter.
--- + "n" -- Indent past the formatlistpat, not underneath it.
--- + "j" -- Auto-remove comments if possible.
--- - "2" -- I'm not in gradeschool anymore
 
 opt.wildignore = {
  "*.o",

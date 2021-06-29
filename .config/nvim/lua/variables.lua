@@ -57,19 +57,19 @@ g.markdown_fenced_languages = {
 -- ALE
 g.ale_linters = {
 	javascript = { 'eslint' },
-	terraform = { 'terraform' },
-	python = { 'flake8', 'pylint' },
+	python = { 'pylint', 'flake8' },
 	sh = { 'shellcheck' },
+	terraform = { 'terraform' },
 }
 
 g.ale_fixers = {
+	go = { 'goimports' },
 	javascript = { 'prettier', 'eslint' },
 	python = { 'autopep8' },
+	sh = { 'shfmt' },
 	terraform = { 'terraform' },
 	typescript = { 'eslint', 'tslint', 'tsserver' },
 	vue = { 'prettier', 'eslint' },
-	sh = { 'shfmt' },
-	go = { 'goimports' },
 }
 
 g.ale_fix_on_save = 1
