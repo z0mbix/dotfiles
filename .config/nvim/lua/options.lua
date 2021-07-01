@@ -27,7 +27,7 @@ opt.hlsearch = true																			-- highlight search results
 opt.autoindent = true																		-- auto indent new lines
 opt.linebreak = true																		-- enable linebreaks
 opt.showbreak = "↪ "																		-- what to put infront of linebreaks
-opt.breakindent = true																	-- preserve horizontal blockssumneko
+opt.breakindent = true																	-- preserve horizontal blocks indentation
 opt.startofline = false																	-- keep cursor in same column
 opt.history = 200																				-- search history
 opt.errorbells = false																	-- don't annoy me
@@ -75,9 +75,9 @@ opt.listchars = {
  tab = "› ",
  eol = "¬",
  trail = "·",
- extends = "❯",
- precedes = "❮",
- nbsp = "_",
+ extends = "→",
+ precedes = "←",
+ nbsp = "␣",
 }
 
 opt.wildignore = {

@@ -3,6 +3,13 @@ vim.cmd([[
 	" remember where I am in the file
 	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 
+	" toggle number/relativenumber
+	augroup numbertoggle
+		autocmd!
+		autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+		autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+	augroup END
+
 	" when writing new files, mkdir -p their paths
 	augroup AutoCreateDir
 		au!
@@ -83,13 +90,6 @@ vim.cmd([[
 
 	" Resize splits when the window is resized
 	autocmd VimResized * :wincmd =
-
-	" Toggle relativenumber in insert mode
-	augroup numbertoggle
-		autocmd!
-		autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-		autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
-	augroup END
 
 	" vim-after-object - e.g. ca= / da= etc.
 	" autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')

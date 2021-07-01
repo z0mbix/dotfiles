@@ -59,8 +59,8 @@ remap('n', '<leader>/', ':nohlsearch<CR>', opts)
 
 -- Telescope
 remap('n', '<leader>ts', ':Telescope<CR>', opts)
-remap('n', '<leader><Space>', ':Telescope current_buffer_fuzzy_find sorting_strategy=ascending prompt_position=top<CR>', opts)
-remap('n', '<leader>fl', ':Telescope current_buffer_fuzzy_find sorting_strategy=ascending prompt_position=top<CR>', opts)
+remap('n', '<leader><Space>', ':Telescope current_buffer_fuzzy_find sorting_strategy=ascending<CR>', opts)
+remap('n', '<leader>fl', ':Telescope current_buffer_fuzzy_find sorting_strategy=ascending<CR>', opts)
 remap('n', '<leader>ff', ':Telescope find_files<CR>', opts)
 remap('n', '<leader>fb', ':Telescope file_browser<CR>', opts)
 remap('n', '<leader>fc', ':Telescope commands<CR>', opts)
@@ -121,10 +121,10 @@ remap('n', '<C-l>', '<C-w>l', opts)
 remap('n', '<leader>we', '<C-w>=', opts)
 
 -- Bubble multiple lines
-remap('v', '<C-j>', ':move \'>+1<CR>gv=gv', { noremap = true, silent = false })
-remap('v', '<C-k>', ':move \'<-2<CR>gv=gv', { noremap = true, silent = false })
-remap('v', '<Up>', ':move \'<-2<CR>gv=gv', { noremap = true, silent = false })
-remap('v', '<Down>', ':move \'>+1<CR>gv=gv', { noremap = true, silent = false })
+remap('v', '<C-j>', ':move \'>+1<CR>gv=gv', opts)
+remap('v', '<C-k>', ':move \'<-2<CR>gv=gv', opts)
+remap('v', '<Up>', ':move \'<-2<CR>gv=gv', opts)
+remap('v', '<Down>', ':move \'>+1<CR>gv=gv', opts)
 
 -- Reselect visual block after indent/outdent
 remap('v', '<', '<gv', opts)
@@ -136,6 +136,9 @@ remap('n', 'k', 'gk', opts)
 
 -- Show current file in finder
 remap('n', '<leader>F', ':Reveal<CR>', opts)
+
+-- Open file with the default application
+remap('n', '<leader>o', ':silent !open %<CR>', opts)
 
 -- Select all
 remap('n', '<leader>a', 'ggVG', opts)
@@ -156,7 +159,7 @@ remap('n', '<leader>d', '"_d', opts)
 remap('v', '<leader>d', '"_d', opts)
 
 -- zen-mode
-remap('n', '<leader>z', ':ZenMode<CR>', opts)
+remap('n', '<leader>z', ':TZAtaraxis<CR>', opts)
 
 -- minimap.vim
 remap('n', '<leader>mm', ':MinimapToggle<CR>', opts)

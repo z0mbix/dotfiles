@@ -20,6 +20,7 @@ fi
 autoload -U select-word-style
 select-word-style bash
 bindkey \^U backward-kill-line
+bindkey "ç" fzf-cd-widget # fzf alt+c
 
 if ! zgen saved; then
   zgen oh-my-zsh
@@ -126,3 +127,5 @@ function cd {
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/vault vault
+
+alias luamake=/Users/davidwooldridge/iCloudDrive/Projects/lua-language-server/3rd/luamake/luamake

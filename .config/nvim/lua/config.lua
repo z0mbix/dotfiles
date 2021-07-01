@@ -2,9 +2,8 @@
 require('lualine').setup{
 	options = {
 		theme = vim.g.colorscheme_name,
-		-- disabled_filetypes = {'NvimTree', 'minimap'}
 	},
-	extensions = {'quickfix', 'nvim-tree'}
+	extensions = { 'quickfix', 'nvim-tree' }
 }
 
 -- treesitter
@@ -25,8 +24,23 @@ require('nvim-treesitter.configs').setup {
 			"haskell",
 			"java",
 			"kotlin",
+			"latex",
 			"rust",
 			"zig",
+		}
+	},
+	rainbow = {
+		enable = true,
+		extended_mode = true,
+		-- palenight colours
+		colors = {
+			"#ffcb6b",
+			"#f78c6c",
+			"#82b1ff",
+			"#ff5370",
+			"#f78c6c",
+			"#c3e88d",
+			"#c792ea",
 		}
 	},
 }
@@ -37,7 +51,6 @@ local actions = require('telescope.actions')
 require('telescope').setup {
 	defaults = {
 		prompt_prefix = "» ",
-		prompt_position = "top",
 		mappings = {
 			i = {
 				["<esc>"] = actions.close,
@@ -49,19 +62,9 @@ require('telescope').setup {
 		layout_strategy = 'flex',
 		scroll_strategy = 'cycle',
 		winblend = 10,
-		width = 0.5,
-		results_height = 0.5,
-		layout_defaults = {
-			horizontal = {
-				width_padding = 0.1,
-				height_padding = 0.1,
-				preview_width = 0.6,
-			},
-			vertical = {
-				width_padding = 0.05,
-				height_padding = 1,
-				preview_height = 0.5,
-			}
+		layout_config = {
+			width = 0.6,
+			height = 0.8,
 		},
 		file_ignore_patterns = { 'tags' },
 		extensions = {
@@ -122,17 +125,23 @@ require('trim').setup {
 -- nvim-autopairs
 require('nvim-autopairs').setup()
 
--- zen-mode
-require("zen-mode").setup {
-	window = {
-		backdrop = 0.70,
-		height = 0.95,
-		width = 0.95,
+-- TrueZen
+require('true-zen').setup({
+	modes = {
+		ataraxis = {
+			left_padding = 5,
+			right_padding = 5,
+			top_padding = 5,
+			bottom_padding = 5,
+		},
 	}
-}
+})
 
 -- gitsigns
 require('gitsigns').setup {
 	keymaps = {},
 	current_line_blame = false,
 }
+
+-- nvim-colorizer.lua
+require'colorizer'.setup()
