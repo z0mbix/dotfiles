@@ -173,3 +173,6 @@ remap('n', '<leader>W', ':WhichKey<CR>', opts)
 -- vim-maximizer
 remap('n', '<leader>W', ':MaximizerToggle<CR>', opts)
 remap('v', '<leader>W', ':MaximizerToggle<CR>gv', opts)
+
+-- trouble.nvim
+remap('n', '<leader>T', ':TroubleToggle<CR>', opts)

@@ -133,6 +133,7 @@ require('compe').setup({
 	},
 })
 
+-- TODO: Move to lua config
 vim.cmd([[
 	inoremap <silent><expr> <C-Space> compe#complete()
 	inoremap <silent><expr> <CR>			compe#confirm('<CR>')
@@ -178,3 +179,6 @@ require('todo-comments').setup()
 
 -- which-key.nvim
 require('which-key').setup()
+
+-- trouble.nvim
+require('trouble').setup({})
