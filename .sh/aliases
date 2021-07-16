@@ -43,7 +43,7 @@ alias countdown='mpg321 -q ~/iCloudDrive/Documents/Sounds/countdown.mp3'
 alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3'
 alias weather='clear; curl http://wttr.in/'
 alias tmux='TERM=screen-256color tmux'
-alias planetrock="mplayer 'http://tx.sharp-stream.com/icecast.php?i=planetrock.mp3'"
+alias planetrock="mpg321 'http://tx.planetradio.co.uk/icecast.php?i=planetrock.mp3'"
 alias da='direnv allow'
 alias n='navi --print'
 alias shrug='echo -n "¯\\_(ツ)_/¯"'

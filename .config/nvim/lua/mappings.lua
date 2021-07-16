@@ -2,15 +2,15 @@ local remap = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
 -- source/edit init.lua
-remap('n', '<leader>ec', ':edit $MYVIMRC<cr>', opts)
-remap('n', '<leader>sc', ':source $MYVIMRC<CR>', opts)
+remap('n', '<leader>ce', ':edit $MYVIMRC<cr>', opts)
+remap('n', '<leader>cs', ':source $MYVIMRC<CR>', opts)
 
 -- move a character to the beginning or end of the line
 remap('n', 'mH', ':let @z=@"<cr>x0P:let @"=@z<cr>', opts)
 remap('n', 'mL', ':let @z=@"<cr>x$p:let @"=@z<cr>', opts)
 
 -- Show/Hide invisible characters
-remap('n', '<leader>\'', ':set list!<CR>', opts)
+remap('n', "<leader>'", ':set list!<CR>', opts)
 
 -- move a character to the beginning or end of the word
 remap('n', 'mh', ':let @z=@"<cr>xBP:let @"=@z<cr>', opts)
@@ -25,15 +25,18 @@ remap('n', 'L', '$', opts)
 remap('v', 'H', '^', opts)
 remap('v', 'L', 'g_', opts)
 
+-- Make yanking behave like D/C/S etc.
+remap('n', 'Y', 'y$', opts)
+
 -- Close/save files
-remap('n', '<leader>q', ':q<CR>' , opts)
+remap('n', '<leader>q', ':q<CR>', opts)
 remap('n', '<leader>w', ':update<CR>', opts)
 
 -- Buffers
 remap('n', '<leader>x', ':BufferClose<CR>', opts)
 remap('n', '<leader>X', ':BufferClose!<CR>', opts)
 remap('n', '<C-q>', ':BufferClose<CR>', opts)
-remap('n', '<C-x>', ':BufferClose<CR>', opts)
+-- remap('n', '<C-x>', ':BufferClose<CR>', opts)
 
 -- Undotree
 remap('n', '<leader>u', ':UndotreeToggle<CR>', opts)
@@ -47,9 +50,6 @@ remap('n', '<leader>ghr', ':Gitsigns reset_hunk<CR>', opts)
 remap('n', '<leader>ghj', ':Gitsigns next_hunk<CR>', opts)
 remap('n', '<leader>ghk', ':Gitsigns prev_hunk<CR>', opts)
 remap('n', '<leader>gg', ':LazyGit<CR>', opts)
-
--- Convert json to pretty printed version
-remap('n', '<leader>ppj', '!%jq .<CR>', opts)
 
 -- Write as root if we don't have permission
 remap('c', 'w!!', '%!sudo tee > /dev/null %', opts)
@@ -121,10 +121,10 @@ remap('n', '<C-l>', '<C-w>l', opts)
 remap('n', '<leader>we', '<C-w>=', opts)
 
 -- Bubble multiple lines
-remap('v', '<C-j>', ':move \'>+1<CR>gv=gv', opts)
-remap('v', '<C-k>', ':move \'<-2<CR>gv=gv', opts)
-remap('v', '<Up>', ':move \'<-2<CR>gv=gv', opts)
-remap('v', '<Down>', ':move \'>+1<CR>gv=gv', opts)
+remap('v', '<C-j>', ":move '>+1<CR>gv=gv", opts)
+remap('v', '<C-k>', ":move '<-2<CR>gv=gv", opts)
+remap('v', '<Up>', ":move '<-2<CR>gv=gv", opts)
+remap('v', '<Down>', ":move '>+1<CR>gv=gv", opts)
 
 -- Reselect visual block after indent/outdent
 remap('v', '<', '<gv', opts)
@@ -135,10 +135,10 @@ remap('n', 'j', 'gj', opts)
 remap('n', 'k', 'gk', opts)
 
 -- Show current file in finder
-remap('n', '<leader>F', ':Reveal<CR>', opts)
+remap('n', '<leader>oo', ':Reveal<CR>', opts)
 
 -- Open file with the default application
-remap('n', '<leader>o', ':silent !open %<CR>', opts)
+remap('n', '<leader>of', ':silent !open %<CR>', opts)
 
 -- Select all
 remap('n', '<leader>a', 'ggVG', opts)
@@ -159,7 +159,17 @@ remap('n', '<leader>d', '"_d', opts)
 remap('v', '<leader>d', '"_d', opts)
 
 -- zen-mode
-remap('n', '<leader>z', ':TZAtaraxis<CR>', opts)
+remap('n', '<leader>z', ':ZenMode<CR>', opts)
 
 -- minimap.vim
 remap('n', '<leader>mm', ':MinimapToggle<CR>', opts)
+
+-- lsp
+remap('n', '<leader>F', ':Format<CR>', opts)
+
+-- which-key.nvim
+remap('n', '<leader>W', ':WhichKey<CR>', opts)
+
+-- vim-maximizer
+remap('n', '<leader>W', ':MaximizerToggle<CR>', opts)
+remap('v', '<leader>W', ':MaximizerToggle<CR>gv', opts)

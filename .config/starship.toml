@@ -8,6 +8,9 @@ error_symbol = "[»](bold red)"
 [directory]
 truncation_length = 8
 
+[docker_context]
+disabled = true
+
 [username]
 format = "[$user]($style) on "
 
