@@ -1,5 +1,4 @@
 vim.cmd([[
-
 	" remember where I am in the file
 	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 
@@ -99,6 +98,4 @@ vim.cmd([[
 
 	" disable auto comment new line
 	autocmd FileType * set fo-=c fo-=r fo-=o fo+=j
-
-
 ]])

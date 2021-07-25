@@ -176,3 +176,9 @@ remap('v', '<leader>W', ':MaximizerToggle<CR>gv', opts)
 
 -- trouble.nvim
 remap('n', '<leader>T', ':TroubleToggle<CR>', opts)
+
+-- my functions
+remap('n', '<leader>qft', [[<Cmd>lua require('funcs').toggle_qf()<CR>]], opts)
+
+-- FTerm
+remap('n', '<leader>tt', [[<Cmd>lua require('FTerm').toggle()<CR>]], opts)

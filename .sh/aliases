@@ -50,6 +50,7 @@ alias shrug='echo -n "¯\\_(ツ)_/¯"'
 alias bandwhich='sudo bandwhich'
 alias fzfp='fzf --preview "bat --style=numbers --color=always --line-range :500 {}" --border --height 50%'
 alias lg='lazygit'
+alias p=projects
 
 # This, allows me to quickly copy a pastable HEREDOC on to new hosts :)
 alias copyinputrc='echo -e "cat > ~/.inputrc <<EOF $(echo; cat ~/.inputrc)\nEOF\nbind -f ~/.inputrc" | pbcopy'
@@ -136,11 +137,10 @@ alias aws-running-instances='aws ec2 describe-instances --output=json --filters 
 
 # Directories
 alias dropbox='cd $HOME/iCloudDrive'
-alias dotfiles='cd ~/iCloudDrive/Configs/dotfiles'
+alias dotfiles='cd ~/iCloudDrive/Projects/dotfiles'
 alias study='cd ~/iCloudDrive/Study'
 alias downloads='cd ~/Downloads'
 alias icd='cd ~/iCloudDrive'
-alias work='cd $WORK_DIR'
 
 # Proxy
 alias proxyon='source ~/.sh/proxy'

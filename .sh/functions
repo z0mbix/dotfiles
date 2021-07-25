@@ -8,6 +8,12 @@ kubeutil() {
 
 get-ami-name() {
   local ami_id="$1"
+
+  if [[ -z $ami_id ]]; then
+    echo "You need to let me know the AMI ID!"
+    return
+  fi
+
   aws ec2 describe-images --image-ids $ami_id | jq -r '.Images[0].Name'
 }
 
@@ -16,7 +22,25 @@ showpath() {
 }
 
 projects() {
-  cd "$HOME/iCloudDrive/Projects/$1" || exit
+  local project_dir=$1
+  local projects_dir="$HOME/iCloudDrive/Projects"
+
+  cd $projects_dir || return
+
+  if [[ -n $project_dir ]]; then
+    if [[ -d "$project_dir" ]]; then
+      cd $project_dir
+      return
+    else
+      echo "'$project_dir' is not a valid project!"
+      sleep 1
+    fi
+  fi
+
+  dest_dir="$(fd . --type d --max-depth 1 . | fzf)"
+  if [[ -n $dest_dir ]]; then
+    cd $dest_dir
+  fi
 }
 
 # jq repl
@@ -38,13 +62,13 @@ viw() {
   vim "$(which "$1")"
 }
 
-function cdls() {
+cdls() {
   builtin cd "$@" || exit
   ls -l
 }
 
-cdgitroot() {
-  cd "$(git rev-parse --show-toplevel)" || exit
+cdgr() {
+  cd "$(git rev-parse --show-toplevel)" || true
 }
 
 ip-from-hostname() {
@@ -151,35 +175,37 @@ centre() {
 
 # Files modified today
 today() {
-  TODAY=$(date +'%d-%m-%Y')
-  ls -l "$@" | grep "$TODAY"
+  local today=$(date +'%d-%m-%Y')
+  ls -l "$@" | grep "$today"
 }
 
 lnp() {
-  network=$(ifconfig eth0 | grep "inet " | cut -f2 -d':' | cut -f1-3 -d.)
+  local network="$(ifconfig eth0 | grep "inet " | cut -f2 -d':' | cut -f1-3 -d.)"
   ping -c 2 ${network}.${1}
 }
 
 # Handy Extract Program
 extract() {
-  if [ ! -f $1 ]; then
-    echo "'$1' is not a valid file"
+  local archive="$1"
+
+  if [ ! -f $archive ]; then
+    echo "'$archive' is not a valid file"
     return
   fi
 
-  case $1 in
-    *.tar.bz2) tar xvjf $1 ;;
-    *.tar.gz) tar xvzf $1 ;;
-    *.bz2) bunzip2 $1 ;;
-    *.rar) unrar x $1 ;;
-    *.gz) gunzip $1 ;;
-    *.tar) tar xvf $1 ;;
-    *.tbz2) tar xvjf $1 ;;
-    *.tgz) tar xvzf $1 ;;
-    *.zip) unzip $1 ;;
-    *.Z) uncompress $1 ;;
-    *.7z) 7z x $1 ;;
-    *) echo "'$1' cannot be extracted via >extract<" ;;
+  case $archive in
+    *.tar.bz2) tar xvjf $archive ;;
+    *.tar.gz) tar xvzf $archive ;;
+    *.bz2) bunzip2 $archive ;;
+    *.rar) unrar x $archive ;;
+    *.gz) gunzip $archive ;;
+    *.tar) tar xvf $archive ;;
+    *.tbz2) tar xvjf $archive ;;
+    *.tgz) tar xvzf $archive ;;
+    *.zip) unzip $archive ;;
+    *.Z) uncompress $archive ;;
+    *.7z) 7z x $archive ;;
+    *) echo "'$archive' cannot be extracted via the extract function" ;;
   esac
 }
 
@@ -194,7 +220,7 @@ mcd() {
 fbr() {
   local branches branch
   branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
-  branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+    branch=$(echo "$branches" |
+      fzf-tmux -d $((2 + $(wc -l <<<"$branches"))) +m) &&
+    git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }

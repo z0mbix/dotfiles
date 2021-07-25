@@ -182,3 +182,12 @@ require('which-key').setup()
 
 -- trouble.nvim
 require('trouble').setup({})
+
+-- surround.nvim
+require('surround').setup({})
+
+-- nvim-web-devicons
+require('nvim-web-devicons').setup({})
+
+-- FTerm
+require('FTerm').setup({})
