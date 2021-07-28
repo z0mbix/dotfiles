@@ -1,6 +1,10 @@
+# vim:ft=yaml
 extends: default
 
 rules:
+  braces:
+    min-spaces-inside: 1
+    max-spaces-inside: 1
   document-start: disable
   line-length: disable
   indentation:
