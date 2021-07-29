@@ -181,4 +181,5 @@ remap('n', '<leader>T', ':TroubleToggle<CR>', opts)
 remap('n', '<leader>qft', [[<Cmd>lua require('funcs').toggle_qf()<CR>]], opts)
 
 -- FTerm
+remap('t', '<leader>tt', [[<Cmd>lua require('FTerm').toggle()<CR>]], opts)
 remap('n', '<leader>tt', [[<Cmd>lua require('FTerm').toggle()<CR>]], opts)
