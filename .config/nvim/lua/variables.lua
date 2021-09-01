@@ -125,6 +125,7 @@ g.nvim_tree_ignore = {
 	'.git',
 	'.idea',
 	'.mypy_cache',
+	'.pytest_cache',
 	'.vagrant',
 	'__pycache__',
 	'node_modules',

@@ -32,6 +32,11 @@ remap('n', 'Y', 'y$', opts)
 remap('n', '<leader>q', ':q<CR>', opts)
 remap('n', '<leader>w', ':update<CR>', opts)
 
+-- Keep search results and joins centred
+remap('n', 'n', 'nzzzv', opts)
+remap('n', 'N', 'Nzzzv', opts)
+remap('n', 'J', 'mzJ`z', opts)
+
 -- Buffers
 remap('n', '<leader>x', ':BufferClose<CR>', opts)
 remap('n', '<leader>X', ':BufferClose!<CR>', opts)
