@@ -84,7 +84,7 @@ g.ale_echo_msg_format = '[%linter%] %s [%severity%]'
 g.ale_sign_highlight_linenrs = 1
 g.ale_sh_shellcheck_exclusions = 'SC2068,SC2086'
 g.ale_sh_shellcheck_dialect = 'bash'
-g.ale_sh_shfmt_options = '-i 2 -ci'
+g.ale_sh_shfmt_options = '-i 2 -ci -bn'
 g.ale_python_autopep8_options = '--max-line-length=160'
 
 -- json
