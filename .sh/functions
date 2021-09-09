@@ -224,3 +224,9 @@ fbr() {
       fzf-tmux -d $((2 + $(wc -l <<<"$branches"))) +m) &&
     git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
+
+neovim-config() {
+  local config_dir="$HOME/.config/nvim/"
+  cd $config_dir
+  nvim
+}

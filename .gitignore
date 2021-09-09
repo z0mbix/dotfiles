@@ -1,8 +1,9 @@
 *.pyc
 .*.swp
 .DS_Store
-.config/gopass/config.yml
 .aws/credentials
+.config/gopass/config.yml
+.gitconfig.work
 .sh/local
 .sh/private
 .sh/work

@@ -28,10 +28,15 @@ style = "bold bright-blue"
 style = "yellow"
 
 [aws.region_aliases]
+ap-east-1 = "hkg"
 ap-southeast-1 = "sin"
+ap-northeast-1 = "tok"
 eu-central-1 = "fra"
 eu-west-1 = "ire"
 eu-west-2 = "lon"
+us-east-1 = "n. virg"
+us-east-2 = "ohio"
+us-west-1 = "cali"
 
 [java]
 disabled = true

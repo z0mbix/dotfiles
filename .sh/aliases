@@ -51,6 +51,7 @@ alias bandwhich='sudo bandwhich'
 alias fzfp='fzf --preview "bat --style=numbers --color=always --line-range :500 {}" --border --height 50%'
 alias lg='lazygit'
 alias p=projects
+alias rgq='rg --hidden --no-heading --no-line-number'
 
 # This, allows me to quickly copy a pastable HEREDOC on to new hosts :)
 alias copyinputrc='echo -e "cat > ~/.inputrc <<EOF $(echo; cat ~/.inputrc)\nEOF\nbind -f ~/.inputrc" | pbcopy'
