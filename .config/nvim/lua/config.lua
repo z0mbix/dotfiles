@@ -9,6 +9,48 @@ require('lualine').setup({
 	},
 })
 
+-- nvim-tree
+require('nvim-tree').setup({
+	disable_netrw = true,
+	hijack_netrw = true,
+	open_on_setup = false,
+	ignore_ft_on_setup = { 'minimap' },
+	auto_close = true,
+	open_on_tab = false,
+	update_to_buf_dir = true, -- hijacks new directory buffers when they are opened.
+	hijack_cursor = false, -- hijack the cursor in the tree to put it at the start of the filename
+	update_cwd = false, -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually
+	lsp_diagnostics = false, -- show lsp diagnostics in the signcolumn
+
+	-- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
+	update_focused_file = {
+		enable = true,
+		update_cwd = false,
+		-- list of buffer names / filetypes that will not update the cwd if the file isn't found under the current root directory
+		-- only relevant when `update_focused_file.update_cwd` is true and `update_focused_file.enable` is true
+		ignore_list = {},
+	},
+
+	-- configuration options for the system open command (`s` in the tree by default)
+	system_open = {
+		cmd = nil, -- the command to run this, leaving nil should work in most cases
+		args = {}, -- the command arguments as a list
+	},
+
+	view = {
+		width = 40, -- width of the window, can be either a number (columns) or a string in `%`
+		side = 'left',
+		auto_resize = false, -- if true the tree will resize itself after opening a file
+		mappings = {
+			-- custom only false will merge the list with the default mappings
+			-- if true, it will only use your list to set the mappings
+			custom_only = false,
+			-- list of mappings to set on the tree manually
+			list = {},
+		},
+	},
+})
+
 -- treesitter
 require('nvim-treesitter.configs').setup({
 	ensure_installed = 'maintained',

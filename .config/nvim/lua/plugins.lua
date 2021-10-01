@@ -3,8 +3,8 @@ local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
-	fn.system({ 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path })
-	execute('packadd packer.nvim')
+	fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+	vim.cmd('packadd packer.nvim')
 end
 
 return require('packer').startup(function()
@@ -55,6 +55,7 @@ return require('packer').startup(function()
 	use('wellle/targets.vim')
 	use('wfxr/minimap.vim')
 	use('windwp/nvim-autopairs')
+	use('towolf/vim-helm')
 
 	use({ 'ekalinin/Dockerfile.vim', ft = 'Dockerfile' })
 	use({ 'elzr/vim-json', ft = 'json' })
