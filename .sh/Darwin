@@ -5,7 +5,6 @@
 export HOMEBREW_INSTALL_BADGE=📦
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_ROOT='/usr/local'
-export AWS_VAULT_KEYCHAIN_NAME=login
 
 [ -d /Developer/usr/bin ] && PATH=$PATH:/Developer/usr/bin
 
@@ -24,6 +23,12 @@ if [ -d /usr/local/MacGPG2/bin ]; then
   unset SSH_AGENT_PID
   export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 fi
+
+# Is homebreww openssh installed?
+# if [[ -f /usr/local/bin/ssh ]]; then
+#   eval $(ssh-agent)
+#   ssh-add
+# fi
 
 # https://github.com/gyf304/vmcli
 if [[ $ARCH == "arm64" ]]; then

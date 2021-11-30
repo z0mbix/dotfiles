@@ -28,6 +28,7 @@ if ! zgen saved; then
   zgen oh-my-zsh plugins/aws
   zgen oh-my-zsh plugins/command-not-found
   zgen oh-my-zsh plugins/docker
+  zgen oh-my-zsh plugins/fzf
   zgen oh-my-zsh plugins/git
   zgen oh-my-zsh plugins/git-extras
   zgen oh-my-zsh plugins/golang
@@ -42,10 +43,10 @@ if ! zgen saved; then
   fi
 
   if [[ $OS == "Darwin" ]]; then
-    zgen oh-my-zsh plugins/osx
+    zgen oh-my-zsh plugins/macos
   fi
 
-  if command -v zoxide; then
+  if command -v zoxide >/dev/null 2>&1; then
     zgen load ajeetdsouza/zoxide
   fi
 
@@ -83,14 +84,12 @@ ZSH_THEME_GIT_PROMPT_DIRTY=") %{$fg_bold[yellow]%}✗ "
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[cyan]%}("
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 
-#precmd() { export AWS_CREDS_MSG=$(creds-status) }
-
 [ -f ~/.sh/proxy ] && source ~/.sh/proxy
 [ -f ~/.sh/all ] && source ~/.sh/all
-[ -f ~/.sh/aliases ] && source ~/.sh/aliases
 [ -f ~/.sh/private ] && source ~/.sh/private
 [ -f ~/.sh/work ] && source ~/.sh/work
 [ -f ~/.sh/functions ] && source ~/.sh/functions
+[ -f ~/.sh/aliases ] && source ~/.sh/aliases
 [ -f ~/.sh/$OS ] && source ~/.sh/$OS
 [ -f ~/.sh/$SHELL ] && source ~/.sh/$SHELL
 [ -f ~/.sh/local ] && source ~/.sh/local
@@ -100,32 +99,5 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 # local zsh completions
 [ -d ~/.zsh/completion ] && fpath=(~/.zsh/completion $fpath)
 
-function auto_pipenv_shell {
-  if [ ! -n "${PIPENV_ACTIVE+1}" ]; then
-    if [ -f Pipfile ] ; then
-      pipenv shell
-    fi
-  fi
-}
-
-# function auto_poetry_shell {
-#     if [ ! -n "${POETRY_ACTIVE+1}" ]; then
-#         if [ -f "pyproject.toml" ] && [[ -f "poetry.lock" ]] ; then
-#             poetry shell
-#         fi
-#     fi
-# }
-
-function cd {
-    builtin cd "$@"
-    # auto_pipenv_shell
-    # auto_poetry_shell
-}
-
-# auto_pipenv_shell
-# auto_poetry_shell
-
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/vault vault
-
-alias luamake=/Users/davidwooldridge/iCloudDrive/Projects/lua-language-server/3rd/luamake/luamake

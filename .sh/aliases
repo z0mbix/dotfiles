@@ -52,6 +52,7 @@ alias fzfp='fzf --preview "bat --style=numbers --color=always --line-range :500 
 alias lg='lazygit'
 alias p=projects
 alias rgq='rg --hidden --no-heading --no-line-number'
+alias luamake='/Users/davidwooldridge/iCloudDrive/Projects/lua-language-server/3rd/luamake/luamake'
 
 # This, allows me to quickly copy a pastable HEREDOC on to new hosts :)
 alias copyinputrc='echo -e "cat > ~/.inputrc <<EOF $(echo; cat ~/.inputrc)\nEOF\nbind -f ~/.inputrc" | pbcopy'
@@ -93,6 +94,11 @@ alias kv='kitchen verify'
 alias kl='kitchen login'
 alias kt='kitchen test'
 alias kd='kitchen destroy'
+
+# Multipass
+alias m='multipass'
+alias ml='multipass list'
+alias ms='multipass shell'
 
 # Terraform
 alias tf='terraform'
