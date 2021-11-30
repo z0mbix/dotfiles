@@ -17,10 +17,12 @@ require('nvim-tree').setup({
 	ignore_ft_on_setup = { 'minimap' },
 	auto_close = true,
 	open_on_tab = false,
-	update_to_buf_dir = true, -- hijacks new directory buffers when they are opened.
+	-- hijacks new directory buffers when they are opened.
+	update_to_buf_dir = {
+		enabled = true,
+	},
 	hijack_cursor = false, -- hijack the cursor in the tree to put it at the start of the filename
 	update_cwd = false, -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually
-	lsp_diagnostics = false, -- show lsp diagnostics in the signcolumn
 
 	-- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
 	update_focused_file = {
@@ -38,7 +40,7 @@ require('nvim-tree').setup({
 	},
 
 	view = {
-		width = 40, -- width of the window, can be either a number (columns) or a string in `%`
+		width = 30, -- width of the window, can be either a number (columns) or a string in `%`
 		side = 'left',
 		auto_resize = false, -- if true the tree will resize itself after opening a file
 		mappings = {

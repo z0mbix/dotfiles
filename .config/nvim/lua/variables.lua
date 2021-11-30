@@ -120,6 +120,8 @@ g.nvim_tree_ignore = {
 	'.idea',
 	'.mypy_cache',
 	'.pytest_cache',
+	'.terraform.lock.hcl',
+	'.terragrunt-cache',
 	'.vagrant',
 	'__pycache__',
 	'node_modules',
@@ -146,3 +148,6 @@ g.indent_blankline_show_trailing_blankline_indent = false
 
 -- surround.nvim
 g.surround_mappings_style = 'surround'
+
+-- glow.nvim
+g.glow_border = 'rounded'
