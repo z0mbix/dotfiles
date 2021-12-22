@@ -1,15 +1,15 @@
-# vim: set ft=sh
+# vim:ft=sh
 
 # FreeBSD
 
 export PUPPET_DIR=/usr/local/etc/puppet
-export ARCH=`uname -m`
-export VER=`uname -r|tr 'A-Z' 'a-z'`
+export ARCH=$(uname -m)
+export VER=$(uname -r | tr 'A-Z' 'a-z')
 export PACKAGESITE=ftp://ftp.uk.freebsd.org/pub/FreeBSD/ports/$ARCH/packages-${VER}-release/Latest/
 
 # Update pkgsearch db if installed
 if [ -f /usr/local/bin/pkgsearch ]; then
-	[ -f ~/.portindex.txt ] || pkgsearch -u
+  [ -f ~/.portindex.txt ] || pkgsearch -u
 fi
 
 # Bash tab completion

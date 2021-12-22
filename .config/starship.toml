@@ -1,4 +1,6 @@
 add_newline = false
+command_timeout = 1000
+
 format = """
 $username\
 $hostname\
@@ -38,11 +40,11 @@ success_symbol = "[»](bold green)"
 error_symbol = "[»](bold red)"
 
 [directory]
-style = "bold green"
+style = "green"
 truncation_length = 8
 
 [git_branch]
-style = "bold yellow"
+style = "yellow"
 
 [golang]
 style = "purple"
@@ -57,7 +59,6 @@ format = "[$user]($style) on "
 
 [hostname]
 ssh_only = false
-style = "bright-green"
 format = "[$hostname](bold purple) "
 
 [time]
@@ -75,7 +76,7 @@ ap-northeast-1 = "tok"
 eu-central-1 = "fra"
 eu-west-1 = "ire"
 eu-west-2 = "lon"
-us-east-1 = "n. virg"
+us-east-1 = "virg"
 us-east-2 = "ohio"
 us-west-1 = "cali"
 
@@ -87,7 +88,7 @@ disabled = false
 style = "bright-blue"
 
 [python]
-style = "bold green"
+style = "purple"
 format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
 
 [vagrant]
@@ -96,4 +97,4 @@ disabled = true
 [custom.foo]
 command = "tgsrc-status"
 files = ["terragrunt.hcl"]
-style = "red"
+style = "bold red"

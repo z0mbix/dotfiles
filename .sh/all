@@ -1,4 +1,4 @@
-# vim: set ft=sh
+# vim:ft=sh
 
 [ -d ${HOME}/iCloudDrive/bin ] && PATH=${HOME}/iCloudDrive/bin:${HOME}/iCloudDrive/bin/$OS:$PATH
 [ -d /usr/local/opt/ruby/bin ] && PATH="/usr/local/opt/ruby/bin:$PATH"

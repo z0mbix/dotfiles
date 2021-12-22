@@ -1,9 +1,13 @@
 # vim: set ft=sh
 
+vim-modified-files() {
+  vim $(git status --short | grep -E '\s?M' | awk '{print $2}')
+}
+
 kubeutil() {
-  kubectl get nodes --no-headers |
-    awk '{print $1}' |
-    xargs -I {} sh -c 'echo {} ; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo'
+  kubectl get nodes --no-headers \
+    | awk '{print $1}' \
+    | xargs -I {} sh -c 'echo {} ; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo'
 }
 
 get-ami-name() {
@@ -49,8 +53,8 @@ fjq() {
   TEMP=$(mktemp -t fjq)
   cat >"$TEMP"
   QUERY=$(
-    jq -C . "$TEMP" |
-      fzf --reverse --ansi --phony \
+    jq -C . "$TEMP" \
+      | fzf --reverse --ansi --phony \
         --prompt 'jq> ' --query '.' \
         --preview "set -x; jq -C {q} \"$TEMP\"" \
         --print-query | head -1
@@ -128,9 +132,9 @@ days_in_month() {
       _DAYS_IN_MONTH=31
       ;;
     2 | 02)
-      is_leap_year ${dim_y:-$(date +%Y)} &&
-        _DAYS_IN_MONTH=29 ||
-        _DAYS_IN_MONTH=28
+      is_leap_year ${dim_y:-$(date +%Y)} \
+        && _DAYS_IN_MONTH=29 \
+        || _DAYS_IN_MONTH=28
       ;;
   esac
   echo $_DAYS_IN_MONTH
@@ -219,10 +223,10 @@ mcd() {
 # fbr - checkout git branch, sorted by most recent commit, limit 30 occurences
 fbr() {
   local branches branch
-  branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
-    branch=$(echo "$branches" |
-      fzf-tmux -d $((2 + $(wc -l <<<"$branches"))) +m) &&
-    git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+  branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") \
+    && branch=$(echo "$branches" \
+      | fzf-tmux -d $((2 + $(wc -l <<<"$branches"))) +m) \
+    && git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
 neovim-config() {

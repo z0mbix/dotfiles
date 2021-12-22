@@ -1,3 +1,5 @@
+# vim:ft=sh
+
 export OS="$(uname -s)"
 export ARCH="$(arch)"
 export TERM="xterm-color"
