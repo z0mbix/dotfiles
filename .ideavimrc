@@ -60,10 +60,12 @@ vnoremap H ^
 vnoremap p "_dP
 
 " Bubble multiple lines
-nnoremap <C-K> ddkP
-nnoremap <C-J> ddp
-vmap <C-K> xkP`[V`]
-vmap <C-J> xp`[V`]
+vnoremap <c-k> xkP`[V`]
+vnoremap <c-j> xp`[V`]
+
+" Bubble single lines
+nmap <a-k> :m .-2<CR>
+nmap <a-j> :m  .+1<CR>
 
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j

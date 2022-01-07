@@ -229,7 +229,7 @@ let g:material_theme_style = 'palenight'
 syntax on
 
 set t_ut= " disable background color erase
-" set fillchars+=vert:│ " set split window character
+set fillchars+=vert:│ " set split window character
 " set fillchars+=eob:\  " remove end of buffer tilde
 hi VertSplit ctermbg=none guibg=none
 " }}}
@@ -1122,3 +1122,4 @@ if filereadable(glob(".vimrc.local"))
 	source .vimrc.local
 endif
 " }}}
+"

@@ -53,6 +53,7 @@ alias lg='lazygit'
 alias p=projects
 alias rgq='rg --hidden --no-heading --no-line-number'
 alias luamake='/Users/davidwooldridge/iCloudDrive/Projects/lua-language-server/3rd/luamake/luamake'
+alias t='todo'
 
 # This, allows me to quickly copy a pastable HEREDOC on to new hosts :)
 alias copyinputrc='echo -e "cat > ~/.inputrc <<EOF $(echo; cat ~/.inputrc)\nEOF\nbind -f ~/.inputrc" | pbcopy'

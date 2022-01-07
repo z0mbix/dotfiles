@@ -24,6 +24,22 @@ require('nvim-tree').setup({
 	hijack_cursor = false, -- hijack the cursor in the tree to put it at the start of the filename
 	update_cwd = false, -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually
 
+	filters = {
+		custom = {
+			'.DS_Store',
+			'.cache',
+			'.git',
+			'.idea',
+			'.mypy_cache',
+			'.pytest_cache',
+			'.terraform.lock.hcl',
+			'.terragrunt-cache',
+			'.vagrant',
+			'__pycache__',
+			'node_modules',
+		},
+	},
+
 	-- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
 	update_focused_file = {
 		enable = true,

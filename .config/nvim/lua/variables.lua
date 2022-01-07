@@ -96,7 +96,7 @@ g.goyo_width = '80%'
 
 -- nvim-tree
 g.nvim_tree_show_icons = {
-	git = 0,
+	git = 1,
 	folders = 1,
 	files = 1,
 	folder_arrows = 1,
@@ -111,20 +111,6 @@ g.nvim_tree_window_picker_exclude = {
 	buftype = {
 		'terminal',
 	},
-}
-
-g.nvim_tree_ignore = {
-	'.DS_Store',
-	'.cache',
-	'.git',
-	'.idea',
-	'.mypy_cache',
-	'.pytest_cache',
-	'.terraform.lock.hcl',
-	'.terragrunt-cache',
-	'.vagrant',
-	'__pycache__',
-	'node_modules',
 }
 
 -- git.blame.nvim

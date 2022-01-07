@@ -1,8 +1,10 @@
 [user]
-	name = David Wooldridge (z0mbix)
+	name = z0mbix
 	email = zombie@zombix.org
 	editor = vim
 	signingkey = FFCE5C105D81AB88
+#[includeIf "gitdir:~/Work/"]
+#  path = ~/.gitconfig.work
 [commit]
 	gpgsign = true
 	template = ~/.gitmessage
@@ -11,7 +13,7 @@
 [push]
 	default = current
 [color]
-    ui = auto
+	ui = auto
 [color "branch"]
 	current = yellow reverse
 	local = yellow
@@ -33,9 +35,10 @@
 	quotepath = false
 [alias]
 	alias = !git config -l | grep ^alias | cut -c 7- | sort
-	br = branch --sort=-committerdate
+	br = !"git checkout $(git branch-select)"
 	branch-commit-diff = !"f() { git log --graph --abbrev-commit --date=relative master..$@; }; f"
 	branch-diff = !"f() { git diff master $@; }; f"
+	branch-select = !"git branch | fzf | tr -d '[:space:]\\*'"
 	branch-toggle = checkout -
 	cat = -p cat-file -p
 	changelog = log --pretty=format:\" * %s\"
@@ -53,6 +56,7 @@
 	lol = log --decorate --pretty=oneline --abbrev-commit
 	ls = ls-files
 	ls-ignored = ls-files --exclude-standard --ignored --others
+	main = !"git checkout master || git checkout main"
 	out = log --graph --oneline --pretty=format:'%Cred%h%Cgreen %cd %Creset- %s' --abbrev-commit --date=relative --graph @{upstream}..
 	pr = !"pr() { git fetch origin pull/$1/head:pr-$1; git checkout pr-$1; }; pr"
 	prune = fetch --prune
@@ -65,7 +69,7 @@
 	sp = stash pop
 	ss = stash save
 	st = status -sb
-	stash-all = stash save --include-untracked§
+	stash-all = stash save --include-untracked
 	uncommit = reset --soft HEAD^
 	unstage = reset HEAD
 [advice]
@@ -87,3 +91,5 @@
 	autocorrect = 1
 [pull]
 	default = current
+[init]
+	defaultBranch = main

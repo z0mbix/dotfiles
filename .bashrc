@@ -167,3 +167,5 @@ complete -f -c sudo
 export TERM PATH PROMPT_COMMAND PROMPT_TIME PS1 GOPATH
 
 complete -C /usr/local/bin/consul consul
+
+complete -C /usr/local/bin/vault vault

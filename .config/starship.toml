@@ -34,6 +34,9 @@ $status\
 $shell\
 $character"""
 
+[sudo]
+disabled = false
+
 [character]
 format = "$symbol "
 success_symbol = "[»](bold green)"
