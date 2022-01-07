@@ -1,5 +1,3 @@
-usbWatcher = nil
-
 function usbDeviceCallback(data)
 	-- debug USB devices
 	-- print(hs.inspect.inspect(data))
@@ -17,11 +15,19 @@ function usbDeviceCallback(data)
 	-- detect when USB keyboard is connected/disconnected and switch input source
 	if data["productName"] == "USB Keyboard" then
 		if data["eventType"] == "added" then
-			print("USB keyboard connected, switching input source")
-			hs.keycodes.setLayout("British - PC")
+			layout = "British – PC"
+			print(string.format("USB keyboard connected, switching keyboard layout to %s", layout))
+			result = hs.keycodes.setLayout(layout)
+			if not result then
+				print(string.format("Could not switch keyboard layout to %s", layout))
+			end
 		elseif data["eventType"] == "removed" then
-			print("USB keyboard disconnected, switching input source")
-			hs.keycodes.setLayout("British")
+			layout = "British"
+			print(string.format("USB keyboard disconnected, switching keyboard layout to %s", layout))
+			result = hs.keycodes.setLayout(layout)
+			if not result then
+				print(string.format("Could not switch keyboard layout to %s", layout))
+			end
 		end
 	end
 end
@@ -42,3 +48,17 @@ usbWatcher:start()
   vendorID = 4176,
   vendorName = "Yubico"
 } ]]
+
+function screenCallback(eventType)
+	if (eventType == 10) then
+		volume = hs.audiodevice.defaultOutputDevice():volume()
+		print(string.format("screen locked, volume was set to %i", volume))
+		hs.audiodevice.defaultOutputDevice():setVolume(0)
+	elseif (eventType == 11) then
+		print(string.format("screen unlocked, setting volume to %i", volume))
+		hs.audiodevice.defaultOutputDevice():setVolume(volume)
+	end
+end
+
+screenWatcher = hs.caffeinate.watcher.new(screenCallback)
+screenWatcher:start()
