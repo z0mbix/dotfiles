@@ -30,14 +30,6 @@ fi
 #   ssh-add
 # fi
 
-# https://github.com/gyf304/vmcli
-if [[ $ARCH == "arm64" ]]; then
-  export VMCTLDIR="$HOME/VMs"
-  if [[ ! -d $VMCTLDIR ]]; then
-    mkdir -p $VMCTLDIR
-  fi
-fi
-
 # Aliases
 alias ls='ls -FG'
 alias tl='tail -f /var/log/system.log'
