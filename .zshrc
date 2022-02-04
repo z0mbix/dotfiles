@@ -94,7 +94,7 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 [ -f ~/.sh/$SHELL ] && source ~/.sh/$SHELL
 [ -f ~/.sh/local ] && source ~/.sh/local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f ~/iCloudDrive/.todo ] && /bin/cat ~/iCloudDrive/.todo
+[ -f ~/iCloudDrive/.todo ] && bat -l yaml --style numbers ~/iCloudDrive/.todo
 
 # local zsh completions
 [ -d ~/.zsh/completion ] && fpath=(~/.zsh/completion $fpath)

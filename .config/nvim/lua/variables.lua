@@ -58,7 +58,7 @@ g.markdown_fenced_languages = {
 g.ale_linters = {
 	javascript = { 'eslint' },
 	lua = { 'luac' },
-	python = { 'pylint', 'flake8' },
+	python = { 'pylint', 'pycodestyle' },
 	sh = { 'shellcheck' },
 	terraform = { 'terraform' },
 }

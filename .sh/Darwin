@@ -1,10 +1,18 @@
 # vim:ft=sh
 
-# Darwin (Mac OS X)
+# Darwin (MacOS)
 
 export HOMEBREW_INSTALL_BADGE=📦
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_ROOT='/usr/local'
+
+if command -v brew &>/dev/null; then
+  if [ $ARCH = 'arm64' ]; then
+    FPATH=/opt/homebrew/share/zsh/site-functions:$FPATH
+  else
+    FPATH=/usr/local/share/zsh/site-functions:$FPATH
+  fi
+fi
 
 [ -d /Developer/usr/bin ] && PATH=$PATH:/Developer/usr/bin
 
@@ -12,7 +20,7 @@ if [ -d /opt/homebrew/opt/openjdk/bin ]; then
   export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 fi
 
-# GPG agent
+# GPG agent for SSH
 if [ -d /usr/local/MacGPG2/bin ]; then
   if [ ! -S ~/.gnupg/S.gpg-agent ]; then
     eval $(gpg-agent --daemon)
@@ -25,7 +33,7 @@ if [ -d /usr/local/MacGPG2/bin ]; then
 fi
 
 # Is homebreww openssh installed?
-# if [[ -f /usr/local/bin/ssh ]]; then
+# if [ -f /usr/local/bin/ssh ]; then
 #   eval $(ssh-agent)
 #   ssh-add
 # fi
@@ -47,8 +55,3 @@ alias xclip='pbcopy'
 
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 alias update-all-software='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup'
-
-# Start screensaver
-alias screensaver='open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app'
-
-alias kubernetic='/Applications/Kubernetic.app/Contents/MacOS/Kubernetic'

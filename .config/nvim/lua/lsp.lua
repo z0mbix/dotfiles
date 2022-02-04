@@ -57,7 +57,6 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 local nvim_lsp = require('lspconfig')
 local servers = {
 	'bashls',
-	'pylsp',
 	'terraformls',
 }
 for _, lsp in ipairs(servers) do
@@ -66,6 +65,9 @@ for _, lsp in ipairs(servers) do
 		on_attach = on_attach,
 	})
 end
+
+-- pylsp
+require('lspconfig').pylsp.setup{}
 
 -- go
 nvim_lsp.gopls.setup({

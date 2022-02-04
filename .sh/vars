@@ -6,7 +6,6 @@ export TERM="xterm-color"
 export LESS="-niSRXF"
 export EDITOR=vim
 export ANSIBLE_NOCOWS=1
-export SHELLCHECK_OPTS="-e SC2155"
 export CHECKPOINT_DISABLE=1
 export TF_PLUGIN_CACHE_DIR="${HOME}/.terraform.d/plugin-cache"
 export SHELL_NAME="$(basename $SHELL)"
@@ -19,7 +18,7 @@ export FZF_DEFAULT_COMMAND='fd --hidden --exclude "node_modules" --exclude ".git
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 
-# support colors in less/manpages
+# support colours in less/manpages
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
 export LESS_TERMCAP_me=$'\E[0m'

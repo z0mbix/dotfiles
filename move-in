@@ -7,7 +7,7 @@
 gh_user="z0mbix"
 url="https://github.com/${gh_user}/dotfiles/tarball/master"
 os="$(uname)"
-td="$(mktemp -d XXXXXX)"
+tmp_dir="$(mktemp -d XXXXXX)"
 tar="tar"
 fetch="curl -s -L"
 
@@ -15,15 +15,15 @@ fetch="curl -s -L"
 [ $os == "OpenBSD" ] && fetch="ftp -o -"
 [ $os == "SunOS" ] && tar="gtar"
 
-$fetch $url | $tar -C $td -xzf -
+$fetch $url | $tar -C $tmp_dir -xzf -
 
-rm -f $td/${gh_user}-*/{README,move-in}
-cd $td/${gh_user}-* && $tar -cf - . | (
+rm -f $tmp_dir/${gh_user}-*/{README,move-in}
+cd $tmp_dir/${gh_user}-* && $tar -cf - . | (
   cd
   tar -xvf -
 )
 cd -
-rm -rf $td
+rm -rf $tmp_dir
 
 if [ ! -d ~/.ssh/ ]; then
   mkdir ~/.ssh/
@@ -41,6 +41,8 @@ if [ $os == "OpenBSD" ]; then
   fi
   mv ~/.profile-openbsd ~/.profile
   rm -f .cshrc .login .mailrc
+else
+  rm ~/.profile-openbsd ~/.packages.openbsd
 fi
 
 if [ ! -d ~/.zsh/completion ]; then
@@ -50,9 +52,13 @@ fi
 # Dump stuff we don't need on OS X?
 if [ $os == "Darwin" ]; then
   rm -rf ~/.fluxbox
-  rm -f ~/.conkyrc .Xdefaults ~/.xsession ~/.xinitrc ~/.profile-openbsd ~/.packages.openbsd
+  rm -f ~/.conkyrc .Xdefaults ~/.xsession ~/.xinitrc
   ln -sf ~/.config/Code/User/settings.json ~/Library/Application\ Support/Code/User/settings.json
   ln -sf ~/.config/Code/User/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
+
+  if [ -d ~/Library/Mobile\ Documents/com~apple~CloudDocs ] && [ ! -h ~/iCloudDrive ]; then
+    ln -s ~/Library/Mobile\ Documents/com~apple~CloudDocs ~/iCloudDrive
+  fi
 fi
 
 # Setup shell
@@ -60,7 +66,6 @@ fi
 
 # Setup vim/neovim
 [ ! -d ~/.config/nvim ] && mkdir -p ~/.config/nvim
-ln -s ~/.vimrc ~/.config/nvim/init.vim
 
 if ! command -v git >/dev/null 2>&1; then
   echo "You need to install git"
@@ -71,8 +76,10 @@ if command -v nvim >/dev/null 2>&1; then
   curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   if [ ! -d ~/.local/share/nvim/plugged ]; then
-    nvim +PlugInstall +qall
+    nvim +PackerInstall +qall
   fi
+else
+  echo "You need to install neovim"
 fi
 
 if command -v vim >/dev/null 2>&1; then
@@ -86,13 +93,14 @@ else
 fi
 
 # Install starship
-if ! command -v /usr/bin/starship >/dev/null; then
+if ! command -v starship >/dev/null; then
+  echo 'installing starship...'
   if [ $os == "Linux" ]; then
-    curl -fsSL https://starship.rs/install.sh | bash
+    sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --yes
   fi
   if [ $os == "Darwin" ]; then
     if command -v brew >/dev/null; then
-      brew install starship
+      brew install --quiet starship
     fi
   fi
 fi

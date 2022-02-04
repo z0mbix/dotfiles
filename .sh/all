@@ -1,7 +1,8 @@
 # vim:ft=sh
 
+# set -x
+
 [ -d ${HOME}/iCloudDrive/bin ] && PATH=${HOME}/iCloudDrive/bin:${HOME}/iCloudDrive/bin/$OS:$PATH
-[ -d /usr/local/opt/ruby/bin ] && PATH="/usr/local/opt/ruby/bin:$PATH"
 
 PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/.local/bin:$PATH
 [ -d /opt/homebrew/bin ] && PATH="/opt/homebrew/bin:$PATH"
@@ -19,7 +20,9 @@ fi
 
 if command -v pyenv >/dev/null 2>&1; then
   eval "$(pyenv init --path)"
-  eval "$(pyenv virtualenv-init -)"
+  if command -v virtualenv-init >/dev/null 2>&1; then
+    eval "$(pyenv virtualenv-init -)"
+  fi
   eval "$(pyenv init -)"
 fi
 
@@ -33,49 +36,53 @@ fi
 
 if command -v starship >/dev/null 2>&1; then
   eval "$(starship init $SHELL_NAME)"
+else
+  ret_status="%(?:%{$fg[green]%}»:%{$fg[red]%}»)"
+
+  newline=$'\n'
+  PROMPT='%{$fg_bold[green]%}%p%{$reset_color%}[%{$fg[yellow]%}%T%{$reset_color%}] %{$fg[cyan]%}%m %{$fg_bold[blue]%}%~%1(j: (%j):) %{$reset_color%}$(git_prompt_info)${newline}${ret_status}%{$reset_color%} '
+
+  ZSH_THEME_GIT_PROMPT_CLEAN=") %{$fg_bold[green]%}✔ "
+  ZSH_THEME_GIT_PROMPT_DIRTY=") %{$fg_bold[yellow]%}✗ "
+  ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[cyan]%}("
+  ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 fi
 
 if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init $SHELL_NAME)"
 fi
 
-if command -v kubectl >/dev/null 2>&1; then
-  source <(kubectl completion zsh)
-fi
+# if command -v kubectl >/dev/null 2>&1; then
+#   source <(kubectl completion zsh)
+# fi
 
-if [[ -e $HOME/.cargo/bin ]]; then
+if [ -e $HOME/.cargo/bin ]; then
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
-if [[ -e $HOME/.krew/bin/kubectl-krew ]] || command -v kubectl-krew >/dev/null; then
+if [ -e $HOME/.krew/bin/kubectl-krew ] || command -v kubectl-krew >/dev/null; then
   export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 fi
 
-if [[ -e $HOME/.poetry/bin/poetry ]]; then
+if [ -e $HOME/.poetry/bin/poetry ]; then
   export PATH="$HOME/.poetry/bin:$PATH"
 fi
 
-if [[ -e $HOME/.cargo/bin ]]; then
+if [ -e $HOME/.cargo/bin ]; then
   export PATH="$PATH:$HOME/.cargo/bin"
 fi
 
-if [[ -e $HOME/.tfenv/bin ]]; then
+if [ -e $HOME/.tfenv/bin ]; then
   export PATH="$HOME/.tfenv/bin:$PATH"
 fi
 
-if [[ -e $HOME/.tgenv/bin ]]; then
+if [ -e $HOME/.tgenv/bin ]; then
   export PATH="$HOME/.tgenv/bin:$PATH"
-fi
-
-if [[ -e /usr/local/Caskroom/google-cloud-sdk ]]; then
-  source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-  source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 fi
 
 export SDKMAN_DIR="$HOME/.sdkman"
 [ -s "$HOME/.sdkman/bin/sdkman-init.sh" ] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-if [[ -e $HOME/.volta ]]; then
-  export VOLTA_HOME="$HOME/.volta"
-  export PATH="$VOLTA_HOME/bin:$PATH"
+if [ -e $HOME/.volta ]; then
+  export PATH="$HOME/.volta/bin:$PATH"
 fi
