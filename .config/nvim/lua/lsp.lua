@@ -84,47 +84,49 @@ nvim_lsp.gopls.setup({
 })
 
 --lua
-sumneko_root_path = vim.loop.os_homedir() .. '/.local/share/lua-language-server'
+if vim.fn.system('arch') == "amd64" then
+	sumneko_root_path = vim.loop.os_homedir() .. '/.local/share/lua-language-server'
 
-if vim.fn.has('mac') then
-	sumneko_binary = sumneko_root_path .. '/bin/macOS/lua-language-server'
-elseif vim.fn.has('unix') then
-	sumneko_binary = sumneko_root_path .. '/bin/Linux/lua-language-server'
-end
+	if vim.fn.has('mac') then
+		sumneko_binary = sumneko_root_path .. '/bin/macOS/lua-language-server'
+	elseif vim.fn.has('unix') then
+		sumneko_binary = sumneko_root_path .. '/bin/Linux/lua-language-server'
+	end
 
-require('lspconfig').sumneko_lua.setup({
-	cmd = {
-		sumneko_binary,
-		'-E',
-		sumneko_root_path .. '/main.lua',
-	},
-	on_attach = on_attach,
-	settings = {
-		Lua = {
-			completion = {
-				keywordSnippet = 'Disable',
-			},
-			diagnostics = {
-				globals = { 'vim', 'use' },
-				disable = { 'lowercase-global' },
-			},
-			runtime = {
-				version = 'LuaJIT',
-				path = vim.split(package.path, ';'),
-			},
-			workspace = {
-				library = {
-					[vim.fn.expand('$VIMRUNTIME/lua')] = true,
-					[vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+	require('lspconfig').sumneko_lua.setup({
+		cmd = {
+			sumneko_binary,
+			'-E',
+			sumneko_root_path .. '/main.lua',
+		},
+		on_attach = on_attach,
+		settings = {
+			Lua = {
+				completion = {
+					keywordSnippet = 'Disable',
+				},
+				diagnostics = {
+					globals = { 'vim', 'use' },
+					disable = { 'lowercase-global' },
+				},
+				runtime = {
+					version = 'LuaJIT',
+					path = vim.split(package.path, ';'),
+				},
+				workspace = {
+					library = {
+						[vim.fn.expand('$VIMRUNTIME/lua')] = true,
+						[vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+					},
 				},
 			},
 		},
-	},
-	commands = {
-		Format = {
-			function()
-				require('stylua-nvim').format_file()
-			end,
+		commands = {
+			Format = {
+				function()
+					require('stylua-nvim').format_file()
+				end,
+			},
 		},
-	},
-})
+	})
+end

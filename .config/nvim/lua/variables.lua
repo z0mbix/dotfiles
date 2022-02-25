@@ -28,7 +28,10 @@ g.mysyntaxfile = '~/.config/nvim/after/ftplugin/all.vim'
 -- g.python3_host_prog='~/.venvs/neovim3/bin/python'
 
 -- colours
-g.colorscheme_name = 'palenight'
+-- g.colorscheme_name = 'palenight'
+-- g.colorscheme_name = 'monokaipro'
+g.colorscheme_name = 'catppuccin'
+g.monokaipro_filter = "octogon"
 g.nvcode_termcolors = 256
 
 -- submode
