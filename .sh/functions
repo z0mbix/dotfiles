@@ -1,7 +1,7 @@
 # vim: set ft=sh
 
 vim-modified-files() {
-  vim $(git status --short | grep -E '\s?M' | awk '{print $2}')
+  nvim $(git status --short | grep -E '\s?M' | awk '{print $2}')
 }
 
 kubeutil() {
@@ -63,7 +63,16 @@ fjq() {
 }
 
 viw() {
-  vim "$(which "$1")"
+  nvim "$(which "$1")"
+}
+alias vimw='viw'
+
+catw() {
+  cat "$(which "$1")"
+}
+
+filew() {
+  file "$(which "$1")"
 }
 
 cdls() {

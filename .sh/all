@@ -2,16 +2,16 @@
 
 # set -x
 
-[ -d ${HOME}/iCloudDrive/bin ] && PATH=${HOME}/iCloudDrive/bin:${HOME}/iCloudDrive/bin/$OS:$PATH
+[ -d ${HOME}/iCloudDrive/bin ] && PATH=${HOME}/iCloudDrive/bin/$OS:${HOME}/iCloudDrive/bin:${HOME}/iCloudDrive/bin/$OS/$ARCH:$PATH
 
-PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/.local/bin:$PATH
+PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/.local/bin:$HOME/go/bin:$PATH
 [ -d /opt/homebrew/bin ] && PATH="/opt/homebrew/bin:$PATH"
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+# export PYENV_ROOT="$HOME/.pyenv"
+PATH="$HOME/.pyenv/bin:$PATH"
 
 if command -v virtualenvwrapper.sh >/dev/null 2>&1; then
-  source virtualenvwrapper.sh
+  source virtualenvwrappe.rsh
 fi
 
 if command -v nvim >/dev/null 2>&1; then
@@ -57,32 +57,34 @@ fi
 # fi
 
 if [ -e $HOME/.cargo/bin ]; then
-  export PATH="$HOME/.cargo/bin:$PATH"
+  PATH="$HOME/.cargo/bin:$PATH"
 fi
 
 if [ -e $HOME/.krew/bin/kubectl-krew ] || command -v kubectl-krew >/dev/null; then
-  export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+  PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 fi
 
 if [ -e $HOME/.poetry/bin/poetry ]; then
-  export PATH="$HOME/.poetry/bin:$PATH"
+  PATH="$HOME/.poetry/bin:$PATH"
 fi
 
 if [ -e $HOME/.cargo/bin ]; then
-  export PATH="$PATH:$HOME/.cargo/bin"
+  PATH="$PATH:$HOME/.cargo/bin"
 fi
 
 if [ -e $HOME/.tfenv/bin ]; then
-  export PATH="$HOME/.tfenv/bin:$PATH"
+  PATH="$HOME/.tfenv/bin:$PATH"
 fi
 
 if [ -e $HOME/.tgenv/bin ]; then
-  export PATH="$HOME/.tgenv/bin:$PATH"
+  PATH="$HOME/.tgenv/bin:$PATH"
 fi
 
 export SDKMAN_DIR="$HOME/.sdkman"
 [ -s "$HOME/.sdkman/bin/sdkman-init.sh" ] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 if [ -e $HOME/.volta ]; then
-  export PATH="$HOME/.volta/bin:$PATH"
+  PATH="$HOME/.volta/bin:$PATH"
 fi
+
+export PATH

@@ -18,13 +18,6 @@ alias svim='sudo -e'
 alias scat='sudo cat'
 alias cast='cat'
 alias c='clear'
-alias cd..='cd ..'
-alias cd...='cd ../..'
-alias cd....='cd ../../..'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
 alias d='df -h'
 alias h='history'
 alias recall='history | grep'
@@ -34,10 +27,11 @@ alias pign='ping' # doh!
 alias running_vms='VBoxManage list runningvms | cut -f2 -d\"'
 alias serve_cwd='python -m SimpleHTTPServer'
 alias cat-without-comments="grep -v -E '^$|^[[:blank:]]*#|^;|^[[:blank:]]*//|(/\*([^*]|(\*+[^*/]))*\*+/)|(//.*)'"
-alias pubkey="cat ~/.ssh/id_ed25519.pub | pbcopy | printf 'Public key copied to pasteboard.\n'"
+alias pubkey="cat $HOME/.ssh/id_ed25519.pub | pbcopy | printf 'Public key copied to pasteboard.\n'"
 alias public-ip='curl https://icanhazip.com/'
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 alias j='jobs'
+alias p1='ping 1.1.1.1'
 alias p8='ping 8.8.8.8'
 alias vd='vimdiff'
 alias countdown='mpg321 -q ~/iCloudDrive/Documents/Sounds/countdown.mp3'
@@ -51,10 +45,26 @@ alias shrug='echo -n "¯\\_(ツ)_/¯"'
 alias bandwhich='sudo bandwhich'
 alias fzfp='fzf --preview "bat --style=numbers --color=always --line-range :500 {}" --border --height 50%'
 alias lg='lazygit'
-alias p=projects
 alias rgq='rg --hidden --no-heading --no-line-number'
-alias luamake='/Users/davidwooldridge/iCloudDrive/Projects/lua-language-server/3rd/luamake/luamake'
+alias luamake="$HOME/iCloudDrive/Projects/lua-language-server/3rd/luamake/luamake"
 alias t='todo'
+alias bu='backup'
+alias emf='vim-modified-files'
+
+# Directories and navigation
+alias cd..='cd ..'
+alias cd...='cd ../..'
+alias cd....='cd ../../..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias dotfiles="cd $HOME/iCloudDrive/Projects/dotfiles"
+alias study="cd $HOME/iCloudDrive/Study"
+alias downloads="cd $HOME/Downloads"
+alias icd="cd $HOME/iCloudDrive"
+alias bin="cd $HOME/iCloudDrive/bin"
+alias p=projects
 
 # This, allows me to quickly copy a pastable HEREDOC on to new hosts :)
 alias copyinputrc='echo -e "cat > ~/.inputrc <<EOF $(echo; cat ~/.inputrc)\nEOF\nbind -f ~/.inputrc" | pbcopy'
@@ -105,7 +115,7 @@ alias ms='multipass shell'
 # Terraform
 alias tf='terraform'
 alias tg='terragrunt'
-alias tg_cache_clear='find . -name .terragrunt-cache | xargs -n1 rm -rf'
+alias tg-cache-clear='find . -name .terragrunt-cache | xargs -n1 rm -rf'
 
 # Kubernetes
 alias k='kubectl'
@@ -135,7 +145,6 @@ alias kds='kubectl describe secrets'
 alias wkgp='watch -n3 "kubectl get pods"'
 alias kdump='kubectl get all --all-namespaces'
 alias kubefwd='sudo kubefwd'
-alias kp='kube-prompt'
 alias ns='kubens'
 alias ctx='kubectx'
 
@@ -143,13 +152,6 @@ alias ctx='kubectx'
 alias aws-account-id='aws sts get-caller-identity | jq -r ".Account"'
 alias aws-account-alias='aws iam list-account-aliases | jq -r ".AccountAliases[]"'
 alias aws-running-instances='aws ec2 describe-instances --output=json --filters "Name=instance-state-name,Values=running"'
-
-# Directories
-alias dropbox='cd $HOME/iCloudDrive'
-alias dotfiles='cd ~/iCloudDrive/Projects/dotfiles'
-alias study='cd ~/iCloudDrive/Study'
-alias downloads='cd ~/Downloads'
-alias icd='cd ~/iCloudDrive'
 
 # Proxy
 alias proxyon='source ~/.sh/proxy'
