@@ -1,9 +1,5 @@
 # vim: set ft=sh
 
-vim-modified-files() {
-  nvim $(git status --short | grep -E '\s?M' | awk '{print $2}')
-}
-
 kubeutil() {
   kubectl get nodes --no-headers \
     | awk '{print $1}' \
@@ -66,6 +62,14 @@ viw() {
   nvim "$(which "$1")"
 }
 alias vimw='viw'
+
+vg() {
+  nvim +copen -q <(rg --vimgrep --column --no-heading "${@:?No pattern provided.}")
+}
+
+vim-modified-files() {
+  nvim $(git status --short | grep -E '\s?M' | awk '{print $2}')
+}
 
 catw() {
   cat "$(which "$1")"

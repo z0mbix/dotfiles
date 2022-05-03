@@ -1,5 +1,9 @@
 local g = vim.g
 
+-- enable filetype.lua
+g.do_filetype_lua = 1
+g.did_load_filetypes = 0
+
 -- disable stuff I don't care about
 g.loaded_2html_plugin = 1
 g.loaded_getscript = 1

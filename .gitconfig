@@ -33,6 +33,7 @@
 	excludesfile = ~/.gitignore
 	pager = less -FRSX
 	quotepath = false
+	autocrlf = input
 [alias]
 	alias = !git config -l | grep ^alias | cut -c 7- | sort
 	br = !"git checkout $(git branch-select)"
@@ -91,5 +92,6 @@
 	autocorrect = 1
 [pull]
 	default = current
+	; rebase = true
 [init]
 	defaultBranch = main

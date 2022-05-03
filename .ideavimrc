@@ -2,7 +2,8 @@ let mapleader = ' '
 
 set number
 set relativenumber
-set incsearch hlsearch
+set incsearch
+" set incsearch hlsearch
 set ignorecase smartcase
 set clipboard=unnamed
 set scrolloff=5
@@ -67,6 +68,7 @@ vnoremap <c-j> xp`[V`]
 nmap <a-k> :m .-2<CR>
 nmap <a-j> :m  .+1<CR>
 
+" switch panes nicely
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k

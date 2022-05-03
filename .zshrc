@@ -36,6 +36,7 @@ if ! zgen saved; then
   zgen oh-my-zsh plugins/pip
   zgen oh-my-zsh plugins/python
   zgen oh-my-zsh plugins/ssh-agent
+  zgen oh-my-zsh plugins/sudo
   zgen oh-my-zsh plugins/terraform
 
   if [[ $ARCH == "x86_64" ]]; then
@@ -94,7 +95,6 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 [ -f ~/.sh/$SHELL ] && source ~/.sh/$SHELL
 [ -f ~/.sh/local ] && source ~/.sh/local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f ~/iCloudDrive/.todo ] && bat -l yaml --style numbers ~/iCloudDrive/.todo
 
 # local zsh completions
 [ -d ~/.zsh/completion ] && fpath=(~/.zsh/completion $fpath)

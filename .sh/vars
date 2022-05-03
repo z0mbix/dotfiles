@@ -9,6 +9,8 @@ export ANSIBLE_NOCOWS=1
 export CHECKPOINT_DISABLE=1
 export TF_PLUGIN_CACHE_DIR="${HOME}/.terraform.d/plugin-cache"
 export SHELL_NAME="$(basename $SHELL)"
+export GOPASS_NO_REMINDER=fuckoff
+export TIMEFMT=$'\e[33m%J\e[0m took \e[35m%E\e[0m'
 
 export AWS_DEFAULT_REGION="eu-west-1"
 export AWS_PAGER=""
