@@ -1,9 +1,5 @@
 local g = vim.g
 
--- enable filetype.lua
-g.do_filetype_lua = 1
-g.did_load_filetypes = 0
-
 -- disable stuff I don't care about
 g.loaded_2html_plugin = 1
 g.loaded_getscript = 1
@@ -107,17 +103,6 @@ g.nvim_tree_show_icons = {
 	folders = 1,
 	files = 1,
 	folder_arrows = 1,
-}
-
-g.nvim_tree_window_picker_exclude = {
-	filetype = {
-		'minimap',
-		'packer',
-		'qf',
-	},
-	buftype = {
-		'terminal',
-	},
 }
 
 -- git.blame.nvim

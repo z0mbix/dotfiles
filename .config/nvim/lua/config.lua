@@ -15,14 +15,30 @@ require('nvim-tree').setup({
 	hijack_netrw = true,
 	open_on_setup = false,
 	ignore_ft_on_setup = { 'minimap' },
-	auto_close = true,
 	open_on_tab = false,
-	-- hijacks new directory buffers when they are opened.
-	update_to_buf_dir = {
-		enabled = true,
-	},
 	hijack_cursor = false, -- hijack the cursor in the tree to put it at the start of the filename
 	update_cwd = false, -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually
+
+	actions = {
+		open_file = {
+			window_picker = {
+				exclude = {
+					filetype = {
+						'diff',
+						'fugitive',
+						'fugitiveblame',
+						'notify',
+						'packer',
+						'qf',
+						'minimap',
+					},
+					buftype = {
+						'terminal',
+					}
+				},
+			},
+		},
+	},
 
 	filters = {
 		custom = {
@@ -58,7 +74,6 @@ require('nvim-tree').setup({
 	view = {
 		width = 30, -- width of the window, can be either a number (columns) or a string in `%`
 		side = 'left',
-		auto_resize = false, -- if true the tree will resize itself after opening a file
 		mappings = {
 			-- custom only false will merge the list with the default mappings
 			-- if true, it will only use your list to set the mappings
@@ -71,7 +86,7 @@ require('nvim-tree').setup({
 
 -- treesitter
 require('nvim-treesitter.configs').setup({
-	ensure_installed = 'maintained',
+	ensure_installed = 'all',
 	highlight = {
 		enable = true,
 		disable = {
