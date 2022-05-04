@@ -31,7 +31,7 @@
 [core]
 	whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	excludesfile = ~/.gitignore
-	pager = less -FRSX
+	pager = diff-so-fancy | less -FRSX
 	quotepath = false
 	autocrlf = input
 [alias]
@@ -76,7 +76,7 @@
 [advice]
 	statusHints = false
 [diff]
-	tool = icdiff
+	tool = diff-so-fancy
 	renames = copies
 	mnemonicprefix = true
 	noprefix = true
@@ -95,3 +95,7 @@
 	; rebase = true
 [init]
 	defaultBranch = main
+[interactive]
+	diffFilter = diff-so-fancy --patch
+[diff-so-fancy]
+	markEmptyLines = false
