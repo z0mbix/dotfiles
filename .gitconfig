@@ -48,6 +48,7 @@
 	dc = diff --cached
 	df = diff
 	diff-last-commit = diff HEAD^ HEAD
+	show-diff = !"f() { git diff $1^!; }; f"
 	ds = diff --stat
 	home = rev-parse --show-toplevel
 	in = !git fetch && git log --pretty=oneline --abbrev-commit --graph ..@{upstream}
