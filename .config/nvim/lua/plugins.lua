@@ -8,14 +8,15 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 return require('packer').startup(function()
+	use 'https://gitlab.com/__tpb/monokai-pro.nvim'
 	use('alexaandru/nvim-lspupdate')
 	use('andymass/vim-matchup')
 	use('b3nj5m1n/kommentary')
-	use('ur4ltz/surround.nvim')
 	use('bogado/file-line')
 	use('cappyzawa/trim.nvim')
 	use('christianchiarulli/nvcode-color-schemes.vim')
 	use('ckipp01/stylua-nvim')
+	use('danilamihailov/beacon.nvim')
 	use('danro/rename.vim')
 	use('dense-analysis/ale')
 	use('ellisonleao/glow.nvim')
@@ -53,8 +54,8 @@ return require('packer').startup(function()
 	use('romgrk/barbar.nvim')
 	use('sindrets/diffview.nvim')
 	use('szw/vim-maximizer')
-	use 'https://gitlab.com/__tpb/monokai-pro.nvim'
 	use('towolf/vim-helm')
+	use('ur4ltz/surround.nvim')
 	use('wbthomason/packer.nvim')
 	use('wellle/targets.vim')
 	use('wfxr/minimap.vim')

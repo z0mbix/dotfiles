@@ -69,6 +69,7 @@ remap('n', '<leader>fl', ':Telescope current_buffer_fuzzy_find sorting_strategy=
 remap('n', '<leader>ff', ':Telescope find_files<CR>', opts)
 remap('n', '<leader>fb', ':Telescope file_browser<CR>', opts)
 remap('n', '<leader>fc', ':Telescope commands<CR>', opts)
+remap('n', '<leader>fC', ':Telescope colorscheme<CR>', opts)
 remap('n', '<leader>fF', ':Telescope git_files<CR>', opts)
 remap('n', '<leader>fb', ':Telescope buffers<CR>', opts)
 remap('n', '<leader>fh', ':Telescope command_history<CR>', opts)
