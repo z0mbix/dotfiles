@@ -22,15 +22,15 @@ g.loaded_zip = 1
 g.loaded_zipPlugin = 1
 
 -- set formatoptions to override all the shit plugins do to it
-g.mysyntaxfile = '~/.config/nvim/after/ftplugin/all.vim'
+g.mysyntaxfile = "~/.config/nvim/after/ftplugin/all.vim"
 
 -- python provider for neovim
 -- g.python3_host_prog='~/.venvs/neovim3/bin/python'
 
 -- colours
 -- g.colorscheme_name = 'palenight'
--- g.colorscheme_name = 'monokaipro'
-g.colorscheme_name = 'catppuccin'
+g.colorscheme_name = "monokaipro"
+-- g.colorscheme_name = 'catppuccin'
 g.monokaipro_filter = "octogon"
 g.nvcode_termcolors = 256
 
@@ -44,66 +44,59 @@ g.terraform_fmt_on_save = 1
 
 -- markdown Language highlighting
 g.markdown_fenced_languages = {
-	'go',
-	'html',
-	'java',
-	'javascript',
-	'json',
-	'python',
-	'ruby',
-	'rust',
-	'typescript',
-	'vim',
-	'yaml',
+  "go",
+  "html",
+  "java",
+  "javascript",
+  "json",
+  "python",
+  "ruby",
+  "rust",
+  "typescript",
+  "vim",
+  "yaml",
 }
 
 -- ALE
 g.ale_linters = {
-	javascript = { 'eslint' },
-	lua = { 'luac' },
-	python = { 'pylint', 'pycodestyle' },
-	sh = { 'shellcheck' },
-	terraform = { 'terraform' },
+  javascript = { "eslint" },
+  lua = { "luac" },
+  python = { "pylint", "pycodestyle" },
+  sh = { "shellcheck" },
+  terraform = { "terraform" },
 }
 
 g.ale_fixers = {
-	go = { 'goimports' },
-	javascript = { 'prettier', 'eslint' },
-	json = { 'jq' },
-	lua = { 'stylua' },
-	python = { 'autopep8' },
-	sh = { 'shfmt' },
-	terraform = { 'terraform' },
-	typescript = { 'eslint', 'tslint', 'tsserver' },
-	vue = { 'prettier', 'eslint' },
+  go = { "goimports" },
+  javascript = { "prettier", "eslint" },
+  json = { "jq" },
+  lua = { "stylua" },
+  python = { "autopep8" },
+  sh = { "shfmt" },
+  terraform = { "terraform" },
+  typescript = { "eslint", "tslint", "tsserver" },
+  vue = { "prettier", "eslint" },
 }
 
 g.ale_fix_on_save = 1
-g.ale_sign_error = '✗'
-g.ale_sign_warning = '⚡'
-g.ale_echo_msg_error_str = '✗'
-g.ale_echo_msg_warning_str = '⚡'
-g.ale_echo_msg_format = '[%linter%] %s [%severity%]'
+g.ale_sign_error = "✗"
+g.ale_sign_warning = "⚡"
+g.ale_echo_msg_error_str = "✗"
+g.ale_echo_msg_warning_str = "⚡"
+g.ale_echo_msg_format = "[%linter%] %s [%severity%]"
 g.ale_sign_highlight_linenrs = 1
-g.ale_sh_shellcheck_exclusions = 'SC2068,SC2086'
-g.ale_sh_shellcheck_dialect = 'bash'
-g.ale_sh_shfmt_options = '-i 2 -ci -bn'
-g.ale_python_autopep8_options = '--max-line-length=160'
+g.ale_sh_shellcheck_exclusions = "SC2068,SC2086"
+g.ale_sh_shellcheck_dialect = "bash"
+g.ale_sh_shfmt_options = "-i 2 -ci -bn"
+g.ale_python_autopep8_options = "--max-line-length=160"
+g.ale_lua_stylua_options = "--search-parent-directories"
 
 -- json
 g.vim_json_syntax_conceal = 0
 
 -- goyo
-g.goyo_height = '80%'
-g.goyo_width = '80%'
-
--- nvim-tree
-g.nvim_tree_show_icons = {
-	git = 1,
-	folders = 1,
-	files = 1,
-	folder_arrows = 1,
-}
+g.goyo_height = "80%"
+g.goyo_width = "80%"
 
 -- git.blame.nvim
 g.gitblame_enabled = 0
@@ -112,20 +105,20 @@ g.gitblame_enabled = 0
 g.minimap_auto_start = 0
 g.minimap_width = 20
 g.minimap_highlight_range = true
-g.minimap_block_filetypes = { 'help', 'NvimTree' }
+g.minimap_block_filetypes = { "help", "NvimTree" }
 
 -- vim-maximizer
 g.maximizer_set_default_mapping = 0
 
 -- indent-blankline.nvim
-g.indent_blankline_char = '┊'
-g.indent_blankline_filetype_exclude = { 'help', 'packer' }
-g.indent_blankline_buftype_exclude = { 'terminal' }
-g.indent_blankline_char_highlight = 'LineNr'
+g.indent_blankline_char = "┊"
+g.indent_blankline_filetype_exclude = { "help", "packer" }
+g.indent_blankline_buftype_exclude = { "terminal" }
+g.indent_blankline_char_highlight = "LineNr"
 g.indent_blankline_show_trailing_blankline_indent = false
 
 -- surround.nvim
-g.surround_mappings_style = 'surround'
+g.surround_mappings_style = "surround"
 
 -- glow.nvim
-g.glow_border = 'rounded'
+g.glow_border = "rounded"
