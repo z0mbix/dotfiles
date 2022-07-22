@@ -1,5 +1,11 @@
 # vim: set ft=sh
 
+cleanup() {
+  go clean --modcache
+  go clean --cache
+  brew cleanup
+}
+
 kubeutil() {
   kubectl get nodes --no-headers \
     | awk '{print $1}' \
@@ -246,4 +252,13 @@ neovim-config() {
   local config_dir="$HOME/.config/nvim/"
   cd $config_dir
   nvim
+}
+
+gitpod() {
+  local repo="$1"
+  if [[ -z $repo ]]; then
+    echo 'You need to specify the repo name, e.g.: "org/repo"'
+    return
+  fi
+  open https://gitpod.io/#https://github.com/${repo}
 }

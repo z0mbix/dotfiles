@@ -34,7 +34,7 @@ alias j='jobs'
 alias p1='ping 1.1.1.1'
 alias p8='ping 8.8.8.8'
 alias vd='vimdiff'
-alias countdown='mpg321 -q ~/iCloudDrive/Documents/Sounds/countdown.mp3'
+alias countdown='mpg321 -q ~/iCloudDrive/Sounds/countdown.mp3'
 alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3'
 alias weather='clear; curl http://wttr.in/'
 alias tmux='TERM=screen-256color tmux'
@@ -148,6 +148,10 @@ alias kubefwd='sudo kubefwd'
 alias ns='kubens'
 alias ctx='kubectx'
 alias kgc='kubectl config get-contexts -o name | sort'
+
+# Support aliases in these commands
+alias watch='watch '
+alias viddy='viddy '
 
 # AWS
 alias aws-account-id='aws sts get-caller-identity | jq -r ".Account"'

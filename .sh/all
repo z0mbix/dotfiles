@@ -52,14 +52,6 @@ if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init $SHELL_NAME)"
 fi
 
-# if command -v kubectl >/dev/null 2>&1; then
-#   source <(kubectl completion zsh)
-# fi
-
-if [ -e $HOME/.cargo/bin ]; then
-  PATH="$HOME/.cargo/bin:$PATH"
-fi
-
 if [ -e $HOME/.krew/bin/kubectl-krew ] || command -v kubectl-krew >/dev/null; then
   PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 fi
@@ -69,7 +61,7 @@ if [ -e $HOME/.poetry/bin/poetry ]; then
 fi
 
 if [ -e $HOME/.cargo/bin ]; then
-  PATH="$PATH:$HOME/.cargo/bin"
+  PATH="$HOME/.cargo/bin:$PATH"
 fi
 
 if [ -e $HOME/.tfenv/bin ]; then
@@ -80,11 +72,12 @@ if [ -e $HOME/.tgenv/bin ]; then
   PATH="$HOME/.tgenv/bin:$PATH"
 fi
 
-export SDKMAN_DIR="$HOME/.sdkman"
-[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
 if [ -e $HOME/.volta ]; then
   PATH="$HOME/.volta/bin:$PATH"
+fi
+
+if [ -e $HOME/.rd/bin ]; then
+  PATH="$HOME/.rd/bin:$PATH"
 fi
 
 export PATH
