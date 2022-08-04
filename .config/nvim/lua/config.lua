@@ -261,13 +261,6 @@ require("nvim-web-devicons").setup({})
 -- FTerm
 require("FTerm").setup({})
 
--- neotest
---[[ require('neotest').setup({
-	adapters = {
-		require('neotest-go'),
-	}
-}) ]]
-
 -- https://github.com/kevinhwang91/nvim-ufo
 -- require('ufo').setup()
 
@@ -308,3 +301,6 @@ require("ufo").setup({
 -- will override global handler if it is existed
 local bufnr = vim.api.nvim_get_current_buf()
 require("ufo").setFoldVirtTextHandler(bufnr, handler)
+
+-- https://github.com/m-demare/hlargs.nvim
+require("hlargs").setup()

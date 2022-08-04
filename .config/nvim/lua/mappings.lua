@@ -192,3 +192,6 @@ remap("n", "<leader>tt", [[<Cmd>lua require('FTerm').toggle()<CR>]], opts)
 
 -- glow.nvim
 remap("n", "<leader>mp", ":Glow<CR>", opts)
+
+-- open things
+remap("n", "gx", ":!open <C-R><C-A><CR>", opts)

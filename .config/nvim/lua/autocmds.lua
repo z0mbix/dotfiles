@@ -51,7 +51,7 @@ vim.cmd([[
 	autocmd FileType typescript set ts=2 sw=2 tw=120 et sts=2 smartindent
 
 	" JSON
-	autocmd BufNewFile,BufRead *.json,*.json.j2 set ft=json
+	autocmd BufNewFile,BufRead *.json,*.json.j2,*.code-workspace set ft=json
 	autocmd FileType json set ts=2 sw=2 et sts=2 smartindent
 
 	" YAML
