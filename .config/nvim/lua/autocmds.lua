@@ -78,9 +78,6 @@ vim.cmd([[
 	" Makefiles and c have tabstops at 8 for portability
 	autocmd FileType make,c,cpp set ts=8 sw=8
 
-	" casey/just justfiles
-	autocmd BufNewFile,BufRead justfile setf make
-
 	" Clear whitespace at the end of lines automatically
 	autocmd BufWritePre * :%s/\s\+$//e
 
