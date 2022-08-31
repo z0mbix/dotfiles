@@ -173,6 +173,7 @@ require("telescope").setup({
 })
 
 require("telescope").load_extension("fzf")
+require("telescope").load_extension("urlview")
 
 -- nvim-compe
 require("compe").setup({
@@ -304,3 +305,8 @@ require("ufo").setFoldVirtTextHandler(bufnr, handler)
 
 -- https://github.com/m-demare/hlargs.nvim
 require("hlargs").setup()
+
+-- https://github.com/axieax/urlview.nvim
+require("urlview").setup({
+  default_picker = "telescope",
+})
