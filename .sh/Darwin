@@ -3,7 +3,9 @@
 # Darwin (MacOS)
 
 export HOMEBREW_INSTALL_BADGE=📦
+export HOMEBREW_INSTALL_FROM_API=1
 export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_AUTOREMOVE=1
 export HOMEBREW_ROOT='/usr/local'
 
 if command -v brew &>/dev/null; then
