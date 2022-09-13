@@ -310,3 +310,6 @@ require("hlargs").setup()
 require("urlview").setup({
   default_picker = "telescope",
 })
+
+-- https://github.com/chentoast/marks.nvim
+require("marks").setup()

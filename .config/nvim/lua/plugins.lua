@@ -1,4 +1,3 @@
-local execute = vim.api.nvim_command
 local fn = vim.fn
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
@@ -8,7 +7,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 return require("packer").startup(function(use)
-  use({ "plugin" })
+  use("plugin")
   use("NoahTheDuke/vim-just")
   use("alexaandru/nvim-lspupdate")
   use("andymass/vim-matchup")
@@ -16,6 +15,7 @@ return require("packer").startup(function(use)
   use("b3nj5m1n/kommentary")
   use("bogado/file-line")
   use("cappyzawa/trim.nvim")
+  use("chentoast/marks.nvim")
   use("christianchiarulli/nvcode-color-schemes.vim")
   use("ckipp01/stylua-nvim")
   use("danilamihailov/beacon.nvim")
@@ -39,7 +39,6 @@ return require("packer").startup(function(use)
   use("junegunn/vim-easy-align")
   use("junegunn/vim-peekaboo")
   use("kana/vim-submode")
-  use("kdheepak/lazygit.nvim")
   use("kevinhwang91/nvim-bqf")
   use("kyazdani42/nvim-tree.lua")
   use("kyazdani42/nvim-web-devicons")
