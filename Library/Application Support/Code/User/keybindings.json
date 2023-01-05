@@ -94,6 +94,11 @@
     "command": "workbench.action.terminal.toggleTerminal"
   },
   {
+    "key": "ctrl+x",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "terminalFocus"
+  },
+  {
     "key": "shift+cmd+]",
     "command": "workbench.action.terminal.focusNext",
     "when": "terminalFocus"

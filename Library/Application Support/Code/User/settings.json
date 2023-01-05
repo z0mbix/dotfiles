@@ -14,6 +14,126 @@
     },
     {
       "before": [
+        "<leader>",
+        "i"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.terminal.focus"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "t"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.terminal.toggleTerminal"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "u"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.focusActiveEditorGroup"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "v"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.splitEditor"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "V"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.splitEditorDown"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "h"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.focusLeftGroup"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "l"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.focusRightGroup"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "p"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.showCommands"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "o"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.quickOpen"
+        }
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "/"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": ":nohl"
+        }
+      ]
+    },
+    {
+      "before": [
         ">"
       ],
       "commands": [
@@ -54,12 +174,10 @@
     "editor.defaultFormatter": "ms-azuretools.vscode-docker"
   },
   "python.languageServer": "Default",
-  "python.autoComplete.addBrackets": true,
   "terminal.integrated.confirmOnExit": "always",
   "[terraform]": {},
   "editor.renderWhitespace": "boundary",
   "files.insertFinalNewline": true,
-  "python.showStartPage": false,
   "terminal.integrated.showExitAlert": false,
   "window.title": "${folderName} :: ${activeEditorMedium} ",
   "emmet.includeLanguages": {
@@ -67,7 +185,9 @@
   },
   "http.proxyStrictSSL": true,
   "emmet.triggerExpansionOnTab": true,
+  "editor.guides.indentation": false,
   "editor.fontLigatures": "'ss02', 'ss19'",
+  "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
   "files.exclude": {
     "**/.idea": true,
     "**/*.pyc": true,
@@ -84,10 +204,6 @@
   "python.linting.pycodestyleArgs": [
     "--max-line-length=160"
   ],
-  "python.disableInstallationCheck": true,
-  "[yaml]": {
-    "editor.defaultFormatter": "redhat.vscode-yaml"
-  },
   "editor.autoClosingQuotes": "beforeWhitespace",
   "gitlens.hovers.currentLine.over": "line",
   // "vim.statusBarColors.visual": "#BF616A",
@@ -95,6 +211,7 @@
   // "vim.statusBarColors.visualline": "#BF616A",
   // "vim.statusBarColors.insert": "#EBCB8B",
   // "vim.statusBarColors.visualblock": "#BF616A",
+  "vim.leader": "<space>",
   "vim.highlightedyank.duration": 300,
   "vim.highlightedyank.enable": true,
   "vim.useSystemClipboard": true,
@@ -102,13 +219,14 @@
   "vim.easymotion": true,
   "vim.enableNeovim": true,
   "vim.neovimPath": "/usr/local/bin/nvim",
+  "vim.neovimUseConfigFile": true,
   "vim.hlsearch": true,
+  // "vim.searchHighlightColor": "rgba(150, 255, 255, 0.3)",
   // "workbench.colorCustomizations": {
   //   "statusBar.background": "#434C5E",
   //   "statusBar.noFolderBackground": "#434C5E",
   //   "statusBar.debuggingBackground": "#434C5E"
   // },
-  "editor.formatOnPaste": false,
   "python.formatting.autopep8Args": [
     "--max-line-length=160",
     "--ignore",
@@ -118,40 +236,39 @@
   "gitlens.hovers.enabled": false,
   "terminal.integrated.rightClickBehavior": "paste",
   "shellcheck.enableQuickFix": true,
-  "editor.fontFamily": "'JetBrains Mono', 'Fira Code', 'SauceCodePro Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace",
-  "editor.suggestSelection": "first",
   "files.trimFinalNewlines": true,
-  "workbench.colorTheme": "Monokai Pro (Filter Octagon)",
   "explorer.openEditors.visible": 0,
   "prettier.printWidth": 120,
   "gitlens.keymap": "alternate",
   "terminal.integrated.copyOnSelection": true,
+  "yaml.format.printWidth": 160,
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "files.trimTrailingWhitespace": true,
+  "python.linting.pycodestyleEnabled": true,
+  "editor.formatOnPaste": false,
+  "editor.fontFamily": "'JetBrains Mono', 'Fira Code', 'SauceCodePro Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace",
+  "editor.suggestSelection": "first",
+  "editor.lineNumbers": "relative",
+  "editor.accessibilitySupport": "off",
+  "editor.autoClosingBrackets": "beforeWhitespace",
+  "editor.formatOnType": false,
+  "editor.linkedEditing": true,
+  "editor.formatOnSave": true,
   "editor.quickSuggestions": {
     "other": true,
     "strings": true,
     "comments": false
   },
-  "yaml.format.printWidth": 160,
-  "files.trimTrailingWhitespace": true,
-  "python.linting.pycodestyleEnabled": true,
-  "editor.lineNumbers": "relative",
-  "editor.accessibilitySupport": "off",
-  "editor.autoClosingBrackets": "beforeWhitespace",
+  "editor.suggest.preview": true,
+  "editor.minimap.enabled": false,
+  "workbench.activityBar.visible": false,
+  "workbench.iconTheme": "Monokai Pro (Filter Octagon) Icons",
+  "workbench.colorTheme": "Monokai Pro (Filter Octagon)",
   "terminal.external.osxExec": "iTerm.app",
-  "vs-kubernetes": {
-    "checkForMinikubeUpgrade": false,
-    "vs-kubernetes.minikube-path.mac": "/Users/z0mbix/.vs-kubernetes/tools/minikube/darwin-amd64/minikube",
-    "vs-kubernetes.kubectl-path.mac": "/Users/z0mbix/.vs-kubernetes/tools/kubectl/kubectl",
-    "vs-kubernetes.draft-path.mac": "/Users/z0mbix/.vs-kubernetes/tools/draft/darwin-amd64/draft",
-    "vs-kubernetes.helm-path.mac": "/Users/z0mbix/.vs-kubernetes/tools/helm/darwin-amd64/helm",
-    "vs-kubernetes.minikube-path": "/Users/z0mbix/.vs-kubernetes/tools/minikube/darwin-amd64/minikube",
-    "vscode-kubernetes.helm-path.mac": "/Users/davidwooldridge/.vs-kubernetes/tools/helm/darwin-arm64/helm",
-    "vscode-kubernetes.minikube-path.mac": "/Users/davidwooldridge/.vs-kubernetes/tools/minikube/darwin-arm64/minikube",
-    "vscode-kubernetes.kubectl-path.mac": "/Users/davidwooldridge/.vs-kubernetes/tools/kubectl/kubectl"
-  },
   "git.untrackedChanges": "separate",
   "gitlens.defaultDateStyle": "absolute",
-  "editor.formatOnType": false,
   "files.associations": {
     "Runfile": "makefile",
     "*.json.j2": "json",
@@ -161,19 +278,14 @@
     ".envrc.template": "shellscript"
   },
   "yaml.format.bracketSpacing": false,
-  "python.autoComplete.showAdvancedMembers": true,
   "go.useLanguageServer": true,
   "go.vetOnSave": "package",
   "explorer.confirmDragAndDrop": false,
-  "editor.linkedEditing": true,
-  "editor.formatOnSave": true,
-  "vim.leader": "<space>",
   "go.toolsManagement.autoUpdate": true,
   "security.workspace.trust.untrustedFiles": "open",
   "redhat.telemetry.enabled": false,
   "gitlens.codeLens.enabled": false,
   "python.analysis.completeFunctionParens": true,
-  "workbench.iconTheme": "Monokai Pro (Filter Octagon) Icons",
   "terraform.codelens.referenceCount": true,
   "go.formatTool": "goimports",
   "go.liveErrors": {
@@ -182,22 +294,16 @@
   },
   "go.lintTool": "golangci-lint",
   "telemetry.telemetryLevel": "off",
-  "vim.neovimUseConfigFile": true,
-  "material-icon-theme.folders.color": "#7cb342",
-  "material-icon-theme.activeIconPack": "",
-  "material-icon-theme.folders.theme": "classic",
-  "material-icon-theme.saturation": 1,
-  "[shellscript]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format"
-  },
   "go.inlayHints.constantValues": true,
   "go.inlayHints.functionTypeParameters": true,
-  "shellformat.useEditorConfig": true,
-  "vsicons.dontShowNewVersionMessage": true,
   "terraform.languageServer.enable": true,
   "terraform.experimentalFeatures.prefillRequiredFields": true,
   "extensions.autoUpdate": "onlyEnabledExtensions",
-  "editor.suggest.preview": true,
+  "extensions.ignoreRecommendations": true,
   "terminal.integrated.enableMultiLinePasteWarning": false,
-  "material-icon-theme.hidesExplorerArrows": false
+  "shellformat.flag": "-i 2 -ci -bn",
+  "shellformat.useEditorConfig": false,
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
 }
