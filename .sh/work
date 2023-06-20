@@ -1,0 +1,14 @@
+. "${HOME}/google-cloud-sdk/path.zsh.inc"
+. "${HOME}/google-cloud-sdk/completion.zsh.inc"
+
+export REPOS_DIR="${HOME}/repos"
+
+function repos() {
+  cd $REPOS_DIR || false
+  cd "$(fd --type d --max-depth 1 | fzf)" || false
+}
+
+function vscode() {
+  cd $REPOS_DIR || exit
+  code "$(fd --type d --max-depth 1 | fzf)"
+}

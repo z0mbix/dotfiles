@@ -6,7 +6,6 @@
 .gitconfig.work
 .sh/local
 .sh/private
-.sh/work
 .ssh/
 .vim/.netrwhist
 .vim/private

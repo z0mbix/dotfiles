@@ -10,15 +10,28 @@ require("lualine").setup({
 })
 
 -- nvim-tree
+local function nvim_tree_on_attach(bufnr)
+  local api = require("nvim-tree.api")
+
+  local function opts(desc)
+    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  -- default mappings
+  api.config.mappings.default_on_attach(bufnr)
+
+  vim.keymap.set("n", "u", api.tree.change_root_to_parent, opts("Up"))
+  vim.keymap.set("n", "d", api.tree.change_root_to_node, opts("CD"))
+end
+
 require("nvim-tree").setup({
-  disable_netrw = true,
-  hijack_netrw = true,
-  open_on_setup = false,
-  open_on_setup_file = false,
-  ignore_ft_on_setup = { "minimap" },
+  on_attach = nvim_tree_on_attach,
+  --[[ disable_netrw = true,
+  hijack_netrw = true, ]]
   open_on_tab = false,
   hijack_cursor = false, -- hijack the cursor in the tree to put it at the start of the filename
   update_cwd = true, -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually
+  sort_by = "case_sensitive",
 
   actions = {
     open_file = {
@@ -75,17 +88,6 @@ require("nvim-tree").setup({
   view = {
     width = 30, -- width of the window, can be either a number (columns) or a string in `%`
     side = "left",
-    mappings = {
-      -- custom only false will merge the list with the default mappings
-      -- if true, it will only use your list to set the mappings
-      custom_only = false,
-      -- list of mappings to set on the tree manually
-      -- list = {},
-      list = {
-        { key = "u", action = "dir_up" },
-        { key = "d", action = "cd" },
-      },
-    },
   },
 })
 
@@ -266,3 +268,7 @@ require("hlargs").setup()
 
 -- https://github.com/chentoast/marks.nvim
 require("marks").setup()
+
+-- TODO: Required neovim >= 0.10
+-- https://github.com/Bekaboo/dropbar.nvim
+-- require("Bekaboo/dropbar.nvim").setup()
