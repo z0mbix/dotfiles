@@ -11,16 +11,21 @@ tmp_dir="$(mktemp -d XXXXXX)"
 tar="tar"
 fetch="curl -s -L"
 
+if ! command -v git >/dev/null 2>&1; then
+  echo "You need to install git"
+  exit 1
+fi
+
 # OS Specific Stuff
 [ $os == "OpenBSD" ] && fetch="ftp -o -"
 [ $os == "SunOS" ] && tar="gtar"
 
 $fetch $url | $tar -C $tmp_dir -xzf -
 
-rm -f $tmp_dir/${gh_user}-*/{README,move-in}
+rm -f $tmp_dir/${gh_user}-*/{README.md,move-in}
 cd $tmp_dir/${gh_user}-* && $tar -cf - . | (
   cd
-  tar -xvf -
+  tar -xf -
 )
 cd -
 rm -rf $tmp_dir
@@ -49,7 +54,7 @@ if [ ! -d ~/.zsh/completion ]; then
   mkdir -p ~/.zsh/completion
 fi
 
-# Dump stuff we don't need on OS X?
+# MacOS specific things
 if [ $os == "Darwin" ]; then
   rm -rf ~/.fluxbox
   rm -f ~/.conkyrc .Xdefaults ~/.xsession ~/.xinitrc
@@ -59,6 +64,15 @@ if [ $os == "Darwin" ]; then
   if [ -d ~/Library/Mobile\ Documents/com~apple~CloudDocs ] && [ ! -h ~/iCloudDrive ]; then
     ln -s ~/Library/Mobile\ Documents/com~apple~CloudDocs ~/iCloudDrive
   fi
+
+  # install homebrew
+  if ! command -v brew >/dev/null 2>&1; then
+    echo 'Installing homebrew'
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+
+  echo 'Installing homebrew things'
+  brew bundle && rm Brewfile
 fi
 
 # Setup shell
@@ -66,11 +80,6 @@ fi
 
 # Setup vim/neovim
 [ ! -d ~/.config/nvim ] && mkdir -p ~/.config/nvim
-
-if ! command -v git >/dev/null 2>&1; then
-  echo "You need to install git"
-  exit 1
-fi
 
 if command -v nvim >/dev/null 2>&1; then
   curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
@@ -80,16 +89,6 @@ if command -v nvim >/dev/null 2>&1; then
   fi
 else
   echo "You need to install neovim"
-fi
-
-if command -v vim >/dev/null 2>&1; then
-  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  if [ ! -d ~/.vim/plugged ]; then
-    vim +PlugInstall +qall
-  fi
-else
-  echo "You need to install vim"
 fi
 
 # Install starship
