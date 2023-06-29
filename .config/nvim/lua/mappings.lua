@@ -175,7 +175,7 @@ remap("n", "<leader>mm", ":MinimapToggle<CR>", opts)
 remap("n", "<leader>F", ":Format<CR>", opts)
 
 -- which-key.nvim
-remap("n", "<leader>W", ":WhichKey<CR>", opts)
+remap("n", "<leader>wk", ":WhichKey<CR>", opts)
 
 -- vim-maximizer
 remap("n", "<leader>W", ":MaximizerToggle<CR>", opts)

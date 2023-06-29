@@ -31,10 +31,6 @@ if command -v direnv >/dev/null 2>&1; then
   eval "$(direnv hook $SHELL_NAME)"
 fi
 
-if command -v molecule >/dev/null 2>&1; then
-  eval "$(_MOLECULE_COMPLETE=source molecule)"
-fi
-
 if command -v starship >/dev/null 2>&1; then
   eval "$(starship init $SHELL_NAME)"
 else

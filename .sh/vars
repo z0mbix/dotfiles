@@ -14,7 +14,7 @@ export TIMEFMT=$'\e[33m%J\e[0m took \e[35m%E\e[0m'
 
 export AWS_DEFAULT_REGION="eu-west-1"
 export AWS_PAGER=""
-export AWS_SDK_LOAD_CONFIG=1 # For terraform/terragrunt SSO support
+# export AWS_SDK_LOAD_CONFIG=1 # For terraform/terragrunt SSO support
 
 export FZF_DEFAULT_COMMAND='fd --hidden --exclude "node_modules" --exclude ".git"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"

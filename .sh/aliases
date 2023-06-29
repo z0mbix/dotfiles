@@ -46,7 +46,7 @@ alias bandwhich='sudo bandwhich'
 alias fzfp='fzf --preview "bat --style=numbers --color=always --line-range :500 {}" --border --height 50%'
 alias lg='lazygit'
 alias rgq='rg --hidden --no-heading --no-line-number'
-alias luamake="$HOME/iCloudDrive/Projects/lua-language-server/3rd/luamake/luamake"
+alias luamake="\$HOME/iCloudDrive/Projects/lua-language-server/3rd/luamake/luamake"
 alias t='todo'
 alias bu='backup'
 alias emf='vim-modified-files'
@@ -97,15 +97,6 @@ alias dkp='docker ps'
 alias dkr='docker run'
 alias dkrm='docker rm'
 alias dkrmi='docker rmi'
-
-# Kitchen
-alias kccv='kitchen create && kitchen converge && kitchen verify'
-alias kcr='kitchen create'
-alias kcon='kitchen converge'
-alias kv='kitchen verify'
-alias kl='kitchen login'
-alias kt='kitchen test'
-alias kd='kitchen destroy'
 
 # Multipass
 alias m='multipass'
