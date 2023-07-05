@@ -127,12 +127,6 @@ remap("n", "<C-l>", "<C-w>l", opts)
 -- Fix split window ratios
 remap("n", "<leader>we", "<C-w>=", opts)
 
--- Bubble multiple lines
-remap("v", "<C-j>", ":move '>+1<CR>gv=gv", opts)
-remap("v", "<C-k>", ":move '<-2<CR>gv=gv", opts)
-remap("v", "<Up>", ":move '<-2<CR>gv=gv", opts)
-remap("v", "<Down>", ":move '>+1<CR>gv=gv", opts)
-
 -- Reselect visual block after indent/outdent
 remap("v", "<", "<gv", opts)
 remap("v", ">", ">gv", opts)
@@ -196,3 +190,16 @@ remap("n", "<leader>mp", ":Glow<CR>", opts)
 
 -- open things
 remap("n", "gx", ":!open <C-R><C-A><CR>", opts)
+
+-- move.nvim
+-- Normal-mode commands
+remap("n", "<A-j>", ":MoveLine(1)<CR>", opts)
+remap("n", "<A-k>", ":MoveLine(-1)<CR>", opts)
+remap("n", "<A-h>", ":MoveHChar(-1)<CR>", opts)
+remap("n", "<A-l>", ":MoveHChar(1)<CR>", opts)
+
+-- Visual-mode commands
+remap("v", "<A-j>", ":MoveBlock(1)<CR>", opts)
+remap("v", "<A-k>", ":MoveBlock(-1)<CR>", opts)
+remap("v", "<A-h>", ":MoveHBlock(-1)<CR>", opts)
+remap("v", "<A-l>", ":MoveHBlock(1)<CR>", opts)
