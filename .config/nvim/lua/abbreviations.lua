@@ -12,6 +12,7 @@ local abbreviations = {
     taht = "that",
     wehn = "when",
     zzo = "zombie@zombix.org",
+    iferr = "if err != nil {}",
   },
   cnoreabbrev = {
     Wq = "wq!",

@@ -84,28 +84,9 @@ remap("n", "<leader>fgs", ":Telescope git_status<CR>", opts)
 remap("n", "<leader>fgc", ":Telescope git_commits<CR>", opts)
 remap("n", "<leader>fgb", ":Telescope git_branches<CR>", opts)
 
--- Open fuzzy finder if vim opened without any args except in home dir
-vim.cmd([[
-	augroup TELESCOPE_OPEN
-		if argc() == 0 && getcwd() != expand("~")
-			if isdirectory('.git')
-				" autocmd vimenter * GFiles
-				autocmd vimenter * Telescope git_files
-			else
-				" autocmd vimenter * Files
-				autocmd vimenter * Telescope find_files
-			endif
-		endif
-	augroup END
-]])
-
--- Switch buffers using vim-submode
-vim.cmd([[
-	call submode#enter_with('bnext/bprev', 'n', 's', '<leader>l', ':bn<CR>')
-	call submode#enter_with('bnext/bprev', 'n', 's', '<leader>h', ':bp<CR>')
-	call submode#map('bnext/bprev', 'n', 's', 'l', ':bn<CR>')
-	call submode#map('bnext/bprev', 'n', 's', 'h', ':bp<CR>')
-]])
+-- Remap for dealing with word wrap
+remap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+remap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Switch buffers with tab/shift-tab
 remap("n", "<TAB>", ":bnext!<CR>", opts)
@@ -192,14 +173,30 @@ remap("n", "<leader>mp", ":Glow<CR>", opts)
 remap("n", "gx", ":!open <C-R><C-A><CR>", opts)
 
 -- move.nvim
--- Normal-mode commands
 remap("n", "<A-j>", ":MoveLine(1)<CR>", opts)
 remap("n", "<A-k>", ":MoveLine(-1)<CR>", opts)
 remap("n", "<A-h>", ":MoveHChar(-1)<CR>", opts)
 remap("n", "<A-l>", ":MoveHChar(1)<CR>", opts)
 
--- Visual-mode commands
 remap("v", "<A-j>", ":MoveBlock(1)<CR>", opts)
 remap("v", "<A-k>", ":MoveBlock(-1)<CR>", opts)
 remap("v", "<A-h>", ":MoveHBlock(-1)<CR>", opts)
 remap("v", "<A-l>", ":MoveHBlock(1)<CR>", opts)
+
+-- Disable annoying things
+remap("n", "Q", "<nop>", opts)
+remap("n", "q", "<nop>", opts)
+
+-- ctrl + h,j,k,l for insert mode
+remap("i", "<C-h>", "<left>", opts)
+remap("i", "<C-j>", "<down>", opts)
+remap("i", "<C-k>", "<up>", opts)
+remap("i", "<C-l>", "<right>", opts)
+
+-- Switch buffers using vim-submode
+vim.cmd([[
+	call submode#enter_with('bnext/bprev', 'n', 's', '<leader>l', ':bn<CR>')
+	call submode#enter_with('bnext/bprev', 'n', 's', '<leader>h', ':bp<CR>')
+	call submode#map('bnext/bprev', 'n', 's', 'l', ':bn<CR>')
+	call submode#map('bnext/bprev', 'n', 's', 'h', ':bp<CR>')
+]])
