@@ -220,7 +220,7 @@ vim.cmd([[
 
 -- trim.nvim
 require("trim").setup({
-  disable = { "markdown" },
+  ft_blocklist = {"markdown"},
 })
 
 -- nvim-autopairs
