@@ -93,7 +93,7 @@ remap("n", "<TAB>", ":bnext!<CR>", opts)
 remap("n", "<S-TAB>", ":bprevious!<CR>", opts)
 
 -- nvim-tree
-remap("n", "<leader>n", ":NvimTreeToggle<CR>", opts)
+remap("n", "<leader>n", ":Neotree toggle=true action=show<CR>", opts)
 
 -- Folds
 remap("n", "<Enter>", "za", opts)

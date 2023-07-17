@@ -39,7 +39,6 @@ return require("packer").startup(function(use)
   use("junegunn/vim-peekaboo")
   use("kana/vim-submode")
   use("kevinhwang91/nvim-bqf")
-  use("kyazdani42/nvim-tree.lua")
   use("kyazdani42/nvim-web-devicons")
   use("lukas-reineke/indent-blankline.nvim")
   use("machakann/vim-highlightedyank")
@@ -55,18 +54,29 @@ return require("packer").startup(function(use)
   use("nvim-telescope/telescope.nvim")
   use("nvim-treesitter/playground")
   use("plugin")
-  use("romgrk/barbar.nvim")
   use("sindrets/diffview.nvim")
   use("szw/vim-maximizer")
   use("towolf/vim-helm")
+  use("ur4ltz/move.nvim")
   use("ur4ltz/surround.nvim")
   use("wbthomason/packer.nvim")
   use("wellle/targets.vim")
   use("wfxr/minimap.vim")
   use("windwp/nvim-autopairs")
-  use('ur4ltz/move.nvim')
   -- use('Bekaboo/dropbar.nvim')
 
+  use({
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    requires = {
+      "s1n7ax/nvim-window-picker",
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    },
+  })
+
+  use({ "akinsho/bufferline.nvim", tag = "*", requires = "nvim-tree/nvim-web-devicons" })
   use({ "catppuccin/nvim", as = "catppuccin" })
   use({ "ekalinin/Dockerfile.vim", ft = "Dockerfile" })
   use({ "elzr/vim-json", ft = "json" })

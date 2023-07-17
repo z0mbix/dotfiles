@@ -4,90 +4,57 @@ require("lualine").setup({
     theme = vim.g.colorscheme_name,
   },
   extensions = {
+    "neo-tree",
     "quickfix",
-    "nvim-tree",
   },
 })
 
--- nvim-tree
-local function nvim_tree_on_attach(bufnr)
-  local api = require("nvim-tree.api")
+require("bufferline").setup({
+  options = {
+    separator_style = "padded_slant",
+    hover = {
+      enabled = true,
+      delay = 200,
+      reveal = { "close" },
+    },
+  },
+})
 
-  local function opts(desc)
-    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-  end
+require("neo-tree").setup({
+  close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
+  popup_border_style = "rounded",
+  enable_git_status = true,
+  enable_diagnostics = true,
 
-  -- default mappings
-  api.config.mappings.default_on_attach(bufnr)
+  window = {
+    width = 30,
+  },
 
-  vim.keymap.set("n", "u", api.tree.change_root_to_parent, opts("Up"))
-  vim.keymap.set("n", "d", api.tree.change_root_to_node, opts("CD"))
-end
-
-require("nvim-tree").setup({
-  on_attach = nvim_tree_on_attach,
-  --[[ disable_netrw = true,
-  hijack_netrw = true, ]]
-  open_on_tab = false,
-  hijack_cursor = false, -- hijack the cursor in the tree to put it at the start of the filename
-  update_cwd = true, -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually
-  sort_by = "case_sensitive",
-
-  actions = {
-    open_file = {
-      window_picker = {
-        exclude = {
-          filetype = {
-            "diff",
-            "fugitive",
-            "fugitiveblame",
-            "notify",
-            "packer",
-            "qf",
-            "minimap",
-          },
-          buftype = {
-            "terminal",
-          },
-        },
+  filesystem = {
+    use_libuv_file_watcher = true,
+    filtered_items = {
+      visible = false, -- when true, they will just be displayed differently than normal items
+      hide_dotfiles = true,
+      hide_gitignored = true,
+      hide_by_name = {
+        ".DS_Store",
+        ".cache",
+        ".git",
+        ".idea",
+        ".mypy_cache",
+        ".pytest_cache",
+        ".terraform.lock.hcl",
+        ".terragrunt-cache",
+        ".vagrant",
+        "__pycache__",
+        "node_modules",
       },
     },
-  },
 
-  filters = {
-    custom = {
-      ".DS_Store",
-      ".cache",
-      ".git",
-      ".idea",
-      ".mypy_cache",
-      ".pytest_cache",
-      ".terraform.lock.hcl",
-      ".terragrunt-cache",
-      ".vagrant",
-      "__pycache__",
-      "node_modules",
+    follow_current_file = {
+      enabled = true,
+      leave_dirs_open = false,
     },
-  },
-
-  -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
-  update_focused_file = {
-    enable = true,
-    update_cwd = false,
-    -- list of buffer names / filetypes that will not update the cwd if the file isn't found under the current root directory
-    -- only relevant when `update_focused_file.update_cwd` is true and `update_focused_file.enable` is true
-    ignore_list = {},
-  },
-
-  -- configuration options for the system open command (`s` in the tree by default)
-  system_open = {
-    cmd = nil, -- the command to run this, leaving nil should work in most cases
-    args = {}, -- the command arguments as a list
-  },
-
-  view = {
-    width = 30, -- width of the window, can be either a number (columns) or a string in `%`
-    side = "left",
   },
 })
 
@@ -220,7 +187,7 @@ vim.cmd([[
 
 -- trim.nvim
 require("trim").setup({
-  ft_blocklist = {"markdown"},
+  ft_blocklist = { "markdown" },
 })
 
 -- nvim-autopairs
