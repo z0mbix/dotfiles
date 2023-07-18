@@ -33,6 +33,25 @@ require("neo-tree").setup({
   enable_git_status = true,
   enable_diagnostics = true,
 
+  event_handlers = {
+    {
+      event = "neo_tree_window_after_open",
+      handler = function(args)
+        if args.position == "left" or args.position == "right" then
+          vim.cmd("wincmd =")
+        end
+      end
+    },
+    {
+      event = "neo_tree_window_after_close",
+      handler = function(args)
+        if args.position == "left" or args.position == "right" then
+          vim.cmd("wincmd =")
+        end
+      end
+    }
+  },
+
   window = {
     width = 30,
   },
