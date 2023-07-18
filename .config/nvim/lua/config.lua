@@ -11,10 +11,10 @@ require("lualine").setup({
 
 require("bufferline").setup({
   options = {
-    separator_style = "padded_slant",
+    separator_style = "slant",
     hover = {
       enabled = true,
-      delay = 200,
+      delay = 100,
       reveal = { "close" },
     },
   },
