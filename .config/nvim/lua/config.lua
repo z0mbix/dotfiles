@@ -9,6 +9,7 @@ require("lualine").setup({
   },
 })
 
+-- akinsho/bufferline.nvim
 require("bufferline").setup({
   options = {
     separator_style = "slant",
@@ -19,6 +20,12 @@ require("bufferline").setup({
     },
   },
 })
+
+-- ojroques/nvim-bufdel
+require('bufdel').setup {
+  next = 'tabs',
+  quit = false,  -- do not quit neovim when last buffer is closed
+}
 
 require("neo-tree").setup({
   close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab

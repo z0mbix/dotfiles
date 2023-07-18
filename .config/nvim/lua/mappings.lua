@@ -37,11 +37,10 @@ remap("n", "n", "nzzzv", opts)
 remap("n", "N", "Nzzzv", opts)
 remap("n", "J", "mzJ`z", opts)
 
--- Buffers
-remap("n", "<leader>x", ":BufferClose<CR>", opts)
-remap("n", "<leader>X", ":BufferClose!<CR>", opts)
-remap("n", "<C-q>", ":BufferClose<CR>", opts)
--- remap('n', '<C-x>', ':BufferClose<CR>', opts)
+-- Buffers (commands provided by ojroques/nvim-bufdel)
+remap("n", "<leader>x", ":BufDel<CR>", opts)
+remap("n", "<leader>X", ":BufDelAll<CR>", opts)
+remap("n", "<C-q>", ":BufDel<CR>", opts)
 
 -- Undotree
 remap("n", "<leader>u", ":UndotreeToggle<CR>", opts)
