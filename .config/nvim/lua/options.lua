@@ -3,6 +3,7 @@ local opt = vim.opt
 vim.api.nvim_command("colorscheme " .. vim.g.colorscheme_name)
 
 vim.g.mapleader = " " -- this is the way
+vim.g.maplocalleader = " " -- apparently this is too
 
 opt.termguicolors = true -- use all the colours
 opt.background = "dark" -- dark things

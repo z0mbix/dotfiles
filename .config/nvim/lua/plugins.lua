@@ -32,7 +32,7 @@ return require("packer").startup(function(use)
   use("hoob3rt/lualine.nvim")
   use("hrsh7th/nvim-compe")
   use("hrsh7th/vim-vsnip")
-  use("https://gitlab.com/__tpb/monokai-pro.nvim")
+  use("loctvl842/monokai-pro.nvim")
   use("junegunn/limelight.vim")
   use("junegunn/vim-after-object")
   use("junegunn/vim-easy-align")
@@ -66,15 +66,6 @@ return require("packer").startup(function(use)
   use("windwp/nvim-autopairs")
   use("zbirenbaum/copilot.lua")
 
-  --[[ use {
-  "zbirenbaum/copilot.lua",
-  cmd = "Copilot",
-  event = "InsertEnter",
-  config = function()
-    require("copilot").setup({})
-  end,
-}
- ]]
   -- TODO: Required neovim >= 0.10
   -- use('Bekaboo/dropbar.nvim')
 

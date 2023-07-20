@@ -1,3 +1,6 @@
+-- https://github.com/loctvl842/monokai-pro.nvim
+require("monokai-pro").setup()
+
 -- lualine
 require("lualine").setup({
   options = {
@@ -210,16 +213,16 @@ require("compe").setup({
 
 -- TODO: Move to lua config
 vim.cmd([[
-	inoremap <silent><expr> <C-Space> compe#complete()
-	inoremap <silent><expr> <CR>			compe#confirm('<CR>')
-	inoremap <silent><expr> <C-e>			compe#close('<C-e>')
-	inoremap <silent><expr> <C-f>			compe#scroll({ 'delta': +4 })
-	inoremap <silent><expr> <C-d>			compe#scroll({ 'delta': -4 })
+  inoremap <silent><expr> <C-Space> compe#complete()
+  inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+  inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+  inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+  inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
-	inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-	inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+  inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-	highlight link CompeDocumentation NormalFloat
+  highlight link CompeDocumentation NormalFloat
 ]])
 
 -- trim.nvim
@@ -293,7 +296,7 @@ require("copilot").setup({
       open = "<M-CR>",
     },
     layout = {
-      position = "bottom",
+      position = "bottom", -- | top | left | right
       ratio = 0.4,
     },
   },

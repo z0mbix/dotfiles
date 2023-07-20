@@ -29,7 +29,7 @@ g.mysyntaxfile = "~/.config/nvim/after/ftplugin/all.vim"
 
 -- colours
 -- g.colorscheme_name = 'palenight'
-g.colorscheme_name = "monokaipro"
+g.colorscheme_name = "monokai-pro-octagon"
 -- g.colorscheme_name = 'catppuccin'
 g.monokaipro_filter = "octogon"
 g.nvcode_termcolors = 256
@@ -87,7 +87,7 @@ g.ale_echo_msg_format = "[%linter%] %s [%severity%]"
 g.ale_sign_highlight_linenrs = 1
 g.ale_sh_shellcheck_exclusions = "SC2068,SC2086"
 g.ale_sh_shellcheck_dialect = "bash"
-g.ale_sh_shfmt_options = "-i 2 -ci -bn -ln bash"
+g.ale_sh_shfmt_options = "-i 4 -ci -bn -ln bash"
 g.ale_python_autopep8_options = "--max-line-length=160"
 g.ale_lua_stylua_options = "--search-parent-directories"
 
