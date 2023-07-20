@@ -197,5 +197,5 @@ vim.cmd([[
 	call submode#enter_with('bnext/bprev', 'n', 's', '<leader>l', ':bn<CR>')
 	call submode#enter_with('bnext/bprev', 'n', 's', '<leader>h', ':bp<CR>')
 	call submode#map('bnext/bprev', 'n', 's', 'l', ':bn<CR>')
-	call submode#map('bnext/bprev', 'n', 's', 'h', ':bp<CR>')
+  call submode#map('bnext/bprev', 'n', 's', 'h', ':bp<CR>')
 ]])

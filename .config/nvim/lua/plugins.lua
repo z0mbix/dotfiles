@@ -23,12 +23,12 @@ return require("packer").startup(function(use)
   use("ellisonleao/glow.nvim")
   use("f-person/git-blame.nvim")
   use("fatih/vim-go")
+  use("folke/neodev.nvim")
   use("folke/trouble.nvim")
   use("folke/twilight.nvim")
   use("folke/which-key.nvim")
   use("folke/zen-mode.nvim")
   use("golang/vscode-go")
-  use("gpanders/editorconfig.nvim")
   use("hoob3rt/lualine.nvim")
   use("hrsh7th/nvim-compe")
   use("hrsh7th/vim-vsnip")
@@ -62,7 +62,20 @@ return require("packer").startup(function(use)
   use("wbthomason/packer.nvim")
   use("wellle/targets.vim")
   use("wfxr/minimap.vim")
+  use("williamboman/mason-lspconfig.nvim")
   use("windwp/nvim-autopairs")
+  use("zbirenbaum/copilot.lua")
+
+  --[[ use {
+  "zbirenbaum/copilot.lua",
+  cmd = "Copilot",
+  event = "InsertEnter",
+  config = function()
+    require("copilot").setup({})
+  end,
+}
+ ]]
+  -- TODO: Required neovim >= 0.10
   -- use('Bekaboo/dropbar.nvim')
 
   use({
@@ -92,4 +105,5 @@ return require("packer").startup(function(use)
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
   use({ "nvim-treesitter/nvim-treesitter-textobjects", requires = "nvim-treesitter/nvim-treesitter" })
   use({ "pearofducks/ansible-vim", ft = "ansible" })
+  use({ "williamboman/mason.nvim", run = ":MasonUpdate" })
 end)

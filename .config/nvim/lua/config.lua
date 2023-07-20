@@ -22,10 +22,10 @@ require("bufferline").setup({
 })
 
 -- ojroques/nvim-bufdel
-require('bufdel').setup {
-  next = 'tabs',
-  quit = false,  -- do not quit neovim when last buffer is closed
-}
+require("bufdel").setup({
+  next = "tabs",
+  quit = false, -- do not quit neovim when last buffer is closed
+})
 
 require("neo-tree").setup({
   close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
@@ -40,7 +40,7 @@ require("neo-tree").setup({
         if args.position == "left" or args.position == "right" then
           vim.cmd("wincmd =")
         end
-      end
+      end,
     },
     {
       event = "neo_tree_window_after_close",
@@ -48,15 +48,21 @@ require("neo-tree").setup({
         if args.position == "left" or args.position == "right" then
           vim.cmd("wincmd =")
         end
-      end
-    }
+      end,
+    },
   },
 
   window = {
     mappings = {
-      ['e'] = function() vim.api.nvim_exec('Neotree focus filesystem left', true) end,
-      ['b'] = function() vim.api.nvim_exec('Neotree focus buffers left', true) end,
-      ['g'] = function() vim.api.nvim_exec('Neotree focus git_status left', true) end,
+      ["e"] = function()
+        vim.api.nvim_exec("Neotree focus filesystem left", true)
+      end,
+      ["b"] = function()
+        vim.api.nvim_exec("Neotree focus buffers left", true)
+      end,
+      ["g"] = function()
+        vim.api.nvim_exec("Neotree focus git_status left", true)
+      end,
     },
     width = 30,
   },
@@ -267,6 +273,49 @@ require("hlargs").setup()
 -- https://github.com/chentoast/marks.nvim
 require("marks").setup()
 
+-- https://github.com/williamboman/mason.nvim
+require("mason").setup()
+
 -- TODO: Required neovim >= 0.10
 -- https://github.com/Bekaboo/dropbar.nvim
 -- require("Bekaboo/dropbar.nvim").setup()
+
+-- https://github.com/zbirenbaum/copilot.lua
+require("copilot").setup({
+  panel = {
+    enabled = true,
+    auto_refresh = false,
+    keymap = {
+      jump_prev = "[[",
+      jump_next = "]]",
+      accept = "<CR>",
+      refresh = "gr",
+      open = "<M-CR>",
+    },
+    layout = {
+      position = "bottom",
+      ratio = 0.4,
+    },
+  },
+  suggestion = {
+    enabled = true,
+    auto_trigger = true,
+    debounce = 75,
+    keymap = {
+      accept = "<M-l>",
+      accept_word = false,
+      accept_line = false,
+      next = "<M-]>",
+      prev = "<M-[>",
+      dismiss = "<C-]>",
+    },
+  },
+  filetypes = {
+    yaml = true,
+    markdown = true,
+    help = false,
+    ["."] = false,
+  },
+  copilot_node_command = "node", -- Node.js version must be > 16.x
+  server_opts_overrides = {},
+})
