@@ -1,6 +1,7 @@
 local opt = vim.opt
 
-vim.api.nvim_command("colorscheme " .. vim.g.colorscheme_name)
+local colorscheme = string.format("%s-%s", vim.g.colorscheme.name, vim.g.colorscheme.filter)
+vim.api.nvim_command("colorscheme " .. colorscheme)
 
 vim.g.mapleader = " " -- this is the way
 vim.g.maplocalleader = " " -- apparently this is too

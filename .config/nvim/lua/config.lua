@@ -4,7 +4,7 @@ require("monokai-pro").setup()
 -- lualine
 require("lualine").setup({
   options = {
-    theme = vim.g.colorscheme_name,
+    theme = vim.g.colorscheme.name,
   },
   extensions = {
     "neo-tree",
@@ -322,3 +322,6 @@ require("copilot").setup({
   copilot_node_command = "node", -- Node.js version must be > 16.x
   server_opts_overrides = {},
 })
+
+-- https://github.com/filipdutescu/renamer.nvim
+require("renamer").setup({})

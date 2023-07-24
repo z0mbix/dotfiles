@@ -56,6 +56,7 @@ local servers = {
   "bashls",
   "pylsp",
   "terraformls",
+  "tsserver",
 }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup({

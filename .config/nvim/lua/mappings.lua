@@ -199,3 +199,7 @@ vim.cmd([[
 	call submode#map('bnext/bprev', 'n', 's', 'l', ':bn<CR>')
   call submode#map('bnext/bprev', 'n', 's', 'h', ':bp<CR>')
 ]])
+
+remap("i", "<F2>", '<cmd>lua require("renamer").rename()<cr>', opts)
+remap("n", "<leader>rn", '<cmd>lua require("renamer").rename()<cr>', opts)
+remap("v", "<leader>rn", '<cmd>lua require("renamer").rename()<cr>', opts)

@@ -32,7 +32,6 @@ return require("packer").startup(function(use)
   use("hoob3rt/lualine.nvim")
   use("hrsh7th/nvim-compe")
   use("hrsh7th/vim-vsnip")
-  use("loctvl842/monokai-pro.nvim")
   use("junegunn/limelight.vim")
   use("junegunn/vim-after-object")
   use("junegunn/vim-easy-align")
@@ -40,6 +39,7 @@ return require("packer").startup(function(use)
   use("kana/vim-submode")
   use("kevinhwang91/nvim-bqf")
   use("kyazdani42/nvim-web-devicons")
+  use("loctvl842/monokai-pro.nvim")
   use("lukas-reineke/indent-blankline.nvim")
   use("machakann/vim-highlightedyank")
   use("mbbill/undotree")
@@ -62,9 +62,30 @@ return require("packer").startup(function(use)
   use("wbthomason/packer.nvim")
   use("wellle/targets.vim")
   use("wfxr/minimap.vim")
-  use("williamboman/mason-lspconfig.nvim")
   use("windwp/nvim-autopairs")
   use("zbirenbaum/copilot.lua")
+  use("filipdutescu/renamer.nvim")
+
+  use({
+    "VonHeikemen/lsp-zero.nvim",
+    branch = "v2.x",
+    requires = {
+      -- LSP Support
+      { "neovim/nvim-lspconfig" }, -- Required
+      { -- Optional
+        "williamboman/mason.nvim",
+        run = function()
+          pcall(vim.api.nvim_command, "MasonUpdate")
+        end,
+      },
+      { "williamboman/mason-lspconfig.nvim" }, -- Optional
+
+      -- Autocompletion
+      { "hrsh7th/nvim-cmp" }, -- Required
+      { "hrsh7th/cmp-nvim-lsp" }, -- Required
+      { "L3MON4D3/LuaSnip" }, -- Required
+    },
+  })
 
   -- TODO: Required neovim >= 0.10
   -- use('Bekaboo/dropbar.nvim')

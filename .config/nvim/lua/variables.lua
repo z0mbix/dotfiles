@@ -28,11 +28,11 @@ g.mysyntaxfile = "~/.config/nvim/after/ftplugin/all.vim"
 -- g.python3_host_prog='~/.venvs/neovim3/bin/python'
 
 -- colours
--- g.colorscheme_name = 'palenight'
-g.colorscheme_name = "monokai-pro-octagon"
--- g.colorscheme_name = 'catppuccin'
-g.monokaipro_filter = "octogon"
 g.nvcode_termcolors = 256
+g.colorscheme = {
+  name = "monokai-pro",
+  filter = "octagon",
+}
 
 -- submode
 g.submode_timeout = 0
@@ -59,23 +59,23 @@ g.markdown_fenced_languages = {
 
 -- ALE
 g.ale_linters = {
-  javascript = { "eslint" },
+  javascript = { "prettier" },
   lua = { "luac" },
   python = { "pylint", "pycodestyle" },
   sh = { "shellcheck" },
   terraform = { "terraform" },
+  vue = { "prettier" },
 }
 
 g.ale_fixers = {
   go = { "goimports" },
-  javascript = { "prettier", "eslint" },
+  javascript = { "prettier" },
   json = { "jq" },
   lua = { "stylua" },
   python = { "autopep8" },
   sh = { "shfmt" },
   terraform = { "terraform" },
-  typescript = { "eslint", "tslint", "tsserver" },
-  vue = { "prettier", "eslint" },
+  typescript = { "prettier" },
 }
 
 g.ale_fix_on_save = 1
