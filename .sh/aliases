@@ -120,7 +120,7 @@ alias kgj='kubectl get jobs'
 alias kgp='kubectl get pods'
 alias kgd='kubectl get deploy'
 alias kgi='kubectl get ing'
-alias kgn='kubectl get nodes -L node.kubernetes.io/instance-type -L failure-domain.beta.kubernetes.io/zone -L lifecycle'
+alias kgn='kubectl get nodes -L node.kubernetes.io/instance-type -L lifecycle -L topology.gke.io/zone'
 alias kgns='kubectl get namespaces'
 alias kgs='kubectl get secrets'
 alias kges='kubectl get externalsecrets'
@@ -169,6 +169,7 @@ elif command -v vim >/dev/null 2>&1; then
 else
   alias vim='vi'
 fi
+alias v='vi'
 
 if command -v gopass >/dev/null 2>&1; then
   alias pass='gopass'

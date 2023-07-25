@@ -15,6 +15,7 @@ else
 fi
 
 FPATH=${HOMEBREW_ROOT}/share/zsh/site-functions:$FPATH
+FPATH=${HOMEBREW_ROOT}/share/zsh-completions:$FPATH
 
 [[ -d /Developer/usr/bin ]] && PATH=$PATH:/Developer/usr/bin
 
