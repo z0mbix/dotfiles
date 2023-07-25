@@ -1,6 +1,9 @@
 local opt = vim.opt
 
-local colorscheme = string.format("%s-%s", vim.g.colorscheme.name, vim.g.colorscheme.filter)
+local colorscheme = vim.g.colorscheme.name
+if colorscheme.filter then
+  colorscheme = string.format("%s-%s", vim.g.colorscheme.name, vim.g.colorscheme.filter)
+end
 vim.api.nvim_command("colorscheme " .. colorscheme)
 
 vim.g.mapleader = " " -- this is the way

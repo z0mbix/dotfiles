@@ -30,8 +30,10 @@ g.mysyntaxfile = "~/.config/nvim/after/ftplugin/all.vim"
 -- colours
 g.nvcode_termcolors = 256
 g.colorscheme = {
-  name = "monokai-pro",
-  filter = "octagon",
+  --[[ name = "monokai-pro",
+  filter = "octagon", ]]
+  name = "catppuccin",
+  filter = "macchiato",
 }
 
 -- submode
@@ -58,7 +60,7 @@ g.markdown_fenced_languages = {
 }
 
 -- ALE
-g.ale_linters = {
+--[[ g.ale_linters = {
   javascript = { "prettier" },
   lua = { "luac" },
   python = { "pylint", "pycodestyle" },
@@ -89,7 +91,7 @@ g.ale_sh_shellcheck_exclusions = "SC2068,SC2086"
 g.ale_sh_shellcheck_dialect = "bash"
 g.ale_sh_shfmt_options = "-i 4 -ci -bn -ln bash"
 g.ale_python_autopep8_options = "--max-line-length=160"
-g.ale_lua_stylua_options = "--search-parent-directories"
+g.ale_lua_stylua_options = "--search-parent-directories" ]]
 
 -- json
 g.vim_json_syntax_conceal = 0

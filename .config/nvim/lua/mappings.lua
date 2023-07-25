@@ -74,7 +74,8 @@ remap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
 remap("n", "<leader>fh", ":Telescope command_history<CR>", opts)
 remap("n", "<leader>ft", ":Telescope filetypes<CR>", opts)
 remap("n", "<leader>fT", ":TodoTelescope<CR>", opts)
-remap("n", "<leader>fu", ":Telescope urlview<CR>", opts)
+remap("n", "<leader>fU", ":UrlView<CR>", opts)
+remap("n", "<leader>fu", ":Telescope undo<CR>", opts)
 remap("n", "<leader>fm", ":Telescope marks<CR>", opts)
 remap("n", "<leader>fa", ":Telescope live_grep<CR>", opts)
 remap("n", "<leader>fp", ":Telescope live_grep<CR>", opts)
@@ -93,6 +94,8 @@ remap("n", "<S-TAB>", ":bprevious!<CR>", opts)
 
 -- nvim-tree
 remap("n", "<leader>n", ":Neotree toggle=true action=show<CR>", opts)
+remap("n", "<leader>Ne", ":Neotree source=filesystem toggle=true action=focus position=float<CR>", opts)
+remap("n", "<leader>Ng", ":Neotree source=git_status toggle=true action=focus position=float reveal=true<CR>", opts)
 
 -- Folds
 remap("n", "<Enter>", "za", opts)

@@ -1,7 +1,7 @@
 -- https://github.com/loctvl842/monokai-pro.nvim
 require("monokai-pro").setup()
 
--- lualine
+-- https://github.com/nvim-lualine/lualine.nvim
 require("lualine").setup({
   options = {
     theme = vim.g.colorscheme.name,
@@ -12,7 +12,7 @@ require("lualine").setup({
   },
 })
 
--- akinsho/bufferline.nvim
+-- https://github.com/akinsho/bufferline.nvim
 require("bufferline").setup({
   options = {
     separator_style = "slant",
@@ -24,12 +24,13 @@ require("bufferline").setup({
   },
 })
 
--- ojroques/nvim-bufdel
+-- https://github.com/ojroques/nvim-bufdel
 require("bufdel").setup({
   next = "tabs",
   quit = false, -- do not quit neovim when last buffer is closed
 })
 
+-- https://github.com/nvim-neo-tree/neo-tree.nvim
 require("neo-tree").setup({
   close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
   popup_border_style = "rounded",
@@ -58,16 +59,36 @@ require("neo-tree").setup({
   window = {
     mappings = {
       ["e"] = function()
-        vim.api.nvim_exec("Neotree focus filesystem left", true)
+        vim.api.nvim_exec("Neotree focus filesystem", true)
       end,
       ["b"] = function()
-        vim.api.nvim_exec("Neotree focus buffers left", true)
+        vim.api.nvim_exec("Neotree focus buffers", true)
       end,
       ["g"] = function()
-        vim.api.nvim_exec("Neotree focus git_status left", true)
+        vim.api.nvim_exec("Neotree focus git_status", true)
       end,
     },
+    position = "right",
     width = 30,
+    mapping_options = {
+      noremap = true,
+      nowait = true,
+    },
+  },
+
+  git_status = {
+    window = {
+      position = "right",
+      mappings = {
+        ["A"] = "git_add_all",
+        ["gu"] = "git_unstage_file",
+        ["ga"] = "git_add_file",
+        ["gr"] = "git_revert_file",
+        ["gc"] = "git_commit",
+        ["gp"] = "git_push",
+        ["gg"] = "git_commit_and_push",
+      },
+    },
   },
 
   filesystem = {
@@ -98,7 +119,7 @@ require("neo-tree").setup({
   },
 })
 
--- treesitter
+-- https://github.com/nvim-treesitter/nvim-treesitter
 require("nvim-treesitter.configs").setup({
   ensure_installed = {
     "bash",
@@ -150,9 +171,8 @@ require("nvim-treesitter.configs").setup({
   },
 })
 
--- telescope
+-- https://github.com/nvim-telescope/telescope.nvim
 local actions = require("telescope.actions")
-
 require("telescope").setup({
   defaults = {
     prompt_prefix = "» ",
@@ -177,14 +197,16 @@ require("telescope").setup({
         fuzzy = true,
         override_file_sorter = true,
       },
+      undo = {},
     },
   },
 })
-
 require("telescope").load_extension("fzf")
+require("telescope").load_extension("undo")
 
--- nvim-compe
-require("compe").setup({
+-- https://github.com/hrsh7th/nvim-cmp
+local cmp = require("cmp")
+cmp.setup({
   enabled = true,
   autocomplete = true,
   debug = false,
@@ -196,7 +218,10 @@ require("compe").setup({
   max_abbr_width = 100,
   max_kind_width = 100,
   max_menu_width = 100,
-  documentation = true,
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
 
   source = {
     buffer = true,
@@ -225,49 +250,48 @@ vim.cmd([[
   highlight link CompeDocumentation NormalFloat
 ]])
 
--- trim.nvim
+-- https://github.com/cappyzawa/trim.nvim
 require("trim").setup({
   ft_blocklist = { "markdown" },
 })
 
--- nvim-autopairs
+-- https://github.com/windwp/nvim-autopairs
 require("nvim-autopairs").setup()
 
--- zen-mode
+-- https://github.com/folke/zen-mode.nvim
 require("zen-mode").setup({
   window = {
     width = 0.85, -- width will be 85% of the editor width
   },
 })
 
--- twilight
+-- https://github.com/folke/twilight.nvim
 require("twilight").setup({})
 
--- gitsigns
+-- https://github.com/lewis6991/gitsigns.nvim
 require("gitsigns").setup({
-  keymaps = {},
   current_line_blame = false,
 })
 
--- nvim-colorizer.lua
+-- https://github.com/norcalli/nvim-colorizer.lua
 require("colorizer").setup()
 
--- todo-comments
+-- https://github.com/folke/todo-comments.nvim
 require("todo-comments").setup()
 
--- which-key.nvim
+-- https://github.com/folke/which-key.nvim
 require("which-key").setup()
 
--- trouble.nvim
+-- https://github.com/folke/trouble.nvim
 require("trouble").setup({})
 
--- surround.nvim
+-- https://github.com/ur4ltz/surround.nvim
 require("surround").setup({})
 
--- nvim-web-devicons
+-- https://github.com/nvim-tree/nvim-web-devicons
 require("nvim-web-devicons").setup({})
 
--- FTerm
+-- https://github.com/numToStr/FTerm.nvim
 require("FTerm").setup({})
 
 -- https://github.com/m-demare/hlargs.nvim
@@ -278,6 +302,21 @@ require("marks").setup()
 
 -- https://github.com/williamboman/mason.nvim
 require("mason").setup()
+
+-- https://github.com/ellisonleao/glow.nvim
+require("glow").setup()
+
+-- https://github.com/jose-elias-alvarez/null-ls.nvim
+local null_ls = require("null-ls")
+
+null_ls.setup({
+  sources = {
+    null_ls.builtins.formatting.shfmt,
+    null_ls.builtins.formatting.yamlfmt,
+    null_ls.builtins.formatting.stylua,
+    null_ls.builtins.completion.spell,
+  },
+})
 
 -- TODO: Required neovim >= 0.10
 -- https://github.com/Bekaboo/dropbar.nvim
@@ -324,4 +363,11 @@ require("copilot").setup({
 })
 
 -- https://github.com/filipdutescu/renamer.nvim
-require("renamer").setup({})
+require("renamer").setup()
+
+-- https://github.com/axieax/urlview.nvim
+require("urlview").setup({
+  default_action = "system",
+  default_picker = "telescope",
+  log_level_min = vim.log.levels.OFF,
+})

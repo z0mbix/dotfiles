@@ -1,4 +1,36 @@
-local on_attach = function(client, bufnr)
+-- VonHeikemen/lsp-zero.nvim
+local lsp = require("lsp-zero").preset({})
+
+lsp.on_attach(function(_, bufnr)
+  -- see :help lsp-zero-keybindings
+  -- to learn the available actions
+  lsp.default_keymaps({ buffer = bufnr })
+end)
+
+lsp.format_on_save({
+  format_opts = {
+    async = false,
+    timeout_ms = 10000,
+  },
+  servers = {
+    ["null-ls"] = {
+      "go",
+      "javascript",
+      "lua",
+      "sh",
+      "typescript",
+      "yaml",
+    },
+  },
+})
+
+-- (Optional) Configure lua language server for neovim
+require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
+
+lsp.setup()
+
+-- lsp
+--[[ local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
   end
@@ -32,10 +64,10 @@ local on_attach = function(client, bufnr)
   end, opts)
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+local capabilities = vim.lsp.protocol.make_client_capabilities() ]]
 
 -- Code actions
-capabilities.textDocument.codeAction = {
+--[[ capabilities.textDocument.codeAction = {
   dynamicRegistration = true,
   codeActionLiteralSupport = {
     codeActionKind = {
@@ -64,8 +96,9 @@ for _, lsp in ipairs(servers) do
     on_attach = on_attach,
   })
 end
+ ]]
 
--- go
+--[[ -- go
 nvim_lsp.gopls.setup({
   cmd = { "gopls", "serve" },
   on_attach = on_attach,
@@ -102,4 +135,4 @@ require("lspconfig").lua_ls.setup({
       },
     },
   },
-})
+}) ]]
