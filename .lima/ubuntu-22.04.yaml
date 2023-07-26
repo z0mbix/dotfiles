@@ -1,0 +1,41 @@
+# limactl start --tty=false --name=ubuntu-22.04 ~/.lima/ubuntu-22.04.yaml
+# limactl stop -f ubuntu-22.04 && limactl delete ubuntu-22.04
+# limactl shell ubuntu-22.04
+
+images:
+  # Try to use release-yyyyMMdd image if available. Note that release-yyyyMMdd will be removed after several months.
+  - location: "https://cloud-images.ubuntu.com/releases/22.04/release-20230518/ubuntu-22.04-server-cloudimg-amd64.img"
+    arch: "x86_64"
+    digest: "sha256:afb820a9260217fd4c5c5aacfbca74aa7cd2418e830dc64ca2e0642b94aab161"
+  - location: "https://cloud-images.ubuntu.com/releases/22.04/release-20230518/ubuntu-22.04-server-cloudimg-arm64.img"
+    arch: "aarch64"
+    digest: "sha256:b47f8be40b5f91c37874817c3324a72cea1982a5fdad031d9b648c9623c3b4e2"
+  # Fallback to the latest release image.
+  # Hint: run `limactl prune` to invalidate the cache
+  - location: "https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"
+    arch: "x86_64"
+  - location: "https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-arm64.img"
+    arch: "aarch64"
+mounts:
+  - location: "~"
+    writable: true
+provision:
+  - mode: system
+    script: |
+      #!/usr/bin/env bash
+      export DEBIAN_FRONTEND='noninteractive'
+      apt-get -qq update
+      apt-get -y -qq upgrade
+      apt-get -y -qq install \
+        bat \
+        ca-certificates \
+        curl \
+        entr \
+        fd-find \
+        jq \
+        ncat \
+        net-tools \
+        ripgrep \
+        unzip \
+        wget
+      snap install nvim --classic
