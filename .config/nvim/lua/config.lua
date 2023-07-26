@@ -203,6 +203,7 @@ require("telescope").setup({
 })
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("undo")
+require("telescope").load_extension("yank_history")
 
 -- https://github.com/hrsh7th/nvim-cmp
 local cmp = require("cmp")
@@ -374,3 +375,6 @@ require("urlview").setup({
   default_picker = "telescope",
   log_level_min = vim.log.levels.OFF,
 })
+
+-- https://github.com/gbprod/yanky.nvim
+require("yanky").setup({})

@@ -29,7 +29,6 @@ remap("v", "L", "g_", opts)
 remap("n", "Y", "y$", opts)
 
 -- Close/save files
-remap("n", "<leader>q", ":q<CR>", opts)
 remap("n", "<leader>w", ":update<CR>", opts)
 
 -- Keep search results and joins centred
@@ -80,6 +79,7 @@ remap("n", "<leader>fm", ":Telescope marks<CR>", opts)
 remap("n", "<leader>fa", ":Telescope live_grep<CR>", opts)
 remap("n", "<leader>fp", ":Telescope live_grep<CR>", opts)
 remap("n", "<leader>fw", ":Telescope grep_string<CR>", opts)
+remap("n", "<leader>fy", ":Telescope yank_history<CR>", opts)
 remap("n", "<leader>fgs", ":Telescope git_status<CR>", opts)
 remap("n", "<leader>fgc", ":Telescope git_commits<CR>", opts)
 remap("n", "<leader>fgb", ":Telescope git_branches<CR>", opts)
@@ -161,8 +161,10 @@ remap("v", "<leader>W", ":MaximizerToggle<CR>gv", opts)
 -- trouble.nvim
 remap("n", "<leader>T", ":TroubleToggle<CR>", opts)
 
--- my functions
+-- quickfix
 remap("n", "<leader>qft", [[<Cmd>lua require('funcs').toggle_qf()<CR>]], opts)
+remap("n", "<leader>qfo", ":copen<CR>", opts)
+remap("n", "<leader>qfc", ":cclose<CR>", opts)
 
 -- FTerm
 remap("t", "<leader>tt", [[<Cmd>lua require('FTerm').toggle()<CR>]], opts)
