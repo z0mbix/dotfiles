@@ -1,6 +1,3 @@
-. "${HOME}/google-cloud-sdk/path.zsh.inc"
-. "${HOME}/google-cloud-sdk/completion.zsh.inc"
-
 export REPOS_DIR="${HOME}/repos"
 
 function repos() {

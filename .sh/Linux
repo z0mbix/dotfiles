@@ -2,14 +2,12 @@
 
 # Linux
 
-export PUPPET_DIR=/etc/puppet
-
 # Set 256 colour terminal for Ubuntu / Redhat
 if [ -e /lib/terminfo/x/xterm-256color ] || [ -e /usr/share/terminfo/x/xterm-256-color ]; then
   TERM='xterm-256color'
 fi
 
-[ -d ~/iCloudDrive/bin/Linux ] && PATH=$PATH:~/iCloudDrive/bin/Linux
+[[ -d /snap/bin ]] && PATH=$PATH:/snap/bin
 
 # Aliases
 alias ls='ls --color=auto'

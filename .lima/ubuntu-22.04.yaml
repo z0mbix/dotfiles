@@ -32,10 +32,12 @@ provision:
         curl \
         entr \
         fd-find \
+        fzf \
         jq \
         ncat \
         net-tools \
         ripgrep \
         unzip \
-        wget
+        wget \
+        zsh
       snap install nvim --classic
