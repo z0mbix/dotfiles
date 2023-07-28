@@ -116,6 +116,7 @@ remap("n", "<leader>wh", ":SmartResizeLeft 10<CR>", opts)
 remap("n", "<leader>wj", ":SmartResizeDown 5<CR>", opts)
 remap("n", "<leader>wk", ":SmartResizeUp 5<CR>", opts)
 remap("n", "<leader>wl", ":SmartResizeRight 10<CR>", opts)
+remap("n", "<leader>wr", ":SmartResizeMode<CR>", opts)
 
 -- Reselect visual block after indent/outdent
 remap("v", "<", "<gv", opts)
