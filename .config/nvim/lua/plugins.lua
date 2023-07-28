@@ -68,6 +68,7 @@ return require("packer").startup(function(use)
   use("axieax/urlview.nvim")
   use("debugloop/telescope-undo.nvim")
   use("gbprod/yanky.nvim")
+  use("mrjones2014/smart-splits.nvim")
 
   use({
     "VonHeikemen/lsp-zero.nvim",

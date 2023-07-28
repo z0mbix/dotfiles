@@ -25,7 +25,7 @@ g.loaded_zipPlugin = 1
 g.mysyntaxfile = "~/.config/nvim/after/ftplugin/all.vim"
 
 -- python provider for neovim
--- g.python3_host_prog='~/.venvs/neovim3/bin/python'
+-- g.python3_host_prog = "~/.venvs/neovim3/bin/python"
 
 -- colours
 g.nvcode_termcolors = 256

@@ -28,9 +28,6 @@ remap("v", "L", "g_", opts)
 -- Make yanking behave like D/C/S etc.
 remap("n", "Y", "y$", opts)
 
--- Close/save files
-remap("n", "<leader>w", ":update<CR>", opts)
-
 -- Keep search results and joins centred
 remap("n", "n", "nzzzv", opts)
 remap("n", "N", "Nzzzv", opts)
@@ -107,8 +104,18 @@ remap("n", "<C-k>", "<C-w>k", opts)
 remap("n", "<C-h>", "<C-w>h", opts)
 remap("n", "<C-l>", "<C-w>l", opts)
 
+-- Close/save files
+remap("n", "<leader>wf", ":update<CR>", opts)
+
 -- Fix split window ratios
 remap("n", "<leader>we", "<C-w>=", opts)
+remap("n", "<leader>ws", "<C-w>x", opts)
+
+-- smart-splits.nvim
+remap("n", "<leader>wh", ":SmartResizeLeft 10<CR>", opts)
+remap("n", "<leader>wj", ":SmartResizeDown 5<CR>", opts)
+remap("n", "<leader>wk", ":SmartResizeUp 5<CR>", opts)
+remap("n", "<leader>wl", ":SmartResizeRight 10<CR>", opts)
 
 -- Reselect visual block after indent/outdent
 remap("v", "<", "<gv", opts)
@@ -152,7 +159,7 @@ remap("n", "<leader>mm", ":MinimapToggle<CR>", opts)
 remap("n", "<leader>F", ":Format<CR>", opts)
 
 -- which-key.nvim
-remap("n", "<leader>wk", ":WhichKey<CR>", opts)
+remap("n", "<leader>Wk", ":WhichKey<CR>", opts)
 
 -- vim-maximizer
 remap("n", "<leader>W", ":MaximizerToggle<CR>", opts)
@@ -205,6 +212,7 @@ vim.cmd([[
   call submode#map('bnext/bprev', 'n', 's', 'h', ':bp<CR>')
 ]])
 
+-- renamer.nvim
 remap("i", "<F2>", '<cmd>lua require("renamer").rename()<cr>', opts)
 remap("n", "<leader>rn", '<cmd>lua require("renamer").rename()<cr>', opts)
 remap("v", "<leader>rn", '<cmd>lua require("renamer").rename()<cr>', opts)

@@ -378,3 +378,12 @@ require("urlview").setup({
 
 -- https://github.com/gbprod/yanky.nvim
 require("yanky").setup({})
+
+-- https://github.com/mrjones2014/smart-splits.nvim
+require("smart-splits").setup({
+  ignored_buftypes = {
+    "neo-tree",
+    "neo-tree-popup",
+    "notify",
+  },
+})
