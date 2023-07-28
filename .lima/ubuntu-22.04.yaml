@@ -41,3 +41,8 @@ provision:
         wget \
         zsh
       snap install nvim --classic
+      snap install go --classic
+      apt-add-repository -y ppa:ansible/ansible
+      apt-get -qq update
+      apt-get -y -qq install ansible
+      ansible --version
