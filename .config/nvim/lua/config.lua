@@ -69,7 +69,7 @@ require("neo-tree").setup({
       end,
     },
     position = "right",
-    width = 30,
+    width = 34,
     mapping_options = {
       noremap = true,
       nowait = true,
@@ -224,6 +224,27 @@ cmp.setup({
     documentation = cmp.config.window.bordered(),
   },
 
+  mapping = {
+    -- Shift+TAB to go to the Previous Suggested item
+    ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+    -- Tab to go to the next suggestion
+    ["<Tab>"] = cmp.mapping.select_next_item(),
+    -- CTRL+SHIFT+f to scroll backwards in description
+    ["<C-S-f>"] = cmp.mapping.scroll_docs(-4),
+    -- CTRL+F to scroll forwards in the description
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    -- CTRL+SPACE to bring up completion at current Cursor location
+    ["<C-Space>"] = cmp.mapping.complete(),
+    -- CTRL+e to exit suggestion and close it
+    ["<C-e>"] = cmp.mapping.close(),
+    -- CR (enter or return) to CONFIRM the currently selection suggestion
+    -- We set the ConfirmBehavior to insert the Selected suggestion
+    ["<CR>"] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Insert,
+      select = true,
+    }),
+  },
+
   source = {
     buffer = true,
     calc = true,
@@ -235,21 +256,29 @@ cmp.setup({
     ultisnips = true,
     vsnip = true,
   },
+  sources = cmp.config.sources({
+    { name = "buffer" },
+    { name = "nvim_lsp" },
+    { name = "luasnip" }, -- For luasnip users.
+    -- { name = 'vsnip' }, -- For vsnip users.
+    -- { name = 'ultisnips' }, -- For ultisnips users.
+    -- { name = 'snippy' }, -- For snippy users.
+  }),
 })
 
 -- TODO: Move to lua config
-vim.cmd([[
-  inoremap <silent><expr> <C-Space> compe#complete()
-  inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-  inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-  inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-  inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+-- vim.cmd([[
+-- inoremap <silent><expr> <C-Space> compe#complete()
+-- inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+-- inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+-- inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+-- inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
-  inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+-- inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+-- inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-  highlight link CompeDocumentation NormalFloat
-]])
+-- highlight link CompeDocumentation NormalFloat
+-- ]])
 
 -- https://github.com/cappyzawa/trim.nvim
 require("trim").setup({
@@ -387,3 +416,23 @@ require("smart-splits").setup({
     "notify",
   },
 })
+
+-- https://github.com/kevinhwang91/nvim-ufo
+-- Tell the server the capability of foldingRange,
+-- Neovim hasn't added foldingRange to default capabilities, users must add it manually
+--[[ local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true,
+}
+local language_servers = require("lspconfig").util.available_servers() -- or list servers manually like {'gopls', 'clangd'}
+for _, ls in ipairs(language_servers) do
+  require("lspconfig")[ls].setup({
+    capabilities = capabilities,
+    -- you can add other fields for setting up lsp server in this table
+  })
+end
+require("ufo").setup() ]]
+
+-- https://github.com/numToStr/Comment.nvim
+require("Comment").setup()

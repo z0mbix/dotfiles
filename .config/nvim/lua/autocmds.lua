@@ -91,6 +91,9 @@ vim.cmd([[
   " Makefiles and c have tabstops at 8 for portability
   autocmd FileType make,c,cpp set ts=8 sw=8
 
+  " Makefiles and c have tabstops at 8 for portability
+  autocmd FileType make,c,cpp set ts=8 sw=8
+
   " Clear whitespace at the end of lines automatically
   autocmd BufWritePre * :%s/\s\+$//e
 

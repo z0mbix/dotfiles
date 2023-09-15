@@ -1,7 +1,7 @@
 local opt = vim.opt
 
 local colorscheme = vim.g.colorscheme.name
-if colorscheme.filter then
+if vim.g.colorscheme.filter then
   colorscheme = string.format("%s-%s", vim.g.colorscheme.name, vim.g.colorscheme.filter)
 end
 vim.api.nvim_command("colorscheme " .. colorscheme)
@@ -39,10 +39,11 @@ opt.errorbells = false -- don't annoy me
 opt.visualbell = false -- disable visual bell
 opt.report = 0 -- always report lines changed
 opt.showmatch = true -- show matching brackets
-opt.foldenable = true -- enable folding
+opt.foldenable = false -- enable folding
 opt.foldmethod = "indent" -- fold lines with equal indent
-opt.foldcolumn = "8" -- use 1 fold column
-opt.foldlevel = 20 -- opt.fold close level
+opt.foldcolumn = "1" -- use 1 fold column
+opt.foldlevel = 99 -- opt.fold close level
+opt.foldlevelstart = 99 -- opt.fold close level
 opt.laststatus = 3 -- always show status line
 opt.ttyfast = true -- fast terminal conn for faster redraw
 opt.clipboard = "unnamed,unnamedplus" -- use system clipboard
