@@ -25,7 +25,6 @@ provision:
       #!/usr/bin/env bash
       export DEBIAN_FRONTEND='noninteractive'
       apt-get -qq update
-      apt-get -y -qq upgrade
       apt-get -y -qq install \
         bat \
         ca-certificates \
