@@ -30,10 +30,10 @@ g.mysyntaxfile = "~/.config/nvim/after/ftplugin/all.vim"
 -- colours
 g.nvcode_termcolors = 256
 g.colorscheme = {
-  --[[ name = "monokai-pro",
-  filter = "octagon", ]]
   name = "catppuccin",
-  filter = "macchiato",
+  filter = "mocha",
+  -- name = "ayu",
+  -- filter = "mirage",
 }
 
 -- submode
@@ -58,40 +58,6 @@ g.markdown_fenced_languages = {
   "vim",
   "yaml",
 }
-
--- ALE
---[[ g.ale_linters = {
-  javascript = { "prettier" },
-  lua = { "luac" },
-  python = { "pylint", "pycodestyle" },
-  sh = { "shellcheck" },
-  terraform = { "terraform" },
-  vue = { "prettier" },
-}
-
-g.ale_fixers = {
-  go = { "goimports" },
-  javascript = { "prettier" },
-  json = { "jq" },
-  lua = { "stylua" },
-  python = { "autopep8" },
-  sh = { "shfmt" },
-  terraform = { "terraform" },
-  typescript = { "prettier" },
-}
-
-g.ale_fix_on_save = 1
-g.ale_sign_error = "✗"
-g.ale_sign_warning = "⚡"
-g.ale_echo_msg_error_str = "✗"
-g.ale_echo_msg_warning_str = "⚡"
-g.ale_echo_msg_format = "[%linter%] %s [%severity%]"
-g.ale_sign_highlight_linenrs = 1
-g.ale_sh_shellcheck_exclusions = "SC2068,SC2086"
-g.ale_sh_shellcheck_dialect = "bash"
-g.ale_sh_shfmt_options = "-i 4 -ci -bn -ln bash"
-g.ale_python_autopep8_options = "--max-line-length=160"
-g.ale_lua_stylua_options = "--search-parent-directories" ]]
 
 -- json
 g.vim_json_syntax_conceal = 0

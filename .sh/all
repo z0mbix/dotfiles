@@ -7,6 +7,8 @@
 PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/.local/bin:$HOME/go/bin:$PATH
 [ -d /opt/homebrew/bin ] && PATH="/opt/homebrew/bin:$PATH"
 
+MANPATH="$MANPATH:${HOME}/.local/share/man-get"
+
 # export PYENV_ROOT="$HOME/.pyenv"
 PATH="$HOME/.pyenv/bin:$PATH"
 
@@ -31,6 +33,10 @@ if command -v direnv >/dev/null 2>&1; then
   eval "$(direnv hook $SHELL_NAME)"
 fi
 
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate $SHELL_NAME)"
+fi
+
 if command -v starship >/dev/null 2>&1; then
   eval "$(starship init $SHELL_NAME)"
 else
@@ -46,7 +52,11 @@ else
 fi
 
 if command -v zoxide >/dev/null 2>&1; then
-  eval "$(zoxide init $SHELL_NAME)"
+  eval "$(zoxide init --cmd cd $SHELL_NAME)"
+fi
+
+if command -v atuin >/dev/null 2>&1; then
+  eval "$(atuin init $SHELL_NAME --disable-up-arrow)"
 fi
 
 if [ -e $HOME/.krew/bin/kubectl-krew ] || command -v kubectl-krew >/dev/null; then
@@ -77,4 +87,13 @@ if [ -e $HOME/.rd/bin ]; then
   PATH="$HOME/.rd/bin:$PATH"
 fi
 
+if [ -e /opt/homebrew/opt/libpq/bin ]; then
+  PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+fi
+
+if [ -e ${HOME}/Library/Python/3.11/bin ]; then
+  PATH="${HOME}/Library/Python/3.11/bin:$PATH"
+fi
+
 export PATH
+export MANPATH

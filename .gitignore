@@ -3,6 +3,7 @@
 .DS_Store
 .aws/credentials
 .config/gopass/config.yml
+.config/nvim/plugin/
 .gitconfig.work
 .sh/local
 .sh/private

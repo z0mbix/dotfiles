@@ -1,11 +1,33 @@
-export REPOS_DIR="${HOME}/repos"
+export REPOS_DIR="${HOME}/Repos"
+export COPILOT_ENABLED='true'
+export AWS_PROFILE='shared'
+export AWS_DEFAULT_REGION='eu-west-2'
+export SSH_AUTH_SOCK=~/.1password/agent.sock
+
+export PATH="${HOME}/Repos/util-developer/bin:$PATH"
+
+alias ct='cleartoken'
+alias kgn='kubectl get nodes -L node.kubernetes.io/instance-type -L topology.kubernetes.io/region,topology.kubernetes.io/zone -L kubernetes.io/arch -L cleartoken.net/workload-type'
+alias devsrv='ssh devsrv'
 
 function repos() {
   cd $REPOS_DIR || false
   cd "$(fd --type d --max-depth 1 | fzf)" || false
 }
 
-function vscode() {
+function e() {
+  local current_dir=$(pwd)
   cd $REPOS_DIR || exit
   code "$(fd --type d --max-depth 1 | fzf)"
+  cd $current_dir || exit
+}
+
+function nav() {
+  local current_dir=$(pwd)
+  cd_path=$(navigate "${@}")
+  if [[ -z "${cd_path}" ]]; then
+    echo "» ${cd_path} does not exist!"
+    return
+  fi
+  cd $cd_path || return
 }

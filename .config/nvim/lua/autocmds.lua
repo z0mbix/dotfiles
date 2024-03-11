@@ -68,7 +68,7 @@ vim.cmd([[
   autocmd FileType json set ts=2 sw=2 et sts=2 smartindent
 
   " YAML
-  autocmd BufNewFile,BufRead *.yaml,*.yml.j2,*.yaml.j2,*.yml.j2 set ft=yaml
+  autocmd BufNewFile,BufRead ~/.kube/config,*.yaml,*.yml.j2,*.yaml.j2,*.yml.j2 set ft=yaml
   autocmd FileType yaml set ts=2 sw=2 et sts=2 smartindent
 
   " The Jenkinsfile

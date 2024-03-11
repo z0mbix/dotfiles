@@ -341,7 +341,7 @@ local null_ls = require("null-ls")
 
 null_ls.setup({
   sources = {
-    null_ls.builtins.formatting.shfmt,
+    null_ls.builtins.formatting.shfmt.with({ extra_args = { "-i", "2", "-ci", "-bn", "-ln", "bash" } }),
     null_ls.builtins.formatting.yamlfmt,
     null_ls.builtins.formatting.stylua,
     null_ls.builtins.completion.spell,

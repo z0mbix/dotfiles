@@ -1,102 +1,121 @@
 [user]
-	name = z0mbix
-	email = zombie@zombix.org
-	editor = vim
-	signingkey = FFCE5C105D81AB88
+  name = z0mbix
+  email = zombie@zombix.org
+  editor = nvim
+  signingkey = FFCE5C105D81AB88
 #[includeIf "gitdir:~/Work/"]
 #  path = ~/.gitconfig.work
-[commit]
-	gpgsign = true
-	template = ~/.gitmessage
-[github]
-	user = z0mbix
-[push]
-	default = current
-[color]
-	ui = auto
-[color "branch"]
-	current = yellow reverse
-	local = yellow
-	remote = cyan
-[color "diff"]
-	meta = yellow bold
-	frag = magenta bold
-	old = red bold
-	new = cyan
-	whitespace = red reverse
-[color "status"]
-	added = yellow
-	changed = green
-	untracked = cyan
 [core]
-	whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
-	excludesfile = ~/.gitignore
-	pager = diff-so-fancy | less -FRSX
-	quotepath = false
-	autocrlf = input
+  whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+  excludesfile = ~/.gitignore
+  pager = delta
+  quotepath = false
+  autocrlf = input
+[gpg]
+  format = ssh
+[gpg "ssh"]
+  allowedSignersFile = /Users/dwooldridge/.ssh/allowed-signers
+[commit]
+  gpgsign = true
+  template = ~/.gitmessage
+[github]
+  user = z0mbix
+[push]
+  default = current
+  autoSetupRemote = true
+[color]
+  ui = auto
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = cyan
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = cyan
+  whitespace = red reverse
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
 [alias]
-	alias = !git config -l | grep ^alias | cut -c 7- | sort
-	br = !"git checkout $(git branch-select)"
-	branch-commit-diff = !"f() { git log --graph --abbrev-commit --date=relative master..$@; }; f"
-	branch-diff = !"f() { git diff master $@; }; f"
-	branch-select = !"git branch | fzf | tr -d '[:space:]\\*'"
-	branch-toggle = checkout -
-	cat = -p cat-file -p
-	changelog = log --pretty=format:\" * %s\"
-	ci = commit
-	co = checkout
-	dc = diff --cached
-	df = diff
-	diff-last-commit = diff HEAD^ HEAD
-	show-diff = !"f() { git diff $1^!; }; f"
-	ds = diff --stat
-	home = rev-parse --show-toplevel
-	in = !git fetch && git log --pretty=oneline --abbrev-commit --graph ..@{upstream}
-	last = cat-file commit HEAD
-	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-	log-last = log -n 1
-	lol = log --decorate --pretty=oneline --abbrev-commit
-	ls = ls-files
-	ls-ignored = ls-files --exclude-standard --ignored --others
-	main = !"git checkout master || git checkout main"
-	out = log --graph --oneline --pretty=format:'%Cred%h%Cgreen %cd %Creset- %s' --abbrev-commit --date=relative --graph @{upstream}..
-	pr = !"pr() { git fetch origin pull/$1/head:pr-$1; git checkout pr-$1; }; pr"
-	prune = fetch --prune
-	push-and-pr = !git push && git open-pr
-	root = rev-parse --show-toplevel
-	sa = stash apply
-	sd = stash show --patch
-	since = !git log $(git merge-base --fork-point master)..HEAD
-	sl = stash list
-	sp = stash pop
-	ss = stash save
-	st = status -sb
-	stash-all = stash save --include-untracked
-	uncommit = reset --soft HEAD^
-	unstage = reset HEAD
+  alias = !git config -l | grep ^alias | cut -c 7- | sort
+  br = !"git checkout $(git branch-select)"
+  branch-commit-diff = !"f() { git log --graph --abbrev-commit --date=relative master..$@; }; f"
+  branch-diff = !"f() { git diff master $@; }; f"
+  branch-select = !"git branch | fzf | tr -d '[:space:]\\*'"
+  branch-toggle = checkout -
+  cat = -p cat-file -p
+  changelog = log --pretty=format:\" * %s\"
+  ci = commit
+  co = checkout
+  dc = diff --cached
+  df = diff
+  diff-last-commit = diff HEAD^ HEAD
+  show-diff = !"f() { git diff $1^!; }; f"
+  ds = diff --stat
+  home = rev-parse --show-toplevel
+  in = !git fetch && git log --pretty=oneline --abbrev-commit --graph ..@{upstream}
+  last = cat-file commit HEAD
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  log-last = log -n 1
+  lol = log --decorate --pretty=oneline --abbrev-commit
+  ls = ls-files
+  ls-ignored = ls-files --exclude-standard --ignored --others
+  main = !"git checkout master || git checkout main"
+  out = log --graph --oneline --pretty=format:'%Cred%h%Cgreen %cd %Creset- %s' --abbrev-commit --date=relative --graph @{upstream}..
+  pr = !"pr() { git fetch origin pull/$1/head:pr-$1; git checkout pr-$1; }; pr"
+  prune = fetch --prune
+  push-and-pr = !git push && git open-pr
+  root = rev-parse --show-toplevel
+  sa = stash apply
+  sd = stash show --patch
+  since = !git log $(git merge-base --fork-point master)..HEAD
+  sl = stash list
+  sp = stash pop
+  ss = stash save
+  st = status -sb
+  stash-all = stash save --include-untracked
+  uncommit = reset --soft HEAD^
+  unstage = reset HEAD
 [advice]
-	statusHints = false
-[diff]
-	tool = diff-so-fancy
-	renames = copies
-	mnemonicprefix = true
-	noprefix = true
+  statusHints = false
 [merge]
-	stat = true
-	summary = true
+  stat = true
+  conflictstyle = diff3
+  summary = true
+[diff]
+  tool = delta
+  renames = copies
+  mnemonicprefix = true
+  noprefix = true
+  colorMoved = default
 [diff "exif"]
-	textconv = exif
-	path =
+  textconv = exif
+  path =
 [credential]
-	helper = osxkeychain
+  helper = osxkeychain
 [help]
-	autocorrect = 1
+  autocorrect = 1
 [pull]
-	default = current
-	; rebase = true
+  default = current
+  ; rebase = true
 [init]
-	defaultBranch = main
+  defaultBranch = main
 [interactive]
-	diffFilter = diff-so-fancy --patch
+  diffFilter = delta --color-only
+[include]
+  path = ~/.config/delta/themes.gitconfig
+[delta]
+  navigate = true
+  line-numbers = true
+  side-by-side = true
+  syntax-theme = Monokai Extended Bright
 [diff-so-fancy]
-	markEmptyLines = false
+  markEmptyLines = false
+[filter "lfs"]
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
