@@ -49,7 +49,7 @@ remap("n", "<leader>ghp", ":Gitsigns preview_hunk<CR>", opts)
 remap("n", "<leader>ghr", ":Gitsigns reset_hunk<CR>", opts)
 remap("n", "<leader>ghj", ":Gitsigns next_hunk<CR>", opts)
 remap("n", "<leader>ghk", ":Gitsigns prev_hunk<CR>", opts)
-remap("n", "<leader>gg", ":LazyGit<CR>", opts)
+remap("n", "<leader>gg", ":Neogit<CR>", opts)
 
 -- Write as root if we don't have permission
 remap("c", "w!!", "%!sudo tee > /dev/null %", opts)

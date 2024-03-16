@@ -39,7 +39,7 @@ opt.errorbells = false -- don't annoy me
 opt.visualbell = false -- disable visual bell
 opt.report = 0 -- always report lines changed
 opt.showmatch = true -- show matching brackets
-opt.foldenable = false -- enable folding
+opt.foldenable = true -- enable folding
 opt.foldmethod = "indent" -- fold lines with equal indent
 opt.foldcolumn = "1" -- use 1 fold column
 opt.foldlevel = 99 -- opt.fold close level
@@ -60,13 +60,12 @@ opt.showtabline = 1 -- only show the tabline when more than one tab open
 opt.autoread = true -- detect files changed outside of vim
 opt.showmode = false -- don't show the default vim mode line
 opt.modeline = true -- don't show mode line
-opt.lazyredraw = true -- redraw only when required
 opt.mouse = "a" -- enable mouse support
 opt.mousemoveevent = true -- enable mouse events
 opt.joinspaces = false -- remove extra space when joining lines
 opt.cmdheight = 1 -- better display for messages
 opt.updatetime = 200 -- faster swap file writes
-opt.timeoutlen = 400 -- timeout a bit quicker
+opt.timeoutlen = 300 -- timeout a bit quicker
 opt.signcolumn = "yes" -- show signcolumn in number column
 opt.completeopt = "menuone,noselect" -- for nvim-compe
 opt.inccommand = "nosplit" -- live preview of substitutions
@@ -78,6 +77,13 @@ opt.list = true -- show invisible characters
 opt.switchbuf = "useopen,vsplit" -- sensible buffer switching
 opt.grepprg = "rg --hidden --vimgrep --smart-case --" -- use ripgrep instead of grep
 opt.secure = true -- disable autocmds in .exrc/.nvimrc
+
+-- characters for the statusline
+opt.fillchars = {
+  eob = "a",
+  foldopen = "",
+  foldclose = "",
+}
 
 -- characters for invisibles
 opt.listchars = {
@@ -112,3 +118,5 @@ opt.shada = {
   "s10", -- maximum size of an item contents in KiB
   "h", -- disable 'hlsearch' highlighting when starting neovim
 }
+
+opt.iskeyword:append("-")
