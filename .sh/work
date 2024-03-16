@@ -3,7 +3,7 @@ export COPILOT_ENABLED='true'
 export AWS_PROFILE='shared'
 export AWS_DEFAULT_REGION='eu-west-2'
 export SSH_AUTH_SOCK=~/.1password/agent.sock
-
+export GOPRIVATE="github.com/ClearToken/*"
 export PATH="${HOME}/Repos/util-developer/bin:$PATH"
 
 alias ct='cleartoken'
@@ -12,7 +12,11 @@ alias devsrv='ssh devsrv'
 
 function repos() {
   cd $REPOS_DIR || false
-  cd "$(fd --type d --max-depth 1 | fzf)" || false
+  local repo_dir="$(fd --type d --max-depth 1 | fzf)"
+  if [[ -z "${repo_dir}" ]]; then
+    return
+  fi
+  cd "${repo_dir}" || false
 }
 
 function e() {

@@ -19,6 +19,8 @@ FPATH=${HOMEBREW_ROOT}/share/zsh-completions:$FPATH
 
 [[ -d /Developer/usr/bin ]] && PATH=$PATH:/Developer/usr/bin
 
+ulimit -n 10240
+
 # Aliases
 alias ls='ls -FG'
 alias tl='tail -f /var/log/system.log'
