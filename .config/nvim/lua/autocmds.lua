@@ -1,117 +1,254 @@
-vim.cmd([[
-  " remember where I am in the file
-  autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
+vim.api.nvim_create_autocmd("BufReadPost", {
+  desc = "remember location in the file",
+  pattern = "*",
+  callback = function()
+    local line = vim.fn.line
+    if line("'\"") > 0 and line("'\"") <= line("$") then
+      vim.cmd("normal! g'\"")
+    end
+  end,
+})
 
-  " open fuzzy finder if vim opened without any args except in home dir
-  augroup TELESCOPE_OPEN
-    if argc() == 0 && getcwd() != expand("~")
-      if isdirectory('.git')
-        " autocmd vimenter * GFiles
-        autocmd vimenter * Telescope git_files
+local telescope_open = vim.api.nvim_create_augroup("telescope_open", { clear = true })
+vim.api.nvim_create_autocmd("VimEnter", {
+  desc = "open telescope on startup",
+  pattern = "*",
+  group = telescope_open,
+  callback = function()
+    if vim.fn.argc() == 0 and vim.fn.getcwd() ~= vim.fn.expand("~") then
+      if vim.fn.isdirectory(".git") ~= 0 then
+        vim.cmd("Telescope git_files")
       else
-        " autocmd vimenter * Files
-        autocmd vimenter * Telescope find_files
-      endif
-    endif
-  augroup END
+        vim.cmd("Telescope find_files")
+      end
+    end
+  end,
+})
 
-  " toggle number/relativenumber
-  augroup numbertoggle
-    autocmd!
-    autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
-    autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
-  augroup END
+vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
+  desc = "configure line numbers",
+  pattern = "*",
+  callback = function()
+    if vim.wo.number and vim.api.nvim_get_mode().mode ~= "i" then
+      vim.wo.relativenumber = true
+    end
+  end,
+})
 
-  " when writing new files, mkdir -p their paths
-  augroup AutoCreateDir
-    au!
-    au BufWritePre * if expand("<afile>")!~#'^\w\+:/' && !isdirectory(expand("%:h")) | execute "silent! !mkdir -p ".shellescape(expand('%:h'), 1) | redraw! | endif
-  augroup END
+vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
+  desc = "configure line numbers",
+  pattern = "*",
+  callback = function()
+    if vim.wo.number then
+      vim.wo.relativenumber = false
+    end
+  end,
+})
 
-  " git commit messages
-  autocmd FileType gitcommit set textwidth=72
-  autocmd FileType gitcommit set colorcolumn=73
+vim.api.nvim_create_autocmd("BufWritePre", {
+  desc = "create new file and all directories",
+  pattern = "*",
+  callback = function()
+    local file_dir = vim.fn.expand("<afile>:p:h")
+    if not vim.loop.fs_stat(file_dir) then
+      vim.fn.mkdir(file_dir, "p")
+    end
+  end,
+})
 
-  " Shell files
-  autocmd BufNewFile,BufRead *.rc,*.sh,.envrc,~/.sh/* set ft=sh
-  autocmd FileType sh set ts=2 sw=2 et smartindent
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "configure git commit file type",
+  pattern = "gitcommit",
+  callback = function()
+    vim.bo.textwidth = 72
+    vim.bo.colorcolumn = "73"
+  end,
+})
 
-  " Ruby
-  autocmd BufNewFile,BufRead *.rake,*.mab,*.ru set ft=ruby
-  autocmd BufNewFile,BufRead *.erb set ft=eruby
-  autocmd BufNewFile,BufRead *.rub set ft=eruby
-  autocmd BufNewFile,BufRead .irbrc,.pryrc,Capfile,Gemfile,Rakefile,Vagrantfile,Puppetfile set ft=ruby
-  autocmd FileType ruby,eruby set ts=2 sw=2 tw=79 et sts=2 smartindent
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  desc = "set file type for shell scripts",
+  pattern = { "*.rc", "*.sh", ".envrc", "~/.sh/*" },
+  callback = function()
+    vim.bo.filetype = "sh"
+  end,
+})
 
-  " PHP
-  autocmd BufNewFile,BufRead *.php set ft=php
-  autocmd FileType php set ts=4 sw=4 tw=79 et sts=4 smartindent
-  let php_sql_query=1
-  let php_htmlInStrings=1
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "set shell script file type settings",
+  pattern = "sh",
+  callback = function()
+    vim.bo.tabstop = 2
+    vim.bo.shiftwidth = 2
+    vim.bo.expandtab = true
+    vim.bo.smartindent = true
+  end,
+})
 
-  " Python
-  autocmd BufNewFile,BufRead .py set ft=python
-  autocmd FileType python set ts=4 sw=4 tw=160 et sts=4 smartindent
-  autocmd FileType python map <buffer> <F7> :call Autopep8()<CR>
-  autocmd Filetype python setlocal omnifunc=v:lua.vim.lsp.omnifunc
+local filetype_settings = {
+  { pattern = { "*.rake", "*.ru", ".irbrc", ".pryrc", "Gemfile", "Rakefile", "Vagrantfile" }, ft = "ruby" },
+  { pattern = { "*.erb" }, ft = "eruby" },
+  { pattern = { "*.php" }, ft = "php" },
+  { pattern = { "*.py" }, ft = "python" },
+  { pattern = { "*.js" }, ft = "javascript" },
+  { pattern = { "*.ts" }, ft = "typescript" },
+  { pattern = { "*.json", "*.json.j2", "*.code-workspace", "*.tfstate" }, ft = "json" },
+  { pattern = { "~/.kube/config", "*.yaml", "*.yml.j2", "*.yaml.j2", "*.yml.j2" }, ft = "yaml" },
+  { pattern = { "*.Jenkinsfile", "Jenkinsfile", "Jenkinsfile*" }, ft = "jenkinsfile" },
+  { pattern = { "*.repo", "*.repo.j2" }, ft = "yum" },
+  { pattern = { "*.hcl" }, ft = "hcl" },
+  { pattern = { "make", "*.Makefile" }, ft = "make" },
+}
 
-  " JavaScript
-  autocmd BufNewFile,BufRead *.js set ft=javascript
-  autocmd FileType javascript set ts=2 sw=2 tw=120 et sts=2 smartindent
+for _, setting in pairs(filetype_settings) do
+  vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+    pattern = setting.pattern,
+    callback = function()
+      vim.bo.filetype = setting.ft
+    end,
+  })
+end
 
-  " Typescript
-  autocmd BufNewFile,BufRead *.ts set ft=typescript
-  autocmd FileType typescript set ts=2 sw=2 tw=120 et sts=2 smartindent
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "set ruby file type settings",
+  pattern = "ruby,eruby",
+  callback = function()
+    vim.bo.tabstop = 2
+    vim.bo.shiftwidth = 2
+    vim.bo.textwidth = 79
+    vim.bo.expandtab = true
+    vim.bo.softtabstop = 2
+    vim.bo.smartindent = true
+  end,
+})
 
-  " JSON
-  autocmd BufNewFile,BufRead *.json,*.json.j2,*.code-workspace set ft=json
-  autocmd FileType json set ts=2 sw=2 et sts=2 smartindent
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "set php file type settings",
+  pattern = "php",
+  callback = function()
+    vim.bo.tabstop = 4
+    vim.bo.shiftwidth = 4
+    vim.bo.textwidth = 79
+    vim.bo.expandtab = true
+    vim.bo.softtabstop = 4
+    vim.bo.smartindent = true
+    vim.g.php_sql_query = 1
+    vim.g.php_htmlInStrings = 1
+  end,
+})
 
-  " YAML
-  autocmd BufNewFile,BufRead ~/.kube/config,*.yaml,*.yml.j2,*.yaml.j2,*.yml.j2 set ft=yaml
-  autocmd FileType yaml set ts=2 sw=2 et sts=2 smartindent
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "set python file type settings",
+  pattern = "python",
+  callback = function()
+    vim.bo.tabstop = 4
+    vim.bo.shiftwidth = 4
+    vim.bo.textwidth = 160
+    vim.bo.expandtab = true
+    vim.bo.softtabstop = 4
+    vim.bo.smartindent = true
+    vim.api.nvim_buf_set_keymap(0, "n", "<F7>", ":call Autopep8()<CR>", { noremap = true, silent = true })
+    vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
+  end,
+})
 
-  " The Jenkinsfile
-  autocmd BufNewFile,BufRead *.Jenkinsfile set ft=jenkinsfile
-  autocmd BufNewFile,BufRead Jenkinsfile set ft=jenkinsfile
-  autocmd BufNewFile,BufRead Jenkinsfile* set ft=jenkinsfile
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "set javascript file type settings",
+  pattern = "javascript",
+  callback = function()
+    vim.bo.tabstop = 2
+    vim.bo.shiftwidth = 2
+    vim.bo.textwidth = 120
+    vim.bo.expandtab = true
+    vim.bo.softtabstop = 2
+    vim.bo.smartindent = true
+  end,
+})
 
-  " Puppet
-  autocmd BufRead,BufNewFile *.pp set ft=puppet
-  autocmd FileType puppet set ts=2 sw=2 tw=79 et sts=2 smartindent
-  autocmd FileType puppet set commentstring=#\ %s
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "set typescript file type settings",
+  pattern = "typescript",
+  callback = function()
+    vim.bo.tabstop = 2
+    vim.bo.shiftwidth = 2
+    vim.bo.textwidth = 120
+    vim.bo.expandtab = true
+    vim.bo.softtabstop = 2
+    vim.bo.smartindent = true
+  end,
+})
 
-  " Yum repos
-  autocmd BufRead,BufNewFile *.repo,*.repo.j2 set ft=yum
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "set json file type settings",
+  pattern = "json",
+  callback = function()
+    vim.bo.tabstop = 2
+    vim.bo.shiftwidth = 2
+    vim.bo.expandtab = true
+    vim.bo.softtabstop = 2
+    vim.bo.smartindent = true
+  end,
+})
 
-  " HCL
-  autocmd BufNewFile,BufRead *.hcl set ft=hcl
-  autocmd FileType hcl set ts=2 sw=2 et sts=2 smartindent
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "set yaml file type settings",
+  pattern = "yaml",
+  callback = function()
+    vim.bo.tabstop = 2
+    vim.bo.shiftwidth = 2
+    vim.bo.expandtab = true
+    vim.bo.softtabstop = 2
+    vim.bo.smartindent = true
+  end,
+})
 
-  " Makefiles and c have tabstops at 8 for portability
-  autocmd FileType make,c,cpp set ts=8 sw=8
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "set make, c and c++ file type settings",
+  pattern = "make,c,cpp",
+  callback = function()
+    vim.bo.tabstop = 8
+    vim.bo.shiftwidth = 8
+  end,
+})
 
-  " Makefiles and c have tabstops at 8 for portability
-  autocmd FileType make,c,cpp set ts=8 sw=8
+vim.api.nvim_create_autocmd("BufWritePre", {
+  desc = "strip trailing whitespace before saving",
+  pattern = "*",
+  callback = function()
+    vim.cmd("%s/\\s\\+$//e")
+  end,
+})
 
-  " Clear whitespace at the end of lines automatically
-  autocmd BufWritePre * :%s/\s\+$//e
+vim.api.nvim_create_autocmd("BufWritePost", {
+  desc = "reload neovim config after saving",
+  pattern = { "lua/*.lua", "lua/plugins/*.lua", "init.lua" },
+  callback = function()
+    vim.cmd("source $MYVIMRC")
+  end,
+})
 
-  " Automatically reload vim config when it's saved
-  augroup lua
-    autocmd!
-    autocmd BufWritePost lua/*.lua,init.lua source $MYVIMRC
-  augroup end
+vim.api.nvim_create_autocmd("VimResized", {
+  desc = "resize windows equally",
+  pattern = "*",
+  callback = function()
+    vim.cmd("wincmd =")
+  end,
+})
 
-  " Resize splits when the window is resized
-  autocmd VimResized * :wincmd =
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  desc = "ignore viminfo for git",
+  pattern = "*.git/*",
+  callback = function()
+    vim.fn.setpos(".", { 0, 1, 1, 0 })
+  end,
+})
 
-  " vim-after-object - e.g. ca= / da= etc.
-  " autocmd VimEnter * call after_object#enable('=', ':', '-', '#', ' ')
-
-  " git re-uses the same filename all the time, so ignore viminfo
-  autocmd BufNewFile,BufRead *.git/* call setpos('.', [0, 1, 1, 0])
-
-  " disable auto comment new line
-  autocmd FileType * set fo-=c fo-=r fo-=o fo+=j
-]])
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "disable auto comment new line",
+  pattern = "*",
+  callback = function()
+    vim.opt_local.formatoptions:remove("c")
+    vim.opt_local.formatoptions:remove("r")
+    vim.opt_local.formatoptions:remove("o")
+    vim.opt_local.formatoptions:append("j")
+  end,
+})

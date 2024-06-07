@@ -160,7 +160,7 @@ remap("n", "<leader>mm", ":MinimapToggle<CR>", opts)
 remap("n", "<leader>F", ":Format<CR>", opts)
 
 -- which-key.nvim
-remap("n", "<leader>Wk", ":WhichKey<CR>", opts)
+-- remap("n", "<leader>Wk", ":WhichKey<CR>", opts)
 
 -- vim-maximizer
 remap("n", "<leader>W", ":MaximizerToggle<CR>", opts)
@@ -170,7 +170,7 @@ remap("v", "<leader>W", ":MaximizerToggle<CR>gv", opts)
 remap("n", "<leader>T", ":TroubleToggle<CR>", opts)
 
 -- quickfix
-remap("n", "<leader>qft", [[<Cmd>lua require('funcs').toggle_qf()<CR>]], opts)
+remap("n", "<leader>qft", [[<Cmd>lua require('functions').toggle_qf()<CR>]], opts)
 remap("n", "<leader>qfo", ":copen<CR>", opts)
 remap("n", "<leader>qfc", ":cclose<CR>", opts)
 
@@ -189,7 +189,8 @@ remap("n", "<A-j>", ":MoveLine(1)<CR>", opts)
 remap("n", "<A-k>", ":MoveLine(-1)<CR>", opts)
 remap("n", "<A-h>", ":MoveHChar(-1)<CR>", opts)
 remap("n", "<A-l>", ":MoveHChar(1)<CR>", opts)
-
+remap("n", "<leader>wf", ":MoveWord(1)<CR>", opts)
+remap("n", "<leader>wb", ":MoveWord(-1)<CR>", opts)
 remap("v", "<A-j>", ":MoveBlock(1)<CR>", opts)
 remap("v", "<A-k>", ":MoveBlock(-1)<CR>", opts)
 remap("v", "<A-h>", ":MoveHBlock(-1)<CR>", opts)
@@ -217,3 +218,9 @@ vim.cmd([[
 remap("i", "<F2>", '<cmd>lua require("renamer").rename()<cr>', opts)
 remap("n", "<leader>rn", '<cmd>lua require("renamer").rename()<cr>', opts)
 remap("v", "<leader>rn", '<cmd>lua require("renamer").rename()<cr>', opts)
+--
+-- spectre.nvim
+remap("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>', opts)
+remap("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<cr>', opts)
+remap("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', opts)
+remap("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', opts)

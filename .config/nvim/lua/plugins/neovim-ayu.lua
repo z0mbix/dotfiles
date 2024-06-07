@@ -1,0 +1,1 @@
+return { "Shatur/neovim-ayu" }

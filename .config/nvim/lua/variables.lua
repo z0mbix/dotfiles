@@ -28,13 +28,18 @@ g.mysyntaxfile = "~/.config/nvim/after/ftplugin/all.vim"
 -- g.python3_host_prog = "~/.venvs/neovim3/bin/python"
 
 -- colours
-g.nvcode_termcolors = 256
-g.colorscheme = {
+vim.g.nvcode_termcolors = 256
+vim.g.colorscheme = {
   name = "catppuccin",
   filter = "mocha",
   -- name = "ayu",
   -- filter = "mirage",
 }
+
+vim.g.colorscheme_name = vim.g.colorscheme.name
+if vim.g.colorscheme.filter then
+  vim.g.colorscheme_name = string.format("%s-%s", vim.g.colorscheme.name, vim.g.colorscheme.filter)
+end
 
 -- submode
 g.submode_timeout = 0

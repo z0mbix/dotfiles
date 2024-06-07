@@ -1,11 +1,5 @@
 local opt = vim.opt
 
-local colorscheme = vim.g.colorscheme.name
-if vim.g.colorscheme.filter then
-  colorscheme = string.format("%s-%s", vim.g.colorscheme.name, vim.g.colorscheme.filter)
-end
-vim.api.nvim_command("colorscheme " .. colorscheme)
-
 vim.g.mapleader = " " -- this is the way
 vim.g.maplocalleader = " " -- apparently this is too
 
@@ -17,7 +11,7 @@ opt.number = true -- allow numbers when in insert mode
 opt.relativenumber = true -- relative numbers when not in insert mode
 opt.exrc = true -- source .vimrc files
 opt.cursorline = true -- highlight the current line
-opt.shortmess = "atOIc" -- disable start-up message
+opt.shortmess = "atOIcF" -- disable start-up message
 opt.ruler = true -- show the line and column number of the cursor position
 opt.hidden = true -- sensible buffer behaviour
 opt.showcmd = true -- show command in last line
@@ -63,7 +57,7 @@ opt.modeline = true -- don't show mode line
 opt.mouse = "a" -- enable mouse support
 opt.mousemoveevent = true -- enable mouse events
 opt.joinspaces = false -- remove extra space when joining lines
-opt.cmdheight = 1 -- better display for messages
+opt.cmdheight = 0 -- better display for messages
 opt.updatetime = 200 -- faster swap file writes
 opt.timeoutlen = 300 -- timeout a bit quicker
 opt.signcolumn = "yes" -- show signcolumn in number column
@@ -81,6 +75,7 @@ opt.secure = true -- disable autocmds in .exrc/.nvimrc
 -- characters for the statusline
 opt.fillchars = {
   eob = "a",
+  fold = " ",
   foldopen = "",
   foldclose = "",
 }
