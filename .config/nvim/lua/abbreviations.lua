@@ -13,6 +13,7 @@ local abbreviations = {
     wehn = "when",
     zzo = "zombie@zombix.org",
     iferr = "if err != nil {}",
+    ellipsis = "…",
   },
   cnoreabbrev = {
     Wq = "wq!",
@@ -27,6 +28,6 @@ local abbreviations = {
 
 for mode, _ in pairs(abbreviations) do
   for k, v in pairs(abbreviations[mode]) do
-      cmd(string.format("%s %s %s", mode, k, v))
+    cmd(string.format("%s %s %s", mode, k, v))
   end
 end

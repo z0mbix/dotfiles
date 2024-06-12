@@ -26,7 +26,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 })
 
 vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
-  desc = "configure line numbers",
+  desc = "configure relative line numbers",
   pattern = "*",
   callback = function()
     if vim.wo.number and vim.api.nvim_get_mode().mode ~= "i" then
@@ -122,21 +122,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  desc = "set php file type settings",
-  pattern = "php",
-  callback = function()
-    vim.bo.tabstop = 4
-    vim.bo.shiftwidth = 4
-    vim.bo.textwidth = 79
-    vim.bo.expandtab = true
-    vim.bo.softtabstop = 4
-    vim.bo.smartindent = true
-    vim.g.php_sql_query = 1
-    vim.g.php_htmlInStrings = 1
-  end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
   desc = "set python file type settings",
   pattern = "python",
   callback = function()
@@ -152,21 +137,8 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  desc = "set javascript file type settings",
-  pattern = "javascript",
-  callback = function()
-    vim.bo.tabstop = 2
-    vim.bo.shiftwidth = 2
-    vim.bo.textwidth = 120
-    vim.bo.expandtab = true
-    vim.bo.softtabstop = 2
-    vim.bo.smartindent = true
-  end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-  desc = "set typescript file type settings",
-  pattern = "typescript",
+  desc = "set javascript and typesscript file type settings",
+  pattern = "javascript,typescript",
   callback = function()
     vim.bo.tabstop = 2
     vim.bo.shiftwidth = 2

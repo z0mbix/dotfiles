@@ -1,4 +1,4 @@
 return {
   "hashivim/vim-packer",
-  ft = { "hcl", "json" },
+  ft = { "pkr.hcl", "pkrvar.hcl" },
 }

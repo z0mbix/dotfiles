@@ -4,30 +4,35 @@ return {
   build = ":TSUpdate",
   dependencies = {
     { "nvim-treesitter/nvim-treesitter-textobjects" }, -- Syntax aware text-objects
-    {
-      "nvim-treesitter/nvim-treesitter-context", -- Show code context
-      opts = {
-        enable = true,
-        mode = "topline",
-        line_numbers = true,
-      },
-    },
   },
   config = function()
     require("nvim-treesitter.configs").setup({
       ensure_installed = {
         "bash",
+        "csv",
+        "dockerfile",
+        "gitcommit",
+        "gitignore",
         "go",
         "gomod",
+        "gosum",
         "hcl",
+        "helm",
         "html",
         "json",
+        "just",
         "lua",
         "make",
         "markdown",
+        "markdown_inline",
         "python",
+        "regex",
+        "sql",
+        "terraform",
         "toml",
         "vim",
+        "vimdoc",
+        "xml",
         "yaml",
       },
       highlight = {
@@ -50,10 +55,7 @@ return {
       textobjects = {
         select = {
           enable = true,
-
-          -- Automatically jump forward to textobj, similar to targets.vim
-          lookahead = true,
-
+          lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
           keymaps = {
             -- You can use the capture groups defined in textobjects.scm
             ["af"] = "@function.outer",

@@ -7,21 +7,31 @@ return {
     "neovim/nvim-lspconfig",
   },
   config = function()
-    require("mason").setup()
-    require("mason-lspconfig").setup({
+    require("mason").setup({
       ensure_installed = {
-        "golangci_lint_ls",
-        "jsonls",
-        "ruff",
-        "taplo",
-        "terraformls",
+        "gofumpt",
+        "hadolint",
+        "hclfmt",
+        "shellcheck",
+        "shfmt",
         "tflint",
-        "yamlls",
+      },
+    })
+
+    require("mason-lspconfig").setup({
+      automatic_installation = true,
+      ensure_installed = {
         "ansiblels",
         "bashls",
         "dockerls",
+        "golangci_lint_ls",
         "gopls",
+        "jsonls",
         "lua_ls",
+        "ruff",
+        "taplo",
+        "terraformls",
+        "yamlls",
       },
     })
   end,

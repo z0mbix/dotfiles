@@ -1,4 +1,4 @@
 return {
   "ekalinin/Dockerfile.vim",
-  ft = "Dockerfile",
+  ft = "dockerfile",
 }

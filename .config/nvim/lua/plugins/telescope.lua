@@ -18,6 +18,7 @@ return {
         mappings = {
           i = {
             ["<esc>"] = actions.close,
+            ["<C-h>"] = "which_key",
           },
           n = {
             ["<esc>"] = actions.close,
@@ -25,7 +26,8 @@ return {
         },
         layout_strategy = "flex",
         scroll_strategy = "cycle",
-        winblend = 10,
+        winblend = 0,
+        -- winblend = 10,
         layout_config = {
           width = 0.6,
           height = 0.8,
