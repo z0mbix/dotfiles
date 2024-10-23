@@ -30,8 +30,15 @@ g.mysyntaxfile = "~/.config/nvim/after/ftplugin/all.vim"
 -- colours
 vim.g.nvcode_termcolors = 256
 vim.g.colorscheme = {
-  name = "catppuccin",
-  filter = "mocha",
+  name = "monokai-pro",
+  filter = "octagon",
+
+  -- name = "material",
+  -- filter = "palenight",
+
+  -- name = "catppuccin",
+  -- filter = "mocha",
+
   -- name = "ayu",
   -- filter = "mirage",
 }

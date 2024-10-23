@@ -33,6 +33,7 @@ opt.errorbells = false -- don't annoy me
 opt.visualbell = false -- disable visual bell
 opt.report = 0 -- always report lines changed
 opt.showmatch = true -- show matching brackets
+opt.colorcolumn = "120" -- highlight column 120
 opt.foldenable = true -- enable folding
 opt.foldmethod = "indent" -- fold lines with equal indent
 opt.foldcolumn = "1" -- use 1 fold column
@@ -74,7 +75,7 @@ opt.secure = true -- disable autocmds in .exrc/.nvimrc
 
 -- characters for the statusline
 opt.fillchars = {
-  eob = "a",
+  eob = " ",
   fold = " ",
   foldopen = "",
   foldclose = "",

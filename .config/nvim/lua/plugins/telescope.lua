@@ -19,6 +19,10 @@ return {
           i = {
             ["<esc>"] = actions.close,
             ["<C-h>"] = "which_key",
+            ["<C-o>"] = function(p_bufnr)
+              require("telescope.actions").send_selected_to_qflist(p_bufnr)
+              vim.cmd.cfdo("edit")
+            end,
           },
           n = {
             ["<esc>"] = actions.close,
