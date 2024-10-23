@@ -115,4 +115,4 @@ opt.shada = {
   "h", -- disable 'hlsearch' highlighting when starting neovim
 }
 
-opt.iskeyword:append("-")
+-- opt.iskeyword:append("-")

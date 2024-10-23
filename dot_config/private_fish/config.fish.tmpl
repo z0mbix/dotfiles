@@ -1,0 +1,5 @@
+if status is-interactive
+{{- if (lookPath "starship") }}
+    starship init fish | source
+{{- end }}
+end

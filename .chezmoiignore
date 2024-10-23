@@ -2,6 +2,7 @@
  Brewfile
  {{- if .workComputer }}
 .aws
+.config/fish/
 .hammerspoon/
 .ssh/config
 Brewfile
