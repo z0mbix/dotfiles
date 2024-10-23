@@ -1,0 +1,36 @@
+# vim: set ft=dosini commentstring=#\ %s:
+title = "Ghostty 👻"
+theme = "Ayu Mirage"
+
+clipboard-read = allow
+copy-on-select = true
+cursor-style = block
+focus-follows-mouse = true
+macos-non-native-fullscreen = true
+macos-option-as-alt = left
+macos-titlebar-style = tabs
+macos-window-shadow = false
+mouse-hide-while-typing = true
+quit-after-last-window-closed = true
+shell-integration-features = no-cursor,no-sudo,no-title
+unfocused-split-opacity = 0.8
+window-save-state = always
+window-theme = system
+
+# font-family = "Inconsolata"
+# font-family = "Monaco"
+font-family = "JetBrainsMono Nerd Font Mono"
+# font-family = "Cascadia Code NF"
+font-size = 13
+# font-variation = wght=500
+# font-variation-bold = wght=500
+font-thicken = true
+font-feature = "calt"
+font-feature = "zero"
+
+keybind = cmd+right=text:\x05
+keybind = alt+left=esc:b
+keybind = alt+right=esc:f
+keybind = cmd+delete=text:\x0b
+keybind = cmd+backspace=text:\x15
+keybind = opt+delete=esc:d

@@ -1,0 +1,36 @@
+# go
+[[languages]]
+name = "go"
+formatter = { command = "goimports" }
+auto-format = true
+
+
+# bash
+[[language]]
+name = "bash"
+indent = { tab-width = 2, unit = "  " }
+formatter = { command = 'shfmt', args = ["-i", "2", "-bn", "-ci"] }
+auto-format = true
+
+
+# python
+[[language]]
+name = "python"
+language-servers = [ "ruff-lsp" ]
+auto-format = true
+
+[language-server.ruff-lsp]
+command = "ruff-lsp"
+
+
+# yaml
+[[language]]
+name = "yaml"
+file-types = ["yaml", "yml"]
+language-servers = ["yaml-language-server"]
+formatter = { command = "yamlfmt", args = ["-"] }
+auto-format = true
+
+[language-server.yaml-language-server.yaml]
+format = { enable = true }
+validation = true

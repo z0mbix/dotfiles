@@ -1,0 +1,180 @@
+# vim: set ft=sh
+
+# Enable color support of ls and also add handy aliases
+[ -x /usr/bin/dircolors ] && eval "$(dircolors -b)"
+
+# Generic aliases
+alias l='ls -l'
+alias l1='ls -1'
+alias lR='ls -lR'
+alias la='ls -a'
+alias laR='ls -aR'
+alias lal='ls -al'
+alias lh='ls -lh'
+alias lalR='ls -alR'
+alias lsd='ls -l | grep "^d"'
+alias p='ps aux'
+alias svim='sudo -e'
+alias scat='sudo cat'
+alias cast='cat'
+alias c='clear'
+alias d='df -h'
+alias h='history'
+alias recall='history | grep'
+alias rsync='rsync --progress --stats'
+alias colours='for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i} "; done'
+alias pign='ping' # doh!
+alias running_vms='VBoxManage list runningvms | cut -f2 -d\"'
+alias serve_cwd='python -m SimpleHTTPServer'
+alias cat-without-comments="grep -v -E '^$|^[[:blank:]]*#|^;|^[[:blank:]]*//|(/\*([^*]|(\*+[^*/]))*\*+/)|(//.*)'"
+alias pubkey="cat $HOME/.ssh/id_ed25519.pub | pbcopy | printf 'Public key copied to pasteboard.\n'"
+alias public-ip='curl -s https://checkip.amazonaws.com/'
+alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+alias j='jobs'
+alias p1='ping 1.1.1.1'
+alias p8='ping 8.8.8.8'
+alias vimdiff='nvim -d'
+alias countdown='mpg321 -q ~/iCloudDrive/Sounds/countdown.mp3'
+alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3'
+alias weather='clear; curl http://wttr.in/'
+alias tmux='TERM=screen-256color tmux'
+alias planetrock="mpg321 'http://tx.planetradio.co.uk/icecast.php?i=planetrock.mp3'"
+alias da='direnv allow'
+alias n='navi --print'
+alias shrug='echo -n "¯\\_(ツ)_/¯"'
+alias bandwhich='sudo bandwhich'
+alias fzfp='fzf --preview "bat --style=numbers --color=always --line-range :500 {}" --border --height 50%'
+alias lg='lazygit'
+alias rgq='rg --hidden --no-heading --no-line-number'
+alias luamake="\$HOME/iCloudDrive/Projects/lua-language-server/3rd/luamake/luamake"
+alias t='todo'
+alias bu='backup'
+alias emf='vim-modified-files'
+
+# Directories and navigation
+alias cd..='cd ..'
+alias cd...='cd ../..'
+alias cd....='cd ../../..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias dotfiles="cd $HOME/iCloudDrive/Projects/dotfiles"
+alias study="cd $HOME/iCloudDrive/Study"
+alias downloads="cd $HOME/Downloads"
+alias icd="cd $HOME/iCloudDrive"
+alias bin="cd $HOME/iCloudDrive/bin"
+alias p=projects
+
+# This, allows me to quickly copy a pastable HEREDOC on to new hosts :)
+alias copyinputrc='echo -e "cat > ~/.inputrc <<EOF $(echo; cat ~/.inputrc)\nEOF\nbind -f ~/.inputrc" | pbcopy'
+
+# MySQL
+alias mydbs='mysql -e "show databases"'
+
+# Git
+alias gc='git commit -m'
+alias gs='git st'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gr='git remote -v'
+alias gpom='git push origin master'
+alias gdlc='git diff-last-commit'
+alias gp='git pull'
+alias gbt='git branch-toggle'
+alias gnb='git checkout -b'
+alias gco='git checkout'
+alias gf='git fetch'
+alias gpap='git push-and-pr'
+alias gcomagp='git checkout master && git pull'
+
+# Docker
+alias dk='docker'
+alias dkb='docker build'
+alias dki='docker images'
+alias dkl='docker login'
+alias dkp='docker ps'
+alias dkr='docker run'
+alias dkrm='docker rm'
+alias dkrmi='docker rmi'
+
+# Terraform
+alias tf='terraform'
+alias tg='terragrunt'
+alias tg-cache-clear='find . -name .terragrunt-cache | xargs -n1 rm -rf'
+
+# Kubernetes
+alias k='kubectl'
+alias kl='kubectl logs -f'
+alias ke='kubectl get events -w'
+alias kpf='kubectl port-forward'
+alias kg='kubectl get'
+alias kd='kubectl describe'
+alias kga='kubectl get all'
+alias kgj='kubectl get jobs'
+alias kgp='kubectl get pods -L version,app'
+alias kgpw='kubectl get pods -L version,app -o wide'
+alias kgd='kubectl get deploy'
+alias kgdw='kubectl get deploy -o wide'
+alias kgi='kubectl get ing'
+alias kgn='kubectl get nodes -L node.kubernetes.io/instance-type -L topology.kubernetes.io/region,topology.kubernetes.io/zone -L kubernetes.io/arch'
+alias kgnw='kgn -o wide'
+alias kgns='kubectl get namespaces'
+alias kgs='kubectl get secrets'
+alias kges='kubectl get externalsecrets'
+alias kgdp='kubectl get deploy,pods'
+alias kgdps='kubectl get deploy,pods,svc'
+alias kda='kubectl describe all'
+alias kdj='kubectl describe jobs'
+alias kdp='kubectl describe pods'
+alias kdd='kubectl describe deploy'
+alias kdi='kubectl describe ing'
+alias kdn='kubectl describe nodes'
+alias kds='kubectl describe secrets'
+alias wkgp='watch -n1 "kubectl get pods"'
+alias kdump='kubectl get all --all-namespaces'
+alias ns='kubens'
+alias ctx='kubectx'
+alias kgc='kubectl config get-contexts -o name | sort'
+
+# Support aliases in these commands
+alias watch='watch '
+alias viddy='viddy '
+
+# AWS
+alias aws-account-id='aws sts get-caller-identity | jq -r ".Account"'
+alias aws-account-alias='aws iam list-account-aliases | jq -r ".AccountAliases[]"'
+alias aws-running-instances='aws ec2 describe-instances --output=json --filters "Name=instance-state-name,Values=running"'
+
+# Proxy
+alias proxyon='source ~/.sh/proxy'
+alias proxyoff='unset {HTTP,HTTPS,FTP}_PROXY {http,https,ftp}_proxy no_proxy NO_PROXY'
+alias proxystatus='env | grep -i proxy | sort'
+
+# Setup vim/nvim/vi
+if command -v nvim >/dev/null 2>&1; then
+  if [ ! -e ~/.config/nvim/init.lua ]; then
+    echo "You need to install your init.lua"
+  fi
+  alias vim='nvim'
+  alias vi='nvim'
+elif command -v vim >/dev/null 2>&1; then
+  if [ ! -e ~/.vimrc ]; then
+    echo "You need to install your ~/.vimrc"
+  fi
+  alias vi='vim'
+else
+  alias vim='vi'
+fi
+alias v='vi'
+
+if command -v gopass >/dev/null 2>&1; then
+  alias pass='gopass'
+fi
+
+if command -v bat >/dev/null 2>&1; then
+  alias cat='bat -p --decorations=never'
+  alias batp='bat -p --decorations=never'
+  alias baty='bat -l yaml'
+  alias batj='bat -l json'
+fi

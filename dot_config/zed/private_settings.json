@@ -1,0 +1,120 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+{
+  "assistant": {
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-4o"
+    },
+    "version": "2"
+  },
+  "theme": "Zedokai (Filter Octagon)",
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "project_panel": {
+    "dock": "right"
+  },
+  "ensure_final_newline_on_save": true,
+  "vim_mode": true,
+  "vim": {
+    // "always": use system clipboard when no register is specified
+    // "never": don't use system clipboard unless "+ or "* is specified
+    // "on_yank": use system clipboard for yank operations when no register is specified
+    "use_system_clipboard": "on_yank",
+    // Lets `f` and `t` motions extend across multiple lines
+    "use_multiline_find": true,
+    "toggle_relative_line_numbers": true
+  },
+  "relative_line_numbers": true,
+  // hide the scroll bar
+  "scrollbar": { "show": "never" },
+  // "ui_font_family": "JetBrainsMono Nerd Font Mono",
+  // "ui_font_family": "Zed Plex Sans",
+  "ui_font_size": 14,
+  "buffer_font_family": "JetBrainsMono Nerd Font Mono",
+  "buffer_font_size": 13,
+  "show_whitespaces": "selection",
+  "show_line_endings": true,
+  "preferred_line_length": 120,
+  "terminal": {
+    "font_family": "JetBrainsMono Nerd Font Mono"
+  },
+  "calls": {
+    // Join calls with the microphone live by default
+    "mute_on_join": true,
+    // Share your project when you are the first to join a channel
+    "share_on_join": false
+  },
+  "collaboration_panel": {
+    "button": false
+  },
+  "chat_panel": {
+    "button": false
+  },
+  "notification_panel": {
+    "button": false
+  },
+  "inlay_hints": {
+    "enabled": true,
+    "show_type_hints": true,
+    "show_parameter_hints": true,
+    "show_other_hints": true
+  },
+  "languages": {
+    "Shell Script": {
+      "tab_size": 2
+    },
+    "Terraform": {
+      "formatter": {
+        "external": {
+          "command": "/opt/homebrew/bin/terraform",
+          "arguments": ["fmt", "-"]
+        }
+      }
+    }
+    // "HCL": {
+    //   "formatter": {
+    //     "external": {
+    //       "command": "/opt/homebrew/bin/terragrunt",
+    //       "arguments": ["hclfmt", "--terragrunt-hclfmt-file", "{buffer_path}"]
+    //     }
+    //   }
+    // }
+  },
+  "lsp": {
+    "bash-language-server": {
+      "shfmt": {
+        "languageDialect": "bash",
+        "binaryNextLine": true,
+        "caseIndent": true
+      }
+    },
+    "yaml-language-server": {
+      "settings": {
+        "yaml": {
+          "format": {
+            "enable": true,
+            "singleQuote": false,
+            "printWidth": 160,
+            "bracetSpacing": false
+          }
+        }
+      }
+    }
+  }
+  // "file_types": {
+  //   "Helm": [
+  //     "**/templates/**/*.tpl",
+  //     "**/templates/**/*.yaml",
+  //     "**/templates/**/*.yml",
+  //   ]
+  // }
+}

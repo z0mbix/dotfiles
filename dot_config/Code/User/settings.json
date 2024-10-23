@@ -1,0 +1,256 @@
+{
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[terraform]": {},
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "debug.showBreakpointsInOverviewRuler": true,
+  "editor.accessibilitySupport": "off",
+  "editor.autoClosingBrackets": "beforeWhitespace",
+  "editor.autoClosingQuotes": "beforeWhitespace",
+  "editor.fontFamily": "'JetBrains Mono', 'Fira Code', Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontLigatures": "'ss02', 'ss19'",
+  "editor.fontSize": 12,
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": false,
+  "editor.inlineSuggest.enabled": true,
+  "editor.lineNumbers": "relative",
+  "editor.linkedEditing": true,
+  "editor.minimap.enabled": false,
+  "editor.quickSuggestions": {
+    "comments": false,
+    "other": true,
+    "strings": true
+  },
+  "editor.renderWhitespace": "boundary",
+  "editor.suggestSelection": "first",
+  "explorer.confirmDragAndDrop": false,
+  "explorer.openEditors.visible": 1,
+  "files.associations": {
+    "**/*_vars/**/*.yml": "ansible-advanced",
+    "**/*ansible*/**/*.yml": "ansible-advanced",
+    "**/defaults/**/*": "ansible-advanced",
+    "**/handler/*.yml": "ansible-advanced",
+    "**/inventory/*/*": "ansible-advanced",
+    "**/playbooks/**/*.yml": "ansible-advanced",
+    "**/roles/**/*.yml": "ansible-advanced",
+    "**/tasks/**/*.yml": "ansible-advanced",
+    "**/vars/**/*.yml": "ansible-advanced",
+    "*.yaml.j2": "yaml",
+    "*.yml.j2": "yaml",
+    ".envrc": "shellscript"
+  },
+  "files.exclude": {
+    "**/*.pyc": true,
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/.hg": true,
+    "**/.idea": true,
+    "**/.mypy_cache": true,
+    "**/.svn": true,
+    "**/.terragrunt-cache": true,
+    "**/.vagrant": true,
+    "**/.vscode": true,
+    "**/__pycache__": true,
+    "**/CVS": true
+  },
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "git.untrackedChanges": "separate",
+  "gitlens.codeLens.enabled": false,
+  "gitlens.currentLine.enabled": false,
+  "gitlens.defaultDateStyle": "absolute",
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.hovers.enabled": false,
+  "gitlens.keymap": "alternate",
+  "gitlens.statusBar.format": "${author}, ${date} (${ago}) - ${message}",
+  "go.toolsManagement.autoUpdate": true,
+  "go.useLanguageServer": true,
+  "http.proxyStrictSSL": true,
+  "prettier.printWidth": 120,
+  "python.autoComplete.addBrackets": true,
+  "python.autoComplete.showAdvancedMembers": true,
+  "python.disableInstallationCheck": true,
+  "python.formatting.autopep8Args": [
+    "--max-line-length=160",
+    "--ignore",
+    "E402"
+  ],
+  "python.formatting.blackArgs": ["--line-length 120"],
+  "python.languageServer": "Microsoft",
+  "python.linting.pycodestyleArgs": ["--max-line-length=160"],
+  "python.linting.pycodestyleEnabled": true,
+  "python.showStartPage": false,
+  "redhat.telemetry.enabled": false,
+  "security.workspace.trust.untrustedFiles": "open",
+  "shellcheck.customArgs": ["-x"],
+  "shellcheck.enableQuickFix": true,
+  "shellformat.flag": "-i 2 -sr",
+  "shfmt.executablePath": "/opt/homebrew/bin/shfmt",
+  "terminal.explorerKind": "external",
+  "terminal.external.osxExec": "iTerm.app",
+  "terminal.integrated.confirmOnExit": "never",
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font', 'JetBrains Mono'",
+  "terminal.integrated.profiles.osx": {
+    "zsh": {
+      "args": ["-l"],
+      "path": "/opt/homebrew/bin/zsh"
+    }
+  },
+  "terminal.integrated.rightClickBehavior": "paste",
+  "terminal.integrated.showExitAlert": false,
+  "terraform.languageServer": {
+    "args": ["serve"],
+    "external": true
+  },
+  "vim.easymotion": true,
+  "vim.enableNeovim": true,
+  "vim.highlightedyank.duration": 300,
+  "vim.highlightedyank.enable": true,
+  "vim.hlsearch": true,
+  "vim.leader": "<space>",
+  "vim.neovimPath": "/opt/homebrew/bin/nvim",
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<enter>"],
+      "commands": ["editor.toggleFold"]
+    },
+    {
+      "before": ["<leader>", "<leader>"],
+      "commands": ["fuzzySearch.activeTextEditor"]
+    },
+    {
+      "before": ["<leader>", "i"],
+      "commands": [
+        {
+          "command": "workbench.action.terminal.focus"
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "t"],
+      "commands": [
+        {
+          "command": "workbench.action.terminal.toggleTerminal"
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "u"],
+      "commands": [
+        {
+          "command": "workbench.action.focusActiveEditorGroup"
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "v"],
+      "commands": [
+        {
+          "command": "workbench.action.splitEditor"
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "V"],
+      "commands": [
+        {
+          "command": "workbench.action.splitEditorDown"
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "h"],
+      "commands": [
+        {
+          "command": "workbench.action.focusLeftGroup"
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "l"],
+      "commands": [
+        {
+          "command": "workbench.action.focusRightGroup"
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "p"],
+      "commands": [
+        {
+          "command": "workbench.action.showCommands"
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "o"],
+      "commands": [
+        {
+          "command": "workbench.action.quickOpen"
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "/"],
+      "commands": [
+        {
+          "command": ":nohl"
+        }
+      ]
+    },
+    {
+      "before": [">"],
+      "commands": ["editor.action.indentLines"]
+    },
+    {
+      "before": ["<"],
+      "commands": ["editor.action.outdentLines"]
+    },
+    {
+      "after": ["^"],
+      "before": ["H"]
+    },
+    {
+      "after": ["$"],
+      "before": ["L"]
+    }
+  ],
+  "vim.smartRelativeLine": true,
+  "vim.statusBarColorControl": true,
+  "vim.statusBarColors.commandlineinprogress": "#ffd866",
+  "vim.statusBarColors.insert": "#a9dc76",
+  "vim.statusBarColors.normal": "#ab9df2",
+  "vim.statusBarColors.visual": "#fc9867",
+  "vim.statusBarColors.visualblock": "#fc9867",
+  "vim.statusBarColors.visualline": "#fc9867",
+  "vim.statusBarColors.searchinprogressmode": "#ff6188",
+  "vim.useSystemClipboard": true,
+  "window.newWindowDimensions": "maximized",
+  "window.title": "${folderName} :: ${activeEditorMedium} ",
+  "workbench.colorTheme": "Monokai Pro (Filter Octagon)",
+  "workbench.iconTheme": "Monokai Pro (Filter Octagon) Icons",
+  "yaml.format.bracketSpacing": false,
+  "yaml.format.enable": false,
+  "yaml.format.printWidth": 160,
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#ab9df2",
+    "statusBar.noFolderBackground": "#ab9df2",
+    "statusBar.debuggingBackground": "#ab9df2",
+    "statusBar.foreground": "#000000"
+  },
+  "vs-kubernetes": {
+    "vs-kubernetes.crd-code-completion": "disabled"
+  }
+}

@@ -1,0 +1,8 @@
+ README.md
+ Brewfile
+ {{- if .workComputer }}
+.aws
+.hammerspoon/
+.ssh/config
+Brewfile
+{{- end }}

@@ -1,0 +1,1 @@
+return { "szw/vim-maximizer" }

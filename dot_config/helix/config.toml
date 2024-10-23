@@ -1,0 +1,65 @@
+# theme = "catppuccin_mocha"
+theme = "ayu_mirage"
+
+[editor]
+color-modes = true
+line-number = "relative"
+text-width = 120
+rulers = [120]
+bufferline = "always"
+cursorline = true
+shell = ["bash", "-c"]
+
+[editor.statusline]
+left = ["mode", "diagnostics", "spinner", "version-control"]
+center = ["file-name", "file-modification-indicator"]
+right = ["selections", "file-type", "file-line-ending", "file-encoding", "position-percentage", "position", "file-encoding", "total-line-numbers"]
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.cursor-shape]
+insert = "bar"
+
+[editor.whitespace]
+render = "all"
+
+[editor.whitespace.characters]
+# space = "·"
+nbsp = "⍽"
+tab = "›"
+newline = "¬"
+tabpad = "·"
+
+[editor.indent-guides]
+render = true
+character = "▏"
+skip-levels = 1
+
+[keys.normal]
+"ret" = ["move_line_down", "goto_first_nonwhitespace"] # Maps the enter key to move to start of next line
+"}" = ["goto_next_paragraph", "collapse_selection"]
+"{" = ["goto_prev_paragraph", "move_line_up", "collapse_selection"]
+"0" = "goto_line_start"
+"$" = "goto_line_end"
+"^" = "goto_first_nonwhitespace"
+H = "goto_first_nonwhitespace"
+L = "goto_line_end"
+G = "goto_last_line"
+D = ["extend_to_line_bounds", "delete_selection"]
+V = "extend_to_line_bounds"
+
+# Use system clipboard
+y = "yank_main_selection_to_clipboard"
+p = "paste_clipboard_before"
+
+C-h = "jump_view_left"
+C-l = "jump_view_right"
+C-j = "jump_view_down"
+C-k = "jump_view_up"
+
+# "space-h" = "goto_prev_buffer"
+# "space-l" = "goto_next_buffer"
+
+A-j = ["extend_to_line_bounds", "delete_selection", "paste_after", "collapse_selection"]
+A-k = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before", "collapse_selection"]

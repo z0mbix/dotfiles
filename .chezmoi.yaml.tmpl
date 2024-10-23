@@ -1,0 +1,21 @@
+{{- $emailAddress := promptStringOnce . "emailAddress" "What is your email address" "zombie@zombix.org" -}}
+{{- $workComputer := false -}}
+{{- $githubUser := "z0mbix" -}}
+{{- $gitName := "z0mbix" -}}
+{{- $gitSigningKey := "FFCE5C105D81AB88" -}}
+{{- if not (eq $emailAddress "zombie@zombix.org") -}}
+{{- $workComputer = true -}}
+{{- $githubUser = promptStringOnce . "github" "What is your GitHub username" -}}
+{{- $gitName = "David Wooldridge" -}}
+{{- $gitSigningKey = promptStringOnce . "git" "What's your Git signing key" -}}
+{{- end -}}
+
+data:
+  email: {{ $emailAddress }}
+  workComputer: {{ $workComputer }}
+  git:
+    email: {{ $emailAddress }}
+    name: {{ $gitName | quote }}
+    signingKey: {{ $gitSigningKey | quote }}
+  github:
+    user: {{ $githubUser }}

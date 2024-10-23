@@ -1,0 +1,114 @@
+add_newline = false
+command_timeout = 1000
+
+# https://www.doc.ic.ac.uk/~svb/chars.html
+format = """⛬ \
+$username\
+$hostname\
+$shlvl\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$kubernetes\
+$nats \
+$package\
+$deno\
+$golang\
+$helm\
+$lua\
+$nodejs\
+$python\
+$ruby\
+$rust\
+$terraform\
+$aws\
+$env_var\
+$custom\
+$cmd_duration\
+$line_break\
+$jobs\
+$battery\
+$time\
+$status\
+$shell\
+$character"""
+
+[sudo]
+disabled = false
+
+[character]
+format = "$symbol "
+success_symbol = "[»](bold green)"
+error_symbol = "[»](bold red)"
+
+[directory]
+style = "bold green"
+truncation_length = 8
+
+[git_branch]
+format = '[$symbol$branch(:$remote_branch)]($style) '
+style = "yellow"
+
+[golang]
+style = "purple"
+format = "[$symbol($version )]($style)"
+symbol = ""
+
+[docker_context]
+disabled = true
+
+[username]
+format = "[$user]($style) on "
+
+[hostname]
+ssh_only = true
+format = "[$hostname](purple) "
+
+[time]
+disabled = false
+format = "[$time]($style) "
+style = "bright-blue"
+
+[aws]
+format = '[($profile )(\($region\) )(\[$duration\] )]($style)'
+style = "yellow"
+disabled = true
+
+[aws.region_aliases]
+ap-east-1 = "hkg"
+ap-southeast-1 = "sin"
+ap-northeast-1 = "tok"
+eu-central-1 = "fra"
+eu-west-1 = "ire"
+eu-west-2 = "lon"
+us-east-1 = "virg"
+us-east-2 = "ohio"
+us-west-1 = "cali"
+
+[java]
+disabled = true
+
+[kubernetes]
+disabled = false
+style = "bright-blue"
+format = '[$symbol$context( \($namespace\))]($style) '
+
+[nats]
+format = '[$name]($style)'
+style = 'purple'
+disabled = false
+
+[python]
+style = "purple"
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+
+[vagrant]
+disabled = true
+
+[custom.foo]
+command = "tgsrc-status"
+files = ["terragrunt.hcl"]
+style = "bold red"

@@ -1,0 +1,7 @@
+set autoindent
+set smooth
+set casesensitive
+set constantshow
+set indicator
+set linenumbers
+set minibar

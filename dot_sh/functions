@@ -1,0 +1,269 @@
+# vim: set ft=sh
+
+cleanup() {
+  go clean --modcache
+  go clean --cache
+  brew cleanup
+}
+
+kubeutil() {
+  kubectl get nodes --no-headers \
+    | awk '{print $1}' \
+    | xargs -I {} sh -c 'echo {} ; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo'
+}
+
+get-ami-name() {
+  local ami_id="$1"
+
+  if [[ -z $ami_id ]]; then
+    echo "You need to let me know the AMI ID!"
+    return
+  fi
+
+  aws ec2 describe-images --image-ids $ami_id | jq -r '.Images[0].Name'
+}
+
+showpath() {
+  echo $PATH | tr ':' '\n' | nl
+}
+
+showfpath() {
+  echo $fpath | tr ' ' '\n' | nl
+}
+
+projects() {
+  local project_dir=$1
+  local projects_dir="$HOME/iCloudDrive/Projects"
+
+  cd $projects_dir || return
+
+  if [[ -n $project_dir ]]; then
+    if [[ -d "$project_dir" ]]; then
+      cd $project_dir
+      return
+    else
+      echo "'$project_dir' is not a valid project!"
+      sleep 1
+    fi
+  fi
+
+  dest_dir="$(fd . --type d --max-depth 1 . | fzf)"
+  if [[ -n $dest_dir ]]; then
+    cd $dest_dir
+  fi
+}
+
+# jq repl
+fjq() {
+  local TEMP QUERY
+  TEMP=$(mktemp -t fjq)
+  cat >"$TEMP"
+  QUERY=$(
+    jq -C . "$TEMP" \
+      | fzf --reverse --ansi --phony \
+        --prompt 'jq> ' --query '.' \
+        --preview "set -x; jq -C {q} \"$TEMP\"" \
+        --print-query | head -1
+  )
+  [ -n "$QUERY" ] && jq "$QUERY" "$TEMP"
+}
+
+viw() {
+  nvim "$(which "$1")"
+}
+alias vimw='viw'
+
+vg() {
+  nvim +copen -q <(rg --vimgrep --column --no-heading "${@:?No pattern provided.}")
+}
+
+vim-modified-files() {
+  nvim $(git status --short | grep -E '\s?M' | awk '{print $2}')
+}
+
+catw() {
+  bat "$(which "$1")"
+}
+alias batw=catw
+
+filew() {
+  file "$(which "$1")"
+}
+
+cdls() {
+  builtin cd "$@" || exit
+  ls -l
+}
+
+cdgr() {
+  cd "$(git rev-parse --show-toplevel)" || true
+}
+
+ip-from-hostname() {
+  local hostname=$1
+  echo $hostname | gsed -r 's/ip-([0-9]{1,3})-([0-9]{1,3})-([0-9]{1,3})-([0-9]{1,3}).*/\1.\2.\3.\4/g'
+}
+
+clone() {
+  local url=$1
+  local repo="${url##*/}"
+  local dir="${repo%.git}"
+  git clone $url
+  cd $dir || exit
+}
+
+vagrant-halt-all() {
+  for vm_dir in $(vagrant global-status | grep running | awk '{print $5}'); do
+    cd "$vm_dir" || exit
+    vagrant halt
+  done
+}
+
+# Recursive grep
+rgrep() {
+  grep -Ir $1 *
+}
+
+# Remove a file by inode
+rm_inode() {
+  find . -inum $1 -exec rm -i {} \;
+}
+
+# Check that scr exists and set these if it does:
+if which scr >/dev/null 2>&1; then
+  function vim() { scr vim "$*"; }
+  function man() { scr man "$*"; }
+fi
+
+calc() {
+  perl -wlne 'print eval'
+}
+
+# USAGE: days_in_month [month [year]]
+days_in_month() {
+  if [ -n "$1" ]; then
+    dim_m=$1
+    dim_y=$2
+  else
+    eval $(date "+dim_m=%m dim_y=%Y")
+  fi
+
+  case $dim_m in
+    *9 | *4 | *6 | 11)
+      _DAYS_IN_MONTH=30
+      ;;
+    1 | 01 | 3 | 03 | *5 | *7 | *8 | 10 | 12)
+      _DAYS_IN_MONTH=31
+      ;;
+    2 | 02)
+      is_leap_year ${dim_y:-$(date +%Y)} \
+        && _DAYS_IN_MONTH=29 \
+        || _DAYS_IN_MONTH=28
+      ;;
+  esac
+  echo $_DAYS_IN_MONTH
+}
+
+# USAGE: is_leap_year [year]
+is_leap_year() {
+  ily_year=${1:-$(date +%Y)}
+  case $ily_year in
+    *0[48] | \
+      *[2468][048] | \
+      *[13579][26] | \
+      *[13579][26]0 | \
+      *[2468][048]00 | \
+      *[13579][26]00)
+      _IS_LEAP_YEAR=1
+      return 0
+      ;;
+    *)
+      _IS_LEAP_YEAR=0
+      return 1
+      ;;
+  esac
+}
+
+# Search man pages
+# Usage: sman command search_term
+sman() {
+  PAGER=less
+  export PAGER
+  LESS="$LESS${2:+ +/$2}" man $1
+}
+
+# usage: centre width text...
+centre() {
+  c_width=$1
+  shift
+  c_text="$*"
+  c_width=$((($c_width + ${#c_text}) / 2))
+  printf "%${c_width}.${c_width}s\n" "$c_text"
+}
+
+# Files modified today
+today() {
+  local today=$(date +'%d-%m-%Y')
+  ls -l "$@" | grep "$today"
+}
+
+lnp() {
+  local network="$(ifconfig eth0 | grep "inet " | cut -f2 -d':' | cut -f1-3 -d.)"
+  ping -c 2 ${network}.${1}
+}
+
+# Handy Extract Program
+extract() {
+  local archive="$1"
+
+  if [ ! -f $archive ]; then
+    echo "'$archive' is not a valid file"
+    return
+  fi
+
+  case $archive in
+    *.tar.bz2) tar xvjf $archive ;;
+    *.tar.gz) tar xvzf $archive ;;
+    *.bz2) bunzip2 $archive ;;
+    *.rar) unrar x $archive ;;
+    *.gz) gunzip $archive ;;
+    *.tar) tar xvf $archive ;;
+    *.tbz2) tar xvjf $archive ;;
+    *.tgz) tar xvzf $archive ;;
+    *.zip) unzip $archive ;;
+    *.Z) uncompress $archive ;;
+    *.7z) 7z x $archive ;;
+    *) echo "'$archive' cannot be extracted via the extract function" ;;
+  esac
+}
+
+# make a dir and immediately move in to it
+mcd() {
+  local dir="$1"
+  mkdir -p "$dir"
+  cd "$dir" || exit
+}
+
+# fbr - checkout git branch, sorted by most recent commit, limit 30 occurences
+fbr() {
+  local branches branch
+  branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") \
+    && branch=$(echo "$branches" \
+      | fzf-tmux -d $((2 + $(wc -l <<<"$branches"))) +m) \
+    && git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+
+neovim-config() {
+  local config_dir="$HOME/.config/nvim/"
+  cd $config_dir
+  nvim
+}
+
+gitpod() {
+  local repo="$1"
+  if [[ -z $repo ]]; then
+    echo 'You need to specify the repo name, e.g.: "org/repo"'
+    return
+  fi
+  open https://gitpod.io/#https://github.com/${repo}
+}

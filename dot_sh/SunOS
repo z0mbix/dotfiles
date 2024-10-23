@@ -1,0 +1,11 @@
+# vim:ft=sh
+
+# Are we on SmartOS?
+if uname -v | grep joyent >/dev/null; then
+  export PATH=$PATH:/opt/chef/bin
+fi
+
+# On OmniOS?
+if uname -v | grep omnios >/dev/null; then
+  export PATH=$PATH:/opt/omni/bin
+fi

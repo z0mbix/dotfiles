@@ -1,0 +1,166 @@
+[
+  {
+    "command": "explorer.newFile",
+    "key": "f",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "command": "explorer.newFolder",
+    "key": "shift+f",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "command": "-renameFile",
+    "key": "enter",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
+  },
+  {
+    "command": "renameFile",
+    "key": "cmd+enter",
+    "when": "explorerViewletVisible && filesExplorerFocus"
+  },
+  {
+    "command": "list.select",
+    "key": "enter",
+    "when": "listFocus && !inputFocus"
+  },
+  {
+    "command": "workbench.view.scm",
+    "key": "shift+cmd+g"
+  },
+  {
+    "command": "-workbench.view.scm",
+    "key": "ctrl+shift+g"
+  },
+  {
+    "command": "workbench.action.previousEditor",
+    "key": "shift+cmd+[",
+    "when": "!terminalFocus"
+  },
+  {
+    "command": "-workbench.action.previousEditor",
+    "key": "shift+cmd+["
+  },
+  {
+    "command": "workbench.action.nextEditor",
+    "key": "shift+cmd+]",
+    "when": "!terminalFocus"
+  },
+  {
+    "command": "-workbench.action.nextEditor",
+    "key": "shift+cmd+]"
+  },
+  {
+    "command": "workbench.action.terminal.focusNextPane",
+    "key": "shift+cmd+]",
+    "when": "terminalFocus"
+  },
+  {
+    "command": "-workbench.action.terminal.focusNextPane",
+    "key": "alt+cmd+right",
+    "when": "terminalFocus"
+  },
+  {
+    "command": "workbench.action.terminal.focusPreviousPane",
+    "key": "shift+cmd+[",
+    "when": "terminalFocus"
+  },
+  {
+    "command": "-workbench.action.terminal.focusPreviousPane",
+    "key": "alt+cmd+left",
+    "when": "terminalFocus"
+  },
+  {
+    "command": "workbench.view.debug",
+    "key": "shift+cmd+d",
+    "when": "!terminalFocus"
+  },
+  {
+    "command": "-workbench.view.debug",
+    "key": "shift+cmd+d"
+  },
+  {
+    "command": "workbench.action.terminal.newInActiveWorkspace",
+    "key": "ctrl+shift+cmd+t"
+  },
+  {
+    "command": "-editor.action.inPlaceReplace.up",
+    "key": "shift+cmd+,",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "command": "workbench.action.terminal.toggleTerminal",
+    "key": "shift+cmd+."
+  },
+  {
+    "command": "workbench.action.terminal.toggleTerminal",
+    "key": "shift+cmd+,"
+  },
+  {
+    "command": "workbench.action.terminal.focusNext",
+    "key": "shift+cmd+]",
+    "when": "terminalFocus"
+  },
+  {
+    "command": "workbench.action.terminal.focusPrevious",
+    "key": "shift+cmd+[",
+    "when": "terminalFocus"
+  },
+  {
+    "command": "workbench.action.terminal.focusNextPane",
+    "key": "cmd+[",
+    "when": "terminalFocus"
+  },
+  {
+    "command": "workbench.action.terminal.focusPreviousPane",
+    "key": "cmd+]",
+    "when": "terminalFocus"
+  },
+  {
+    "command": "workbench.action.terminal.split",
+    "key": "cmd+d",
+    "when": "terminalFocus"
+  },
+  {
+    "command": "workbench.action.toggleMaximizedPanel",
+    "key": "cmd+shift+enter",
+    "when": "terminalFocus"
+  },
+  {
+    "command": "workbench.action.toggleEditorWidths",
+    "key": "cmd+shift+enter",
+    "when": "!terminalFocus"
+  },
+  {
+    "command": "workbench.action.focusActiveEditorGroup",
+    "key": "shift+cmd+,",
+    "when": "terminalFocus"
+  },
+  {
+    "command": "workbench.action.newWindow",
+    "key": "shift+cmd+n",
+    "when": "!terminalFocus"
+  },
+  {
+    "command": "-workbench.action.newWindow",
+    "key": "shift+cmd+n"
+  },
+  {
+    "command": "workbench.action.files.newUntitledFile",
+    "key": "cmd+n",
+    "when": "!terminalFocus"
+  },
+  {
+    "command": "-workbench.action.files.newUntitledFile",
+    "key": "cmd+n"
+  },
+  {
+    "command": "workbench.action.terminal.newInActiveWorkspace",
+    "key": "cmd+n",
+    "when": "terminalFocus"
+  },
+  {
+    "command": "workbench.action.openWorkspace",
+    "key": "alt+cmd+o"
+  }
+]

@@ -1,0 +1,80 @@
+[
+  {
+    "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
+    "bindings": {
+      "L": ["workspace::SendKeystrokes", "$"],
+      "H": ["workspace::SendKeystrokes", "^"],
+      "ctrl-z": "workspace::OpenTerminal",
+      "alt-,": "terminal_panel::ToggleFocus",
+      "alt-.": "workspace::ToggleBottomDock",
+      "cmd-shift ,": "terminal_panel::ToggleFocus",
+      "cmd-shift .": "workspace::ToggleBottomDock",
+      "space space": "buffer_search::Deploy",
+      "space g b": "editor::ToggleGitBlame",
+      "space g h a": "editor::ExpandAllHunkDiffs",
+      "space g h s": "editor::ToggleHunkDiff",
+      "space g h u": "editor::RevertSelectedHunks",
+      "enter": "editor::ToggleFold",
+      "cmd-shift-enter": "workspace::ToggleZoom",
+      "cmd-i": "assistant::InlineAssist"
+    }
+  },
+  {
+    "context": "Editor && VimControl && !VimWaiting && !menu",
+    "bindings": {
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
+      "space h": "pane::ActivatePrevItem",
+      "space l": "pane::ActivateNextItem",
+      "space x": "pane::CloseActiveItem",
+      "space n": "workspace::ToggleRightDock",
+      "space g b": "editor::ToggleGitBlame"
+    }
+  },
+  {
+    "context": "menu",
+    "bindings": {
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "space n": "workspace::ToggleRightDock"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-?": null,
+      "cmd-shift-e": "project_panel::ToggleFocus",
+      "cmd-shift-r": "projects::OpenRecent"
+    }
+  },
+  {
+    "bindings": {
+      "ctrl-`": null,
+      "cmd-j": null,
+      "cmd-?": null,
+      "cmd-<": "terminal_panel::ToggleFocus",
+      "cmd->": "workspace::ToggleBottomDock"
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "cmd-shift-,": "terminal_panel::ToggleFocus",
+      "cmd-?": "workspace::CloseAllDocks",
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "cmd-<": "terminal_panel::ToggleFocus",
+      "cmd->": "workspace::ToggleBottomDock",
+      "cmd-shift-enter": "workspace::ToggleZoom",
+      "cmd-n": "workspace::NewTerminal",
+      "cmd-d": "pane::SplitRight"
+    }
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "o": "project_panel::Open"
+    }
+  }
+]

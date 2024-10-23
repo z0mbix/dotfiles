@@ -1,0 +1,5 @@
+{{- if and (eq .chezmoi.os "darwin") (not (lookPath "brew")) -}}
+#!/bin/bash
+echo 'homebrew not found, installing...'
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+{{- end -}}

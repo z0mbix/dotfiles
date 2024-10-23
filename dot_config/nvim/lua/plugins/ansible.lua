@@ -1,0 +1,1 @@
+return { "pearofducks/ansible-vim" }

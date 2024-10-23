@@ -1,0 +1,12 @@
+# vim:ft=sh
+
+# bash
+
+# Bash tab completion (Linux/Mac)
+[ -f /etc/bash_completion ] && . /etc/bash_completion
+
+# Bash tab completion from homebrew
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+
+# Homebrew bash completion
+[ -f /usr/local/Library/Contributions/brew_bash_completion.sh ] && . /usr/local/Library/Contributions/brew_bash_completion.sh

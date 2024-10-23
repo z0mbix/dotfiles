@@ -1,0 +1,29 @@
+# vim:ft=sh
+
+export OS="$(uname -s)"
+export ARCH="$(arch)"
+export TERM="xterm-color"
+export LESS="-niSRXF"
+export EDITOR=vim
+export ANSIBLE_NOCOWS=1
+export CHECKPOINT_DISABLE=1
+export TF_PLUGIN_CACHE_DIR="${HOME}/.terraform.d/plugin-cache"
+export SHELL_NAME="$(basename $SHELL)"
+export GOPASS_NO_REMINDER=fuckoff
+export TIMEFMT=$'\e[33m%J\e[0m took \e[35m%E\e[0m'
+
+export AWS_DEFAULT_REGION="eu-west-2"
+export AWS_PAGER=""
+
+export FZF_DEFAULT_COMMAND='fd --hidden --exclude "node_modules" --exclude ".git"'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
+
+# support colours in less/manpages
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'

@@ -1,0 +1,9 @@
+*.git/
+*.venv/
+*Cache*/
+*cache*/
+.*Cache*/
+.*cache*/
+venv/
+vendor/
+__pycache__/
