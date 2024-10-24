@@ -12,7 +12,7 @@ tap "samwho/spacer"
 brew "age"
 brew "age-plugin-yubikey"
 brew "argocd"
-brew "python@3.11"
+brew "python@3.13"
 brew "awscli"
 brew "bash"
 brew "bash-completion"
@@ -28,7 +28,7 @@ brew "ctags"
 brew "d2"
 brew "diff-so-fancy"
 brew "direnv"
-brew "dog"
+brew "doggo"
 brew "entr"
 brew "libssh2"
 brew "exa"
@@ -105,9 +105,8 @@ brew "wget"
 brew "yamllint"
 brew "yarn"
 brew "ykman"
-brew "youtube-dl"
+brew "yt-dlp"
 brew "yq"
-brew "yubikey-agent"
 brew "zoxide"
 brew "zsh"
 brew "goreleaser/tap/goreleaser"
@@ -141,7 +140,6 @@ mas "Bear", id: 1091189122
 mas "Caffeinated", id: 1362171212
 mas "Codye", id: 1516894961
 mas "DaisyDisk", id: 411643860
-mas "Fly AI", id: 6449296004
 mas "Gestimer", id: 990588172
 mas "iStat Menus", id: 1319778037
 mas "Magnet", id: 441258766
