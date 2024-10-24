@@ -1,6 +1,6 @@
 return {
   "folke/twilight.nvim",
   config = function()
-    require("twilight").setup({})
+    require("twilight").setup()
   end,
 }

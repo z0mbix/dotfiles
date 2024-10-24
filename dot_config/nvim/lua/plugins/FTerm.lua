@@ -2,6 +2,6 @@
 return {
   "numtostr/FTerm.nvim",
   config = function()
-    require("FTerm").setup({})
+    require("FTerm").setup()
   end,
 }

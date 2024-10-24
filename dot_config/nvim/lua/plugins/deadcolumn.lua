@@ -1,3 +1,2 @@
-return {
-  "Bekaboo/deadcolumn.nvim",
-}
+-- https://github.com/Bekaboo/deadcolumn.nvim
+return { "Bekaboo/deadcolumn.nvim" }

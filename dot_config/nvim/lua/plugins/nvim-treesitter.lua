@@ -3,6 +3,7 @@ return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
   dependencies = {
+    -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     { "nvim-treesitter/nvim-treesitter-textobjects" }, -- Syntax aware text-objects
   },
   config = function()
