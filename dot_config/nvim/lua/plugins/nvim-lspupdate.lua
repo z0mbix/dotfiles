@@ -1,1 +1,0 @@
-return { "alexaandru/nvim-lspupdate" }

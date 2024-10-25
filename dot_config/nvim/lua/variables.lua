@@ -12,6 +12,7 @@ g.loaded_netrwPlugin = 1
 g.loaded_netrwSettings = 1
 g.loaded_perl_provider = 1
 g.loaded_python_provider = 1
+g.loaded_python3_provider = 0
 g.loaded_rrhelper = 1
 g.loaded_ruby_provider = 1
 g.loaded_tar = 1
@@ -23,9 +24,6 @@ g.loaded_zipPlugin = 1
 
 -- set formatoptions to override all the shit plugins do to it
 g.mysyntaxfile = "~/.config/nvim/after/ftplugin/all.vim"
-
--- python provider for neovim
--- g.python3_host_prog = "~/.venvs/neovim3/bin/python"
 
 -- colours
 vim.g.nvcode_termcolors = 256
