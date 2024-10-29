@@ -2,25 +2,23 @@
 
 # Darwin (MacOS)
 
-export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_INSTALL_BADGE=📦
+export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_AUTO_UPDATE=1
 
-# if [[ $ARCH == 'arm64' ]]; then
-#   export HOMEBREW_ROOT='/opt/homebrew'
-# else
-#   export HOMEBREW_ROOT='/usr/local'
-# fi
-
-if [ -d ${HOMEBREW_PREFIX}/share/zsh/site-functions ]; then
-  export FPATH="${HOMEBREW_PREFIX}/share/zsh/site-functions:${FPATH}"
+if [[ -z $HOMEBREW_PREFIX ]]; then
+  echo 'homebrew not setup'
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-if [ -d ${HOMEBREW_PREFIX}/share/zsh/functions ]; then
-  export FPATH="${HOMEBREW_PREFIX}/share/zsh/functions:${FPATH}"
+# fzf
+if [[ -n ${HOMEBREW_PREFIX} ]]; then
+  [ -f ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh ] && source ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh
+  [ -f ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh ] && source ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh
+  bindkey "ç" fzf-cd-widget # fzf alt+c
+else
+  echo 'fzf not found'
 fi
-
-[[ -d /Developer/usr/bin ]] && PATH=$PATH:/Developer/usr/bin
 
 ulimit -n 10240
 

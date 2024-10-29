@@ -1,4 +1,7 @@
 .mise.toml
 dot_DS_Store
 dot_sh/private
+dot_sh/private_private
+dot_sh/private_work
+dot_sh/symlink_work
 dot_sh/work

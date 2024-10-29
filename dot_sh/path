@@ -1,0 +1,18 @@
+# vim:ft=sh
+
+PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/.local/bin:$HOME/go/bin:$PATH
+
+[ -d ${HOME}/iCloudDrive/bin ] && PATH=${HOME}/iCloudDrive/bin/$OS:${HOME}/iCloudDrive/bin:${HOME}/iCloudDrive/bin/$OS/$ARCH:$PATH
+[ -e ${HOME}/.poetry/bin/poetry ] && PATH="$HOME/.poetry/bin:$PATH"
+[ -e ${HOME}/.cargo/bin ] && PATH="$HOME/.cargo/bin:$PATH"
+[ -e ${HOME}/.tfenv/bin ] && PATH="$HOME/.tfenv/bin:$PATH"
+[ -e ${HOME}/.tgenv/bin ] && PATH="$HOME/.tgenv/bin:$PATH"
+[ -e ${HOME}/.volta ] && PATH="$HOME/.volta/bin:$PATH"
+[ -e ${HOME}/.rd/bin ] && PATH="$HOME/.rd/bin:$PATH"
+[ -e ${HOMEBREW_PREFIX}/opt/libpq/bin ] && PATH="${HOMEBREW_PREFIX}/opt/libpq/bin:$PATH"
+[ -e ${HOME}/Library/Python/3.11/bin ] && PATH="${HOME}/Library/Python/3.11/bin:$PATH"
+[ -e ${HOME}/.local/share/man-get ] && MANPATH="$MANPATH:${HOME}/.local/share/man-get"
+[ -d /Developer/usr/bin ] && PATH=$PATH:/Developer/usr/bin
+
+export PATH
+export MANPATH

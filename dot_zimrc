@@ -1,0 +1,4 @@
+# vim: set ft=sh commentstring=#\ %s:
+zmodule zsh-users/zsh-autosuggestions
+zmodule zsh-users/zsh-syntax-highlighting
+zmodule completion

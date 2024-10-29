@@ -1,0 +1,56 @@
+[ -f ~/.sh/zim ] && source ~/.sh/zim
+
+export HISTSIZE=1000000
+export SAVEHIST=1000000
+
+# setopt source_trace
+setopt glob_complete
+setopt append_history
+setopt auto_cd
+setopt auto_list
+setopt complete_aliases
+setopt complete_in_word
+setopt extended_history
+setopt hist_expire_dups_first
+setopt hist_find_no_dups
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_reduce_blanks
+setopt hist_verify
+setopt inc_append_history
+setopt menu_complete
+setopt no_auto_remove_slash
+setopt no_beep
+setopt no_correct_all
+setopt share_history
+
+autoload -U history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^[[A" history-beginning-search-backward-end
+bindkey "^[[B" history-beginning-search-forward-end
+
+# autoload -U +X compinit && compinit -u
+# autoload -U +X bashcompinit && bashcompinit
+
+# sensible ctrl-w/u & alt arrow behaviour
+autoload -U select-word-style
+select-word-style bash
+bindkey \^U backward-kill-line
+
+source ~/.sh/vars
+[ -f ~/.sh/path ] && source ~/.sh/path
+[ -f ~/.sh/proxy ] && source ~/.sh/proxy
+[ -e ~/.sh/work ] && source ~/.sh/work
+[ -f ~/.sh/private ] && source ~/.sh/private
+[ -f ~/.sh/functions ] && source ~/.sh/functions
+[ -f ~/.sh/$OS ] && source ~/.sh/$OS
+[ -f ~/.sh/$SHELL ] && source ~/.sh/$SHELL
+[ -f ~/.sh/tools ] && source ~/.sh/tools
+[ -f ~/.sh/local ] && source ~/.sh/local
+[ -f ~/.sh/aliases ] && source ~/.sh/aliases
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+[ -d ~/.zsh/completion ] && fpath=(~/.zsh/completion $fpath)
+
+alias clear-completion-cache='rm -f ~/.zcompdump; compinit'

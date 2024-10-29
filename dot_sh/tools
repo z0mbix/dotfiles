@@ -1,0 +1,10 @@
+# vim:ft=sh
+
+command -v atuin >/dev/null 2>&1 && eval "$(atuin init $SHELL_NAME --disable-up-arrow)"
+command -v direnv >/dev/null 2>&1 && eval "$(direnv hook $SHELL_NAME)"
+command -v gh >/dev/null 2>&1 && eval "$(gh copilot alias -- $SHELL_NAME)"
+command -v kubectl-krew >/dev/null 2>&1 && PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+command -v mise >/dev/null 2>&1 && eval "$(mise activate $SHELL_NAME)"
+command -v nvim >/dev/null 2>&1 && export EDITOR=nvim
+command -v starship >/dev/null 2>&1 && eval "$(starship init $SHELL_NAME)"
+command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init --cmd cd $SHELL_NAME)"
