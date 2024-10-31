@@ -1,28 +1,33 @@
-[ -f ~/.sh/zim ] && source ~/.sh/zim
-
 export HISTSIZE=1000000
 export SAVEHIST=1000000
 
-# setopt source_trace
-setopt glob_complete
-setopt append_history
-setopt auto_cd
-setopt auto_list
-setopt complete_aliases
-setopt complete_in_word
-setopt extended_history
-setopt hist_expire_dups_first
-setopt hist_find_no_dups
-setopt hist_ignore_dups
-setopt hist_ignore_space
-setopt hist_reduce_blanks
-setopt hist_verify
-setopt inc_append_history
-setopt menu_complete
-setopt no_auto_remove_slash
-setopt no_beep
-setopt no_correct_all
-setopt share_history
+setopt always_to_end          # Move cursor to end of the word an completion
+setopt append_history         # Append to history file
+setopt auto_cd                # cd automatically on directory name
+setopt auto_list              # List choices on an ambiguous completion
+setopt complete_in_word       # Keep cursor where it is during completion
+setopt extended_glob          # Treat the #, ~ and ^ as part of patterns for filename generation
+setopt extended_history       # Save command timestamp in history file
+setopt glob_complete          # Cycle through glob patterns
+setopt hist_expire_dups_first # Expire duplicate entries first when trimming history
+setopt hist_find_no_dups      # Do not display a line previously found
+setopt hist_ignore_dups       # Don't record an entres that was just recorded again
+setopt hist_ignore_space      # Don't record an entries starting with a space
+setopt hist_reduce_blanks     # Remove superfluous blanks before recording entry
+setopt hist_verify            # Don't execute immediately upon history expansion.
+setopt inc_append_history     # Write to the history file immediately, not when the shell exits
+setopt menu_complete          # On an ambiguous completion, insert the first match immediately
+setopt no_auto_remove_slash   # Do not remove the auto completed slash
+setopt no_beep                # No beeps please
+setopt no_case_glob           # Case insensitive globbing
+setopt no_correct_all         # Do not correct spelling
+setopt no_list_beep           # No beeps please
+setopt share_history          # Share history between all sessions
+
+[ -d ~/.zsh/completion ] && fpath=(~/.zsh/completion $fpath)
+
+# https://github.com/zimfw/zimfw
+[ -f ~/.sh/zim ] && source ~/.sh/zim
 
 autoload -U history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -30,15 +35,14 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^[[A" history-beginning-search-backward-end
 bindkey "^[[B" history-beginning-search-forward-end
 
-# autoload -U +X compinit && compinit -u
-# autoload -U +X bashcompinit && bashcompinit
+autoload -U +X bashcompinit && bashcompinit
 
 # sensible ctrl-w/u & alt arrow behaviour
 autoload -U select-word-style
 select-word-style bash
 bindkey \^U backward-kill-line
 
-source ~/.sh/vars
+[ -f ~/.sh/path ] && source ~/.sh/vars
 [ -f ~/.sh/path ] && source ~/.sh/path
 [ -f ~/.sh/proxy ] && source ~/.sh/proxy
 [ -e ~/.sh/work ] && source ~/.sh/work
@@ -51,6 +55,5 @@ source ~/.sh/vars
 [ -f ~/.sh/aliases ] && source ~/.sh/aliases
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-[ -d ~/.zsh/completion ] && fpath=(~/.zsh/completion $fpath)
-
 alias clear-completion-cache='rm -f ~/.zcompdump; compinit'
+alias history='fc -l 1'

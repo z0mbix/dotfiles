@@ -1,5 +1,6 @@
 # vim: set ft=dosini commentstring=#\ %s:
-title = "Ghostty 👻"
+# title  "Ghostty 👻"
+title =
 theme = "Ayu Mirage"
 
 clipboard-read = allow
@@ -17,13 +18,8 @@ unfocused-split-opacity = 0.8
 window-save-state = always
 window-theme = system
 
-# font-family = "Inconsolata"
-# font-family = "Monaco"
 font-family = "JetBrainsMono Nerd Font Mono"
-# font-family = "Cascadia Code NF"
 font-size = 13
-# font-variation = wght=500
-# font-variation-bold = wght=500
 font-thicken = true
 font-feature = "calt"
 font-feature = "zero"

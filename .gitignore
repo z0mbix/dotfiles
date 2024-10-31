@@ -5,3 +5,5 @@ dot_sh/private_private
 dot_sh/private_work
 dot_sh/symlink_work
 dot_sh/work
+dot_config/private_fish/private_private.fish
+dot_config/private_fish/symlink_work.fish

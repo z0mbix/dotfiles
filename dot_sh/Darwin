@@ -16,8 +16,6 @@ if [[ -n ${HOMEBREW_PREFIX} ]]; then
   [ -f ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh ] && source ${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh
   [ -f ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh ] && source ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh
   bindkey "ç" fzf-cd-widget # fzf alt+c
-else
-  echo 'fzf not found'
 fi
 
 ulimit -n 10240
