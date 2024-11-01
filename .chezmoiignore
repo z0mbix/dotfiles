@@ -1,8 +1,13 @@
- README.md
- Brewfile
- {{- if .workComputer }}
-.aws
+README.md
+
+{{- if .workComputer }}
+.aws/
+.config/shellcheckrc
 .hammerspoon/
-.ssh/config
+.ssh/
 Brewfile
+{{- end }}
+
+{{- if not (eq .chezmoi.os "darwin") -}}
+.config/fish/conf.d/darwin.fish
 {{- end }}

@@ -45,7 +45,8 @@
   "show_line_endings": true,
   "preferred_line_length": 120,
   "terminal": {
-    "font_family": "JetBrainsMono Nerd Font Mono"
+    "font_family": "JetBrainsMono Nerd Font Mono",
+    "copy_on_select": true
   },
   "calls": {
     // Join calls with the microphone live by default

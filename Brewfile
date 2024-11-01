@@ -136,6 +136,7 @@ cask "secretive"
 cask "timer"
 cask "visual-studio-code"
 cask "vlc"
+cask "zed"
 mas "Bear", id: 1091189122
 mas "Caffeinated", id: 1362171212
 mas "Codye", id: 1516894961

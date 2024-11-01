@@ -42,6 +42,7 @@ abbr dotfiles "cd $HOME/iCloudDrive/Projects/dotfiles"
 abbr downloads "cd $HOME/Downloads"
 abbr icd "cd $HOME/iCloudDrive"
 abbr p projects
+abbr pass gopass
 
 # Git
 abbr gc 'git commit -m'
@@ -111,19 +112,11 @@ abbr kgc 'kubectl config get-contexts -o name | sort'
 
 # Support aliases in these commands
 abbr watch 'watch '
-abbr viddy 'viddy '
 
 # AWS
 abbr aws-account-id 'aws sts get-caller-identity | jq -r ".Account"'
 abbr aws-account-alias 'aws iam list-account-aliases | jq -r ".AccountAliases[]"'
 abbr aws-running-instances 'aws ec2 describe-instances --output=json --filters "Name=instance-state-name,Values running"'
-
-# Proxy
-abbr proxyon 'source ~/.sh/proxy'
-abbr proxyoff 'unset {HTTP,HTTPS,FTP}_PROXY {http,https,ftp}_proxy no_proxy NO_PROXY'
-abbr proxystatus 'env | grep -i proxy | sort'
-
-abbr pass gopass
 
 if command --query bat
     abbr cat 'bat -p --decorations never'
@@ -134,7 +127,7 @@ if command --query bat
 end
 
 function showpath
-    echo $PATH | tr ' ' '\n'
+    echo $PATH | tr ' ' '\n' | cat -n
 end
 
 function mkdircd
@@ -146,3 +139,7 @@ function multicd
     echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)
 end
 abbr --add dotdot --regex '^\.\.+$' --function multicd
+
+function cdgr
+    cd "$(git rev-parse --show-toplevel)" || true
+end
