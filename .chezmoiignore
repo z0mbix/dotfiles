@@ -8,6 +8,6 @@ README.md
 Brewfile
 {{- end }}
 
-{{- if not (eq .chezmoi.os "darwin") -}}
+{{- if eq .chezmoi.os "darwin" -}}
 .config/fish/conf.d/darwin.fish
 {{- end }}
