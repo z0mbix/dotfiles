@@ -224,3 +224,9 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.formatoptions:append("j")
   end,
 })
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  group = vim.api.nvim_create_augroup("hocon", { clear = true }),
+  pattern = { "nats.conf", "nats*.conf" },
+  command = "set ft=hocon",
+})

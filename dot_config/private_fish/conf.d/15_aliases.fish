@@ -26,7 +26,7 @@ abbr vimdiff 'nvim -d'
 abbr countdown 'mpg321 -q ~/iCloudDrive/Sounds/countdown.mp3'
 abbr youtube-dl-mp3 'youtube-dl --extract-audio --audio-format mp3'
 abbr weather 'clear; curl http://wttr.in/'
-abbr tmux 'TERM screen-256color tmux'
+# abbr tmux 'TERM screen-256color tmux'
 abbr planetrock "mpg321 'http://tx.planetradio.co.uk/icecast.php?i planetrock.mp3'"
 abbr da 'direnv allow'
 abbr n 'navi --print'
@@ -37,6 +37,9 @@ abbr lg lazygit
 abbr rgq 'rg --hidden --no-heading --no-line-number'
 abbr t todo
 abbr bu backup
+abbr vi nvim
+abbr vim nvim
+abbr unset 'set --erase'
 
 abbr dotfiles "cd $HOME/iCloudDrive/Projects/dotfiles"
 abbr downloads "cd $HOME/Downloads"
@@ -90,7 +93,7 @@ abbr kgpw 'kubectl get pods -L version,app -o wide'
 abbr kgd 'kubectl get deploy'
 abbr kgdw 'kubectl get deploy -o wide'
 abbr kgi 'kubectl get ing'
-abbr kgn 'kubectl get nodes -L node.kubernetes.io/instance-type -L topology.kubernetes.io/region,topology.kubernetes.io/zone -L kubernetes.io/arch'
+# abbr kgn 'kubectl get nodes -L node.kubernetes.io/instance-type -L topology.kubernetes.io/region,topology.kubernetes.io/zone -L kubernetes.io/arch'
 abbr kgnw 'kgn -o wide'
 abbr kgns 'kubectl get namespaces'
 abbr kgs 'kubectl get secrets'
@@ -142,4 +145,43 @@ abbr --add dotdot --regex '^\.\.+$' --function multicd
 
 function cdgr
     cd "$(git rev-parse --show-toplevel)" || true
+end
+
+function neovim-config
+  cd $HOME/.config/nvim/
+  nvim
+end
+
+function catw
+	bat (which $argv[1])
+end
+abbr batw catw
+
+function viw
+	nvim (which $argv[1])
+end
+abbr vimw viw
+abbr nvimw viw
+
+function projects
+  set project_dir $argv[1]
+  # set projects_dir "$HOME/iCloudDrive/Projects"
+  set projects_dir "$HOME/Repos"
+
+  cd $projects_dir || return
+
+  if test -n "$project_dir"
+    if test -d "$project_dir"
+      cd $project_dir
+      return
+    else
+      echo "'$project_dir' is not a valid project!"
+      sleep 1
+    end
+  end
+
+  set dest_dir (fd . --type d --max-depth 1 . | fzf)
+  if test -n "$dest_dir"
+    cd $dest_dir
+  end
 end

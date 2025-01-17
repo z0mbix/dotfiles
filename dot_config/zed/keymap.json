@@ -16,7 +16,11 @@
       "space g h u": "editor::RevertSelectedHunks",
       "enter": "editor::ToggleFold",
       "cmd-shift-enter": "workspace::ToggleZoom",
-      "cmd-i": "assistant::InlineAssist"
+      "cmd-i": "assistant::InlineAssist",
+      "alt-j": "editor::MoveLineDown",
+      "alt-k": "editor::MoveLineUp",
+      "space a": "editor::SelectAll",
+      "space g a": ["workspace::SendKeystrokes", "space a g c"]
     }
   },
   {
@@ -31,6 +35,14 @@
       "space x": "pane::CloseActiveItem",
       "space n": "workspace::ToggleRightDock",
       "space g b": "editor::ToggleGitBlame"
+    }
+  },
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "shift-s": ["vim::PushOperator", { "AddSurrounds": {} }], // shift-s to add surrounds
+      "alt-j": "editor::MoveLineDown",
+      "alt-k": "editor::MoveLineUp"
     }
   },
   {
@@ -68,13 +80,18 @@
       "cmd->": "workspace::ToggleBottomDock",
       "cmd-shift-enter": "workspace::ToggleZoom",
       "cmd-n": "workspace::NewTerminal",
-      "cmd-d": "pane::SplitRight"
+      "cmd-d": "pane::SplitRight",
+      "cmd-shift-d": "pane::SplitDown",
+      "cmd-[": ["workspace::ActivatePaneInDirection", "Left"],
+      "cmd-]": ["workspace::ActivatePaneInDirection", "Right"]
     }
   },
   {
     "context": "ProjectPanel && not_editing",
     "bindings": {
-      "o": "project_panel::Open"
+      "o": "project_panel::Open",
+      "c": "project_panel::CollapseAllEntries",
+      "C": "project_panel::ExpandSelectedEntry"
     }
   }
 ]

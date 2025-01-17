@@ -136,6 +136,9 @@ remap("n", "<leader>of", ':silent !open "%"<CR>', opts)
 -- Select all
 remap("n", "<leader>a", "ggVG", opts)
 
+-- Comment all
+remap("n", "<leader>ga", "ggVGgc", opts)
+
 -- Remove annoying F1 help
 remap("i", "<F1>", "<nop>", opts)
 remap("n", "<F1>", "<nop>", opts)
@@ -201,7 +204,7 @@ remap("v", "<A-l>", ":MoveHBlock(1)<CR>", opts)
 remap("n", "Q", "<nop>", opts)
 remap("n", "q", "<nop>", opts)
 
--- ctrl + h,j,k,l for insert mode
+-- Ctrl + h,j,k,l for insert mode
 remap("i", "<C-h>", "<left>", opts)
 remap("i", "<C-j>", "<down>", opts)
 remap("i", "<C-k>", "<up>", opts)
@@ -219,9 +222,12 @@ vim.cmd([[
 remap("i", "<F2>", '<cmd>lua require("renamer").rename()<cr>', opts)
 remap("n", "<leader>rn", '<cmd>lua require("renamer").rename()<cr>', opts)
 remap("v", "<leader>rn", '<cmd>lua require("renamer").rename()<cr>', opts)
---
+
 -- spectre.nvim
 remap("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>', opts)
 remap("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<cr>', opts)
 remap("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', opts)
 remap("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', opts)
+
+-- win-mover.nvim
+remap("n", "<leader>mw", '<cmd>lua require("win-mover").enter_move_mode()<cr>', opts)

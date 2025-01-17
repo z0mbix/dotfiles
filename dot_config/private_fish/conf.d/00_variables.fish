@@ -1,28 +1,30 @@
-set -x ANSIBLE_NOCOWS 1
-set -x ARCH (arch)
-set -x CHECKPOINT_DISABLE 1
-set -x EDITOR nvim
-set -x GOPASS_NO_REMINDER fuckoff
-set -x K9SCONFIG ~/.config/k9s
-set -x K9SCONFIG ~/.config/k9s
-set -x LESS -niSRXF
-set -x OS (uname -s)
-set -x SHELL_NAME (basename $SHELL)
-set -x TERM xterm-color
-set -x TF_PLUGIN_CACHE_DIR ~/.terraform.d/plugin-cache
+set -gx ANSIBLE_NOCOWS 1
+set -gx ARCH (arch)
+set -gx CHECKPOINT_DISABLE 1
+set -gx EDITOR nvim
+set -gx GOPASS_NO_REMINDER fuckoff
+set -gx K9SCONFIG ~/.config/k9s
+set -gx K9SCONFIG ~/.config/k9s
+set -gx LESS -niSRXF
+set -gx OS (uname -s)
+set -gx SHELL_NAME (basename $SHELL)
+set -gx TERM xterm-color
+set -gx TF_PLUGIN_CACHE_DIR ~/.terraform.d/plugin-cache
 
-set -x AWS_DEFAULT_REGION eu-west-2
-set -x AWS_PAGER ""
+set -gx AWS_DEFAULT_REGION eu-west-2
+set -gx AWS_PAGER ""
 
-set -x FZF_DEFAULT_COMMAND 'fd --hidden --exclude "node_modules" --exclude ".git"'
-set -x FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
-set -x FZF_ALT_C_COMMAND "$FZF_DEFAULT_COMMAND --type d"
+set -gx FZF_DEFAULT_COMMAND 'fd --hidden --exclude "node_modules" --exclude ".git"'
+set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+set -gx FZF_ALT_C_COMMAND "$FZF_DEFAULT_COMMAND --type d"
+
+set -gx PATH $PATH $HOME/.krew/bin
 
 # support colours in less/manpages
-set -x LESS_TERMCAP_mb (echo -e '\e[01;31m')
-set -x LESS_TERMCAP_md (echo -e '\e[01;31m')
-set -x LESS_TERMCAP_me (echo -e '\e[0m')
-set -x LESS_TERMCAP_se (echo -e '\e[0m')
-set -x LESS_TERMCAP_so (echo -e '\e[01;44;33m')
-set -x LESS_TERMCAP_ue (echo -e '\e[0m')
-set -x LESS_TERMCAP_us (echo -e '\e[01;32m')
+set -gx LESS_TERMCAP_mb (echo -e '\e[01;31m')
+set -gx LESS_TERMCAP_md (echo -e '\e[01;31m')
+set -gx LESS_TERMCAP_me (echo -e '\e[0m')
+set -gx LESS_TERMCAP_se (echo -e '\e[0m')
+set -gx LESS_TERMCAP_so (echo -e '\e[01;44;33m')
+set -gx LESS_TERMCAP_ue (echo -e '\e[0m')
+set -gx LESS_TERMCAP_us (echo -e '\e[01;32m')

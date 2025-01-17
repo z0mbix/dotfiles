@@ -1,11 +1,3 @@
-// Zed settings
-//
-// For information on how to configure Zed, see the Zed
-// documentation: https://zed.dev/docs/configuring-zed
-//
-// To see all of Zed's default settings without changing your
-// custom settings, run the `open default settings` command
-// from the command palette or from `Zed` application menu.
 {
   "assistant": {
     "default_model": {
@@ -25,33 +17,36 @@
   "ensure_final_newline_on_save": true,
   "vim_mode": true,
   "vim": {
-    // "always": use system clipboard when no register is specified
-    // "never": don't use system clipboard unless "+ or "* is specified
-    // "on_yank": use system clipboard for yank operations when no register is specified
     "use_system_clipboard": "on_yank",
-    // Lets `f` and `t` motions extend across multiple lines
     "use_multiline_find": true,
-    "toggle_relative_line_numbers": true
+    "use_smartcase_find": true,
+    "toggle_relative_line_numbers": true,
+    "highlight_on_yank_duration": 400
   },
   "relative_line_numbers": true,
-  // hide the scroll bar
   "scrollbar": { "show": "never" },
-  // "ui_font_family": "JetBrainsMono Nerd Font Mono",
-  // "ui_font_family": "Zed Plex Sans",
-  "ui_font_size": 14,
+  "scroll_beyond_last_line": "off",
+  "ui_font_family": "JetBrainsMono Nerd Font Mono",
+  "ui_font_size": 13,
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
   "buffer_font_size": 13,
-  "show_whitespaces": "selection",
+  "show_whitespaces": "all",
   "show_line_endings": true,
   "preferred_line_length": 120,
+  "show_wrap_guides": true,
+  "wrap_guides": [120],
+  "inactive_opacity": 0,
+  "command_aliases": {
+    "W": "w",
+    "Wq": "wq",
+    "Q": "q"
+  },
   "terminal": {
     "font_family": "JetBrainsMono Nerd Font Mono",
     "copy_on_select": true
   },
   "calls": {
-    // Join calls with the microphone live by default
     "mute_on_join": true,
-    // Share your project when you are the first to join a channel
     "share_on_join": false
   },
   "collaboration_panel": {
@@ -71,7 +66,15 @@
   },
   "languages": {
     "Shell Script": {
-      "tab_size": 2
+      "tab_size": 2,
+      "indent_size": 2,
+      "indent_style": "space",
+      "formatter": {
+        "external": {
+          "command": "/opt/homebrew/bin/shfmt",
+          "arguments": ["-i", "2", "-ci", "-s", "-bn"]
+        }
+      }
     },
     "Terraform": {
       "formatter": {
@@ -80,24 +83,17 @@
           "arguments": ["fmt", "-"]
         }
       }
+    },
+    "HCL": {
+      "formatter": {
+        "external": {
+          "command": "/opt/homebrew/bin/terragrunt",
+          "arguments": ["hclfmt", "--terragrunt-hclfmt-stdin"]
+        }
+      }
     }
-    // "HCL": {
-    //   "formatter": {
-    //     "external": {
-    //       "command": "/opt/homebrew/bin/terragrunt",
-    //       "arguments": ["hclfmt", "--terragrunt-hclfmt-file", "{buffer_path}"]
-    //     }
-    //   }
-    // }
   },
   "lsp": {
-    "bash-language-server": {
-      "shfmt": {
-        "languageDialect": "bash",
-        "binaryNextLine": true,
-        "caseIndent": true
-      }
-    },
     "yaml-language-server": {
       "settings": {
         "yaml": {
@@ -106,16 +102,19 @@
             "singleQuote": false,
             "printWidth": 160,
             "bracetSpacing": false
+          },
+          "completion": true,
+          "schemaStore": {
+            "enable": true
           }
         }
       }
     }
+  },
+  "file_types": {
+    "YAML": ["**/.ansible-lint", "**/.yamllint"],
+    "Helm": ["**/templates/**/*.tpl", "**/templates/**/*.yaml", "**/templates/**/*.yml"],
+    "ini": ["**/*.ini", "**/ansible.cfg"],
+    "Shell Script": ["**/*.sh.j2"]
   }
-  // "file_types": {
-  //   "Helm": [
-  //     "**/templates/**/*.tpl",
-  //     "**/templates/**/*.yaml",
-  //     "**/templates/**/*.yml",
-  //   ]
-  // }
 }
