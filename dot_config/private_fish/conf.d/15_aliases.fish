@@ -53,7 +53,7 @@ abbr gs 'git st'
 abbr gd 'git diff'
 abbr gdc 'git diff --cached'
 abbr gr 'git remote -v'
-abbr gpom 'git push origin master'
+abbr gpom 'git push origin main'
 abbr gdlc 'git diff-last-commit'
 abbr gp 'git pull'
 abbr gbt 'git branch-toggle'
@@ -61,7 +61,7 @@ abbr gnb 'git checkout -b'
 abbr gco 'git checkout'
 abbr gf 'git fetch'
 abbr gpap 'git push-and-pr'
-abbr gcomagp 'git checkout master && git pull'
+abbr gcomagp 'git checkout main && git pull'
 abbr got git
 
 # Docker

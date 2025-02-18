@@ -1,4 +1,5 @@
 {
+  "icon_theme": "Material Icon Theme",
   "assistant": {
     "default_model": {
       "provider": "copilot_chat",
@@ -29,7 +30,7 @@
   "ui_font_family": "JetBrainsMono Nerd Font Mono",
   "ui_font_size": 13,
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
-  "buffer_font_size": 13,
+  "buffer_font_size": 13.0,
   "show_whitespaces": "all",
   "show_line_endings": true,
   "preferred_line_length": 120,
@@ -53,7 +54,7 @@
     "button": false
   },
   "chat_panel": {
-    "button": false
+    "button": "never"
   },
   "notification_panel": {
     "button": false
@@ -91,12 +92,16 @@
           "arguments": ["hclfmt", "--terragrunt-hclfmt-stdin"]
         }
       }
+    },
+    "YAML": {
+      "auto_indent_on_paste": false
     }
   },
   "lsp": {
     "yaml-language-server": {
       "settings": {
         "yaml": {
+          "formatter": "language_server",
           "format": {
             "enable": true,
             "singleQuote": false,

@@ -18,8 +18,6 @@ set -gx FZF_DEFAULT_COMMAND 'fd --hidden --exclude "node_modules" --exclude ".gi
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 set -gx FZF_ALT_C_COMMAND "$FZF_DEFAULT_COMMAND --type d"
 
-set -gx PATH $PATH $HOME/.krew/bin
-
 # support colours in less/manpages
 set -gx LESS_TERMCAP_mb (echo -e '\e[01;31m')
 set -gx LESS_TERMCAP_md (echo -e '\e[01;31m')

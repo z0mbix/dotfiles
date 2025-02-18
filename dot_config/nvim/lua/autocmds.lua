@@ -66,7 +66,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-  desc = "set file type for shell scripts",
+  desc = "set file type for posix shell scripts",
   pattern = { "*.rc", "*.sh", ".envrc", "~/.sh/*" },
   callback = function()
     vim.bo.filetype = "sh"
@@ -74,7 +74,19 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  desc = "set shell script file type settings",
+  desc = "set fish shell script file type settings",
+  pattern = { "fish" },
+  callback = function()
+    vim.bo.filetype = "fish"
+    vim.bo.tabstop = 4
+    vim.bo.shiftwidth = 4
+    vim.bo.expandtab = true
+    vim.bo.smartindent = true
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "set posix shell script file type settings",
   pattern = "sh",
   callback = function()
     vim.bo.tabstop = 2

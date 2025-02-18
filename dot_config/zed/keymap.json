@@ -1,10 +1,16 @@
 [
   {
+    "context": "vim_mode == normal || vim_mode == visual",
+    "bindings": {
+      "alt-s": ["vim::PushOperator", { "Sneak": {} }],
+      "alt-S": ["vim::PushOperator", { "SneakBackward": {} }]
+    }
+  },
+  {
     "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
     "bindings": {
       "L": ["workspace::SendKeystrokes", "$"],
       "H": ["workspace::SendKeystrokes", "^"],
-      "ctrl-z": "workspace::OpenTerminal",
       "alt-,": "terminal_panel::ToggleFocus",
       "alt-.": "workspace::ToggleBottomDock",
       "cmd-shift ,": "terminal_panel::ToggleFocus",
@@ -54,20 +60,15 @@
     }
   },
   {
-    "context": "Workspace",
-    "bindings": {
-      "cmd-?": null,
-      "cmd-shift-e": "project_panel::ToggleFocus",
-      "cmd-shift-r": "projects::OpenRecent"
-    }
-  },
-  {
     "bindings": {
       "ctrl-`": null,
       "cmd-j": null,
       "cmd-?": null,
+      "cmd-shift-r": "projects::OpenRecent",
       "cmd-<": "terminal_panel::ToggleFocus",
-      "cmd->": "workspace::ToggleBottomDock"
+      "cmd->": "workspace::ToggleBottomDock",
+      "cmd-shift-e": "project_panel::ToggleFocus",
+      "cmd-shift-a": "assistant::ToggleFocus"
     }
   },
   {
