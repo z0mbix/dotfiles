@@ -9,10 +9,15 @@
 {{- $gitName = "David Wooldridge" -}}
 {{- $gitSigningKey = promptStringOnce . "git" "What's your Git signing key" -}}
 {{- end -}}
+{{- $brewPath := "/opt/homebrew/bin/brew" -}}
+{{- if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "amd64") -}}
+{{- $brewPath = "/usr/local/bin/brew" -}}
+{{- end -}}
 
 data:
   email: {{ $emailAddress }}
   workComputer: {{ $workComputer }}
+  brewPath: {{ $brewPath }}
   git:
     email: {{ $emailAddress }}
     name: {{ $gitName | quote }}

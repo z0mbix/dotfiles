@@ -1,0 +1,9 @@
+set -x HOMEBREW_INSTALL_BADGE 📦
+set -x HOMEBREW_NO_ANALYTICS 1
+set -x HOMEBREW_NO_AUTO_UPDATE 1
+
+if test -z "$HOMEBREW_PREFIX"
+    eval ({{(dig "brewPath" "" .) }} shellenv)
+end
+
+set -x SSH_AUTH_SOCK ~/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh
