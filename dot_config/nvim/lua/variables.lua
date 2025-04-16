@@ -64,6 +64,7 @@ g.markdown_fenced_languages = {
   "python",
   "ruby",
   "rust",
+  "toml",
   "typescript",
   "vim",
   "yaml",

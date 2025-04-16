@@ -1,13 +1,20 @@
 {
-  "icon_theme": "Material Icon Theme",
   "assistant": {
     "default_model": {
       "provider": "copilot_chat",
-      "model": "gpt-4o"
+      "model": "claude-3-7-sonnet"
     },
     "version": "2"
   },
-  "theme": "Zedokai (Filter Octagon)",
+  "show_edit_predictions": true,
+  "edit_predictions": {
+    "mode": "eager"
+  },
+  "features": {
+    "edit_prediction_provider": "copilot"
+  },
+  "icon_theme": "Material Icon Theme",
+  "theme": "Zedokai Darker (Filter Octagon)",
   "telemetry": {
     "diagnostics": false,
     "metrics": false
@@ -62,10 +69,24 @@
   "inlay_hints": {
     "enabled": true,
     "show_type_hints": true,
-    "show_parameter_hints": true,
-    "show_other_hints": true
+    "show_parameter_hints": false,
+    "show_other_hints": false,
+    "toggle_on_modifiers_press": {
+      "platform": true,
+      "shift": true
+    }
   },
   "languages": {
+    // "Just": {
+    //   "tab_size": 4,
+    //   "indent_size": 4,
+    //   "formatter": {
+    //     "external": {
+    //       "command": "/opt/homebrew/bin/just",
+    //       "arguments": ["--dump"]
+    //     }
+    //   }
+    // },
     "Shell Script": {
       "tab_size": 2,
       "indent_size": 2,

@@ -1,5 +1,6 @@
 # theme = "catppuccin_mocha"
-theme = "ayu_mirage"
+# theme = "ayu_mirage"
+theme = "sonokai_andromeda"
 
 [editor]
 color-modes = true

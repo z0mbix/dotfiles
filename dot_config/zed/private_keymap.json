@@ -2,8 +2,9 @@
   {
     "context": "vim_mode == normal || vim_mode == visual",
     "bindings": {
-      "alt-s": ["vim::PushOperator", { "Sneak": {} }],
-      "alt-S": ["vim::PushOperator", { "SneakBackward": {} }]
+      "ctrl-n": ["editor::SelectNext", { "replace_newest": false }], // Add selection to Next Find Match
+      "alt-s": ["vim::PushSneak", {}],
+      "alt-S": ["vim::PushSneakBackward", {}]
     }
   },
   {
@@ -16,10 +17,10 @@
       "cmd-shift ,": "terminal_panel::ToggleFocus",
       "cmd-shift .": "workspace::ToggleBottomDock",
       "space space": "buffer_search::Deploy",
-      "space g b": "editor::ToggleGitBlame",
-      "space g h a": "editor::ExpandAllHunkDiffs",
-      "space g h s": "editor::ToggleHunkDiff",
-      "space g h u": "editor::RevertSelectedHunks",
+      "space g b": "git::Blame",
+      "space g h a": "editor::ExpandAllDiffHunks",
+      "space g h s": "editor::ToggleSelectedDiffHunks",
+      "space g h u": "git::Restore",
       "enter": "editor::ToggleFold",
       "cmd-shift-enter": "workspace::ToggleZoom",
       "cmd-i": "assistant::InlineAssist",
@@ -32,11 +33,11 @@
   {
     "context": "Editor && VimControl && !VimWaiting && !menu",
     "bindings": {
-      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
-      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
-      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
-      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
-      "space h": "pane::ActivatePrevItem",
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "space h": "pane::ActivatePreviousItem",
       "space l": "pane::ActivateNextItem",
       "space x": "pane::CloseActiveItem",
       "space n": "workspace::ToggleRightDock",
@@ -46,7 +47,7 @@
   {
     "context": "vim_mode == visual",
     "bindings": {
-      "shift-s": ["vim::PushOperator", { "AddSurrounds": {} }], // shift-s to add surrounds
+      "shift-s": ["vim::PushAddSurrounds", {}], // shift-s to add surrounds
       "alt-j": "editor::MoveLineDown",
       "alt-k": "editor::MoveLineUp"
     }
@@ -54,8 +55,8 @@
   {
     "context": "menu",
     "bindings": {
-      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
-      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
       "space n": "workspace::ToggleRightDock"
     }
   },
@@ -68,7 +69,9 @@
       "cmd-<": "terminal_panel::ToggleFocus",
       "cmd->": "workspace::ToggleBottomDock",
       "cmd-shift-e": "project_panel::ToggleFocus",
-      "cmd-shift-a": "assistant::ToggleFocus"
+      "cmd-shift-a": "assistant::ToggleFocus",
+      "cmd-shift-z": "edit_prediction::ToggleMenu",
+      "cmd-shift-g": "git_panel::ToggleFocus"
     }
   },
   {
@@ -76,15 +79,15 @@
     "bindings": {
       "cmd-shift-,": "terminal_panel::ToggleFocus",
       "cmd-?": "workspace::CloseAllDocks",
-      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-k": "workspace::ActivatePaneUp",
       "cmd-<": "terminal_panel::ToggleFocus",
       "cmd->": "workspace::ToggleBottomDock",
       "cmd-shift-enter": "workspace::ToggleZoom",
       "cmd-n": "workspace::NewTerminal",
       "cmd-d": "pane::SplitRight",
       "cmd-shift-d": "pane::SplitDown",
-      "cmd-[": ["workspace::ActivatePaneInDirection", "Left"],
-      "cmd-]": ["workspace::ActivatePaneInDirection", "Right"]
+      "cmd-[": "workspace::ActivatePaneLeft",
+      "cmd-]": "workspace::ActivatePaneRight"
     }
   },
   {
