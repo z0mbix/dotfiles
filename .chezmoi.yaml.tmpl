@@ -2,7 +2,7 @@
 {{- $workComputer := false -}}
 {{- $githubUser := "z0mbix" -}}
 {{- $gitName := "z0mbix" -}}
-{{- $gitSigningKey := "FFCE5C105D81AB88" -}}
+{{- $gitSigningKey := "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFQZhfcJEFlf9PBad+FzjdNUMyS2/ppL8j0wgH/8n9DGYTP7Q+5J9yMdUOfA+V5Os6FvNh7xsn7EHOSWCjETOCI= ecdsa-sha2-nistp256" -}}
 {{- if not (eq $emailAddress "zombie@zombix.org") -}}
 {{- $workComputer = true -}}
 {{- $githubUser = promptStringOnce . "github" "What is your GitHub username" -}}
