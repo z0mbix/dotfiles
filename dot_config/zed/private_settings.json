@@ -138,9 +138,11 @@
     }
   },
   "file_types": {
-    "YAML": ["**/.ansible-lint", "**/.yamllint"],
+    "Fish": ["**/*.fish.tmpl"],
+    "Go": ["**/*.yaml.tmpl"],
     "Helm": ["**/templates/**/*.tpl", "**/templates/**/*.yaml", "**/templates/**/*.yml"],
-    "ini": ["**/*.ini", "**/ansible.cfg"],
-    "Shell Script": ["**/*.sh.j2"]
+    "Shell Script": ["**/*.sh.j2"],
+    "YAML": ["**/.ansible-lint", "**/.yamllint"],
+    "ini": ["**/*.ini", "**/ansible.cfg"]
   }
 }
