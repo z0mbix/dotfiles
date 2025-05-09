@@ -1,26 +1,28 @@
 {
-  "assistant": {
+  "agent": {
+    "always_allow_tool_actions": true,
     "default_model": {
       "provider": "copilot_chat",
-      "model": "claude-3-7-sonnet"
+      "model": "gpt-4.1"
     },
     "version": "2"
   },
   "show_edit_predictions": true,
   "edit_predictions": {
-    "mode": "eager"
+    "mode": "subtle"
   },
   "features": {
     "edit_prediction_provider": "copilot"
   },
   "icon_theme": "Material Icon Theme",
-  "theme": "Zedokai Darker (Filter Octagon)",
+  "theme": "Zedokai (Filter Octagon)",
   "telemetry": {
     "diagnostics": false,
     "metrics": false
   },
   "project_panel": {
-    "dock": "right"
+    "dock": "left",
+    "auto_fold_dirs": false
   },
   "ensure_final_newline_on_save": true,
   "vim_mode": true,
@@ -33,11 +35,27 @@
   },
   "relative_line_numbers": true,
   "scrollbar": { "show": "never" },
+  "toolbar": {
+    "quick_actions": false,
+    "breadcrumbs": false,
+    "selections_menu": false
+  },
   "scroll_beyond_last_line": "off",
+  "tab_bar": {
+    "show": true,
+    "show_tab_bar_buttons": false,
+    "show_nav_history_buttons": false
+  },
+  "bottom_dock_layout": "left_aligned",
+  "active_pane_modifiers": {
+    "inactive_opacity": 0.9,
+    "border_size": 1
+  },
   "ui_font_family": "JetBrainsMono Nerd Font Mono",
   "ui_font_size": 13,
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
   "buffer_font_size": 13.0,
+  "vertical_scroll_margin": 20,
   "show_whitespaces": "all",
   "show_line_endings": true,
   "preferred_line_length": 120,
@@ -61,7 +79,7 @@
     "button": false
   },
   "chat_panel": {
-    "button": "never"
+    "button": "always"
   },
   "notification_panel": {
     "button": false
@@ -77,16 +95,6 @@
     }
   },
   "languages": {
-    // "Just": {
-    //   "tab_size": 4,
-    //   "indent_size": 4,
-    //   "formatter": {
-    //     "external": {
-    //       "command": "/opt/homebrew/bin/just",
-    //       "arguments": ["--dump"]
-    //     }
-    //   }
-    // },
     "Shell Script": {
       "tab_size": 2,
       "indent_size": 2,
@@ -114,6 +122,15 @@
         }
       }
     },
+    "Python": {
+      "language_servers": ["ruff"],
+      "format_on_save": "on",
+      "formatter": [
+        {
+          "language_server": { "name": "ruff" }
+        }
+      ]
+    },
     "YAML": {
       "auto_indent_on_paste": false
     }
@@ -138,11 +155,13 @@
     }
   },
   "file_types": {
-    "Fish": ["**/*.fish.tmpl"],
-    "Go": ["**/*.yaml.tmpl"],
-    "Helm": ["**/templates/**/*.tpl", "**/templates/**/*.yaml", "**/templates/**/*.yml"],
+    "Helm": ["**/templates/**/*.tpl", "**/templates/**/*.yaml"],
     "Shell Script": ["**/*.sh.j2"],
+    "TOML": ["**/.prototools"],
+    "Tera (TOML)": ["**/*.toml.tera"],
+    "Tera (YAML)": ["**/*.yml.tera", "**/*.yaml.tera"],
     "YAML": ["**/.ansible-lint", "**/.yamllint"],
-    "ini": ["**/*.ini", "**/ansible.cfg"]
+    "ini": ["**/*.ini", "**/ansible.cfg"],
+    "Nginx": ["**/nginx.conf", "**/nginx/*.conf"]
   }
 }

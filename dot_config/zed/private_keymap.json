@@ -1,6 +1,32 @@
 [
   {
-    "context": "vim_mode == normal || vim_mode == visual",
+    "bindings": {
+      "ctrl-`": null,
+      "cmd-j": null,
+      "cmd-?": null,
+      "cmd-shift-r": "projects::OpenRecent",
+      "cmd-<": "terminal_panel::ToggleFocus",
+      "cmd->": "workspace::ToggleBottomDock",
+      "cmd-shift-e": "project_panel::ToggleFocus",
+      "cmd-shift-a": "agent::ToggleFocus",
+      "cmd-shift-z": "edit_prediction::ToggleMenu",
+      "cmd-shift-g": "git_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "Workspace || !MessageEditor",
+    "bindings": {
+      "cmd-shift-r": "projects::OpenRecent",
+      "space c": "command_palette::Toggle",
+      "space f f": "file_finder::Toggle",
+      "space o t": "workspace::NewCenterTerminal",
+      "space o s": "zed::OpenSettings",
+      "space o k": "zed::OpenKeymap",
+      "space o p": ["projects::OpenRecent", { "create_new_window": true }]
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal || vim_mode == visual",
     "bindings": {
       "ctrl-n": ["editor::SelectNext", { "replace_newest": false }], // Add selection to Next Find Match
       "alt-s": ["vim::PushSneak", {}],
@@ -27,7 +53,23 @@
       "alt-j": "editor::MoveLineDown",
       "alt-k": "editor::MoveLineUp",
       "space a": "editor::SelectAll",
-      "space g a": ["workspace::SendKeystrokes", "space a g c"]
+      "space c": "command_palette::Toggle",
+      "space f b": "tab_switcher::Toggle",
+      "space f f": "file_finder::Toggle",
+      "space f i p": "pane::DeploySearch",
+      "space r i p": ["pane::DeploySearch", { "replace_enabled": true }],
+      "space f p": "projects::OpenRecent",
+      "space g a": ["workspace::SendKeystrokes", "space a g c"],
+      "space m h": "pane::SplitLeft",
+      "space m j": "pane::SplitDown",
+      "space m k": "pane::SplitUp",
+      "space m l": "pane::SplitRight",
+      "space o a": "assistant::InlineAssist",
+      "space o d": "diagnostics::Deploy",
+      "space o p": ["projects::OpenRecent", { "create_new_window": true }],
+      "space o t": "workspace::NewCenterTerminal",
+      "space p": "projects::OpenRecent",
+      "?": "editor::Hover"
     }
   },
   {
@@ -40,8 +82,17 @@
       "space h": "pane::ActivatePreviousItem",
       "space l": "pane::ActivateNextItem",
       "space x": "pane::CloseActiveItem",
-      "space n": "workspace::ToggleRightDock",
-      "space g b": "editor::ToggleGitBlame"
+      "space n": "workspace::ToggleLeftDock",
+      // "space m": "workspace::ToggleRightDock",
+      "space g b": "git::Blame"
+    }
+  },
+  {
+    "context": "AssistantPanel",
+    "bindings": {
+      // "space n": "workspace::ToggleLeftDock",
+      // "space m": "workspace::ToggleRightDock",
+      "cmd-shift-a": "agent::ToggleFocus"
     }
   },
   {
@@ -57,21 +108,8 @@
     "bindings": {
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-l": "workspace::ActivatePaneRight",
-      "space n": "workspace::ToggleRightDock"
-    }
-  },
-  {
-    "bindings": {
-      "ctrl-`": null,
-      "cmd-j": null,
-      "cmd-?": null,
-      "cmd-shift-r": "projects::OpenRecent",
-      "cmd-<": "terminal_panel::ToggleFocus",
-      "cmd->": "workspace::ToggleBottomDock",
-      "cmd-shift-e": "project_panel::ToggleFocus",
-      "cmd-shift-a": "assistant::ToggleFocus",
-      "cmd-shift-z": "edit_prediction::ToggleMenu",
-      "cmd-shift-g": "git_panel::ToggleFocus"
+      "space n": "workspace::ToggleLeftDock",
+      "space m": "workspace::ToggleRightDock"
     }
   },
   {
@@ -95,7 +133,9 @@
     "bindings": {
       "o": "project_panel::Open",
       "c": "project_panel::CollapseAllEntries",
-      "C": "project_panel::ExpandSelectedEntry"
+      "C": "project_panel::ExpandSelectedEntry",
+      "f": "project_panel::NewFile",
+      "F": "project_panel::NewDirectory"
     }
   }
 ]

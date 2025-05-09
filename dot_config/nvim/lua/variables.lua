@@ -26,8 +26,8 @@ g.loaded_zipPlugin = 1
 g.mysyntaxfile = "~/.config/nvim/after/ftplugin/all.vim"
 
 -- colours
-vim.g.nvcode_termcolors = 256
-vim.g.colorscheme = {
+g.nvcode_termcolors = 256
+g.colorscheme = {
   name = "monokai-pro",
   filter = "octagon",
 
@@ -41,9 +41,9 @@ vim.g.colorscheme = {
   -- filter = "mirage",
 }
 
-vim.g.colorscheme_name = vim.g.colorscheme.name
-if vim.g.colorscheme.filter then
-  vim.g.colorscheme_name = string.format("%s-%s", vim.g.colorscheme.name, vim.g.colorscheme.filter)
+g.colorscheme_name = g.colorscheme.name
+if g.colorscheme.filter then
+  g.colorscheme_name = string.format("%s-%s", g.colorscheme.name, g.colorscheme.filter)
 end
 
 -- submode
@@ -51,7 +51,7 @@ g.submode_timeout = 0
 g.submode_timeoutlen = 2
 g.submode_keep_leaving_key = 1
 
---	terraform
+-- terraform
 g.terraform_fmt_on_save = 1
 
 -- markdown Language highlighting
