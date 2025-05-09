@@ -1,5 +1,6 @@
 [
   {
+    // Active in all contexts
     "bindings": {
       "ctrl-`": null,
       "cmd-j": null,
@@ -10,15 +11,56 @@
       "cmd-shift-e": "project_panel::ToggleFocus",
       "cmd-shift-a": "agent::ToggleFocus",
       "cmd-shift-z": "edit_prediction::ToggleMenu",
-      "cmd-shift-g": "git_panel::ToggleFocus"
+      "cmd-shift-g": "git_panel::ToggleFocus",
+      "cmd-.": "zed::OpenKeymap"
     }
   },
   {
-    "context": "Workspace || !MessageEditor",
+    "context": "Workspace > Dock > AgentPanel > MessageEditor > Editor",
+    "bindings": {
+      "cmd-shift-a": "agent::ToggleFocus",
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight"
+    }
+  },
+  {
+    "context": "!Workspace > Dock > Pane > Terminal",
+    "bindings": {
+      "cmd-shift-a": "agent::ToggleFocus",
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight"
+    }
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "c": "project_panel::CollapseAllEntries",
+      "C": "project_panel::ExpandSelectedEntry",
+      "f": "project_panel::NewFile",
+      "F": "project_panel::NewDirectory",
+      "o": "project_panel::Open",
+      "r": "project_panel::Rename"
+    }
+  },
+  {
+    "context": "Workspace > Pane && EmptyPane",
     "bindings": {
       "cmd-shift-r": "projects::OpenRecent",
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
       "space c": "command_palette::Toggle",
       "space f f": "file_finder::Toggle",
+      "space o c": "command_palette::Toggle",
       "space o t": "workspace::NewCenterTerminal",
       "space o s": "zed::OpenSettings",
       "space o k": "zed::OpenKeymap",
@@ -26,16 +68,15 @@
     }
   },
   {
-    "context": "Editor && vim_mode == normal || vim_mode == visual",
+    "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
     "bindings": {
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
       "ctrl-n": ["editor::SelectNext", { "replace_newest": false }], // Add selection to Next Find Match
       "alt-s": ["vim::PushSneak", {}],
-      "alt-S": ["vim::PushSneakBackward", {}]
-    }
-  },
-  {
-    "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
-    "bindings": {
+      "alt-S": ["vim::PushSneakBackward", {}],
       "L": ["workspace::SendKeystrokes", "$"],
       "H": ["workspace::SendKeystrokes", "^"],
       "alt-,": "terminal_panel::ToggleFocus",
@@ -56,19 +97,26 @@
       "space c": "command_palette::Toggle",
       "space f b": "tab_switcher::Toggle",
       "space f f": "file_finder::Toggle",
+      "space f p": "pane::DeploySearch",
       "space f i p": "pane::DeploySearch",
       "space r i p": ["pane::DeploySearch", { "replace_enabled": true }],
-      "space f p": "projects::OpenRecent",
+      "space r p": ["pane::DeploySearch", { "replace_enabled": true }],
       "space g a": ["workspace::SendKeystrokes", "space a g c"],
       "space m h": "pane::SplitLeft",
       "space m j": "pane::SplitDown",
       "space m k": "pane::SplitUp",
       "space m l": "pane::SplitRight",
       "space o a": "assistant::InlineAssist",
+      "space o c": "command_palette::Toggle",
       "space o d": "diagnostics::Deploy",
+      "space o k": "zed::OpenKeymap",
+      "space o n": "workspace::ToggleLeftDock",
       "space o p": ["projects::OpenRecent", { "create_new_window": true }],
+      "space o s": "zed::OpenSettings",
       "space o t": "workspace::NewCenterTerminal",
+      "space m d p": "markdown::OpenPreviewToTheSide",
       "space p": "projects::OpenRecent",
+      "space ": "buffer_search::DeployReplace",
       "?": "editor::Hover"
     }
   },
@@ -83,16 +131,8 @@
       "space l": "pane::ActivateNextItem",
       "space x": "pane::CloseActiveItem",
       "space n": "workspace::ToggleLeftDock",
-      // "space m": "workspace::ToggleRightDock",
+      "space o n": "workspace::ToggleLeftDock",
       "space g b": "git::Blame"
-    }
-  },
-  {
-    "context": "AssistantPanel",
-    "bindings": {
-      // "space n": "workspace::ToggleLeftDock",
-      // "space m": "workspace::ToggleRightDock",
-      "cmd-shift-a": "agent::ToggleFocus"
     }
   },
   {
@@ -104,9 +144,11 @@
     }
   },
   {
-    "context": "menu",
+    "context": "ChatPanel",
     "bindings": {
       "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
       "ctrl-l": "workspace::ActivatePaneRight",
       "space n": "workspace::ToggleLeftDock",
       "space m": "workspace::ToggleRightDock"
@@ -117,7 +159,6 @@
     "bindings": {
       "cmd-shift-,": "terminal_panel::ToggleFocus",
       "cmd-?": "workspace::CloseAllDocks",
-      "ctrl-k": "workspace::ActivatePaneUp",
       "cmd-<": "terminal_panel::ToggleFocus",
       "cmd->": "workspace::ToggleBottomDock",
       "cmd-shift-enter": "workspace::ToggleZoom",
@@ -126,16 +167,6 @@
       "cmd-shift-d": "pane::SplitDown",
       "cmd-[": "workspace::ActivatePaneLeft",
       "cmd-]": "workspace::ActivatePaneRight"
-    }
-  },
-  {
-    "context": "ProjectPanel && not_editing",
-    "bindings": {
-      "o": "project_panel::Open",
-      "c": "project_panel::CollapseAllEntries",
-      "C": "project_panel::ExpandSelectedEntry",
-      "f": "project_panel::NewFile",
-      "F": "project_panel::NewDirectory"
     }
   }
 ]
