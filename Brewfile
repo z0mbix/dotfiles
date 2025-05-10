@@ -1,7 +1,6 @@
 tap "charmbracelet/tap"
 tap "goreleaser/tap"
 tap "hashicorp/tap"
-tap "homebrew/bundle"
 tap "homebrew/cask-fonts"
 tap "homeport/tap"
 tap "iann0036/iamlive"
