@@ -9,7 +9,7 @@
   },
   "show_edit_predictions": true,
   "edit_predictions": {
-    "mode": "subtle"
+    "mode": "eager"
   },
   "features": {
     "edit_prediction_provider": "copilot"

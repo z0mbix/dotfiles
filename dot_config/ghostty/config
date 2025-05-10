@@ -14,6 +14,7 @@ macos-window-shadow = false
 mouse-hide-while-typing = true
 quit-after-last-window-closed = true
 scrollback-limit = 10000000
+shell-integration = fish
 shell-integration-features = no-cursor,no-sudo,no-title
 unfocused-split-opacity = 0.8
 window-save-state = always

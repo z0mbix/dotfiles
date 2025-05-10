@@ -87,11 +87,14 @@
       "ctrl-j": "workspace::ActivatePaneDown",
       "ctrl-k": "workspace::ActivatePaneUp",
       "ctrl-l": "workspace::ActivatePaneRight",
-      "c": "project_panel::CollapseAllEntries",
       "C": "project_panel::ExpandSelectedEntry",
-      "f": "project_panel::NewFile",
       "F": "project_panel::NewDirectory",
-      "o": "project_panel::Open",
+      "c": "project_panel::CollapseAllEntries",
+      "d": "project_panel::NewDirectory",
+      "D": "project_panel::Duplicate",
+      "f": "project_panel::NewFile",
+      "o": "project_panel::OpenPermanent",
+      "x": "project_panel::Delete",
       "r": "project_panel::Rename"
     }
   },
