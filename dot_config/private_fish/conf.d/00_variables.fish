@@ -3,13 +3,12 @@ set -gx ARCH (arch)
 set -gx EDITOR nvim
 set -gx GOPASS_NO_REMINDER fuckoff
 set -gx K9SCONFIG ~/.config/k9s
-set -gx K9SCONFIG ~/.config/k9s
 set -gx LESS -niSRXF
 set -gx OS (uname -s)
 set -gx SHELL_NAME (basename $SHELL)
 set -gx TERM xterm-color
 set -gx TF_PLUGIN_CACHE_DIR ~/.terraform.d/plugin-cache
-
+set -gx MANPAGER 'nvim +Man!'
 set -gx AWS_DEFAULT_REGION eu-west-2
 set -gx AWS_PAGER ""
 

@@ -15,12 +15,23 @@ vim.api.nvim_create_autocmd("VimEnter", {
   pattern = "*",
   group = telescope_open,
   callback = function()
-    if vim.fn.argc() == 0 and vim.fn.getcwd() ~= vim.fn.expand("~") then
-      if vim.fn.isdirectory(".git") ~= 0 then
-        vim.cmd("Telescope git_files")
-      else
-        vim.cmd("Telescope find_files")
-      end
+    if vim.fn.argc() ~= 0 then
+      return
+    end
+
+    local ft = vim.bo.filetype
+    if ft == "man" then
+      return
+    end
+
+    if vim.fn.getcwd() == vim.fn.expand("~") then
+      return
+    end
+
+    if vim.fn.isdirectory(".git") ~= 0 then
+      vim.cmd("Telescope git_files")
+    else
+      vim.cmd("Telescope find_files")
     end
   end,
 })
