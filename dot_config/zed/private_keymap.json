@@ -31,13 +31,6 @@
     }
   },
   {
-    "context": "Editor",
-    "bindings": {
-      "space h": "pane::ActivatePreviousItem",
-      "space l": "pane::ActivateNextItem"
-    }
-  },
-  {
     "context": "Workspace > Dock > GitPanel",
     "bindings": {
       "cmd-shift-a": "agent::ToggleFocus",
