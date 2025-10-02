@@ -1,233 +1,238 @@
-local remap = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
+require "nvchad.mappings"
+
+local map = vim.keymap.set
+
+map("n", ";", ":", { desc = "CMD enter command mode" })
 
 -- source/edit init.lua
-remap("n", "<leader>ce", ":edit $MYVIMRC<cr>", opts)
-remap("n", "<leader>cs", ":source $MYVIMRC<CR>", opts)
+map("n", "<leader>ce", ":edit $MYVIMRC<cr>")
+map("n", "<leader>cs", ":source $MYVIMRC<CR>")
 
 -- move a character to the beginning or end of the line
-remap("n", "mH", ':let @z=@"<cr>x0P:let @"=@z<cr>', opts)
-remap("n", "mL", ':let @z=@"<cr>x$p:let @"=@z<cr>', opts)
+map("n", "mH", ':let @z=@"<cr>x0P:let @"=@z<cr>')
+map("n", "mL", ':let @z=@"<cr>x$p:let @"=@z<cr>')
 
 -- Show/Hide invisible characters
-remap("n", "<leader>'", ":set list!<CR>", opts)
+map("n", "<leader>'", ":set list!<CR>")
 
 -- move a character to the beginning or end of the word
-remap("n", "mh", ':let @z=@"<cr>xBP:let @"=@z<cr>', opts)
-remap("n", "ml", ':let @z=@"<cr>xep:let @"=@z<cr>', opts)
+map("n", "mh", ':let @z=@"<cr>xBP:let @"=@z<cr>')
+map("n", "ml", ':let @z=@"<cr>xep:let @"=@z<cr>')
 
 -- Go to first character, not column 0
-remap("n", "0", "^", opts)
+map("n", "0", "^")
 
 -- Easier to type, and I never use the default behavior.
-remap("n", "H", "^", opts)
-remap("n", "L", "$", opts)
-remap("v", "H", "^", opts)
-remap("v", "L", "g_", opts)
-
--- Make yanking behave like D/C/S etc.
-remap("n", "Y", "y$", opts)
+map("n", "H", "^")
+map("n", "L", "$")
+map("v", "H", "^")
+map("v", "L", "g_")
 
 -- Keep search results and joins centred
-remap("n", "n", "nzzzv", opts)
-remap("n", "N", "Nzzzv", opts)
-remap("n", "J", "mzJ`z", opts)
+map("n", "n", "nzzzv")
+map("n", "N", "Nzzzv")
+map("n", "J", "mzJ`z")
 
 -- Buffers (commands provided by ojroques/nvim-bufdel)
-remap("n", "<leader>x", ":BufDel<CR>", opts)
-remap("n", "<leader>X", ":BufDelAll<CR>", opts)
-remap("n", "<C-q>", ":BufDel<CR>", opts)
+map("n", "<leader>x", ":BufDel<CR>")
+map("n", "<leader>X", ":BufDelAll<CR>")
+map("n", "<C-q>", ":BufDel<CR>")
 
--- Undotree
-remap("n", "<leader>u", ":UndotreeToggle<CR>", opts)
+-- Nvdash
+map("n", "<leader>da", ":Nvdash<CR>")
 
 -- Git
-remap("n", "<leader>gs", ":Gstatus<CR>gg<c-n>", opts)
-remap("n", "<leader>gd", ":Gitsigns toggle_linehl<CR>", opts)
-remap("n", "<leader>gb", ":GitBlameToggle<CR>", opts)
-remap("n", "<leader>ghp", ":Gitsigns preview_hunk<CR>", opts)
-remap("n", "<leader>ghr", ":Gitsigns reset_hunk<CR>", opts)
-remap("n", "<leader>ghj", ":Gitsigns next_hunk<CR>", opts)
-remap("n", "<leader>ghk", ":Gitsigns prev_hunk<CR>", opts)
-remap("n", "<leader>gg", ":Neogit<CR>", opts)
+map("n", "<leader>gs", ":Gstatus<CR>gg<c-n>")
+map("n", "<leader>gd", ":Gitsigns toggle_linehl<CR>")
+map("n", "<leader>gb", ":GitBlameToggle<CR>")
+map("n", "<leader>ghp", ":Gitsigns preview_hunk<CR>")
+map("n", "<leader>ghr", ":Gitsigns reset_hunk<CR>")
+map("n", "<leader>ghj", ":Gitsigns next_hunk<CR>")
+map("n", "<leader>ghk", ":Gitsigns prev_hunk<CR>")
+map("n", "<leader>gg", ":Neogit<CR>")
 
 -- Write as root if we don't have permission
-remap("c", "w!!", "%!sudo tee > /dev/null %", opts)
+map("c", "w!!", "%!sudo tee > /dev/null %")
 
 -- Clear search highlighting
-remap("n", "<leader>/", ":nohlsearch<CR>", opts)
+map("n", "<leader>/", ":nohlsearch<CR>")
 
 -- Telescope
-remap("n", "<leader>ts", ":Telescope<CR>", opts)
-remap("n", "<leader><Space>", ":Telescope current_buffer_fuzzy_find sorting_strategy=ascending<CR>", opts)
-remap("n", "<leader>fl", ":Telescope current_buffer_fuzzy_find sorting_strategy=ascending<CR>", opts)
-remap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
-remap("n", "<leader>fb", ":Telescope file_browser<CR>", opts)
-remap("n", "<leader>fc", ":Telescope commands<CR>", opts)
-remap("n", "<leader>fC", ":Telescope colorscheme<CR>", opts)
-remap("n", "<leader>fF", ":Telescope git_files<CR>", opts)
-remap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
-remap("n", "<leader>fh", ":Telescope command_history<CR>", opts)
-remap("n", "<leader>ft", ":Telescope filetypes<CR>", opts)
-remap("n", "<leader>fT", ":TodoTelescope<CR>", opts)
-remap("n", "<leader>fU", ":UrlView<CR>", opts)
-remap("n", "<leader>fu", ":Telescope undo<CR>", opts)
-remap("n", "<leader>fm", ":Telescope marks<CR>", opts)
-remap("n", "<leader>fa", ":Telescope live_grep<CR>", opts)
-remap("n", "<leader>fp", ":Telescope live_grep<CR>", opts)
-remap("n", "<leader>fs", ":Telescope spell_suggect<CR>", opts)
-remap("n", "<leader>fw", ":Telescope grep_string<CR>", opts)
-remap("n", "<leader>fy", ":Telescope yank_history<CR>", opts)
-remap("n", "<leader>fgs", ":Telescope git_status<CR>", opts)
-remap("n", "<leader>fgc", ":Telescope git_commits<CR>", opts)
-remap("n", "<leader>fgb", ":Telescope git_branches<CR>", opts)
+map("n", "<leader>ts", ":Telescope<CR>")
+map("n", "<leader><Space>", ":Telescope current_buffer_fuzzy_find sorting_strategy=ascending<CR>")
+map("n", "<leader>fl", ":Telescope current_buffer_fuzzy_find sorting_strategy=ascending<CR>")
+map("n", "<leader>ff", ":Telescope find_files<CR>")
+map("n", "<leader>fb", ":Telescope file_browser<CR>")
+map("n", "<leader>fc", ":Telescope commands<CR>")
+map("n", "<leader>fC", ":Telescope colorscheme<CR>")
+map("n", "<leader>fF", ":Telescope git_files<CR>")
+map("n", "<leader>fb", ":Telescope buffers<CR>")
+map("n", "<leader>fh", ":Telescope command_history<CR>")
+map("n", "<leader>ft", ":Telescope filetypes<CR>")
+map("n", "<leader>fT", ":TodoTelescope<CR>")
+map("n", "<leader>fU", ":UrlView<CR>")
+map("n", "<leader>fu", ":Telescope undo<CR>")
+map("n", "<leader>fm", ":Telescope marks<CR>")
+map("n", "<leader>fa", ":Telescope live_grep<CR>")
+map("n", "<leader>fp", ":Telescope live_grep<CR>")
+map("n", "<leader>fs", ":Telescope spell_suggect<CR>")
+map("n", "<leader>fw", ":Telescope grep_string<CR>")
+map("n", "<leader>fy", ":Telescope yank_history<CR>")
+map("n", "<leader>fgs", ":Telescope git_status<CR>")
+map("n", "<leader>fgc", ":Telescope git_commits<CR>")
+map("n", "<leader>fgb", ":Telescope git_branches<CR>")
+map("n", "<leader>cd", ":Telescope zoxide list<CR>")
 
 -- Remap for dealing with word wrap
-remap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-remap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Switch buffers with tab/shift-tab
-remap("n", "<TAB>", ":bnext!<CR>", opts)
-remap("n", "<S-TAB>", ":bprevious!<CR>", opts)
+map("n", "<TAB>", ":bnext!<CR>")
+map("n", "<S-TAB>", ":bprevious!<CR>")
 
 -- nvim-tree
-remap("n", "<leader>n", ":Neotree toggle=true action=show<CR>", opts)
-remap("n", "<leader>Ne", ":Neotree source=filesystem toggle=true action=focus position=float<CR>", opts)
-remap("n", "<leader>Ng", ":Neotree source=git_status toggle=true action=focus position=float reveal=true<CR>", opts)
+map("n", "<leader>n", ":NvimTreeToggle toggle=true action=show<CR>")
 
 -- Folds
-remap("n", "<Enter>", "za", opts)
-remap("v", "<Enter>", "za", opts)
+map("n", "<Enter>", "za")
+map("v", "<Enter>", "za")
 
 -- Make navigating around splits easier
-remap("n", "<C-j>", "<C-w>j", opts)
-remap("n", "<C-k>", "<C-w>k", opts)
-remap("n", "<C-h>", "<C-w>h", opts)
-remap("n", "<C-l>", "<C-w>l", opts)
+map("n", "<C-j>", "<C-w>j")
+map("n", "<C-k>", "<C-w>k")
+map("n", "<C-h>", "<C-w>h")
+map("n", "<C-l>", "<C-w>l")
 
 -- Close/save files
-remap("n", "<leader>wf", ":update<CR>", opts)
+map("n", "<leader>wf", ":update<CR>")
 
 -- Fix split window ratios
-remap("n", "<leader>we", "<C-w>=", opts)
-remap("n", "<leader>ws", "<C-w>x", opts)
+map("n", "<leader>we", "<C-w>=")
+map("n", "<leader>ws", "<C-w>x")
 
 -- smart-splits.nvim
-remap("n", "<leader>wh", ":SmartResizeLeft 10<CR>", opts)
-remap("n", "<leader>wj", ":SmartResizeDown 5<CR>", opts)
-remap("n", "<leader>wk", ":SmartResizeUp 5<CR>", opts)
-remap("n", "<leader>wl", ":SmartResizeRight 10<CR>", opts)
-remap("n", "<leader>wr", ":SmartResizeMode<CR>", opts)
+map("n", "<leader>wh", ":SmartResizeLeft 10<CR>")
+map("n", "<leader>wj", ":SmartResizeDown 5<CR>")
+map("n", "<leader>wk", ":SmartResizeUp 5<CR>")
+map("n", "<leader>wl", ":SmartResizeRight 10<CR>")
+map("n", "<leader>wr", ":SmartResizeMode<CR>")
 
 -- Reselect visual block after indent/outdent
-remap("v", "<", "<gv", opts)
-remap("v", ">", ">gv", opts)
+map("v", "<", "<gv")
+map("v", ">", ">gv")
 
 -- Improve up/down movement on wrapped lines
-remap("n", "j", "gj", opts)
-remap("n", "k", "gk", opts)
+map("n", "j", "gj")
+map("n", "k", "gk")
 
 -- Show current file in finder
-remap("n", "<leader>oo", ":Reveal<CR>", opts)
+map("n", "<leader>oo", ":Reveal<CR>")
 
 -- Open file with the default application
-remap("n", "<leader>of", ':silent !open "%"<CR>', opts)
+map("n", "<leader>of", ':silent !open "%"<CR>')
 
 -- Select all
-remap("n", "<leader>a", "ggVG", opts)
+map("n", "<leader>a", "ggVG")
 
 -- Comment all
-remap("n", "<leader>ga", "ggVGgc", opts)
+map("n", "<leader>ga", "ggVGgc")
 
 -- Remove annoying F1 help
-remap("i", "<F1>", "<nop>", opts)
-remap("n", "<F1>", "<nop>", opts)
-remap("v", "<F1>", "<nop>", opts)
+map("i", "<F1>", "<nop>")
+map("n", "<F1>", "<nop>")
+map("v", "<F1>", "<nop>")
 
 -- Show registers
-remap("n", "<leader>r", ":registers<CR>", opts)
+map("n", "<leader>r", ":registers<CR>")
 
 -- Keep the cursor in place while joining lines
-remap("n", "J", "mzJ`z", opts)
+map("n", "J", "mzJ`z")
 
 -- Delete without cutting
-remap("n", "<leader>d", '"_d', opts)
-remap("v", "<leader>d", '"_d', opts)
+map("n", "<leader>d", '"_d')
+map("v", "<leader>d", '"_d')
 
 -- zen-mode
-remap("n", "<leader>z", ":ZenMode<CR>", opts)
+map("n", "<leader>z", ":ZenMode<CR>")
 
 -- minimap.vim
-remap("n", "<leader>mm", ":MinimapToggle<CR>", opts)
+map("n", "<leader>mm", ":MinimapToggle<CR>")
 
 -- lsp
-remap("n", "<leader>F", ":Format<CR>", opts)
-
--- which-key.nvim
--- remap("n", "<leader>Wk", ":WhichKey<CR>", opts)
+map("n", "<leader>F", ":Format<CR>")
 
 -- vim-maximizer
-remap("n", "<leader>W", ":MaximizerToggle<CR>", opts)
-remap("v", "<leader>W", ":MaximizerToggle<CR>gv", opts)
+map("n", "<leader>W", ":MaximizerToggle<CR>")
+map("v", "<leader>W", ":MaximizerToggle<CR>gv")
 
 -- trouble.nvim
-remap("n", "<leader>T", ":TroubleToggle<CR>", opts)
+map("n", "<leader>T", ":TroubleToggle<CR>")
+
+-- persistence.nvim
+map("n", "<leader>qs", function()
+  require("persistence").load()
+end) -- load the session for the current directory
+
+map("n", "<leader>qS", function()
+  require("persistence").select()
+end) -- select a session to load
+
+map("n", "<leader>ql", function()
+  require("persistence").load { last = true }
+end) -- load the last session
+
+map("n", "<leader>qd", function()
+  require("persistence").stop()
+end) -- stop Persistence => session won't be saved on exit
 
 -- quickfix
-remap("n", "<leader>qft", [[<Cmd>lua require('functions').toggle_qf()<CR>]], opts)
-remap("n", "<leader>qfo", ":copen<CR>", opts)
-remap("n", "<leader>qfc", ":cclose<CR>", opts)
-
--- FTerm
-remap("t", "<leader>tt", [[<Cmd>lua require('FTerm').toggle()<CR>]], opts)
-remap("n", "<leader>tt", [[<Cmd>lua require('FTerm').toggle()<CR>]], opts)
+map("n", "<leader>qft", [[<Cmd>lua require('functions').toggle_qf()<CR>]])
+map("n", "<leader>qfo", ":copen<CR>")
+map("n", "<leader>qfc", ":cclose<CR>")
 
 -- glow.nvim
-remap("n", "<leader>mp", ":Glow<CR>", opts)
+map("n", "<leader>mp", ":Glow<CR>")
 
 -- open things
-remap("n", "gx", ":!open <C-R><C-A><CR>", opts)
+map("n", "gx", ":!open <C-R><C-A><CR>")
 
 -- move.nvim
-remap("n", "<A-j>", ":MoveLine(1)<CR>", opts)
-remap("n", "<A-k>", ":MoveLine(-1)<CR>", opts)
-remap("n", "<A-h>", ":MoveHChar(-1)<CR>", opts)
-remap("n", "<A-l>", ":MoveHChar(1)<CR>", opts)
-remap("n", "<leader>wf", ":MoveWord(1)<CR>", opts)
-remap("n", "<leader>wb", ":MoveWord(-1)<CR>", opts)
-remap("v", "<A-j>", ":MoveBlock(1)<CR>", opts)
-remap("v", "<A-k>", ":MoveBlock(-1)<CR>", opts)
-remap("v", "<A-h>", ":MoveHBlock(-1)<CR>", opts)
-remap("v", "<A-l>", ":MoveHBlock(1)<CR>", opts)
+map("n", "<A-j>", ":MoveLine(1)<CR>")
+map("n", "<A-k>", ":MoveLine(-1)<CR>")
+map("n", "<A-h>", ":MoveHChar(-1)<CR>")
+map("n", "<A-l>", ":MoveHChar(1)<CR>")
+map("n", "<leader>wf", ":MoveWord(1)<CR>")
+map("n", "<leader>wb", ":MoveWord(-1)<CR>")
+map("v", "<A-j>", ":MoveBlock(1)<CR>")
+map("v", "<A-k>", ":MoveBlock(-1)<CR>")
+map("v", "<A-h>", ":MoveHBlock(-1)<CR>")
+map("v", "<A-l>", ":MoveHBlock(1)<CR>")
 
 -- Disable annoying things
-remap("n", "Q", "<nop>", opts)
-remap("n", "q", "<nop>", opts)
+map("n", "Q", "<nop>")
+map("n", "q", "<nop>")
 
 -- Ctrl + h,j,k,l for insert mode
-remap("i", "<C-h>", "<left>", opts)
-remap("i", "<C-j>", "<down>", opts)
-remap("i", "<C-k>", "<up>", opts)
-remap("i", "<C-l>", "<right>", opts)
-
--- Switch buffers using vim-submode
-vim.cmd([[
-	call submode#enter_with('bnext/bprev', 'n', 's', '<leader>l', ':bn<CR>')
-	call submode#enter_with('bnext/bprev', 'n', 's', '<leader>h', ':bp<CR>')
-	call submode#map('bnext/bprev', 'n', 's', 'l', ':bn<CR>')
-  call submode#map('bnext/bprev', 'n', 's', 'h', ':bp<CR>')
-]])
-
--- renamer.nvim
-remap("i", "<F2>", '<cmd>lua require("renamer").rename()<cr>', opts)
-remap("n", "<leader>rn", '<cmd>lua require("renamer").rename()<cr>', opts)
-remap("v", "<leader>rn", '<cmd>lua require("renamer").rename()<cr>', opts)
+map("i", "<C-h>", "<left>")
+map("i", "<C-j>", "<down>")
+map("i", "<C-k>", "<up>")
+map("i", "<C-l>", "<right>")
 
 -- spectre.nvim
-remap("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>', opts)
-remap("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<cr>', opts)
-remap("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', opts)
-remap("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', opts)
+map("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>')
+map("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<cr>')
+map("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>')
+map("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>')
 
 -- win-mover.nvim
-remap("n", "<leader>mw", '<cmd>lua require("win-mover").enter_move_mode()<cr>', opts)
+map("n", "<leader>mw", '<cmd>lua require("win-mover").enter_move_mode()<cr>')
+
+-- terminal
+map({ "n", "t" }, "<leader>tt", function()
+  require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
+end, { desc = "terminal toggleable horizontal term" })
+
+map({ "t", "t" }, "<leader>tt", function()
+  require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
+end, { desc = "terminal toggleable horizontal term" })

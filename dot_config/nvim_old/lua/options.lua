@@ -1,10 +1,3 @@
-require "nvchad.options"
-
--- add yours here!
-
--- local o = vim.o
--- o.cursorlineopt ='both' -- to enable cursorline!
-
 local opt = vim.opt
 
 vim.g.mapleader = " " -- this is the way
@@ -65,7 +58,7 @@ opt.modeline = true -- don't show mode line
 opt.mouse = "a" -- enable mouse support
 opt.mousemoveevent = true -- enable mouse events
 opt.joinspaces = false -- remove extra space when joining lines
-opt.cmdheight = 1 -- better display for messages
+opt.cmdheight = 0 -- better display for messages
 opt.updatetime = 200 -- faster swap file writes
 opt.timeoutlen = 300 -- timeout a bit quicker
 opt.signcolumn = "yes" -- show signcolumn in number column

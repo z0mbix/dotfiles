@@ -1,24 +1,10 @@
-require "nvchad.autocmds"
-
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    local orig_notify = vim.notify
-    vim.notify = function(msg, ...)
-      if type(msg) == "string" and msg:match 'not found in runtime path: "queries/' then
-        return
-      end
-      return orig_notify(msg, ...)
-    end
-  end,
-})
-
 vim.api.nvim_create_autocmd("BufReadPost", {
   desc = "remember location in the file",
   pattern = "*",
   callback = function()
     local line = vim.fn.line
-    if line "'\"" > 0 and line "'\"" <= line "$" then
-      vim.cmd "normal! g'\""
+    if line("'\"") > 0 and line("'\"") <= line("$") then
+      vim.cmd("normal! g'\"")
     end
   end,
 })
@@ -38,26 +24,14 @@ vim.api.nvim_create_autocmd("VimEnter", {
       return
     end
 
-    if vim.fn.getcwd() == vim.fn.expand "~" then
+    if vim.fn.getcwd() == vim.fn.expand("~") then
       return
     end
 
-    -- Check for session file first
-    local cwd = vim.fn.getcwd()
-    local session_name = cwd:gsub("/", "%%") .. ".vim"
-    local session_path = vim.fn.stdpath "data" .. "/sessions/" .. session_name
-
-    -- Load session if it exists
-    if vim.fn.filereadable(session_path) == 1 then
-      -- require("persistence").load()
-      return
+    if vim.fn.isdirectory(".git") ~= 0 then
+      vim.cmd("Telescope git_files")
     else
-      -- No session found, open telescope
-      if vim.fn.isdirectory ".git" ~= 0 then
-        vim.cmd "Telescope git_files"
-      else
-        vim.cmd "Telescope find_files"
-      end
+      vim.cmd("Telescope find_files")
     end
   end,
 })
@@ -86,7 +60,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   desc = "create new file and all directories",
   pattern = "*",
   callback = function()
-    local file_dir = vim.fn.expand "<afile>:p:h"
+    local file_dir = vim.fn.expand("<afile>:p:h")
     if not vim.loop.fs_stat(file_dir) then
       vim.fn.mkdir(file_dir, "p")
     end
@@ -157,13 +131,6 @@ for _, setting in pairs(filetype_settings) do
   })
 end
 
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-  desc = "nats configuration files",
-  group = vim.api.nvim_create_augroup("hocon", { clear = true }),
-  pattern = { "nats.conf", "nats*.conf" },
-  command = "set ft=hocon",
-})
-
 vim.api.nvim_create_autocmd("FileType", {
   desc = "set ruby file type settings",
   pattern = "ruby,eruby",
@@ -187,6 +154,7 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.bo.expandtab = true
     vim.bo.softtabstop = 4
     vim.bo.smartindent = true
+    vim.api.nvim_buf_set_keymap(0, "n", "<F7>", ":call Autopep8()<CR>", { noremap = true, silent = true })
     vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
   end,
 })
@@ -241,23 +209,23 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   desc = "strip trailing whitespace before saving",
   pattern = "*",
   callback = function()
-    vim.cmd "%s/\\s\\+$//e"
+    vim.cmd("%s/\\s\\+$//e")
   end,
 })
 
--- vim.api.nvim_create_autocmd("BufWritePost", {
---   desc = "reload neovim config after saving",
---   pattern = { "lua/*.lua", "lua/plugins/*.lua", "init.lua" },
---   callback = function()
---     vim.cmd "source $MYVIMRC"
---   end,
--- })
+vim.api.nvim_create_autocmd("BufWritePost", {
+  desc = "reload neovim config after saving",
+  pattern = { "lua/*.lua", "lua/plugins/*.lua", "init.lua" },
+  callback = function()
+    vim.cmd("source $MYVIMRC")
+  end,
+})
 
 vim.api.nvim_create_autocmd("VimResized", {
   desc = "resize windows equally",
   pattern = "*",
   callback = function()
-    vim.cmd "wincmd ="
+    vim.cmd("wincmd =")
   end,
 })
 
@@ -273,9 +241,15 @@ vim.api.nvim_create_autocmd("FileType", {
   desc = "disable auto comment new line",
   pattern = "*",
   callback = function()
-    vim.opt_local.formatoptions:remove "c"
-    vim.opt_local.formatoptions:remove "r"
-    vim.opt_local.formatoptions:remove "o"
-    vim.opt_local.formatoptions:append "j"
+    vim.opt_local.formatoptions:remove("c")
+    vim.opt_local.formatoptions:remove("r")
+    vim.opt_local.formatoptions:remove("o")
+    vim.opt_local.formatoptions:append("j")
   end,
+})
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  group = vim.api.nvim_create_augroup("hocon", { clear = true }),
+  pattern = { "nats.conf", "nats*.conf" },
+  command = "set ft=hocon",
 })
