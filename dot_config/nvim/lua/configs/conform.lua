@@ -3,8 +3,8 @@ local options = {
     lua = { "stylua" },
     sh = { "shfmt" },
     go = { "gofmt" },
-    -- css = { "prettier" },
-    -- html = { "prettier" },
+    fish = { "fish_indent" },
+    python = { "ruff_format" },
   },
 
   format_on_save = {

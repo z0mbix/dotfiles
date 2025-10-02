@@ -2,13 +2,13 @@ return {
   {
     "stevearc/conform.nvim",
     event = "BufWritePre",
-    opts = require "configs.conform",
+    opts = require("configs.conform"),
   },
 
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require "configs.lspconfig"
+      require("configs.lspconfig")
     end,
   },
 
@@ -63,7 +63,7 @@ return {
     lazy = false,
     event = "VimEnter",
     opts = {
-      dir = vim.fn.stdpath "data" .. "/sessions/",
+      dir = vim.fn.stdpath("data") .. "/sessions/",
     },
   },
 
@@ -142,7 +142,7 @@ return {
     event = "VeryLazy",
     dependencies = { "nvim-telescope/telescope.nvim" },
     config = function()
-      require("telescope").load_extension "zoxide"
+      require("telescope").load_extension("zoxide")
     end,
   },
 
@@ -151,10 +151,10 @@ return {
     "ojroques/nvim-bufdel",
     event = "VeryLazy",
     config = function()
-      require("bufdel").setup {
+      require("bufdel").setup({
         next = "tabs",
         quit = false, -- do not quit neovim when last buffer is closed
-      }
+      })
     end,
   },
 
@@ -181,8 +181,8 @@ return {
     "ycdzj/win-mover.nvim",
     event = "VeryLazy",
     config = function()
-      local win_mover = require "win-mover"
-      win_mover.setup {
+      local win_mover = require("win-mover")
+      win_mover.setup({
         ignore = {
           enable = true,
           filetypes = { "minimap", "neo-tree", "toggleterm" },
@@ -201,7 +201,7 @@ return {
             ["<Esc>"] = win_mover.ops.quit,
           },
         },
-      }
+      })
     end,
   },
 
@@ -210,8 +210,8 @@ return {
     "luukvbaal/statuscol.nvim",
     event = "VeryLazy",
     config = function()
-      local builtin = require "statuscol.builtin"
-      require("statuscol").setup {
+      local builtin = require("statuscol.builtin")
+      require("statuscol").setup({
         segments = {
           { text = { "%s" }, click = "v:lua.ScSa" },
           { text = { builtin.lnumfunc }, click = "v:lua.ScLa" },
@@ -221,7 +221,7 @@ return {
             click = "v:lua.ScFa",
           },
         },
-      }
+      })
     end,
   },
 
@@ -230,7 +230,7 @@ return {
     "zbirenbaum/copilot.lua",
     event = "VeryLazy",
     config = function()
-      require("copilot").setup {
+      require("copilot").setup({
         panel = {
           enabled = true,
           auto_refresh = false,
@@ -265,9 +265,7 @@ return {
           help = false,
           ["."] = false,
         },
-        copilot_node_command = "/opt/homebrew/bin/node",
-        server_opts_overrides = {},
-      }
+      })
     end,
   },
 }
