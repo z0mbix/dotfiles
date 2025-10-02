@@ -4,10 +4,12 @@ README.md
 .aws/
 .config/shellcheckrc
 .hammerspoon/
-.ssh/
 Brewfile
 {{- end }}
 
-{{- if eq .chezmoi.os "darwin" -}}
-.config/fish/conf.d/darwin.fish
+{{- if ne .chezmoi.os "darwin" }}
+Brewfile
+.hammerspoon/
+.config/fish/conf.d/07_darwin.fish
+.config/fish/conf.d/07_darwin.fish.tmpl
 {{- end }}
