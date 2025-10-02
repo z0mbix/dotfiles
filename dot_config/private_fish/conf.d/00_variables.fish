@@ -1,5 +1,5 @@
 set -gx ANSIBLE_NOCOWS 1
-set -gx ARCH (arch)
+set -gx ARCH (uname -m)
 set -gx EDITOR nvim
 set -gx GOPASS_NO_REMINDER fuckoff
 set -gx K9SCONFIG ~/.config/k9s

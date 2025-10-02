@@ -1,5 +1,6 @@
 {{- if and (eq .chezmoi.os "darwin") (not .workComputer) -}}
-#!/bin/bash
+#!/usr/bin/env bash
+
 # {{ include "Brewfile" | sha256sum }}
 brew bundle
 {{- end -}}
