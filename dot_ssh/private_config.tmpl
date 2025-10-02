@@ -1,4 +1,6 @@
+{{- if eq .chezmoi.os "darwin" -}}
 Include ~/.orbstack/ssh/config
+{{- end -}}
 
 Host github.com
   User git
@@ -7,7 +9,9 @@ Host github.com
 
 ### Defaults
 Host *
+{{- if eq .chezmoi.os "darwin" }}
   IdentityAgent ~/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh
+{{- end }}
   ForwardAgent yes
   PreferredAuthentications publickey
   PasswordAuthentication no
