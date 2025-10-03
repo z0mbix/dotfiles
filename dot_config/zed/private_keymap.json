@@ -13,7 +13,9 @@
       "cmd-shift-z": "edit_prediction::ToggleMenu",
       "cmd-shift-g": "git_panel::ToggleFocus",
       "cmd-.": "zed::OpenKeymap",
-      "cmd-l": "outline::Toggle"
+      "cmd-l": "outline::Toggle",
+      "cmd-shift-j": "task::Spawn",
+      "cmd-shift-enter": "workspace::ToggleZoom"
     }
   },
   {
@@ -50,7 +52,7 @@
       "ctrl-k": "git_panel::FocusChanges",
       "ctrl-l": "workspace::ActivatePaneRight",
       "cmd-c": "git_panel::FocusEditor",
-      "cmd-enter": "git::ExpandCommitEditor"
+      "cmd-shift-enter": "git::ExpandCommitEditor"
     }
   },
   {
@@ -60,7 +62,8 @@
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-j": "workspace::ActivatePaneDown",
       "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-l": "workspace::ActivatePaneRight"
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "cmd-shift-enter": "workspace::ToggleZoom"
     }
   },
   {
@@ -105,7 +108,9 @@
       "space o t": "workspace::NewCenterTerminal",
       "space o s": "zed::OpenSettings",
       "space o k": "zed::OpenKeymap",
-      "space o p": ["projects::OpenRecent", { "create_new_window": true }]
+      "space o p": ["projects::OpenRecent", { "create_new_window": true }],
+      "space t r": "task::Rerun",
+      "space t s": "task::Spawn"
     }
   },
   {
@@ -142,7 +147,7 @@
       "alt-k": "editor::MoveLineUp",
       "space a": "editor::SelectAll",
       "space c": "command_palette::Toggle",
-      "space f b": "tab_switcher::Toggle",
+      "space f b": "tab_switcher::ToggleAll",
       "space f f": "file_finder::Toggle",
       "space f p": "pane::DeploySearch",
       "space f i p": "pane::DeploySearch",
@@ -152,6 +157,7 @@
       "space m j": "pane::SplitDown",
       "space m k": "pane::SplitUp",
       "space m l": "pane::SplitRight",
+      "space m m": "editor::ToggleMinimap",
       "space o a": "assistant::InlineAssist",
       "space o c": "command_palette::Toggle",
       "space o d": "diagnostics::Deploy",
@@ -164,6 +170,8 @@
       "space p": "projects::OpenRecent",
       "space s a": ["workspace::SendKeystrokes", "space a g c"],
       "space ": "buffer_search::DeployReplace",
+      "space t r": "task::Rerun",
+      "space t s": "task::Spawn",
       "?": "editor::Hover"
     }
   },
@@ -185,7 +193,7 @@
   {
     "context": "vim_mode == visual",
     "bindings": {
-      "shift-s": ["vim::PushAddSurrounds", {}], // shift-s to add surrounds
+      "shift-s": "vim::PushAddSurrounds", // shift-s to add surrounds
       "alt-j": "editor::MoveLineDown",
       "alt-k": "editor::MoveLineUp"
     }

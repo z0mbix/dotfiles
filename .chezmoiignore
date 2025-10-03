@@ -4,6 +4,7 @@ README.md
 .aws/
 .config/shellcheckrc
 .hammerspoon/
+.ssh/config
 Brewfile
 {{- end }}
 

@@ -2,7 +2,7 @@ set -gx ANSIBLE_NOCOWS 1
 set -gx ARCH (uname -m)
 set -gx EDITOR nvim
 set -gx GOPASS_NO_REMINDER fuckoff
-set -gx K9SCONFIG ~/.config/k9s
+set -gx K9S_CONFIG_DIR ~/.config/k9s
 set -gx LESS -niSRXF
 set -gx OS (uname -s)
 set -gx SHELL_NAME (basename $SHELL)

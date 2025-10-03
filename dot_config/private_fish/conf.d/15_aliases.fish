@@ -37,6 +37,7 @@ abbr lg lazygit
 abbr rgq 'rg --hidden --no-heading --no-line-number'
 abbr t todo
 abbr bu backup
+abbr nv nvim
 abbr vi nvim
 abbr vim nvim
 abbr unset 'set --erase'
@@ -149,6 +150,11 @@ end
 
 function neovim-config
   cd $HOME/.config/nvim/
+  nvim
+end
+
+function fish-config
+  cd $HOME/.config/fish/
   nvim
 end
 

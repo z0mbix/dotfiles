@@ -1,11 +1,34 @@
 {
+  "context_servers": {
+    "mise": {
+      "source": "extension",
+      "enabled": false,
+      "settings": {}
+    },
+    "postgres-context-server": {
+      "enabled": false,
+      "source": "extension",
+      "settings": {
+        "database_url": "postgresql://postgres:postgres@localhost:5432/mydatabase"
+      }
+    }
+  },
+  "minimap": {
+    "display_in": "all_editors",
+    "current_line_highlight": "all"
+  },
   "agent": {
+    "play_sound_when_agent_done": true,
     "always_allow_tool_actions": true,
     "default_model": {
       "provider": "copilot_chat",
-      "model": "gpt-4.1"
+      "model": "claude-sonnet-4.5"
     },
-    "version": "2"
+    "button": true,
+    "commit_message_model": {
+      "provider": "copilot_chat",
+      "model": "claude-sonnet-4"
+    }
   },
   "show_edit_predictions": true,
   "edit_predictions": {
@@ -14,21 +37,21 @@
   "features": {
     "edit_prediction_provider": "copilot"
   },
-  "icon_theme": "Material Icon Theme",
-  "theme": "Zedokai (Filter Octagon)",
+  "icon_theme": "Colored Zed Icons Theme Dark",
+  "theme": "Rosé Pine Moon",
   "telemetry": {
     "diagnostics": false,
     "metrics": false
   },
   "project_panel": {
     "dock": "left",
-    "auto_fold_dirs": false
+    "auto_fold_dirs": false,
+    "button": false
   },
   "ensure_final_newline_on_save": true,
   "vim_mode": true,
   "vim": {
     "use_system_clipboard": "on_yank",
-    "use_multiline_find": true,
     "use_smartcase_find": true,
     "toggle_relative_line_numbers": true,
     "highlight_on_yank_duration": 400
@@ -37,7 +60,7 @@
   "scrollbar": { "show": "never" },
   "toolbar": {
     "quick_actions": false,
-    "breadcrumbs": false,
+    "breadcrumbs": true,
     "selections_menu": false
   },
   "scroll_beyond_last_line": "off",
@@ -48,20 +71,18 @@
   },
   "bottom_dock_layout": "left_aligned",
   "active_pane_modifiers": {
-    "inactive_opacity": 0.9,
-    "border_size": 1
+    "inactive_opacity": 0.9
   },
   "ui_font_family": "JetBrainsMono Nerd Font Mono",
   "ui_font_size": 13,
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
   "buffer_font_size": 13.0,
-  "vertical_scroll_margin": 20,
+  "vertical_scroll_margin": 5,
   "show_whitespaces": "all",
-  "show_line_endings": true,
+  "line_indicator_format": "long",
   "preferred_line_length": 120,
   "show_wrap_guides": true,
   "wrap_guides": [120],
-  "inactive_opacity": 0,
   "command_aliases": {
     "W": "w",
     "Wq": "wq",
@@ -69,7 +90,11 @@
   },
   "terminal": {
     "font_family": "JetBrainsMono Nerd Font Mono",
-    "copy_on_select": true
+    "copy_on_select": true,
+    "button": false,
+    "toolbar": {
+      "breadcrumbs": false
+    }
   },
   "calls": {
     "mute_on_join": true,
@@ -97,12 +122,10 @@
   "languages": {
     "Shell Script": {
       "tab_size": 2,
-      "indent_size": 2,
-      "indent_style": "space",
       "formatter": {
         "external": {
           "command": "/opt/homebrew/bin/shfmt",
-          "arguments": ["-i", "2", "-ci", "-s", "-bn"]
+          "arguments": ["-i", "2", "-ci", "-bn", "-ln", "bash"]
         }
       }
     },
@@ -117,7 +140,7 @@
     "HCL": {
       "formatter": {
         "external": {
-          "command": "/opt/homebrew/bin/terragrunt",
+          "command": "/Users/dwooldridge/.local/share/mise/installs/terragrunt/latest/bin/terragrunt",
           "arguments": ["hclfmt", "--terragrunt-hclfmt-stdin"]
         }
       }
@@ -132,7 +155,8 @@
       ]
     },
     "YAML": {
-      "auto_indent_on_paste": false
+      "auto_indent_on_paste": false,
+      "tab_size": 2
     }
   },
   "lsp": {
@@ -155,13 +179,14 @@
     }
   },
   "file_types": {
+    "Fish": ["**/*.fish.tmpl"],
     "Helm": ["**/templates/**/*.tpl", "**/templates/**/*.yaml"],
-    "Shell Script": ["**/*.sh.j2"],
+    "Nginx": ["**/nginx.conf", "**/nginx/*.conf"],
+    "Shell Script": ["**/*.sh.j2", "**/packages/*/build"],
     "TOML": ["**/.prototools"],
     "Tera (TOML)": ["**/*.toml.tera"],
     "Tera (YAML)": ["**/*.yml.tera", "**/*.yaml.tera"],
     "YAML": ["**/.ansible-lint", "**/.yamllint"],
-    "ini": ["**/*.ini", "**/ansible.cfg"],
-    "Nginx": ["**/nginx.conf", "**/nginx/*.conf"]
+    "ini": ["**/*.ini", "**/ansible.cfg"]
   }
 }

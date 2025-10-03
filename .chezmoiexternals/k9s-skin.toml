@@ -1,0 +1,4 @@
+[".config/k9s/skin.yaml"]
+type = "file"
+url = "https://raw.githubusercontent.com/derailed/k9s/refs/heads/master/skins/rose-pine-moon.yaml"
+refreshPeriod = "168h"
