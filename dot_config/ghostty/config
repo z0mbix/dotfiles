@@ -1,7 +1,8 @@
 # vim: set ft=dosini commentstring=#\ %s:
 # title  "Ghostty 👻"
 # theme = "Ayu Mirage"
-theme = "Monokai Pro Octagon"
+# theme = "Monokai Pro Octagon"
+theme = "Rose Pine Moon"
 
 clipboard-read = allow
 copy-on-select = true

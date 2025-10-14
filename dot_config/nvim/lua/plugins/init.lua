@@ -2,19 +2,20 @@ return {
   {
     "stevearc/conform.nvim",
     event = "BufWritePre",
-    opts = require("configs.conform"),
+    opts = require "configs.conform",
   },
 
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require("configs.lspconfig")
+      require "configs.lspconfig"
     end,
   },
 
   { import = "nvchad.blink.lazyspec" },
 
   -- https://github.com/nvim-treesitter/nvim-treesitter
+  -- treesitter configurations and abstraction layer
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -24,7 +25,6 @@ return {
     },
     opts = {
       ensure_installed = {
-        "vim",
         "bash",
         "css",
         "csv",
@@ -58,22 +58,25 @@ return {
   },
 
   -- https://github.com/folke/persistence.nvim
+  -- a session manager
   {
     "folke/persistence.nvim",
-    lazy = false,
+    -- lazy = false,
     event = "VimEnter",
     opts = {
-      dir = vim.fn.stdpath("data") .. "/sessions/",
+      dir = vim.fn.stdpath "data" .. "/sessions/",
     },
   },
 
   -- https://github.com/szw/vim-maximizer
+  -- maximizes and restores current window
   {
     "szw/vim-maximizer",
     event = "VeryLazy",
   },
 
   -- https://github.com/jiaoshijie/undotree
+  -- persistent undo history visualizer
   {
     "jiaoshijie/undotree",
     opts = {
@@ -87,6 +90,7 @@ return {
   },
 
   -- https://github.com/kylechui/nvim-surround
+  -- add, delete, change surroundings (parens, brackets, quotes, tags, custom)
   {
     "kylechui/nvim-surround",
     dependencies = {
@@ -94,71 +98,109 @@ return {
       "nvim-treesitter/nvim-treesitter-textobjects",
     },
     event = "VeryLazy",
-    version = "*",
-    config = function()
-      require("nvim-surround").setup()
-    end,
   },
 
   -- https://github.com/pearofducks/ansible-vim
+  -- Ansible syntax highlighting, indentation, and more
   {
     "pearofducks/ansible-vim",
     ft = { "yaml.ansible", "ansible" },
   },
 
   -- https://github.com/wfxr/minimap.vim
+  -- code minimap sidebar (install code-minimap separately)
   {
     "wfxr/minimap.vim",
     event = "VeryLazy",
   },
 
-  { "towolf/vim-helm" }, -- https://github.com/towolf/vim-helm
-  { "wellle/targets.vim" }, -- https://github.com/wellle/targets.vim
+  -- https://github.com/towolf/vim-helm
+  -- Helm charts syntax highlighting and indentation
+  {
+    "towolf/vim-helm",
+    ft = { "helm", "yaml.helm" },
+  },
+
+  -- https://github.com/wellle/targets.vim
+  -- adds various text objects to give you more targets to operate on
+  {
+    "wellle/targets.vim",
+    event = "VeryLazy",
+  },
 
   -- https://github.com/lewis6991/fileline.nvim
+  -- allows opening files at specific line command line, e.g. nvim ~/.ssh/known_hosts:21`
   {
     "lewis6991/fileline.nvim",
     lazy = false,
   },
 
   -- https://github.com/DanilaMihailov/beacon.nvim
+  -- highlights the cursor line after large movements
   {
     "danilamihailov/beacon.nvim",
     event = "VeryLazy",
   },
 
   -- https://github.com/nvim-pack/nvim-spectre
+  -- search and replace across files
   {
     "nvim-pack/nvim-spectre",
     event = "VeryLazy",
   },
 
   -- https://github.com/nickeb96/fish.vim
+  -- fish shell syntax highlighting and indentation
   { "nickeb96/fish.vim" },
 
   -- https://github.com/jvgrootveld/telescope-zoxide
+  -- telescope extension for zoxide
   {
     "jvgrootveld/telescope-zoxide",
     event = "VeryLazy",
     dependencies = { "nvim-telescope/telescope.nvim" },
     config = function()
-      require("telescope").load_extension("zoxide")
+      require("telescope").load_extension "zoxide"
+    end,
+  },
+
+  -- https://github.com/debugloop/telescope-undo.nvim
+  -- telescope extension for visualizing and restoring undo history
+  {
+    "debugloop/telescope-undo.nvim",
+    event = "VeryLazy",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    opts = {
+      extensions = {
+        undo = {
+          vim_diff_opts = {
+            ctxlen = vim.o.scrolloff,
+          },
+          entry_format = "#$ID, $STAT, $TIME",
+        },
+      },
+    },
+    config = function(_, opts)
+      require("telescope").setup(opts)
+      require("telescope").load_extension "undo"
     end,
   },
 
   -- https://github.com/ojroques/nvim-bufdel
+  -- delete buffers without closing your windows
   {
     "ojroques/nvim-bufdel",
     event = "VeryLazy",
     config = function()
-      require("bufdel").setup({
+      require("bufdel").setup {
         next = "tabs",
         quit = false, -- do not quit neovim when last buffer is closed
-      })
+      }
     end,
   },
 
   -- https://github.com/fedepujol/move.nvim
+  -- move lines and blocks of code up and down
   {
     "fedepujol/move.nvim",
     event = "VeryLazy",
@@ -168,6 +210,7 @@ return {
   },
 
   -- https://github.com/nacro90/numb.nvim
+  -- peeks lines of a file in command mode when typing line numbers
   {
     "nacro90/numb.nvim",
     event = "BufRead",
@@ -177,12 +220,13 @@ return {
   },
 
   -- https://github.com/ycdzj/win-mover.nvim
+  -- easily move and resize windows
   {
     "ycdzj/win-mover.nvim",
     event = "VeryLazy",
     config = function()
-      local win_mover = require("win-mover")
-      win_mover.setup({
+      local win_mover = require "win-mover"
+      win_mover.setup {
         ignore = {
           enable = true,
           filetypes = { "minimap", "neo-tree", "toggleterm" },
@@ -201,17 +245,18 @@ return {
             ["<Esc>"] = win_mover.ops.quit,
           },
         },
-      })
+      }
     end,
   },
 
   -- https://github.com/luukvbaal/statuscol.nvim
+  -- highly customizable status column
   {
     "luukvbaal/statuscol.nvim",
     event = "VeryLazy",
     config = function()
-      local builtin = require("statuscol.builtin")
-      require("statuscol").setup({
+      local builtin = require "statuscol.builtin"
+      require("statuscol").setup {
         segments = {
           { text = { "%s" }, click = "v:lua.ScSa" },
           { text = { builtin.lnumfunc }, click = "v:lua.ScLa" },
@@ -221,16 +266,38 @@ return {
             click = "v:lua.ScFa",
           },
         },
-      })
+      }
     end,
   },
 
+  -- https://github.com/lukas-reineke/virt-column.nvim
+  -- customise the appearance of the column character
+  {
+    "lukas-reineke/virt-column.nvim",
+    event = "VeryLazy",
+    opts = {
+      char = "┊",
+      -- char = "┃",
+      virtcolumn = "+1,120",
+    },
+  },
+
+  -- https://github.com/mcauley-penney/visual-whitespace.nvim
+  -- shows all whitespaces when in visual mode
+  {
+    "mcauley-penney/visual-whitespace.nvim",
+    config = true,
+    event = "ModeChanged *:[vV\22]", -- optionally, lazy load on entering visual mode
+    opts = {},
+  },
+
   -- https://github.com/zbirenbaum/copilot.lua
+  -- GitHub Copilot
   {
     "zbirenbaum/copilot.lua",
     event = "VeryLazy",
     config = function()
-      require("copilot").setup({
+      require("copilot").setup {
         panel = {
           enabled = true,
           auto_refresh = false,
@@ -265,7 +332,27 @@ return {
           help = false,
           ["."] = false,
         },
-      })
+      }
     end,
+  },
+
+  -- https://github.com/olimorris/codecompanion.nvim
+  -- AI code generation and chat within Neovim
+  {
+    "olimorris/codecompanion.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = {
+      strategies = {
+        chat = {
+          adapter = "copilot",
+          model = "claude-sonnet-4",
+          -- model = "gpt-4.1",
+        },
+      },
+    },
   },
 }

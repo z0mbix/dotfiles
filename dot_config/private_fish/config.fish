@@ -1,5 +1,6 @@
 if status is-interactive
     set fish_greeting
+    set fish_color_valid_path
 
     fish_add_path ~/bin
     fish_add_path ~/.local/bin

@@ -1,5 +1,10 @@
 {
   "context_servers": {
+    "moon": {
+      "source": "extension",
+      "enabled": true,
+      "settings": {}
+    },
     "mise": {
       "source": "extension",
       "enabled": false,
@@ -12,6 +17,10 @@
         "database_url": "postgresql://postgres:postgres@localhost:5432/mydatabase"
       }
     }
+  },
+  "search": {
+    "case_sensitive": false,
+    "button": false
   },
   "minimap": {
     "display_in": "all_editors",
@@ -103,9 +112,6 @@
   "collaboration_panel": {
     "button": false
   },
-  "chat_panel": {
-    "button": "always"
-  },
   "notification_panel": {
     "button": false
   },
@@ -180,6 +186,7 @@
   },
   "file_types": {
     "Fish": ["**/*.fish.tmpl"],
+    "Go": ["**/*.tmpl"],
     "Helm": ["**/templates/**/*.tpl", "**/templates/**/*.yaml"],
     "Nginx": ["**/nginx.conf", "**/nginx/*.conf"],
     "Shell Script": ["**/*.sh.j2", "**/packages/*/build"],

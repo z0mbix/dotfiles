@@ -1,17 +1,17 @@
 k9s:
   liveViewAutoRefresh: false
-  screenDumpDir: /Users/dwooldridge/Library/Application Support/k9s/screen-dumps
+  screenDumpDir: /Users/dwooldridge/Desktop
   refreshRate: 2
   maxConnRetry: 5
   readOnly: false
   noExitOnCtrlC: false
   ui:
+    # skin: rose-pine-moon
     enableMouse: false
-    headless: false
+    headless: true
     logoless: true
     crumbsless: false
     noIcons: false
-    skin: monokai
   skipLatestRevCheck: false
   disablePodCounting: false
   shellPod:

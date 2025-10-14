@@ -1,2 +1,2 @@
---theme="Monokai Extended"
+--theme="OneHalfDark"
 --map-syntax "justfile:Makefile"
