@@ -1,32 +1,35 @@
 # dotfiles
 
-Install chezmoi on Mac:
+## Install chezmoi
+
+#### Mac
 
 ```shell
-$ brew install chezmoi
+$ brew install fish chezmoi git neovim
+$ sudo chsh -s /opt/homebrew/bin/fish
+$ chezmoi init --apply z0mbix
 ```
 
-or on Linux:
+#### Linux
 
 ```shell
+$ sudo apt install fish git neovim
 $ BINDIR=~/bin sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply z0mbix
+$ sudo chsh -s /usr/bin/fish
 ```
 
-Set fish as your shell:
+#### FreeBSD
 
 ```shell
-$ chsh -s /opt/homebrew/bin/fish
+$ sudo pkg install chezmoi fish git neovim
+$ sudo chsh -s /usr/local/bin/fish
+$ chezmoi init --apply z0mbix
 ```
 
-or:
-
-```
-$ chsh -s /usr/bin/fish
-```
-
-To update dotfiles on a device:
+## Update
 
 ```shell
 $ chezmoi diff
-$ chezmoi apply
+$ chezmoi apply --verbose
+$ chezmoi apply --dry-run
 ```
