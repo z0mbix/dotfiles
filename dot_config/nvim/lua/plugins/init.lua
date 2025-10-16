@@ -21,7 +21,8 @@ return {
     build = ":TSUpdate",
     dependencies = {
       -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-      { "nvim-treesitter/nvim-treesitter-textobjects" }, -- Syntax aware text-objects
+      -- Syntax aware text-objects
+      { "nvim-treesitter/nvim-treesitter-textobjects" },
     },
     opts = {
       ensure_installed = {
@@ -34,19 +35,24 @@ return {
         "go",
         "gomod",
         "gosum",
+        "gotmpl",
         "hcl",
         "helm",
+        "hocon",
         "html",
+        "jinja",
         "json",
         "just",
         "lua",
         "make",
         "markdown",
         "markdown_inline",
+        "nginx",
         "python",
         "regex",
         "sql",
         "ssh_config",
+        "tera",
         "terraform",
         "toml",
         "vim",
@@ -73,20 +79,6 @@ return {
   {
     "szw/vim-maximizer",
     event = "VeryLazy",
-  },
-
-  -- https://github.com/jiaoshijie/undotree
-  -- persistent undo history visualizer
-  {
-    "jiaoshijie/undotree",
-    opts = {
-      window = {
-        winblend = 5,
-      },
-    },
-    keys = { -- load the plugin only when using it's keybinding:
-      { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>" },
-    },
   },
 
   -- https://github.com/kylechui/nvim-surround
@@ -151,7 +143,10 @@ return {
 
   -- https://github.com/nickeb96/fish.vim
   -- fish shell syntax highlighting and indentation
-  { "nickeb96/fish.vim" },
+  {
+    "nickeb96/fish.vim",
+    ft = "fish",
+  },
 
   -- https://github.com/jvgrootveld/telescope-zoxide
   -- telescope extension for zoxide
@@ -191,12 +186,10 @@ return {
   {
     "ojroques/nvim-bufdel",
     event = "VeryLazy",
-    config = function()
-      require("bufdel").setup {
-        next = "tabs",
-        quit = false, -- do not quit neovim when last buffer is closed
-      }
-    end,
+    opts = {
+      next = "tabs",
+      quit = false, -- do not quit neovim when last buffer is closed
+    },
   },
 
   -- https://github.com/fedepujol/move.nvim
@@ -276,8 +269,8 @@ return {
     "lukas-reineke/virt-column.nvim",
     event = "VeryLazy",
     opts = {
-      char = "┊",
-      -- char = "┃",
+      -- char = "┊",
+      char = "┃",
       virtcolumn = "+1,120",
     },
   },
@@ -288,7 +281,19 @@ return {
     "mcauley-penney/visual-whitespace.nvim",
     config = true,
     event = "ModeChanged *:[vV\22]", -- optionally, lazy load on entering visual mode
-    opts = {},
+    opts = {
+      ignore = {
+        filetypes = { "TelescopePrompt", "NvimTree", "neo-tree", "Trouble", "help" },
+        buftypes = {},
+        list_chars = {
+          space = "·",
+          tab = "› ",
+          nbsp = "␣",
+          lead = "‹",
+          trail = "›",
+        },
+      },
+    },
   },
 
   -- https://github.com/zbirenbaum/copilot.lua
@@ -318,7 +323,8 @@ return {
           auto_trigger = true,
           debounce = 75,
           keymap = {
-            accept = "<M-l>",
+            -- accept = "<M-l>",
+            accept = "<Tab>",
             accept_word = false,
             accept_line = false,
             next = "<M-]>",
@@ -352,7 +358,40 @@ return {
           model = "claude-sonnet-4",
           -- model = "gpt-4.1",
         },
+        inline = {
+          adapter = "copilot",
+          model = "claude-sonnet-4",
+        },
+        cmd = {
+          adapter = "copilot",
+          model = "claude-sonnet-4",
+        },
       },
     },
+  },
+
+  -- https://github.com/folke/todo-comments.nvim
+  -- highlight, list and search todo comments like TODO, HACK, BUG in your projects
+  {
+    "folke/todo-comments.nvim",
+    event = "VeryLazy",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {}, -- required but can be left empty
+  },
+
+  -- https://github.com/isak102/ghostty.nvim
+  -- validates ghostty config on save
+  {
+    "isak102/ghostty.nvim",
+    lazy = false,
+    opts = {},
+  },
+
+  -- https://github.com/mateuszwieloch/automkdir.nvim
+  -- automatically create missing directories when saving files
+  {
+    "mateuszwieloch/automkdir.nvim",
+    event = "VeryLazy",
+    opts = {},
   },
 }

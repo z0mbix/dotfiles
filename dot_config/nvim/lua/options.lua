@@ -79,6 +79,7 @@ opt.list = true -- show invisible characters
 opt.switchbuf = "useopen,vsplit" -- sensible buffer switching
 opt.grepprg = "rg --hidden --vimgrep --smart-case --" -- use ripgrep instead of grep
 opt.secure = true -- disable autocmds in .exrc/.nvimrc
+opt.lazyredraw = true -- don't redraw while executing macros
 
 -- characters for the statusline
 opt.fillchars = {
@@ -92,6 +93,7 @@ opt.fillchars = {
 opt.listchars = {
   tab = "› ",
   eol = "¬",
+  -- eol = "↲",
   trail = "·",
   extends = "→",
   precedes = "←",
