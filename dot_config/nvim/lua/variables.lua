@@ -4,7 +4,7 @@ local g = vim.g
 g.minimap_auto_start = 0
 g.minimap_width = 20
 g.minimap_highlight_range = true
-g.minimap_block_filetypes = { "help", "NvimTree" }
+g.minimap_block_filetypes = { "help", "NvimTree", "grug-far", "grug-far-results", "grug-far-history", "terminal" }
 
 -- markdown Language highlighting
 g.markdown_fenced_languages = {

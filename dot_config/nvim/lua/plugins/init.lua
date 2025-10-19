@@ -134,10 +134,10 @@ return {
     event = "VeryLazy",
   },
 
-  -- https://github.com/nvim-pack/nvim-spectre
+  -- https://github.com/MagicDuck/grug-far.nvim
   -- search and replace across files
   {
-    "nvim-pack/nvim-spectre",
+    "MagicDuck/grug-far.nvim",
     event = "VeryLazy",
   },
 
@@ -303,6 +303,7 @@ return {
     event = "VeryLazy",
     config = function()
       require("copilot").setup {
+        copilot_node_command = "/opt/homebrew/bin/node",
         panel = {
           enabled = true,
           auto_refresh = false,
@@ -393,5 +394,16 @@ return {
     "mateuszwieloch/automkdir.nvim",
     event = "VeryLazy",
     opts = {},
+  },
+
+  -- https://github.com/f-person/git-blame.nvim
+  -- git blame inline comments at the end of lines
+  {
+    "f-person/git-blame.nvim",
+    event = "VeryLazy",
+    opts = {
+      enabled = false,
+      schedule_event = "CursorHold",
+    },
   },
 }

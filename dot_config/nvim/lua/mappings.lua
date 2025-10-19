@@ -16,8 +16,8 @@ map("n", "mL", ':let @z=@"<cr>x$p:let @"=@z<cr>')
 map("n", "<leader>'", ":set list!<CR>")
 
 -- move a character to the beginning or end of the word
-map("n", "mh", ':let @z=@"<cr>xBP:let @"=@z<cr>')
-map("n", "ml", ':let @z=@"<cr>xep:let @"=@z<cr>')
+map("n", "mh", ':let @z=@"<cr>xBP:let @"=@z<cr>', { desc = "Move character to beginning of word", silent = true })
+map("n", "ml", ':let @z=@"<cr>xep:let @"=@z<cr>', { desc = "Move character to end of word", silent = true })
 
 -- Go to first character, not column 0
 map("n", "0", "^")
@@ -58,41 +58,46 @@ map("c", "w!!", "%!sudo tee > /dev/null %")
 map("n", "<leader>/", ":nohlsearch<CR>")
 
 -- Telescope
-map("n", "<leader>ts", ":Telescope<CR>")
-map("n", "<leader><Space>", ":Telescope current_buffer_fuzzy_find sorting_strategy=ascending<CR>")
-map("n", "<leader>fl", ":Telescope current_buffer_fuzzy_find sorting_strategy=ascending<CR>")
-map("n", "<leader>ff", ":Telescope find_files<CR>")
-map("n", "<leader>fb", ":Telescope file_browser<CR>")
-map("n", "<leader>fc", ":Telescope commands<CR>")
-map("n", "<leader>fC", ":Telescope colorscheme<CR>")
-map("n", "<leader>fF", ":Telescope git_files<CR>")
-map("n", "<leader>fb", ":Telescope buffers<CR>")
-map("n", "<leader>fh", ":Telescope command_history<CR>")
-map("n", "<leader>ft", ":Telescope filetypes<CR>")
-map("n", "<leader>fT", ":TodoTelescope<CR>")
-map("n", "<leader>fU", ":UrlView<CR>")
-map("n", "<leader>fu", ":Telescope undo<CR>")
-map("n", "<leader>fm", ":Telescope marks<CR>")
-map("n", "<leader>fa", ":Telescope live_grep<CR>")
-map("n", "<leader>fp", ":Telescope live_grep<CR>")
-map("n", "<leader>fs", ":Telescope spell_suggect<CR>")
-map("n", "<leader>fw", ":Telescope grep_string<CR>")
-map("n", "<leader>fy", ":Telescope yank_history<CR>")
-map("n", "<leader>fgs", ":Telescope git_status<CR>")
-map("n", "<leader>fgc", ":Telescope git_commits<CR>")
-map("n", "<leader>fgb", ":Telescope git_branches<CR>")
-map("n", "<leader>cd", ":Telescope zoxide list<CR>")
+map("n", "<leader>ts", ":Telescope<CR>", { desc = "Telescope show picker", silent = true })
+map(
+  "n",
+  "<leader><Space>",
+  ":Telescope current_buffer_fuzzy_find sorting_strategy=ascending<CR>",
+  { desc = "Telescope current buffer fuzzy find", silent = true }
+)
+map("n", "<leader>ff", ":Telescope find_files<CR>", { desc = "Telescope find files", silent = true })
+map("n", "<leader>fb", ":Telescope file_browser<CR>", { desc = "Telescope file browser", silent = true })
+map("n", "<leader>fc", ":Telescope commands<CR>", { desc = "Telescope commands", silent = true })
+map("n", "<leader>fC", ":Telescope colorscheme<CR>", { desc = "Telescope colorscheme", silent = true })
+map("n", "<leader>fF", ":Telescope git_files<CR>", { desc = "Telescope git files", silent = true })
+map("n", "<leader>fb", ":Telescope buffers<CR>", { desc = "Telescope buffers", silent = true })
+map("n", "<leader>fh", ":Telescope command_history<CR>", { desc = "Telescope command history", silent = true })
+map("n", "<leader>ft", ":Telescope filetypes<CR>", { desc = "Telescope filetypes", silent = true })
+map("n", "<leader>fT", ":TodoTelescope<CR>", { desc = "Telescope todos", silent = true })
+map("n", "<leader>fU", ":UrlView<CR>", { desc = "Telescope url view", silent = true })
+map("n", "<leader>fu", ":Telescope undo<CR>", { desc = "Telescope undo", silent = true })
+map("n", "<leader>fm", ":Telescope marks<CR>", { desc = "Telescope marks", silent = true })
+map("n", "<leader>fa", ":Telescope live_grep<CR>", { desc = "Telescope live grep", silent = true })
+map("n", "<leader>fp", ":Telescope live_grep<CR>", { desc = "Telescope live grep", silent = true })
+map("n", "<leader>fr", ":Telescope registers<CR>", { desc = "Telescope registers", silent = true })
+map("n", "<leader>fs", ":Telescope spell_suggect<CR>", { desc = "Telescope spell suggest", silent = true })
+map("n", "<leader>fw", ":Telescope grep_string<CR>", { desc = "Telescope grep string under cursor", silent = true })
+map("n", "<leader>fy", ":Telescope yank_history<CR>", { desc = "Telescope yank history", silent = true })
+map("n", "<leader>fgs", ":Telescope git_status<CR>", { desc = "Telescope git status", silent = true })
+map("n", "<leader>fgc", ":Telescope git_commits<CR>", { desc = "Telescope git commits", silent = true })
+map("n", "<leader>fgb", ":Telescope git_branches<CR>", { desc = "Telescope git branches", silent = true })
+map("n", "<leader>cd", ":Telescope zoxide list<CR>", { desc = "Telescope zoxide", silent = true })
 
 -- Remap for dealing with word wrap
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Switch buffers with tab/shift-tab
-map("n", "<TAB>", ":bnext!<CR>")
-map("n", "<S-TAB>", ":bprevious!<CR>")
+map("n", "<TAB>", ":bnext!<CR>", { desc = "Next buffer", silent = true })
+map("n", "<S-TAB>", ":bprevious!<CR>", { desc = "Previous buffer", silent = true })
 
 -- nvim-tree
-map("n", "<leader>n", ":NvimTreeToggle toggle=true action=show<CR>")
+map("n", "<leader>n", ":NvimTreeToggle toggle=true action=show<CR>", { desc = "Toggle file tree", silent = true })
 
 -- Folds
 map("n", "<Enter>", "za")
@@ -143,9 +148,6 @@ map("i", "<F1>", "<nop>")
 map("n", "<F1>", "<nop>")
 map("v", "<F1>", "<nop>")
 
--- Show registers
-map("n", "<leader>r", ":registers<CR>")
-
 -- Keep the cursor in place while joining lines
 map("n", "J", "mzJ`z")
 
@@ -154,17 +156,14 @@ map("n", "<leader>d", '"_d')
 map("v", "<leader>d", '"_d')
 
 -- zen-mode
-map("n", "<leader>z", ":ZenMode<CR>")
+map("n", "<leader>z", ":ZenMode<CR>", { desc = "Toggle Zen Mode", silent = true })
 
 -- minimap.vim
-map("n", "<leader>mm", ":MinimapToggle<CR>")
-
--- lsp
-map("n", "<leader>F", ":Format<CR>")
+map("n", "<leader>mm", ":MinimapToggle<CR>", { desc = "Toggle minimap", silent = true })
 
 -- vim-maximizer
-map("n", "<leader>W", ":MaximizerToggle<CR>")
-map("v", "<leader>W", ":MaximizerToggle<CR>gv")
+map("n", "<leader>W", ":MaximizerToggle<CR>", { desc = "Maximize/restore current window", silent = true })
+map("v", "<leader>W", ":MaximizerToggle<CR>gv", { desc = "Maximize/restore current window", silent = true })
 
 -- trouble.nvim
 map("n", "<leader>T", ":TroubleToggle<CR>")
@@ -191,12 +190,6 @@ map("n", "<leader>qft", [[<Cmd>lua require('functions').toggle_qf()<CR>]])
 map("n", "<leader>qfo", ":copen<CR>")
 map("n", "<leader>qfc", ":cclose<CR>")
 
--- glow.nvim
-map("n", "<leader>mp", ":Glow<CR>")
-
--- open things
-map("n", "gx", ":!open <C-R><C-A><CR>")
-
 -- move.nvim
 map("n", "<A-j>", ":MoveLine(1)<CR>")
 map("n", "<A-k>", ":MoveLine(-1)<CR>")
@@ -219,14 +212,37 @@ map("i", "<C-j>", "<down>")
 map("i", "<C-k>", "<up>")
 map("i", "<C-l>", "<right>")
 
--- spectre.nvim
-map("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>')
-map("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<cr>')
-map("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>')
-map("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>')
+-- grug-far.nvim
+map("n", "<leader>S", function()
+  require("grug-far").open()
+end, { desc = "Search in project", silent = true })
+
+map("n", "<leader>sp", function()
+  require("grug-far").open()
+end, { desc = "Search in project", silent = true })
+
+map("v", "<leader>sp", function()
+  require("grug-far").with_visual_selection()
+end, { desc = "Search selection in project", silent = true })
+
+map("n", "<leader>sb", function()
+  require("grug-far").open { prefills = { paths = vim.fn.expand "%" } }
+end, { desc = "Search in current file", silent = true })
+
+map("v", "<leader>sb", function()
+  require("grug-far").with_visual_selection { prefills = { paths = vim.fn.expand "%" } }
+end, { desc = "Search selection in current file", silent = true })
+
+map({ "n", "v" }, "<leader>sw", function()
+  require("grug-far").open { prefills = { search = vim.fn.expand "<cword>" } }
+end, { desc = "Search word under cursor", silent = true })
+
+map("v", "<leader>si", function()
+  require("grug-far").open { visualSelectionUsage = "operate-within-range" }
+end, { desc = "Search within range", silent = true })
 
 -- win-mover.nvim
-map("n", "<leader>mw", '<cmd>lua require("win-mover").enter_move_mode()<cr>')
+map("n", "<leader>mw", '<cmd>lua require("win-mover").enter_move_mode()<cr>', { desc = "enter window move mode" })
 
 -- terminal
 map({ "n", "t" }, "<leader>tt", function()
