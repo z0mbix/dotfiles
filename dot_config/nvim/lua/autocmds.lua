@@ -16,11 +16,12 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   end,
 })
 
--- close some filetypes with <q>
+-- Close some filetypes with <q>
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup "close_with_q",
   pattern = {
     "PlenaryTestPopup",
+    "codecompanion",
     "checkhealth",
     "grug-far",
     "grug-far-results",
@@ -43,19 +44,21 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    local orig_notify = vim.notify
-    vim.notify = function(msg, ...)
-      if type(msg) == "string" and msg:match 'not found in runtime path: "queries/' then
-        return
-      end
-      return orig_notify(msg, ...)
-    end
+-- Close man pages with <q>
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup "close_with_q",
+  pattern = {
+    "man",
+  },
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
+    vim.keymap.set("n", "q", "<cmd>quitall<cr>", { buffer = event.buf, silent = true })
   end,
 })
 
+-- Remember last location in file
 vim.api.nvim_create_autocmd("BufReadPost", {
+  group = augroup "remember_last_location",
   desc = "remember location in the file",
   pattern = "*",
   callback = function()
@@ -66,46 +69,39 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
-local telescope_open = vim.api.nvim_create_augroup("telescope_open", { clear = true })
+-- Open dashboard or telescope on startup
 vim.api.nvim_create_autocmd("VimEnter", {
-  desc = "open telescope on startup",
+  group = augroup "telescope_open",
+  desc = "open dashboard or telescope on startup",
   pattern = "*",
-  group = telescope_open,
   callback = function()
     if vim.fn.argc() ~= 0 then
       return
     end
 
+    -- Don't open anything for man pages
     local ft = vim.bo.filetype
     if ft == "man" then
       return
     end
 
+    -- Open nvdash if in home directory
     if vim.fn.getcwd() == vim.fn.expand "~" then
+      require("nvchad.nvdash").open()
       return
     end
 
-    -- Check for session file first
-    local cwd = vim.fn.getcwd()
-    local session_name = cwd:gsub("/", "%%") .. ".vim"
-    local session_path = vim.fn.stdpath "data" .. "/sessions/" .. session_name
-
-    -- Load session if it exists
-    if vim.fn.filereadable(session_path) == 1 then
-      -- require("persistence").load()
-      return
+    -- Open telescope
+    if vim.fn.isdirectory ".git" ~= 0 then
+      vim.cmd "Telescope git_files"
     else
-      -- No session found, open telescope
-      if vim.fn.isdirectory ".git" ~= 0 then
-        vim.cmd "Telescope git_files"
-      else
-        vim.cmd "Telescope find_files"
-      end
+      vim.cmd "Telescope find_files"
     end
   end,
 })
 
 vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
+  group = augroup "relativenumber_on",
   desc = "configure relative line numbers",
   pattern = "*",
   callback = function()
@@ -116,6 +112,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnte
 })
 
 vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
+  group = augroup "relativenumber_off",
   desc = "configure line numbers",
   pattern = "*",
   callback = function()
@@ -126,6 +123,7 @@ vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave"
 })
 
 vim.api.nvim_create_autocmd("BufWritePre", {
+  group = augroup "mkdir_on_save",
   desc = "create new file and all directories",
   pattern = "*",
   callback = function()
@@ -137,6 +135,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+  group = augroup "gitcommit_settings",
   desc = "configure git commit file type",
   pattern = "gitcommit",
   callback = function()
@@ -146,6 +145,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  group = augroup "sh_filetype",
   desc = "set file type for posix shell scripts",
   pattern = { "*.rc", "*.sh", ".envrc", "~/.sh/*" },
   callback = function()
@@ -154,6 +154,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+  group = augroup "fish_settings",
   desc = "set fish shell script file type settings",
   pattern = { "fish" },
   callback = function()
@@ -166,6 +167,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+  group = augroup "sh_settings",
   desc = "set posix shell script file type settings",
   pattern = "sh",
   callback = function()
@@ -193,6 +195,7 @@ local filetype_settings = {
 
 for _, setting in pairs(filetype_settings) do
   vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+    group = augroup "filetype_settings",
     pattern = setting.pattern,
     callback = function()
       vim.bo.filetype = setting.ft
@@ -201,13 +204,14 @@ for _, setting in pairs(filetype_settings) do
 end
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  group = augroup "hocon",
   desc = "nats configuration files",
-  group = vim.api.nvim_create_augroup("hocon", { clear = true }),
   pattern = { "nats.conf", "nats*.conf" },
   command = "set ft=hocon",
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+  group = augroup "ruby_settings",
   desc = "set ruby file type settings",
   pattern = "ruby,eruby",
   callback = function()
@@ -221,6 +225,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+  group = augroup "python_settings",
   desc = "set python file type settings",
   pattern = "python",
   callback = function()
@@ -235,6 +240,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+  group = augroup "js_ts_settings",
   desc = "set javascript and typesscript file type settings",
   pattern = "javascript,typescript",
   callback = function()
@@ -248,6 +254,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+  group = augroup "json_settings",
   desc = "set json file type settings",
   pattern = "json",
   callback = function()
@@ -260,6 +267,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+  group = augroup "yaml_settings",
   desc = "set yaml file type settings",
   pattern = "yaml",
   callback = function()
@@ -272,6 +280,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+  group = augroup "make_c_cpp_settings",
   desc = "set make, c and c++ file type settings",
   pattern = "make,c,cpp",
   callback = function()
@@ -281,6 +290,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("BufWritePre", {
+  group = augroup "strip_trailing_whitespace",
   desc = "strip trailing whitespace before saving",
   pattern = "*",
   callback = function()
@@ -288,15 +298,8 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
--- vim.api.nvim_create_autocmd("BufWritePost", {
---   desc = "reload neovim config after saving",
---   pattern = { "lua/*.lua", "lua/plugins/*.lua", "init.lua" },
---   callback = function()
---     vim.cmd "source $MYVIMRC"
---   end,
--- })
-
 vim.api.nvim_create_autocmd("VimResized", {
+  group = augroup "resize_windows",
   desc = "resize windows equally",
   pattern = "*",
   callback = function()
@@ -305,6 +308,7 @@ vim.api.nvim_create_autocmd("VimResized", {
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  group = augroup "ignore_git_viminfo",
   desc = "ignore viminfo for git",
   pattern = "*.git/*",
   callback = function()
@@ -313,6 +317,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+  group = augroup "disable_auto_comment",
   desc = "disable auto comment new line",
   pattern = "*",
   callback = function()

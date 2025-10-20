@@ -1,10 +1,5 @@
 require "nvchad.options"
 
--- add yours here!
-
--- local o = vim.o
--- o.cursorlineopt ='both' -- to enable cursorline!
-
 local opt = vim.opt
 
 vim.g.mapleader = " " -- this is the way
@@ -123,5 +118,3 @@ opt.shada = {
   "s10", -- maximum size of an item contents in KiB
   "h", -- disable 'hlsearch' highlighting when starting neovim
 }
-
--- opt.iskeyword:append("-")

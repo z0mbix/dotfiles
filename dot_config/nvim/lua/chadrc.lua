@@ -9,7 +9,7 @@ M.base46 = {
   theme = "rose-pine-moon",
 }
 
-M.nvdash = { load_on_startup = true }
+-- M.nvdash = { load_on_startup = true }
 
 -- M.ui = {
 --   tabufline = {

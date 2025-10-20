@@ -252,3 +252,8 @@ end, { desc = "terminal toggleable horizontal term" })
 map({ "t", "t" }, "<leader>tt", function()
   require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
 end, { desc = "terminal toggleable horizontal term" })
+
+-- CodeCompanion
+map({ "n", "v" }, "<leader>ai", function()
+  require("codecompanion").toggle()
+end, { desc = "Toggle CodeCompanion Chat", silent = true })
