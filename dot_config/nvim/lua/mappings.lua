@@ -5,57 +5,56 @@ local map = vim.keymap.set
 map("n", ";", ":", { desc = "CMD enter command mode" })
 
 -- source/edit init.lua
-map("n", "<leader>ce", ":edit $MYVIMRC<cr>")
-map("n", "<leader>cs", ":source $MYVIMRC<CR>")
+map("n", "<leader>ce", ":edit $MYVIMRC<cr>", { desc = "Edit init.lua", silent = true })
+map("n", "<leader>cs", ":source $MYVIMRC<CR>", { desc = "Source init.lua", silent = true })
 
 -- move a character to the beginning or end of the line
-map("n", "mH", ':let @z=@"<cr>x0P:let @"=@z<cr>')
-map("n", "mL", ':let @z=@"<cr>x$p:let @"=@z<cr>')
+map("n", "mH", ':let @z=@"<cr>x0P:let @"=@z<cr>', { desc = "Move character to beginning of line", silent = true })
+map("n", "mL", ':let @z=@"<cr>x$p:let @"=@z<cr>', { desc = "Move character to end of line", silent = true })
 
 -- Show/Hide invisible characters
-map("n", "<leader>'", ":set list!<CR>")
+map("n", "<leader>'", ":set list!<CR>", { desc = "Toggle invisible characters", silent = true })
 
 -- move a character to the beginning or end of the word
 map("n", "mh", ':let @z=@"<cr>xBP:let @"=@z<cr>', { desc = "Move character to beginning of word", silent = true })
 map("n", "ml", ':let @z=@"<cr>xep:let @"=@z<cr>', { desc = "Move character to end of word", silent = true })
 
 -- Go to first character, not column 0
-map("n", "0", "^")
+map("n", "0", "^", { desc = "Go to first character of line" })
 
 -- Easier to type, and I never use the default behavior.
-map("n", "H", "^")
-map("n", "L", "$")
-map("v", "H", "^")
-map("v", "L", "g_")
+map("n", "H", "^", { desc = "Go to first character of line" })
+map("v", "H", "^", { desc = "Go to first character of line" })
+map("n", "L", "$", { desc = "Go to end of line" })
+map("v", "L", "g_", { desc = "Go to end of line" })
 
 -- Keep search results and joins centred
-map("n", "n", "nzzzv")
-map("n", "N", "Nzzzv")
-map("n", "J", "mzJ`z")
+map("n", "n", "nzzzv", { desc = "Next search result centred" })
+map("n", "N", "Nzzzv", { desc = "Previous search result centred" })
+map("n", "J", "mzJ`z", { desc = "Join lines keeping cursor in place" })
 
--- Buffers (commands provided by ojroques/nvim-bufdel)
-map("n", "<leader>x", ":BufDel<CR>")
-map("n", "<leader>X", ":BufDelAll<CR>")
-map("n", "<C-q>", ":BufDel<CR>")
+-- nvim-bufdel - Buffer management
+map("n", "<leader>x", ":BufDel<CR>", { desc = "Delete current buffer", silent = true })
+map("n", "<leader>X", ":BufDelAll<CR>", { desc = "Delete all buffers", silent = true })
 
 -- Nvdash
-map("n", "<leader>da", ":Nvdash<CR>")
+map("n", "<leader>da", ":Nvdash<CR>", { desc = "Open Nvdash", silent = true })
 
 -- Git
-map("n", "<leader>gs", ":Gstatus<CR>gg<c-n>")
-map("n", "<leader>gd", ":Gitsigns toggle_linehl<CR>")
-map("n", "<leader>gb", ":GitBlameToggle<CR>")
-map("n", "<leader>ghp", ":Gitsigns preview_hunk<CR>")
-map("n", "<leader>ghr", ":Gitsigns reset_hunk<CR>")
-map("n", "<leader>ghj", ":Gitsigns next_hunk<CR>")
-map("n", "<leader>ghk", ":Gitsigns prev_hunk<CR>")
-map("n", "<leader>gg", ":Neogit<CR>")
+map("n", "<leader>gs", ":Gstatus<CR>gg<c-n>", { desc = "Git status", silent = true })
+map("n", "<leader>gd", ":Gitsigns toggle_linehl<CR>", { desc = "Toggle git line highlight", silent = true })
+map("n", "<leader>gb", ":GitBlameToggle<CR>", { desc = "Toggle git blame", silent = true })
+map("n", "<leader>ghp", ":Gitsigns preview_hunk<CR>", { desc = "Preview git hunk", silent = true })
+map("n", "<leader>ghr", ":Gitsigns reset_hunk<CR>", { desc = "Reset git hunk", silent = true })
+map("n", "<leader>ghj", ":Gitsigns next_hunk<CR>", { desc = "Next git hunk", silent = true })
+map("n", "<leader>ghk", ":Gitsigns prev_hunk<CR>", { desc = "Previous git hunk", silent = true })
+map("n", "<leader>gg", ":Neogit<CR>", { desc = "Open Neogit", silent = true })
 
 -- Write as root if we don't have permission
-map("c", "w!!", "%!sudo tee > /dev/null %")
+map("c", "w!!", "%!sudo tee > /dev/null %", { desc = "Write file as root", silent = true })
 
 -- Clear search highlighting
-map("n", "<leader>/", ":nohlsearch<CR>")
+map("n", "<leader>/", ":nohlsearch<CR>", { desc = "Clear search highlighting", silent = true })
 
 -- Telescope
 map("n", "<leader>ts", ":Telescope<CR>", { desc = "Telescope show picker", silent = true })
@@ -138,10 +137,10 @@ map("n", "<leader>oo", ":Reveal<CR>")
 map("n", "<leader>of", ':silent !open "%"<CR>')
 
 -- Select all
-map("n", "<leader>a", "ggVG")
+map("n", "<leader>a", "ggVG", { desc = "Select entire file", silent = true })
 
 -- Comment all
-map("n", "<leader>ga", "ggVGgc")
+map("n", "<leader>ga", "ggVGgc", { desc = "Comment entire file", silent = true })
 
 -- Remove annoying F1 help
 map("i", "<F1>", "<nop>")
@@ -149,11 +148,10 @@ map("n", "<F1>", "<nop>")
 map("v", "<F1>", "<nop>")
 
 -- Keep the cursor in place while joining lines
-map("n", "J", "mzJ`z")
+map("n", "J", "mzJ`z", { desc = "Join lines keeping cursor in place", silent = true })
 
 -- Delete without cutting
-map("n", "<leader>d", '"_d')
-map("v", "<leader>d", '"_d')
+map({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking", silent = true })
 
 -- zen-mode
 map("n", "<leader>z", ":ZenMode<CR>", { desc = "Toggle Zen Mode", silent = true })
@@ -166,41 +164,41 @@ map("n", "<leader>W", ":MaximizerToggle<CR>", { desc = "Maximize/restore current
 map("v", "<leader>W", ":MaximizerToggle<CR>gv", { desc = "Maximize/restore current window", silent = true })
 
 -- trouble.nvim
-map("n", "<leader>T", ":TroubleToggle<CR>")
+map("n", "<leader>T", ":TroubleToggle<CR>", { desc = "Toggle Trouble", silent = true })
 
 -- persistence.nvim
 map("n", "<leader>qs", function()
   require("persistence").load()
-end) -- load the session for the current directory
+end, { desc = "Load session for current directory" })
 
 map("n", "<leader>qS", function()
   require("persistence").select()
-end) -- select a session to load
+end, { desc = "Select session to load" })
 
 map("n", "<leader>ql", function()
   require("persistence").load { last = true }
-end) -- load the last session
+end, { desc = "Load last session" })
 
 map("n", "<leader>qd", function()
   require("persistence").stop()
-end) -- stop Persistence => session won't be saved on exit
+end, { desc = "Stop persistence for current session" })
 
 -- quickfix
-map("n", "<leader>qft", [[<Cmd>lua require('functions').toggle_qf()<CR>]])
-map("n", "<leader>qfo", ":copen<CR>")
-map("n", "<leader>qfc", ":cclose<CR>")
+map("n", "<leader>qft", [[<Cmd>lua require('functions').toggle_qf()<CR>]], { desc = "Toggle quickfix list" })
+map("n", "<leader>qfo", ":copen<CR>", { desc = "Open quickfix list" })
+map("n", "<leader>qfc", ":cclose<CR>", { desc = "Close quickfix list" })
 
 -- move.nvim
-map("n", "<A-j>", ":MoveLine(1)<CR>")
-map("n", "<A-k>", ":MoveLine(-1)<CR>")
-map("n", "<A-h>", ":MoveHChar(-1)<CR>")
-map("n", "<A-l>", ":MoveHChar(1)<CR>")
-map("n", "<leader>wf", ":MoveWord(1)<CR>")
-map("n", "<leader>wb", ":MoveWord(-1)<CR>")
-map("v", "<A-j>", ":MoveBlock(1)<CR>")
-map("v", "<A-k>", ":MoveBlock(-1)<CR>")
-map("v", "<A-h>", ":MoveHBlock(-1)<CR>")
-map("v", "<A-l>", ":MoveHBlock(1)<CR>")
+map("n", "<A-j>", ":MoveLine(1)<CR>", { desc = "Move line down" })
+map("n", "<A-k>", ":MoveLine(-1)<CR>", { desc = "Move line up" })
+map("n", "<A-h>", ":MoveHChar(-1)<CR>", { desc = "Move character left" })
+map("n", "<A-l>", ":MoveHChar(1)<CR>", { desc = "Move character right" })
+map("n", "<leader>wf", ":MoveWord(1)<CR>", { desc = "Move word forward" })
+map("n", "<leader>wb", ":MoveWord(-1)<CR>", { desc = "Move word backward" })
+map("v", "<A-j>", ":MoveBlock(1)<CR>", { desc = "Move block down" })
+map("v", "<A-k>", ":MoveBlock(-1)<CR>", { desc = "Move block up" })
+map("v", "<A-h>", ":MoveHBlock(-1)<CR>", { desc = "Move block left" })
+map("v", "<A-l>", ":MoveHBlock(1)<CR>", { desc = "Move block right" })
 
 -- Disable annoying things
 map("n", "Q", "<nop>")

@@ -406,4 +406,14 @@ return {
       schedule_event = "CursorHold",
     },
   },
+
+  {
+    "NeogitOrg/neogit",
+    event = "VeryLazy",
+    dependencies = {
+      "nvim-lua/plenary.nvim", -- required
+      "sindrets/diffview.nvim", -- optional
+      "nvim-telescope/telescope.nvim", -- optional
+    },
+  },
 }
