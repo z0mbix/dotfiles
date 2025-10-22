@@ -8,16 +8,8 @@ map("n", ";", ":", { desc = "CMD enter command mode" })
 map("n", "<leader>ce", ":edit $MYVIMRC<cr>", { desc = "Edit init.lua", silent = true })
 map("n", "<leader>cs", ":source $MYVIMRC<CR>", { desc = "Source init.lua", silent = true })
 
--- move a character to the beginning or end of the line
-map("n", "mH", ':let @z=@"<cr>x0P:let @"=@z<cr>', { desc = "Move character to beginning of line", silent = true })
-map("n", "mL", ':let @z=@"<cr>x$p:let @"=@z<cr>', { desc = "Move character to end of line", silent = true })
-
 -- Show/Hide invisible characters
 map("n", "<leader>'", ":set list!<CR>", { desc = "Toggle invisible characters", silent = true })
-
--- move a character to the beginning or end of the word
-map("n", "mh", ':let @z=@"<cr>xBP:let @"=@z<cr>', { desc = "Move character to beginning of word", silent = true })
-map("n", "ml", ':let @z=@"<cr>xep:let @"=@z<cr>', { desc = "Move character to end of word", silent = true })
 
 -- Go to first character, not column 0
 map("n", "0", "^", { desc = "Go to first character of line" })
@@ -116,31 +108,29 @@ map("n", "<leader>we", "<C-w>=")
 map("n", "<leader>ws", "<C-w>x")
 
 -- smart-splits.nvim
-map("n", "<leader>wh", ":SmartResizeLeft 10<CR>")
-map("n", "<leader>wj", ":SmartResizeDown 5<CR>")
-map("n", "<leader>wk", ":SmartResizeUp 5<CR>")
-map("n", "<leader>wl", ":SmartResizeRight 10<CR>")
-map("n", "<leader>wr", ":SmartResizeMode<CR>")
+map("n", "<leader>rh", require("smart-splits").resize_left, { desc = "Resize split left", silent = true })
+map("n", "<leader>rj", require("smart-splits").resize_down, { desc = "Resize split down", silent = true })
+map("n", "<leader>rk", require("smart-splits").resize_up, { desc = "Resize split up", silent = true })
+map("n", "<leader>rl", require("smart-splits").resize_right, { desc = "Resize split right", silent = true })
 
 -- Reselect visual block after indent/outdent
-map("v", "<", "<gv")
-map("v", ">", ">gv")
+map("v", "<", "<gv", { silent = true })
+map("v", ">", ">gv", { silent = true })
 
 -- Improve up/down movement on wrapped lines
-map("n", "j", "gj")
-map("n", "k", "gk")
+map("n", "j", "gj", { silent = true })
+map("n", "k", "gk", { silent = true })
 
 -- Show current file in finder
-map("n", "<leader>oo", ":Reveal<CR>")
+map("n", "<leader>oo", function()
+  require("reveal").reveal_in_finder()
+end, { desc = "Open file in finder", silent = true })
 
 -- Open file with the default application
-map("n", "<leader>of", ':silent !open "%"<CR>')
+map("n", "<leader>of", '!open "%"<CR>', { desc = "Open file with default application", silent = true })
 
 -- Select all
 map("n", "<leader>a", "ggVG", { desc = "Select entire file", silent = true })
-
--- Comment all
-map("n", "<leader>ga", "ggVGgc", { desc = "Comment entire file", silent = true })
 
 -- Remove annoying F1 help
 map("i", "<F1>", "<nop>")
@@ -184,21 +174,27 @@ map("n", "<leader>qd", function()
 end, { desc = "Stop persistence for current session" })
 
 -- quickfix
-map("n", "<leader>qft", [[<Cmd>lua require('functions').toggle_qf()<CR>]], { desc = "Toggle quickfix list" })
-map("n", "<leader>qfo", ":copen<CR>", { desc = "Open quickfix list" })
-map("n", "<leader>qfc", ":cclose<CR>", { desc = "Close quickfix list" })
+map("n", "<leader>qfo", ":copen<CR>", { desc = "Open quickfix list", silent = true })
+map("n", "<leader>qfc", ":cclose<CR>", { desc = "Close quickfix list", silent = true })
+map("n", "<leader>qft", function()
+  require("functions").toggle_qf()
+end, { desc = "Toggle quickfix list", silent = true })
 
 -- move.nvim
-map("n", "<A-j>", ":MoveLine(1)<CR>", { desc = "Move line down" })
-map("n", "<A-k>", ":MoveLine(-1)<CR>", { desc = "Move line up" })
-map("n", "<A-h>", ":MoveHChar(-1)<CR>", { desc = "Move character left" })
-map("n", "<A-l>", ":MoveHChar(1)<CR>", { desc = "Move character right" })
-map("n", "<leader>wf", ":MoveWord(1)<CR>", { desc = "Move word forward" })
-map("n", "<leader>wb", ":MoveWord(-1)<CR>", { desc = "Move word backward" })
-map("v", "<A-j>", ":MoveBlock(1)<CR>", { desc = "Move block down" })
-map("v", "<A-k>", ":MoveBlock(-1)<CR>", { desc = "Move block up" })
-map("v", "<A-h>", ":MoveHBlock(-1)<CR>", { desc = "Move block left" })
-map("v", "<A-l>", ":MoveHBlock(1)<CR>", { desc = "Move block right" })
+map("n", "<A-j>", ":MoveLine(1)<CR>", { desc = "Move line down", silent = true })
+map("n", "<A-k>", ":MoveLine(-1)<CR>", { desc = "Move line up", silent = true })
+map("n", "<A-h>", ":MoveHChar(-1)<CR>", { desc = "Move character left", silent = true })
+map("n", "<A-l>", ":MoveHChar(1)<CR>", { desc = "Move character right", silent = true })
+map("n", "<leader>wf", ":MoveWord(1)<CR>", { desc = "Move word forward", silent = true })
+map("n", "<leader>wb", ":MoveWord(-1)<CR>", { desc = "Move word backward", silent = true })
+map("v", "<A-j>", ":MoveBlock(1)<CR>", { desc = "Move block down", silent = true })
+map("v", "<A-k>", ":MoveBlock(-1)<CR>", { desc = "Move block up", silent = true })
+map("v", "<A-h>", ":MoveHBlock(-1)<CR>", { desc = "Move block left", silent = true })
+map("v", "<A-l>", ":MoveHBlock(1)<CR>", { desc = "Move block right", silent = true })
+
+-- move a character to the beginning or end of the line
+map("n", "mH", ':let @z=@"<cr>x0P:let @"=@z<cr>', { desc = "Move character to beginning of line", silent = true })
+map("n", "mL", ':let @z=@"<cr>x$p:let @"=@z<cr>', { desc = "Move character to end of line", silent = true })
 
 -- Disable annoying things
 map("n", "Q", "<nop>")
@@ -247,7 +243,7 @@ map({ "n", "t" }, "<leader>tt", function()
   require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
 end, { desc = "terminal toggleable horizontal term" })
 
-map({ "t", "t" }, "<leader>tt", function()
+map({ "n", "t" }, "<m-.>", function()
   require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
 end, { desc = "terminal toggleable horizontal term" })
 

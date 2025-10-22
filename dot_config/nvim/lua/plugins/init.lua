@@ -197,9 +197,25 @@ return {
   {
     "fedepujol/move.nvim",
     event = "VeryLazy",
-    config = function()
-      require("move").setup()
-    end,
+    -- config = function()
+    --   require("move").setup()
+    -- end,
+    opts = {
+      line = {
+        enable = true, -- Enables line movement
+        indent = true, -- Toggles indentation
+      },
+      block = {
+        enable = true, -- Enables block movement
+        indent = true, -- Toggles indentation
+      },
+      word = {
+        enable = true, -- Enables word movement
+      },
+      char = {
+        enable = true, -- Enables char movement
+      },
+    },
   },
 
   -- https://github.com/nacro90/numb.nvim
@@ -407,6 +423,8 @@ return {
     },
   },
 
+  -- https://github.com/NeogitOrg/neogit
+  -- a Magit clone for Neovim that provides an easy-to-use Git interface
   {
     "NeogitOrg/neogit",
     event = "VeryLazy",
@@ -414,6 +432,17 @@ return {
       "nvim-lua/plenary.nvim", -- required
       "sindrets/diffview.nvim", -- optional
       "nvim-telescope/telescope.nvim", -- optional
+    },
+  },
+
+  -- https://github.com/mrjones2014/smart-splits.nvim
+  -- intelligently resize and navigate splits
+  {
+    "mrjones2014/smart-splits.nvim",
+    event = "VeryLazy",
+    opts = {
+      ignored_filetypes = { "NvimTree", "neo-tree", "toggleterm", "minimap" },
+      ignored_buftypes = { "nofile", "prompt", "quickfix" },
     },
   },
 }
