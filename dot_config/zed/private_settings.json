@@ -1,4 +1,11 @@
 {
+  "status_bar": {
+    "active_language_button": true,
+    "cursor_position_button": true
+  },
+  "diagnostics": {
+    "button": true
+  },
   "context_servers": {
     "moon": {
       "source": "extension",
@@ -46,7 +53,7 @@
   "features": {
     "edit_prediction_provider": "copilot"
   },
-  "icon_theme": "Colored Zed Icons Theme Dark",
+  "icon_theme": "JetBrains Icons Dark",
   "theme": "Rosé Pine Moon",
   "telemetry": {
     "diagnostics": false,
@@ -87,7 +94,7 @@
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
   "buffer_font_size": 13.0,
   "vertical_scroll_margin": 5,
-  "show_whitespaces": "all",
+  "show_whitespaces": "trailing",
   "line_indicator_format": "long",
   "preferred_line_length": 120,
   "show_wrap_guides": true,
@@ -126,6 +133,16 @@
     }
   },
   "languages": {
+    "Lua": {
+      "tab_size": 2,
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "stylua",
+          "arguments": ["--respect-ignores", "--stdin-filepath", "{buffer_path}", "-"]
+        }
+      }
+    },
     "Shell Script": {
       "tab_size": 2,
       "formatter": {
@@ -188,12 +205,14 @@
     "Fish": ["**/*.fish.tmpl"],
     "Go": ["**/*.tmpl"],
     "Helm": ["**/templates/**/*.tpl", "**/templates/**/*.yaml"],
+    "JSON": ["**/Scoopfile", "**/*.Scoopfile"],
+    "JSONC": ["**/*.hujson"],
     "Nginx": ["**/nginx.conf", "**/nginx/*.conf"],
     "Shell Script": ["**/*.sh.j2", "**/packages/*/build"],
     "TOML": ["**/.prototools"],
     "Tera (TOML)": ["**/*.toml.tera"],
     "Tera (YAML)": ["**/*.yml.tera", "**/*.yaml.tera"],
     "YAML": ["**/.ansible-lint", "**/.yamllint"],
-    "ini": ["**/*.ini", "**/ansible.cfg"]
+    "ini": ["**/*.ini", "**/ansible.cfg", "**/aws_config.*"]
   }
 }

@@ -296,7 +296,7 @@ return {
   {
     "mcauley-penney/visual-whitespace.nvim",
     config = true,
-    event = "ModeChanged *:[vV\22]", -- optionally, lazy load on entering visual mode
+    event = "ModeChanged *:[vV\22]", -- lazy load on entering visual mode
     opts = {
       ignore = {
         filetypes = { "TelescopePrompt", "NvimTree", "neo-tree", "Trouble", "help" },
@@ -443,6 +443,18 @@ return {
     opts = {
       ignored_filetypes = { "NvimTree", "neo-tree", "toggleterm", "minimap" },
       ignored_buftypes = { "nofile", "prompt", "quickfix" },
+    },
+  },
+
+  -- https://github.com/chrisgrieser/nvim-various-textobjs
+  -- a collection of various text objects including `ii` for indentation level
+  {
+    "chrisgrieser/nvim-various-textobjs",
+    event = "VeryLazy",
+    opts = {
+      keymaps = {
+        useDefaults = true,
+      },
     },
   },
 }
