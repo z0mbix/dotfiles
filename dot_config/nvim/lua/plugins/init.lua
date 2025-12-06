@@ -141,13 +141,6 @@ return {
     event = "VeryLazy",
   },
 
-  -- https://github.com/nickeb96/fish.vim
-  -- fish shell syntax highlighting and indentation
-  {
-    "nickeb96/fish.vim",
-    ft = "fish",
-  },
-
   -- https://github.com/jvgrootveld/telescope-zoxide
   -- telescope extension for zoxide
   {

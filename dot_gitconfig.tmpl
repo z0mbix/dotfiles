@@ -6,17 +6,31 @@
 [core]
   whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
   excludesfile = ~/.gitignore
-  pager = delta
   quotepath = false
   autocrlf = input
+[pager]
+  difftool = true
+[diff]
+  tool = diffu
+  renames = copies
+  mnemonicprefix = true
+  noprefix = true
+  colorMoved = default
+[diff "exif"]
+  textconv = exif
+  path =
+[diff "difftastic"]
+  cmd = difft "$LOCAL" "$REMOTE"
+[difftool]
+    prompt = false
 [gpg]
   format = ssh
 [gpg "ssh"]
-  allowedSignersFile = ~/.ssh/allowed-signers
+  allowedSignersFile = ~/.ssh/.gitallowedsigners
 [commit]
   gpgsign = true
 [github]
-  user = {{ (dig "git" "githubUser" "" .) }}
+  user = {{ (dig "github" "user" "" .) }}
 [url "ssh://git@github.com/"]
   insteadOf = https://github.com/
 [push]
@@ -85,15 +99,6 @@
   stat = true
   conflictstyle = diff3
   summary = true
-[diff]
-  tool = delta
-  renames = copies
-  mnemonicprefix = true
-  noprefix = true
-  colorMoved = default
-[diff "exif"]
-  textconv = exif
-  path =
 [credential]
   helper = osxkeychain
 [help]

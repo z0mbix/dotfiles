@@ -5,8 +5,14 @@
 #### Mac
 
 ```shell
-$ brew install fish chezmoi git neovim
-$ sudo chsh -s /opt/homebrew/bin/fish
+$ brew install fish chezmoi git neovim ghostty
+$ vim /etc/shells # add /opt/homebrew/bin/fish
+$ chsh -s /opt/homebrew/bin/fish
+```
+
+Quit Terminal, and open Ghostty:
+
+```shell
 $ chezmoi init --apply z0mbix
 ```
 

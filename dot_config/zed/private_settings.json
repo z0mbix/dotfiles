@@ -8,18 +8,15 @@
   },
   "context_servers": {
     "moon": {
-      "source": "extension",
       "enabled": true,
       "settings": {}
     },
     "mise": {
-      "source": "extension",
       "enabled": false,
       "settings": {}
     },
     "postgres-context-server": {
       "enabled": false,
-      "source": "extension",
       "settings": {
         "database_url": "postgresql://postgres:postgres@localhost:5432/mydatabase"
       }
@@ -72,7 +69,7 @@
     "toggle_relative_line_numbers": true,
     "highlight_on_yank_duration": 400
   },
-  "relative_line_numbers": true,
+  "relative_line_numbers": "enabled",
   "scrollbar": { "show": "never" },
   "toolbar": {
     "quick_actions": false,

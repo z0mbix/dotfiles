@@ -5,3 +5,7 @@ command --query starship; and starship init fish | source
 command --query zoxide; and zoxide init --cmd cd fish | source
 command --query proto; and proto activate | source
 command --query conda; and conda shell.fish hook | source
+
+if test -f ~/.orbstack/shell/init2.fish
+    source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+end
