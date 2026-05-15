@@ -56,6 +56,9 @@ keybind = cmd+backspace=text:\x15
 # Opt+FwdDelete: delete word forward (works on either Option key)
 keybind = opt+delete=esc:d
 
+# Opt+Backspace -> ESC+DEL: delete word backward, stopping at punctuation (works on either Option key)
+keybind = opt+backspace=text:\x1b\x7f
+
 # Opt+Backspace -> Ctrl-W: delete word backward (works on either Option key)
 keybind = opt+backspace=text:\x17
 {{- end }}

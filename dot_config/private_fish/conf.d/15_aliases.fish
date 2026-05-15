@@ -57,10 +57,18 @@ abbr gp 'git pull'
 abbr gbt 'git branch-toggle'
 abbr gnb 'git switch -c'
 abbr gco 'git checkout'
+abbr gcom 'git checkout main'
 abbr gf 'git fetch'
+abbr gfom 'git fetch origin main'
+abbr grom  'git rebase origin main'
 abbr gpap 'git push-and-pr'
 abbr gcomagp 'git checkout main && git pull'
 abbr got git
+abbr gsl 'git stash list'
+abbr gsp 'git stash pop'
+abbr gsa 'git stash apply'
+abbr gss 'git stash show -p'
+abbr gsd 'git stash drop'
 
 # Docker
 abbr dk docker
@@ -120,11 +128,11 @@ abbr aws-account-alias 'aws iam list-account-aliases | jq -r ".AccountAliases[]"
 abbr aws-running-instances 'aws ec2 describe-instances --output=json --filters "Name=instance-state-name,Values running"'
 
 if command --query bat
-    abbr cat 'bat -p --decorations never'
     abbr batp 'bat -p --decorations never'
     abbr baty 'bat -l yaml'
     abbr batj 'bat -l json'
     abbr batf 'bat -l fish'
+    abbr batx 'bat -l xml'
 end
 
 function showpath
