@@ -1,0 +1,268 @@
+{
+	"outline_panel": {
+		"dock": "left",
+	},
+	"session": {
+		"trust_all_worktrees": false,
+	},
+	"context_servers": {
+		"mcp-server-github": {
+   "enabled": true,
+			"remote":  false,
+			"settings": {
+				"github_personal_access_token": "GITHUB_PERSONAL_ACCESS_TOKEN",
+			},
+		},
+	},
+	"agent_servers": {
+		"github-copilot-cli": {
+			"type": "registry",
+		},
+		"codex-acp": {
+			"type": "registry",
+		},
+		"claude-acp": {
+			"type": "registry",
+		},
+		"opencode": {
+			"type": "registry",
+		},
+		"github-copilot": {
+			"type": "registry",
+		},
+	},
+	"git_panel": {
+		"dock":      "left",
+		"tree_view": true,
+	},
+	"icon_theme": {
+		"mode":  "light",
+		"light": "Serendipity Icons",
+		"dark":  "Serendipity Icons",
+	},
+	"status_bar": {
+		"active_language_button": true,
+		"cursor_position_button": true,
+	},
+	"diagnostics": {
+		"button": true,
+	},
+	"search": {
+		"case_sensitive": false,
+		"button":         false,
+	},
+	"minimap": {
+		"display_in":             "all_editors",
+		"current_line_highlight": "all",
+	},
+	"agent": {
+		"dock": "right",
+		"tool_permissions": {
+			"default": "allow",
+		},
+		"play_sound_when_agent_done": "always",
+		"default_model": {
+			"provider": "copilot_chat",
+			"model":    "claude-sonnet-4.5",
+		},
+		"button": true,
+		"commit_message_model": {
+			"provider": "copilot_chat",
+			"model":    "claude-sonnet-4",
+		},
+	},
+	"show_edit_predictions": true,
+	"edit_predictions": {
+		"provider": "copilot",
+		"mode":     "eager",
+	},
+	"theme": {
+		"mode":  "dark",
+		"light": "One Light",
+		"dark":  "Rosé Pine Moon",
+	},
+	"telemetry": {
+		"diagnostics": false,
+		"metrics":     false,
+	},
+	"project_panel": {
+		"indent_size":    14.0,
+		"entry_spacing":  "standard",
+		"dock":           "left",
+		"auto_fold_dirs": false,
+		"button":         false,
+	},
+	"ensure_final_newline_on_save": true,
+	"vim_mode":                     true,
+	"vim": {
+		"use_system_clipboard":         "on_yank",
+		"use_smartcase_find":           true,
+		"toggle_relative_line_numbers": true,
+		"highlight_on_yank_duration":   400,
+	},
+	"relative_line_numbers": "enabled",
+	"scrollbar":             {"show": "never"},
+	"toolbar": {
+		"quick_actions":   false,
+		"breadcrumbs":     true,
+		"selections_menu": false,
+	},
+	"scroll_beyond_last_line": "off",
+	"tab_bar": {
+		"show":                     true,
+		"show_tab_bar_buttons":     false,
+		"show_nav_history_buttons": false,
+	},
+	"bottom_dock_layout": "left_aligned",
+	"active_pane_modifiers": {
+		"inactive_opacity": 0.9,
+	},
+	"ui_font_family":         "JetBrainsMono Nerd Font",
+	"ui_font_size":           14.0,
+	"buffer_font_family":     "JetBrainsMono Nerd Font",
+	"buffer_font_size":       13.0,
+	"vertical_scroll_margin": 5,
+	"show_whitespaces":       "all",
+	"line_indicator_format":  "long",
+	"preferred_line_length":  120,
+	"show_wrap_guides":       true,
+	"wrap_guides":            [120],
+	"command_aliases": {
+		"W":  "w",
+		"Wq": "wq",
+		"Q":  "q",
+	},
+	"terminal": {
+		"font_family":    "JetBrainsMono Nerd Font Mono",
+		"copy_on_select": true,
+		"button":         false,
+		"toolbar": {
+			"breadcrumbs": false,
+		},
+	},
+	"calls": {
+		"mute_on_join":  true,
+		"share_on_join": false,
+	},
+	"collaboration_panel": {
+		"dock":   "left",
+		"button": false,
+	},
+	"notification_panel": {
+		"button": false,
+	},
+	"inlay_hints": {
+		"enabled":              true,
+		"show_type_hints":      true,
+		"show_parameter_hints": false,
+		"show_other_hints":     false,
+		"toggle_on_modifiers_press": {
+			"platform": true,
+			"shift":    true,
+		},
+	},
+	"languages": {
+		"Just": {
+			"tab_size":  4,
+			"hard_tabs": true,
+		},
+		"Lua": {
+			"tab_size":       2,
+			"format_on_save": "on",
+			"formatter": {
+				"external": {
+					"command":   "stylua",
+					"arguments": ["--respect-ignores", "--stdin-filepath", "{buffer_path}", "-"],
+				},
+			},
+		},
+		"Shell Script": {
+			"tab_size": 2,
+			"formatter": {
+				"external": {
+					"command":   "{{ lookPath "shfmt" }}",
+					"arguments": ["-i", "2", "-ci", "-bn", "-ln", "bash"],
+				},
+			},
+		},
+		"Terraform": {
+			"formatter": {
+				"external": {
+					"command":   "{{ lookPath "terraform" }}",
+					"arguments": ["fmt", "-"],
+				},
+			},
+		},
+		"HCL": {
+			"formatter": {
+				"external": {
+					"command":   "{{ lookPath "terragrunt" }}",
+					"arguments": ["hcl", "fmt", "--stdin"],
+				},
+			},
+		},
+		"JSONC": {
+			"formatter": {
+				"external": {
+					"command": "{{ $h := lookPath "hujsonfmt" }}{{ if not $h }}{{ $h = joinPath .chezmoi.homeDir ".local/share/mise/installs/go-github-com-tailscale-hujson-cmd-hujsonfmt/latest/bin/hujsonfmt" }}{{ end }}{{ $h }}",
+				},
+			},
+		},
+		"Python": {
+			"language_servers": ["ruff"],
+			"format_on_save":   "on",
+			"formatter": [
+				{
+					"language_server": {"name": "ruff"},
+				},
+			],
+		},
+		"YAML": {
+			"auto_indent_on_paste": false,
+			"tab_size":             2,
+		},
+	},
+	"lsp": {
+		"yaml-language-server": {
+			"settings": {
+				"yaml": {
+					"formatter": "language_server",
+					"format": {
+						"enable":        true,
+						"singleQuote":   false,
+						"printWidth":    160,
+						"bracetSpacing": false,
+					},
+					"completion": true,
+					"schemaStore": {
+						"enable": true,
+					},
+				},
+			},
+		},
+	},
+	"file_scan_exclusions": [
+		"**/.ruff_cache",
+		"**/.git",
+		"**/.DS_Store",
+		"**/.settings",
+		// "**/.claude",
+		"**/.opencode",
+		"**/.idea",
+	],
+	"file_types": {
+		"Fish":         ["**/*.fish.tmpl"],
+		"Go":           ["**/*.tmpl"],
+		"Helm":         ["**/templates/**/*.tpl", "**/templates/**/*.yaml"],
+		"HOCON":        ["**/nats*.conf"],
+		"JSON":         ["**/Scoopfile", "**/*.Scoopfile", "**/.prettierrc"],
+		"JSONC":        ["**/*.hujson"],
+		"Nginx":        ["**/nginx.conf", "**/nginx/*.conf"],
+		"Shell Script": ["**/*.sh.j2", "**/packages/*/build"],
+		"TOML":         ["**/.prototools"],
+		"Tera (TOML)":  ["**/*.toml.tera"],
+		"Tera (YAML)":  ["**/*.yml.tera", "**/*.yaml.tera"],
+		"YAML":         ["**/.ansible-lint", "**/.yamllint"],
+		"ini":          ["**/*.ini", "**/ansible.cfg", "**/aws_config.*", "**/.gitconfig"],
+	},
+}
