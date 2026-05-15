@@ -1,1 +1,0 @@
-return { "fatih/vim-go" }

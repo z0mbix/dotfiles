@@ -33,7 +33,6 @@ map("n", "<leader>X", ":BufDelAll<CR>", { desc = "Delete all buffers", silent = 
 map("n", "<leader>da", ":Nvdash<CR>", { desc = "Open Nvdash", silent = true })
 
 -- Git
-map("n", "<leader>gs", ":Gstatus<CR>gg<c-n>", { desc = "Git status", silent = true })
 map("n", "<leader>gd", ":Gitsigns toggle_linehl<CR>", { desc = "Toggle git line highlight", silent = true })
 map("n", "<leader>gb", ":GitBlameToggle<CR>", { desc = "Toggle git blame", silent = true })
 map("n", "<leader>ghp", ":Gitsigns preview_hunk<CR>", { desc = "Preview git hunk", silent = true })
@@ -57,23 +56,19 @@ map(
   { desc = "Telescope current buffer fuzzy find", silent = true }
 )
 map("n", "<leader>ff", ":Telescope find_files<CR>", { desc = "Telescope find files", silent = true })
-map("n", "<leader>fb", ":Telescope file_browser<CR>", { desc = "Telescope file browser", silent = true })
 map("n", "<leader>fc", ":Telescope commands<CR>", { desc = "Telescope commands", silent = true })
 map("n", "<leader>fC", ":Telescope colorscheme<CR>", { desc = "Telescope colorscheme", silent = true })
 map("n", "<leader>fF", ":Telescope git_files<CR>", { desc = "Telescope git files", silent = true })
 map("n", "<leader>fb", ":Telescope buffers<CR>", { desc = "Telescope buffers", silent = true })
 map("n", "<leader>fh", ":Telescope command_history<CR>", { desc = "Telescope command history", silent = true })
-map("n", "<leader>ft", ":Telescope filetypes<CR>", { desc = "Telescope filetypes", silent = true })
 map("n", "<leader>fT", ":TodoTelescope<CR>", { desc = "Telescope todos", silent = true })
-map("n", "<leader>fU", ":UrlView<CR>", { desc = "Telescope url view", silent = true })
 map("n", "<leader>fu", ":Telescope undo<CR>", { desc = "Telescope undo", silent = true })
 map("n", "<leader>fm", ":Telescope marks<CR>", { desc = "Telescope marks", silent = true })
 map("n", "<leader>fa", ":Telescope live_grep<CR>", { desc = "Telescope live grep", silent = true })
 map("n", "<leader>fp", ":Telescope live_grep<CR>", { desc = "Telescope live grep", silent = true })
 map("n", "<leader>fr", ":Telescope registers<CR>", { desc = "Telescope registers", silent = true })
-map("n", "<leader>fs", ":Telescope spell_suggect<CR>", { desc = "Telescope spell suggest", silent = true })
+map("n", "<leader>fs", ":Telescope spell_suggest<CR>", { desc = "Telescope spell suggest", silent = true })
 map("n", "<leader>fw", ":Telescope grep_string<CR>", { desc = "Telescope grep string under cursor", silent = true })
-map("n", "<leader>fy", ":Telescope yank_history<CR>", { desc = "Telescope yank history", silent = true })
 map("n", "<leader>fgs", ":Telescope git_status<CR>", { desc = "Telescope git status", silent = true })
 map("n", "<leader>fgc", ":Telescope git_commits<CR>", { desc = "Telescope git commits", silent = true })
 map("n", "<leader>fgb", ":Telescope git_branches<CR>", { desc = "Telescope git branches", silent = true })
@@ -100,26 +95,27 @@ map("n", "<C-k>", "<C-w>k")
 map("n", "<C-h>", "<C-w>h")
 map("n", "<C-l>", "<C-w>l")
 
--- Close/save files
-map("n", "<leader>wf", ":update<CR>")
-
 -- Fix split window ratios
 map("n", "<leader>we", "<C-w>=")
 map("n", "<leader>ws", "<C-w>x")
 
--- smart-splits.nvim
-map("n", "<leader>rh", require("smart-splits").resize_left, { desc = "Resize split left", silent = true })
-map("n", "<leader>rj", require("smart-splits").resize_down, { desc = "Resize split down", silent = true })
-map("n", "<leader>rk", require("smart-splits").resize_up, { desc = "Resize split up", silent = true })
-map("n", "<leader>rl", require("smart-splits").resize_right, { desc = "Resize split right", silent = true })
+-- smart-splits.nvim — wrap in functions so the plugin's lazy-load event still fires
+map("n", "<leader>rh", function()
+  require("smart-splits").resize_left()
+end, { desc = "Resize split left", silent = true })
+map("n", "<leader>rj", function()
+  require("smart-splits").resize_down()
+end, { desc = "Resize split down", silent = true })
+map("n", "<leader>rk", function()
+  require("smart-splits").resize_up()
+end, { desc = "Resize split up", silent = true })
+map("n", "<leader>rl", function()
+  require("smart-splits").resize_right()
+end, { desc = "Resize split right", silent = true })
 
 -- Reselect visual block after indent/outdent
 map("v", "<", "<gv", { silent = true })
 map("v", ">", ">gv", { silent = true })
-
--- Improve up/down movement on wrapped lines
-map("n", "j", "gj", { silent = true })
-map("n", "k", "gk", { silent = true })
 
 -- Show current file in finder
 map("n", "<leader>oo", function()
@@ -127,7 +123,7 @@ map("n", "<leader>oo", function()
 end, { desc = "Open file in finder", silent = true })
 
 -- Open file with the default application
-map("n", "<leader>of", '!open "%"<CR>', { desc = "Open file with default application", silent = true })
+map("n", "<leader>of", ':silent !open "%"<CR>', { desc = "Open file with default application", silent = true })
 
 -- Select all
 map("n", "<leader>a", "ggVG", { desc = "Select entire file", silent = true })
@@ -143,18 +139,12 @@ map("n", "J", "mzJ`z", { desc = "Join lines keeping cursor in place", silent = t
 -- Delete without cutting
 map({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking", silent = true })
 
--- zen-mode
-map("n", "<leader>z", ":ZenMode<CR>", { desc = "Toggle Zen Mode", silent = true })
-
 -- minimap.vim
 map("n", "<leader>mm", ":MinimapToggle<CR>", { desc = "Toggle minimap", silent = true })
 
 -- vim-maximizer
 map("n", "<leader>W", ":MaximizerToggle<CR>", { desc = "Maximize/restore current window", silent = true })
 map("v", "<leader>W", ":MaximizerToggle<CR>gv", { desc = "Maximize/restore current window", silent = true })
-
--- trouble.nvim
-map("n", "<leader>T", ":TroubleToggle<CR>", { desc = "Toggle Trouble", silent = true })
 
 -- persistence.nvim
 map("n", "<leader>qs", function()
@@ -177,7 +167,13 @@ end, { desc = "Stop persistence for current session" })
 map("n", "<leader>qfo", ":copen<CR>", { desc = "Open quickfix list", silent = true })
 map("n", "<leader>qfc", ":cclose<CR>", { desc = "Close quickfix list", silent = true })
 map("n", "<leader>qft", function()
-  require("functions").toggle_qf()
+  for _, win in pairs(vim.fn.getwininfo()) do
+    if win.quickfix == 1 then
+      vim.cmd "cclose"
+      return
+    end
+  end
+  vim.cmd "copen"
 end, { desc = "Toggle quickfix list", silent = true })
 
 -- move.nvim

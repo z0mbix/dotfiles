@@ -12,20 +12,47 @@ return {
     end,
   },
 
+  -- https://github.com/mason-org/mason-lspconfig.nvim
+  -- bridges mason.nvim (bundled by NvChad) with lspconfig; auto-installs the listed servers
+  {
+    "mason-org/mason-lspconfig.nvim",
+    dependencies = {
+      "mason-org/mason.nvim",
+      "neovim/nvim-lspconfig",
+    },
+    event = "User FilePost",
+    opts = {
+      -- keep this list in sync with lua/configs/lspconfig.lua
+      ensure_installed = {
+        "bashls",
+        "cssls",
+        "gopls",
+        "html",
+        "lua_ls",
+        "pyright",
+        "terraformls",
+      },
+      -- enabling is handled manually in lua/configs/lspconfig.lua via vim.lsp.enable
+      automatic_enable = false,
+    },
+  },
+
   { import = "nvchad.blink.lazyspec" },
 
   -- https://github.com/nvim-treesitter/nvim-treesitter
-  -- treesitter configurations and abstraction layer
+  -- treesitter configurations and abstraction layer (main branch — new API)
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    lazy = false,
     build = ":TSUpdate",
     dependencies = {
       -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-      -- Syntax aware text-objects
-      { "nvim-treesitter/nvim-treesitter-textobjects" },
+      -- syntax aware text-objects (also on main branch)
+      { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
     },
-    opts = {
-      ensure_installed = {
+    config = function()
+      local parsers = {
         "bash",
         "css",
         "csv",
@@ -59,8 +86,23 @@ return {
         "vimdoc",
         "xml",
         "yaml",
-      },
-    },
+      }
+
+      require("nvim-treesitter").install(parsers)
+
+      -- enable highlight + treesitter-based indent on FileType
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("nvim_treesitter_start", { clear = true }),
+        callback = function(args)
+          local buf = args.buf
+          local lang = vim.treesitter.language.get_lang(vim.bo[buf].filetype)
+          if lang and pcall(vim.treesitter.language.add, lang) then
+            pcall(vim.treesitter.start, buf, lang)
+            vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
+      })
+    end,
   },
 
   -- https://github.com/folke/persistence.nvim
@@ -90,13 +132,7 @@ return {
       "nvim-treesitter/nvim-treesitter-textobjects",
     },
     event = "VeryLazy",
-  },
-
-  -- https://github.com/pearofducks/ansible-vim
-  -- Ansible syntax highlighting, indentation, and more
-  {
-    "pearofducks/ansible-vim",
-    ft = { "yaml.ansible", "ansible" },
+    opts = {},
   },
 
   -- https://github.com/wfxr/minimap.vim
@@ -104,13 +140,6 @@ return {
   {
     "wfxr/minimap.vim",
     event = "VeryLazy",
-  },
-
-  -- https://github.com/towolf/vim-helm
-  -- Helm charts syntax highlighting and indentation
-  {
-    "towolf/vim-helm",
-    ft = { "helm", "yaml.helm" },
   },
 
   -- https://github.com/wellle/targets.vim
@@ -138,7 +167,7 @@ return {
   -- search and replace across files
   {
     "MagicDuck/grug-far.nvim",
-    event = "VeryLazy",
+    cmd = { "GrugFar", "GrugFarWithin" },
   },
 
   -- https://github.com/jvgrootveld/telescope-zoxide
@@ -158,19 +187,18 @@ return {
     "debugloop/telescope-undo.nvim",
     event = "VeryLazy",
     dependencies = { "nvim-telescope/telescope.nvim" },
-    opts = {
-      extensions = {
-        undo = {
-          vim_diff_opts = {
-            ctxlen = vim.o.scrolloff,
+    config = function()
+      local telescope = require "telescope"
+      -- merge undo extension opts into the existing telescope config without clobbering it
+      telescope.setup(vim.tbl_deep_extend("force", telescope.config or {}, {
+        extensions = {
+          undo = {
+            vim_diff_opts = { ctxlen = vim.o.scrolloff },
+            entry_format = "#$ID, $STAT, $TIME",
           },
-          entry_format = "#$ID, $STAT, $TIME",
         },
-      },
-    },
-    config = function(_, opts)
-      require("telescope").setup(opts)
-      require("telescope").load_extension "undo"
+      }))
+      telescope.load_extension "undo"
     end,
   },
 
@@ -312,7 +340,7 @@ return {
     event = "VeryLazy",
     config = function()
       require("copilot").setup {
-        copilot_node_command = "/opt/homebrew/bin/node",
+        copilot_node_command = vim.fn.exepath "node",
         panel = {
           enabled = true,
           auto_refresh = false,
@@ -365,16 +393,21 @@ return {
       strategies = {
         chat = {
           adapter = "copilot",
-          model = "claude-sonnet-4",
+          model = "claude-sonnet-4-6",
           -- model = "gpt-4.1",
         },
         inline = {
           adapter = "copilot",
-          model = "claude-sonnet-4",
+          model = "claude-sonnet-4-6",
         },
         cmd = {
           adapter = "copilot",
-          model = "claude-sonnet-4",
+          model = "claude-sonnet-4-6",
+        },
+      },
+      display = {
+        action_palette = {
+          provider = "telescope",
         },
       },
     },
@@ -389,19 +422,11 @@ return {
     opts = {}, -- required but can be left empty
   },
 
-  -- https://github.com/isak102/ghostty.nvim
-  -- validates ghostty config on save
-  {
-    "isak102/ghostty.nvim",
-    lazy = false,
-    opts = {},
-  },
-
   -- https://github.com/mateuszwieloch/automkdir.nvim
   -- automatically create missing directories when saving files
   {
     "mateuszwieloch/automkdir.nvim",
-    event = "VeryLazy",
+    event = { "BufWritePre", "BufNewFile" },
     opts = {},
   },
 
@@ -420,7 +445,7 @@ return {
   -- a Magit clone for Neovim that provides an easy-to-use Git interface
   {
     "NeogitOrg/neogit",
-    event = "VeryLazy",
+    cmd = "Neogit",
     dependencies = {
       "nvim-lua/plenary.nvim", -- required
       "sindrets/diffview.nvim", -- optional
@@ -449,5 +474,13 @@ return {
         useDefaults = true,
       },
     },
+  },
+
+  -- https://github.com/cappyzawa/trim.nvim
+  -- automatically trim trailing whitespace on save
+  {
+    "cappyzawa/trim.nvim",
+    event = "BufWritePre",
+    opts = {},
   },
 }

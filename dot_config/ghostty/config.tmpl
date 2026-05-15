@@ -1,0 +1,61 @@
+# vim: set ft=dosini commentstring=#\ %s:
+
+theme = "Rose Pine Moon"
+
+clipboard-read = allow
+copy-on-select = true
+cursor-style = block
+focus-follows-mouse = true
+{{- if eq .chezmoi.os "darwin" }}
+
+macos-non-native-fullscreen = true
+macos-option-as-alt = right
+macos-titlebar-style = tabs
+{{- end }}
+
+mouse-hide-while-typing = true
+quit-after-last-window-closed = true
+scrollback-limit = 10000000
+shell-integration = fish
+shell-integration-features = no-cursor,no-sudo,no-title
+unfocused-split-opacity = 0.8
+window-save-state = always
+window-theme = system
+
+working-directory = "~/Repos"
+
+notify-on-command-finish = unfocused
+notify-on-command-finish-action = no-bell,notify
+notify-on-command-finish-after = 30s
+
+font-size = 13
+font-thicken = true
+
+# JetBrains Mono - https://www.jetbrains.com/lp/mono/
+font-family = "JetBrainsMono Nerd Font Mono"
+font-feature = "calt"
+font-feature = "zero"
+
+# Alt+Left / Alt+Right: jump one word backward / forward (right Option only)
+keybind = alt+left=esc:b
+keybind = alt+right=esc:f
+
+# Shift+Enter -> ESC + CR: insert literal newline (e.g. multi-line prompts)
+keybind = shift+enter=text:\x1b\r
+{{- if eq .chezmoi.os "darwin" }}
+
+# Cmd+Right -> Ctrl-E: jump to end of line
+keybind = cmd+right=text:\x05
+
+# Cmd+FwdDelete -> Ctrl-K: kill from cursor to end of line
+keybind = cmd+delete=text:\x0b
+
+# Cmd+Backspace -> Ctrl-U: kill from cursor to start of line
+keybind = cmd+backspace=text:\x15
+
+# Opt+FwdDelete: delete word forward (works on either Option key)
+keybind = opt+delete=esc:d
+
+# Opt+Backspace -> Ctrl-W: delete word backward (works on either Option key)
+keybind = opt+backspace=text:\x17
+{{- end }}

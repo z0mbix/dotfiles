@@ -39,3 +39,42 @@ $ chezmoi diff
 $ chezmoi apply --verbose
 $ chezmoi apply --dry-run
 ```
+
+## Work Setup
+
+Add the following host to `~/.ssh/config.user`:
+
+```sshconfig
+Host github-personal
+   User git
+   PreferredAuthentications publickey
+   PasswordAuthentication no
+   RequestTTY no
+   HostName github.com
+   IdentityFile ~/path/to/private/key
+   IdentitiesOnly yes
+   ForwardAgent no
+```
+
+then add the following to `.git/config`:
+
+```gitconfig
+[core]
+        repositoryformatversion = 0
+        filemode = true
+        bare = false
+        logallrefupdates = true
+        ignorecase = true
+        precomposeunicode = true
+[submodule]
+        active = .
+[remote "origin"]
+        url = ssh://git@github-personal/z0mbix/dotfiles.git
+        fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "main"]
+        remote = origin
+        merge = refs/heads/main
+[user]
+        name = z0mbix
+        email = zombie@zombix.org
+```

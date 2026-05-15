@@ -1,1 +1,0 @@
-return { "machakann/vim-highlightedyank" }

@@ -23,7 +23,6 @@ abbr j jobs
 abbr p1 'ping 1.1.1.1'
 abbr p8 'ping 8.8.8.8'
 abbr vimdiff 'nvim -d'
-abbr countdown 'mpg321 -q ~/iCloudDrive/Sounds/countdown.mp3'
 abbr youtube-dl-mp3 'youtube-dl --extract-audio --audio-format mp3'
 abbr weather 'clear; curl http://wttr.in/'
 # abbr tmux 'TERM screen-256color tmux'
@@ -42,9 +41,7 @@ abbr vi nvim
 abbr vim nvim
 abbr unset 'set --erase'
 
-abbr dotfiles "cd $HOME/iCloudDrive/Projects/dotfiles"
 abbr downloads "cd $HOME/Downloads"
-abbr icd "cd $HOME/iCloudDrive"
 abbr p projects
 abbr pass gopass
 

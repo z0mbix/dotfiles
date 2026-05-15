@@ -7,6 +7,7 @@ if status is-interactive
     fish_add_path ~/.cargo/bin
     fish_add_path ~/.krew/bin
     fish_add_path ~/go/bin
+    fish_add_path ~/.opencode/bin
 
     if command --query nvim
         set -x EDITOR nvim

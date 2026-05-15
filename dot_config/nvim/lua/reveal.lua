@@ -1,9 +1,4 @@
--- plugin/reveal.lua (autoloaded)  ── or ──  lua/reveal/init.lua + require('reveal').setup()
 local M = {}
-
--- local function is_macos()
---   return vim.loop.os_uname().sysname == "Darwin"
--- end
 
 local function is_macos()
   return vim.fn.has "mac" == 1
@@ -54,10 +49,5 @@ function M.setup()
     M.reveal_in_finder()
   end, {})
 end
-
--- if this file lives in plugin/, auto-register the command:
--- if ... == nil or ...:match("^plugin[./]") then
---   M.setup()
--- end
 
 return M

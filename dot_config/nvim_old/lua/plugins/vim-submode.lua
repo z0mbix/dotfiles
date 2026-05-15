@@ -1,1 +1,0 @@
-return { "kana/vim-submode" }
