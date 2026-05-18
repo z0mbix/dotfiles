@@ -3,9 +3,11 @@ README.md
 {{- if .workComputer }}
 .aws/
 .config/shellcheckrc
+./claude/
 .hammerspoon/
 .ssh/config
 Brewfile
+iCloudDrive
 {{- end }}
 
 {{- if ne .chezmoi.os "darwin" }}
@@ -13,4 +15,5 @@ Brewfile
 .hammerspoon/
 .config/fish/conf.d/07_darwin.fish
 .config/fish/conf.d/07_darwin.fish.tmpl
+iCloudDrive
 {{- end }}
