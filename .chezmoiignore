@@ -17,3 +17,8 @@ Brewfile
 .config/fish/conf.d/07_darwin.fish.tmpl
 iCloudDrive
 {{- end }}
+
+{{- if ne .chezmoi.os "linux" }}
+.config/fish/conf.d/07_linux.fish
+.config/fish/conf.d/07_linux.fish.tmpl
+{{- end }}

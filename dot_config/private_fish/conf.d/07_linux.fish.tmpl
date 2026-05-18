@@ -1,0 +1,9 @@
+abbr dotfiles "cd $HOME/Repos/dotfiles"
+
+function pbcopy
+  xclip -selection clipboard
+end
+
+function pbpaste
+  xclip -out -selection clipboard
+end

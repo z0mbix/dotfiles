@@ -28,7 +28,11 @@ notify-on-command-finish = unfocused
 notify-on-command-finish-action = no-bell,notify
 notify-on-command-finish-after = 30s
 
+{{- if eq .chezmoi.os "darwin" }}
 font-size = 13
+{{- else }}
+font-size = 9
+{{- end }}
 font-thicken = true
 
 # JetBrains Mono - https://www.jetbrains.com/lp/mono/
@@ -61,4 +65,13 @@ keybind = opt+backspace=text:\x1b\x7f
 
 # Opt+Backspace -> Ctrl-W: delete word backward (works on either Option key)
 keybind = opt+backspace=text:\x17
+{{- end }}
+{{- if eq .chezmoi.os "linux" }}
+
+keybind = cmd+right=text:\x05
+keybind = alt+left=esc:b
+keybind = alt+right=esc:f
+keybind = cmd+delete=text:\x0b
+keybind = cmd+backspace=text:\x15
+keybind = opt+delete=esc:d
 {{- end }}
