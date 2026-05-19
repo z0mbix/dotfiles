@@ -31,7 +31,7 @@ notify-on-command-finish-after = 30s
 {{- if eq .chezmoi.os "darwin" }}
 font-size = 13
 {{- else }}
-font-size = 9
+font-size = 10
 {{- end }}
 font-thicken = true
 
@@ -74,4 +74,10 @@ keybind = alt+right=esc:f
 keybind = cmd+delete=text:\x0b
 keybind = cmd+backspace=text:\x15
 keybind = opt+delete=esc:d
+
+# Super pane/window bindings to mirror macOS behavior
+keybind = super+d=new_split:right
+keybind = super+shift+d=new_split:down
+keybind = super+[=goto_split:next
+keybind = super+]=goto_split:previous
 {{- end }}

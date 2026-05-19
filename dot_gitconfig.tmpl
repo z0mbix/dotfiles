@@ -1,3 +1,5 @@
+# vim: set ft=gitconfig commentstring=#\ %s:
+
 [user]
   email = {{ (dig "git" "email" "" .) }}
   name = {{ (dig "git" "name" "" .) | quote }}

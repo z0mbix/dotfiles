@@ -133,16 +133,15 @@ vim.filetype.add {
   },
   pattern = {
     [vim.pesc(vim.fn.expand "~") .. "/%.sh/.*"] = "sh",
-    [".*/%.ssh/config%..+"] = "sshconfig",
-    ["nats.*%.conf"] = "hocon",
-    ["Jenkinsfile.*"] = "jenkinsfile",
-    [".*%.Jenkinsfile"] = "jenkinsfile",
-    [".*%.json%.j2"] = "json",
+    [".*%.Makefile"] = "make",
     [".*%.code%-workspace"] = "json",
+    [".*%.fish.tmpl"] = "fish",
+    [".*%.json%.j2"] = "json",
+    [".*%.repo%.j2"] = "yum",
     [".*%.tfstate"] = "json",
     [".*%.ya?ml%.j2"] = "yaml",
-    [".*%.repo%.j2"] = "yum",
-    [".*%.Makefile"] = "make",
+    [".*/%.ssh/config%..+"] = "sshconfig",
+    ["nats.*%.conf"] = "hocon",
   },
 }
 
