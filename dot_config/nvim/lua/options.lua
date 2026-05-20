@@ -78,43 +78,42 @@ opt.secure = true -- disable autocmds in .exrc/.nvimrc
 
 -- characters for the statusline
 opt.fillchars = {
-  eob = " ",
-  fold = " ",
-  foldopen = "",
-  foldclose = "",
+  eob = " ", -- empty lines below the last buffer line (default: ~)
+  fold = " ", -- filler between fold text and window edge
+  foldopen = "", -- marker for an open fold in the foldcolumn
+  foldclose = "", -- marker for a closed fold in the foldcolumn
 }
 
 -- characters for invisibles
 opt.listchars = {
-  tab = "› ",
-  eol = "¬",
-  -- eol = "↲",
-  trail = "·",
-  extends = "→",
-  precedes = "←",
-  nbsp = "␣",
+  tab = "› ", -- tab character
+  eol = "¬", -- end of line
+  trail = "·", -- trailing whitespace
+  extends = "→", -- line continues beyond the right edge (nowrap)
+  precedes = "←", -- line continues beyond the left edge (nowrap)
+  nbsp = "␣", -- non-breaking space
 }
 
 opt.wildignore = {
-  "*.o",
-  "*.pyc",
-  "*pycache*",
-  "*~",
-  "*.gif",
-  ".git",
-  ".hg",
-  ".idea",
-  "*.jpeg",
-  "*.jpg",
-  ".mypy_cache",
-  "*.png",
-  ".svn",
+  "*.o",         -- compiled object files
+  "*.pyc",       -- python bytecode
+  "*pycache*",   -- python bytecode cache directories
+  "*~",          -- editor backup files
+  "*.gif",       -- image binaries
+  ".git",        -- git metadata directory
+  ".hg",         -- mercurial metadata directory
+  ".idea",       -- jetbrains IDE project directory
+  "*.jpeg",      -- image binaries
+  "*.jpg",       -- image binaries
+  ".mypy_cache", -- mypy type-checker cache
+  "*.png",       -- image binaries
+  ".svn",        -- subversion metadata directory
 }
 
 opt.shada = {
-  "!", -- global variables that start with an uppercase letter and don't contain lowercase letters
+  "!",     -- global variables that start with an uppercase letter and don't contain lowercase letters
   "'1000", -- how many files to save marks for
-  "<50", -- maximum number of lines saved for each register
-  "s10", -- maximum size of an item contents in KiB
-  "h", -- disable 'hlsearch' highlighting when starting neovim
+  "<50",   -- maximum number of lines saved for each register
+  "s10",   -- maximum size of an item contents in KiB
+  "h",     -- disable 'hlsearch' highlighting when starting neovim
 }

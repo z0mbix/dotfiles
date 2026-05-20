@@ -47,6 +47,12 @@ map("c", "w!!", "%!sudo tee > /dev/null %", { desc = "Write file as root", silen
 -- Clear search highlighting
 map("n", "<leader>/", ":nohlsearch<CR>", { desc = "Clear search highlighting", silent = true })
 
+-- Toggle cmdheight between 0 and 1 (cmdheight=0 hides error messages)
+map("n", "<leader>tc", function()
+  vim.o.cmdheight = vim.o.cmdheight == 0 and 1 or 0
+  vim.notify("cmdheight set to " .. vim.o.cmdheight)
+end, { desc = "Toggle cmdheight 0/1", silent = true })
+
 -- Telescope
 map("n", "<leader>ts", ":Telescope<CR>", { desc = "Telescope show picker", silent = true })
 map(

@@ -2,7 +2,7 @@ local g = vim.g
 
 -- minimap.vim
 g.minimap_auto_start = 0
-g.minimap_width = 20
+g.minimap_width = 16
 g.minimap_highlight_range = true
 g.minimap_block_filetypes = { "help", "NvimTree", "grug-far", "grug-far-results", "grug-far-history", "terminal" }
 

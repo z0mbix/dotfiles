@@ -174,3 +174,18 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.formatoptions:append "j"
   end,
 })
+
+-- Auto-open minimap for files longer than the threshold
+local minimap_auto_open_threshold = 200
+vim.api.nvim_create_autocmd({ "BufWinEnter", "BufReadPost" }, {
+  group = augroup "minimap_auto_open",
+  desc = "open minimap for long files",
+  callback = function(args)
+    if vim.bo[args.buf].buftype ~= "" then
+      return
+    end
+    if vim.api.nvim_buf_line_count(args.buf) > minimap_auto_open_threshold then
+      vim.cmd "Minimap"
+    end
+  end,
+})

@@ -39,6 +39,18 @@ return {
 
   { import = "nvchad.blink.lazyspec" },
 
+  -- Free <Tab>/<S-Tab> in blink.cmp so Copilot owns them.
+  -- Use <C-n>/<C-p> to navigate the menu and <CR> to accept.
+  {
+    "saghen/blink.cmp",
+    opts = {
+      keymap = {
+        ["<Tab>"] = {},
+        ["<S-Tab>"] = {},
+      },
+    },
+  },
+
   -- https://github.com/nvim-treesitter/nvim-treesitter
   -- treesitter configurations and abstraction layer (main branch — new API)
   {
