@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+#
+# List files on disk that have been edited away from the chezmoi source.
+# Output is absolute paths; templates are tagged "(template)" by default.
+#
+# Usage:
+#   ./scripts/show-modified                            # tagged output
+#   ./scripts/show-modified --paths-only               # bare paths, safe for piping
+#   ./scripts/show-modified --paths-only --skip-templates | xargs chezmoi add
+#
+# Flags:
+#   --paths-only        Omit the "(template)" suffix so output is xargs-safe.
+#   --skip-templates    Exclude files whose source is a .tmpl (chezmoi add would
+#                       clobber them — use `chezmoi re-add` for templates, or edit
+#                       the .tmpl source by hand).
+#
+
+set -euo pipefail
+
+declare paths_only=0
+declare skip_templates=0
+
+for arg in "$@"; do
+  case "$arg" in
+  --paths-only) paths_only=1 ;;
+  --skip-templates) skip_templates=1 ;;
+  -h | --help)
+    sed -n '2,/^$/p' "$0" | sed 's/^# \{0,1\}//'
+    exit 0
+    ;;
+  *)
+    echo "unknown flag: $arg" >&2
+    exit 2
+    ;;
+  esac
+done
+
+chezmoi status --path-style=absolute |
+  awk 'substr($0,2,1) == "M" { print substr($0,4) }' |
+  while IFS= read -r target; do
+    is_template=0
+    if ((skip_templates)) || ((!paths_only)); then
+      source_path=$(chezmoi source-path "$target")
+      [[ "$source_path" == *.tmpl ]] && is_template=1
+    fi
+
+    if ((skip_templates)) && ((is_template)); then
+      continue
+    fi
+
+    if ((paths_only)); then
+      printf '%s\n' "$target"
+    elif ((is_template)); then
+      printf '%s (template)\n' "$target"
+    else
+      printf '%s\n' "$target"
+    fi
+  done
