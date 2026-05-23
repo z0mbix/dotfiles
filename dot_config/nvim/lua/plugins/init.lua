@@ -151,6 +151,7 @@ return {
   -- code minimap sidebar (install code-minimap separately)
   {
     "wfxr/minimap.vim",
+    cmd = { "Minimap", "MinimapClose", "MinimapToggle", "MinimapRefresh", "MinimapUpdateHighlight" },
     event = "VeryLazy",
   },
 
@@ -300,7 +301,7 @@ return {
       local builtin = require "statuscol.builtin"
       require("statuscol").setup {
         segments = {
-          { text = { "%s" }, click = "v:lua.ScSa" },
+          { text = { "%s" },             click = "v:lua.ScSa" },
           { text = { builtin.lnumfunc }, click = "v:lua.ScLa" },
           {
             text = { " ", builtin.foldfunc, " " },
@@ -459,8 +460,8 @@ return {
     "NeogitOrg/neogit",
     cmd = "Neogit",
     dependencies = {
-      "nvim-lua/plenary.nvim", -- required
-      "sindrets/diffview.nvim", -- optional
+      "nvim-lua/plenary.nvim",         -- required
+      "sindrets/diffview.nvim",        -- optional
       "nvim-telescope/telescope.nvim", -- optional
     },
   },

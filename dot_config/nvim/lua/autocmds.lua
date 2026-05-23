@@ -185,7 +185,9 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "BufReadPost" }, {
       return
     end
     if vim.api.nvim_buf_line_count(args.buf) > minimap_auto_open_threshold then
-      vim.cmd "Minimap"
+      if vim.fn.exists ":Minimap" == 2 then
+        pcall(vim.cmd, "Minimap")
+      end
     end
   end,
 })

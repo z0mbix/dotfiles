@@ -7,5 +7,7 @@ if status is-interactive
     fish_add_path ~/.cargo/bin
     fish_add_path ~/.krew/bin
     fish_add_path ~/.local/bin
+    fish_add_path ~/.local/share/npm/global/bin/
+    fish_add_path ~/.local/share/pnpm/bin
     fish_add_path ~/.opencode/bin
 end

@@ -1,0 +1,122 @@
+{{- if eq .chezmoi.os "linux" -}}
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if ! command -v gsettings >/dev/null 2>&1; then
+  exit 0
+fi
+
+set_gsettings() {
+  local schema="$1"
+  local key="$2"
+  local value="$3"
+  local current
+
+  if ! gsettings list-keys "$schema" 2>/dev/null | grep -qx "$key"; then
+    echo "skip: ${schema} ${key} is not available"
+    return 0
+  fi
+
+  current="$(gsettings get "$schema" "$key")"
+  if [[ "$current" == "$value" ]]; then
+    echo "ok: ${schema} ${key} is already ${value}"
+    return 0
+  fi
+
+  echo "set: ${schema} ${key}: ${current} -> ${value}"
+  gsettings set "$schema" "$key" "$value"
+}
+
+# Appearance.
+set_gsettings org.gnome.desktop.interface accent-color "'purple'"
+set_gsettings org.gnome.desktop.interface clock-show-weekday 'true'
+set_gsettings org.gnome.desktop.interface color-scheme "'prefer-dark'"
+set_gsettings org.gnome.desktop.interface enable-hot-corners 'true'
+set_gsettings org.gnome.desktop.interface gtk-theme "'Yaru-purple-dark'"
+set_gsettings org.gnome.desktop.interface icon-theme "'Yaru-purple-dark'"
+set_gsettings org.gnome.desktop.interface show-battery-percentage 'false'
+
+# Background and lock screen.
+set_gsettings org.gnome.desktop.background picture-options "'zoom'"
+set_gsettings org.gnome.desktop.background picture-uri "'file:///usr/share/backgrounds/osselo-Ask_a_friend.jpg'"
+set_gsettings org.gnome.desktop.background picture-uri-dark "'file:///usr/share/backgrounds/osselo-Ask_a_friend.jpg'"
+set_gsettings org.gnome.desktop.background primary-color "'#000000000000'"
+set_gsettings org.gnome.desktop.background secondary-color "'#000000000000'"
+set_gsettings org.gnome.desktop.screensaver picture-options "'zoom'"
+set_gsettings org.gnome.desktop.screensaver picture-uri "'file:///usr/share/backgrounds/osselo-Ask_a_friend.jpg'"
+set_gsettings org.gnome.desktop.screensaver primary-color "'#000000000000'"
+set_gsettings org.gnome.desktop.screensaver secondary-color "'#000000000000'"
+
+# Keyboard input.
+set_gsettings org.gnome.desktop.input-sources sources "[('xkb', 'gb')]"
+set_gsettings org.gnome.desktop.input-sources xkb-options "['compose:ins']"
+
+# Keep these Super bindings available for Ghostty.
+set_gsettings org.gnome.desktop.wm.keybindings show-desktop '@as []'
+set_gsettings org.gnome.shell.keybindings focus-active-notification '@as []'
+
+# Workspace switching.
+set_gsettings org.gnome.desktop.wm.keybindings maximize "['<Control><Super>Return']"
+set_gsettings org.gnome.desktop.wm.keybindings switch-to-workspace-1 "['<Super>1']"
+set_gsettings org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Super>2']"
+set_gsettings org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Super>3']"
+set_gsettings org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Super>4']"
+set_gsettings org.gnome.desktop.wm.preferences num-workspaces '3'
+set_gsettings org.gnome.shell.keybindings switch-to-application-1 '@as []'
+set_gsettings org.gnome.shell.keybindings switch-to-application-2 '@as []'
+set_gsettings org.gnome.shell.keybindings switch-to-application-3 '@as []'
+set_gsettings org.gnome.shell.keybindings switch-to-application-4 '@as []'
+
+# Window management.
+set_gsettings org.gnome.mutter dynamic-workspaces 'false'
+set_gsettings org.gnome.mutter edge-tiling 'false'
+set_gsettings org.gnome.desktop.wm.keybindings move-to-center "['<Control><Super>c']"
+set_gsettings org.gnome.mutter.keybindings toggle-tiled-left '@as []'
+set_gsettings org.gnome.mutter.keybindings toggle-tiled-right '@as []'
+
+# Mouse preferences.
+set_gsettings org.gnome.desktop.peripherals.mouse natural-scroll 'false'
+
+# Touchpad preferences.
+set_gsettings org.gnome.desktop.peripherals.touchpad accel-profile "'default'"
+set_gsettings org.gnome.desktop.peripherals.touchpad click-method "'fingers'"
+set_gsettings org.gnome.desktop.peripherals.touchpad disable-while-typing 'true'
+set_gsettings org.gnome.desktop.peripherals.touchpad disable-while-typing-timeout 'uint32 500'
+set_gsettings org.gnome.desktop.peripherals.touchpad edge-scrolling-enabled 'false'
+set_gsettings org.gnome.desktop.peripherals.touchpad left-handed "'mouse'"
+set_gsettings org.gnome.desktop.peripherals.touchpad middle-click-emulation 'false'
+set_gsettings org.gnome.desktop.peripherals.touchpad natural-scroll 'true'
+set_gsettings org.gnome.desktop.peripherals.touchpad send-events "'enabled'"
+set_gsettings org.gnome.desktop.peripherals.touchpad speed '0.12820512820512819'
+set_gsettings org.gnome.desktop.peripherals.touchpad tap-and-drag 'true'
+set_gsettings org.gnome.desktop.peripherals.touchpad tap-and-drag-lock 'false'
+set_gsettings org.gnome.desktop.peripherals.touchpad tap-button-map "'default'"
+set_gsettings org.gnome.desktop.peripherals.touchpad tap-to-click 'true'
+set_gsettings org.gnome.desktop.peripherals.touchpad two-finger-scrolling-enabled 'true'
+
+# Privacy and screen time.
+set_gsettings org.gnome.desktop.privacy report-technical-problems 'false'
+set_gsettings org.gnome.desktop.screen-time-limits daily-limit-seconds 'uint32 28800'
+
+# Files.
+set_gsettings org.gnome.nautilus.preferences default-folder-viewer "'list-view'"
+
+# Night light.
+set_gsettings org.gnome.settings-daemon.plugins.color night-light-enabled 'true'
+set_gsettings org.gnome.settings-daemon.plugins.color night-light-temperature 'uint32 4006'
+
+# Power.
+set_gsettings org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout '3600'
+set_gsettings org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type "'nothing'"
+
+# Shell.
+set_gsettings org.gnome.shell enabled-extensions "['ding@rastersoft.com', 'ubuntu-dock@ubuntu.com', 'tiling-assistant@ubuntu.com']"
+set_gsettings org.gnome.shell favorite-apps "['firefox_firefox.desktop', 'org.gnome.Nautilus.desktop', 'com.mitchellh.ghostty.desktop', 'org.gnome.Rhythmbox3.desktop', 'snap-store_snap-store.desktop']"
+set_gsettings org.gnome.shell.extensions.dash-to-dock dock-fixed 'false'
+set_gsettings org.gnome.shell.extensions.dash-to-dock dock-position "'RIGHT'"
+set_gsettings org.gnome.shell.extensions.dash-to-dock extend-height 'false'
+set_gsettings org.gnome.shell.extensions.ding check-x11wayland 'true'
+set_gsettings org.gnome.shell.extensions.tiling-assistant focus-hint-color "'rgb(203,67,20)'"
+set_gsettings org.gnome.shell.extensions.tiling-assistant tiling-popup-all-workspace 'true'
+{{- end -}}

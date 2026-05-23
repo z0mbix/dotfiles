@@ -44,6 +44,7 @@ abbr unset 'set --erase'
 abbr downloads "cd $HOME/Downloads"
 abbr p projects
 abbr pass gopass
+abbr repos __repos_cd
 
 # Git
 abbr gc 'git commit -m'
@@ -151,6 +152,20 @@ abbr --add dotdot --regex '^\.\.+$' --function multicd
 
 function cdgr
     cd "$(git rev-parse --show-toplevel)" || true
+end
+
+function __repos_cd
+  set repos_dir "$HOME/Repos"
+
+  if not test -d "$repos_dir"
+    echo "$repos_dir does not exist"
+    return 1
+  end
+
+  set dest_dir (find "$repos_dir" -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | sort | fzf --prompt "Repos> ")
+  if test -n "$dest_dir"
+    cd "$repos_dir/$dest_dir"
+  end
 end
 
 function neovim-config
