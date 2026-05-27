@@ -154,6 +154,24 @@ function cdgr
     cd "$(git rev-parse --show-toplevel)" || true
 end
 
+function cdf
+    if test (count $argv) -eq 0
+        echo "usage: cdf <file>"
+        return 1
+    end
+
+    set -l target $argv[1]
+    if not test -e $target
+        set -l resolved (command -s $target)
+        if test -z "$resolved"
+            echo "cdf: $target not found"
+            return 1
+        end
+        set target $resolved
+    end
+    cd (dirname -- (realpath $target))
+end
+
 function __repos_cd
   set repos_dir "$HOME/Repos"
 

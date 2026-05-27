@@ -70,7 +70,7 @@ M.polish_hl = {
 	},
 
 	treesitter = {
-		["@comment"] = { fg = M.base_30.grey, italic = true },
+		["@comment"] = { fg = M.base_30.grey, italic = false },
 		["@string"] = { fg = M.base_30.green },
 		["@function"] = { fg = M.base_30.blue },
 		["@function.call"] = { fg = M.base_30.blue },
