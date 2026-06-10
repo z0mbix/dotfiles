@@ -61,24 +61,25 @@ map(
   ":Telescope current_buffer_fuzzy_find sorting_strategy=ascending<CR>",
   { desc = "Telescope current buffer fuzzy find", silent = true }
 )
-map("n", "<leader>ff", ":Telescope find_files<CR>", { desc = "Telescope find files", silent = true })
-map("n", "<leader>fc", ":Telescope commands<CR>", { desc = "Telescope commands", silent = true })
+map("n", "<leader>cd", ":Telescope zoxide list<CR>", { desc = "Telescope zoxide", silent = true })
 map("n", "<leader>fC", ":Telescope colorscheme<CR>", { desc = "Telescope colorscheme", silent = true })
 map("n", "<leader>fF", ":Telescope git_files<CR>", { desc = "Telescope git files", silent = true })
-map("n", "<leader>fb", ":Telescope buffers<CR>", { desc = "Telescope buffers", silent = true })
-map("n", "<leader>fh", ":Telescope command_history<CR>", { desc = "Telescope command history", silent = true })
 map("n", "<leader>fT", ":TodoTelescope<CR>", { desc = "Telescope todos", silent = true })
-map("n", "<leader>fu", ":Telescope undo<CR>", { desc = "Telescope undo", silent = true })
-map("n", "<leader>fm", ":Telescope marks<CR>", { desc = "Telescope marks", silent = true })
 map("n", "<leader>fa", ":Telescope live_grep<CR>", { desc = "Telescope live grep", silent = true })
+map("n", "<leader>fb", ":Telescope buffers<CR>", { desc = "Telescope buffers", silent = true })
+map("n", "<leader>fc", ":Telescope commands<CR>", { desc = "Telescope commands", silent = true })
+map("n", "<leader>ff", ":Telescope find_files<CR>", { desc = "Telescope find files", silent = true })
+map("n", "<leader>fgb", ":Telescope git_branches<CR>", { desc = "Telescope git branches", silent = true })
+map("n", "<leader>fgc", ":Telescope git_commits<CR>", { desc = "Telescope git commits", silent = true })
+map("n", "<leader>fgs", ":Telescope git_status<CR>", { desc = "Telescope git status", silent = true })
+map("n", "<leader>fh", ":Telescope command_history<CR>", { desc = "Telescope command history", silent = true })
+map("n", "<leader>fm", ":Telescope marks<CR>", { desc = "Telescope marks", silent = true })
 map("n", "<leader>fp", ":Telescope live_grep<CR>", { desc = "Telescope live grep", silent = true })
 map("n", "<leader>fr", ":Telescope registers<CR>", { desc = "Telescope registers", silent = true })
 map("n", "<leader>fs", ":Telescope spell_suggest<CR>", { desc = "Telescope spell suggest", silent = true })
+map("n", "<leader>ft", ":Telescope filetypes<CR>", { desc = "Telescope file type suggest", silent = true })
+map("n", "<leader>fu", ":Telescope undo<CR>", { desc = "Telescope undo", silent = true })
 map("n", "<leader>fw", ":Telescope grep_string<CR>", { desc = "Telescope grep string under cursor", silent = true })
-map("n", "<leader>fgs", ":Telescope git_status<CR>", { desc = "Telescope git status", silent = true })
-map("n", "<leader>fgc", ":Telescope git_commits<CR>", { desc = "Telescope git commits", silent = true })
-map("n", "<leader>fgb", ":Telescope git_branches<CR>", { desc = "Telescope git branches", silent = true })
-map("n", "<leader>cd", ":Telescope zoxide list<CR>", { desc = "Telescope zoxide", silent = true })
 
 -- Remap for dealing with word wrap
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -95,11 +96,20 @@ map("n", "<leader>n", ":NvimTreeToggle toggle=true action=show<CR>", { desc = "T
 map("n", "<Enter>", "za")
 map("v", "<Enter>", "za")
 
--- Make navigating around splits easier
-map("n", "<C-j>", "<C-w>j")
-map("n", "<C-k>", "<C-w>k")
-map("n", "<C-h>", "<C-w>h")
-map("n", "<C-l>", "<C-w>l")
+-- Make navigating around splits easier.
+-- Skip the minimap window: moving into it does nothing instead of focusing it.
+local function win_move(direction)
+  local from = vim.api.nvim_get_current_win()
+  vim.cmd("wincmd " .. direction)
+  if vim.bo.filetype == "minimap" then
+    vim.api.nvim_set_current_win(from)
+  end
+end
+
+map("n", "<C-j>", function() win_move "j" end)
+map("n", "<C-k>", function() win_move "k" end)
+map("n", "<C-h>", function() win_move "h" end)
+map("n", "<C-l>", function() win_move "l" end)
 
 -- Fix split window ratios
 map("n", "<leader>we", "<C-w>=")

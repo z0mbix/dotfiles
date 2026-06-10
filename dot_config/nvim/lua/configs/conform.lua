@@ -7,6 +7,12 @@ local options = {
     -- html = { "prettier" },
   },
 
+  formatters = {
+    shfmt = {
+      prepend_args = { "-i", "2", "-ci", "-bn", "-ln", "bash" },
+    },
+  },
+
   format_on_save = {
     -- These options will be passed to conform.format()
     timeout_ms = 500,

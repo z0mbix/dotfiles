@@ -122,6 +122,7 @@ vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave"
 -- (*.sh, *.py, *.rb, *.js, *.ts, *.json, *.yaml, *.hcl, Gemfile, etc. are all native)
 vim.filetype.add {
   extension = {
+    hujson = "jsonc",
     rc = "sh",
     repo = "yum",
   },

@@ -351,6 +351,16 @@ return {
   {
     "zbirenbaum/copilot.lua",
     event = "VeryLazy",
+    -- Only load when Node.js is available, otherwise copilot.lua errors on
+    -- startup with "Could not determine Node.js version". Also respect an
+    -- explicit COPILOT_ENABLED=0/false opt-out.
+    cond = function()
+      local enabled = vim.env.COPILOT_ENABLED
+      if enabled == "0" or enabled == "false" then
+        return false
+      end
+      return vim.fn.executable "node" == 1
+    end,
     config = function()
       require("copilot").setup {
         copilot_node_command = vim.fn.exepath "node",
