@@ -44,7 +44,10 @@ abbr unset 'set --erase'
 abbr downloads "cd $HOME/Downloads"
 abbr p projects
 abbr pass gopass
-abbr repos __repos_cd
+
+if not functions -q repos
+    abbr repos __repos_cd
+end
 
 # Git
 abbr gc 'git commit -m'
@@ -174,13 +177,15 @@ end
 
 function __repos_cd
   set repos_dir "$HOME/Repos"
+  cd $repos_dir; or return
 
   if not test -d "$repos_dir"
     echo "$repos_dir does not exist"
     return 1
   end
 
-  set dest_dir (find "$repos_dir" -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | sort | fzf --prompt "Repos> ")
+  set dest_dir (fd --type d --max-depth 1 | string trim --right --chars '/' | fzf --prompt "Repos> ")
+  # set dest_dir (find "$repos_dir" -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | sort | fzf --prompt "Repos> ")
   if test -n "$dest_dir"
     cd "$repos_dir/$dest_dir"
   end

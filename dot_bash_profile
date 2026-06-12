@@ -1,0 +1,3 @@
+# Login shells read .bash_profile; source .bashrc so the prompt and tools
+# are set up regardless of how bash was started.
+[ -f ~/.bashrc ] && . ~/.bashrc
