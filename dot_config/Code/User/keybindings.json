@@ -89,8 +89,14 @@
     "when": "editorTextFocus && !editorReadonly"
   },
   {
+    "command": "workbench.action.closePanel",
+    "key": "shift+cmd+.",
+    "when": "panelVisible && activePanel == 'terminal'"
+  },
+  {
     "command": "workbench.action.terminal.toggleTerminal",
-    "key": "shift+cmd+."
+    "key": "shift+cmd+.",
+    "when": "!panelVisible || activePanel != 'terminal'"
   },
   {
     "command": "workbench.action.terminal.toggleTerminal",
@@ -162,5 +168,15 @@
   {
     "command": "workbench.action.openWorkspace",
     "key": "alt+cmd+o"
+  },
+  {
+    "command": "workbench.action.chat.open",
+    "key": "shift+cmd+a",
+    "when": "!auxiliaryBarVisible"
+  },
+  {
+    "command": "workbench.action.toggleAuxiliaryBar",
+    "key": "shift+cmd+a",
+    "when": "auxiliaryBarVisible"
   }
 ]

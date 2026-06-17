@@ -61,6 +61,7 @@
   branch-diff = !"f() { git diff master $@; }; f"
   branch-select = !"git branch | fzf | tr -d '[:space:]\\*'"
   branch-toggle = checkout -
+  branch-prune = !git fetch --prune --quiet && git branch -vv | awk '/: gone]/ {print $1}' | xargs -I {} git branch -D {}
   cat = -p cat-file -p
   changelog = log --pretty=format:\" * %s\"
   ci = commit
@@ -126,3 +127,5 @@
   required = true
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
+[rebase]
+  autoStash = true

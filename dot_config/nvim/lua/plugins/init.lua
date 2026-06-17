@@ -495,6 +495,9 @@ return {
     opts = {
       keymaps = {
         useDefaults = true,
+        -- `L` defaults to the `url` textobject, which shadows our `L` = end-of-line
+        -- mapping in visual/operator-pending mode (mappings.lua).
+        disabledDefaults = { "L" },
       },
     },
   },

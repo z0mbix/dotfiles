@@ -6,6 +6,7 @@ scripts
 .claude/
 .config/k9s/skin.yaml
 .config/shellcheckrc
+.gitconfig
 .hammerspoon/
 .ssh/config
 Brewfile
