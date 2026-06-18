@@ -52,6 +52,9 @@ truncation_length = 8
 format = '[$symbol$branch(:$remote_branch)]($style) '
 style = "yellow"
 
+[git_status]
+untracked = ""
+
 [golang]
 style = "purple"
 format = "[$symbol($version )]($style)"

@@ -133,10 +133,11 @@ abbr aws-running-instances 'aws ec2 describe-instances --output=json --filters "
 
 if command --query bat
     abbr batp 'bat -p --decorations never'
-    abbr baty 'bat -l yaml'
-    abbr batj 'bat -l json'
     abbr batf 'bat -l fish'
+    abbr batj 'bat -l json'
+    abbr batt 'bat -l toml'
     abbr batx 'bat -l xml'
+    abbr baty 'bat -l yaml'
 end
 
 function showpath
