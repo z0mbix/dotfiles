@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -eu
+
+# Re-run whenever tmux.conf changes (tpm installs the @plugin entries from it):
+# {{ include "dot_config/tmux/tmux.conf" | sha256sum }}
+
+tpm_bin="${HOME}/.config/tmux/plugins/tpm/bin"
+
+if command -v tmux >/dev/null 2>&1 && [ -d "${tpm_bin}" ]; then
+	# Install any newly-added @plugin entries...
+	[ -x "${tpm_bin}/install_plugins" ] && "${tpm_bin}/install_plugins"
+	# ...and remove any plugins no longer listed in tmux.conf
+	[ -x "${tpm_bin}/clean_plugins" ] && "${tpm_bin}/clean_plugins"
+fi
