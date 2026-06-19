@@ -209,6 +209,17 @@
     {
       "before": [
         "<leader>",
+        "m",
+        "d",
+        "p"
+      ],
+      "commands": [
+        "markdown.togglePreview"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
         "o"
       ],
       "commands": [
@@ -298,5 +309,7 @@
   },
   "editor.fontSize": 13,
   "terminal.integrated.fontSize": 13,
-  "workbench.iconTheme": "file-icons"
+  "workbench.iconTheme": "file-icons",
+  "aws.cloudformation.telemetry.enabled": false,
+  "aws.telemetry": false
 }

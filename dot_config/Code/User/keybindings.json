@@ -178,5 +178,10 @@
     "command": "workbench.action.toggleAuxiliaryBar",
     "key": "shift+cmd+a",
     "when": "auxiliaryBarVisible"
+  },
+  {
+    "key": "space m d p",
+    "command": "markdown.reopenAsSource",
+    "when": "activeWebviewPanelId == 'markdown.preview' || activeCustomEditorId == 'vscode.markdown.preview.editor'"
   }
 ]
