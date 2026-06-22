@@ -45,6 +45,9 @@ abbr downloads "cd $HOME/Downloads"
 abbr p projects
 abbr pass gopass
 
+abbr jb 'just build'
+abbr jt 'just test'
+
 if not functions -q repos
     abbr repos __repos_cd
 end

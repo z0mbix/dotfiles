@@ -1,10 +1,10 @@
 local options = {
   formatters_by_ft = {
-    lua = { "stylua" },
-    sh = { "shfmt" },
     go = { "gofmt" },
-    -- css = { "prettier" },
-    -- html = { "prettier" },
+    lua = { "stylua" },
+    rust = { "rustfmt" },
+    sh = { "shfmt" },
+    toml = { "taplo" },
   },
 
   formatters = {
