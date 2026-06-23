@@ -1,14 +1,18 @@
-set -x HOMEBREW_INSTALL_BADGE 📦
-set -x HOMEBREW_NO_ANALYTICS 1
-set -x HOMEBREW_AUTO_UPDATE_SECS 86400
+set -gx HOMEBREW_INSTALL_BADGE 📦
+set -gx HOMEBREW_NO_ANALYTICS 1
+set -gx HOMEBREW_AUTO_UPDATE_SECS 86400
 
 if test -z "$HOMEBREW_PREFIX"
     eval ({{(dig "brewPath" "" .) }} shellenv)
 end
 
-set -x SSH_AUTH_SOCK ~/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh
+set -gx SSH_AUTH_SOCK ~/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh
 
 set --erase XDG_DATA_DIRS
+
+if test -d /opt/homebrew/opt/rustup/bin
+    fish_add_path /opt/homebrew/opt/rustup/bin
+end
 
 # macOS-only aliases
 abbr countdown 'mpg321 -q ~/iCloudDrive/Sounds/countdown.mp3'

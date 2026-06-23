@@ -301,7 +301,7 @@ return {
       local builtin = require "statuscol.builtin"
       require("statuscol").setup {
         segments = {
-          { text = { "%s" },             click = "v:lua.ScSa" },
+          { text = { "%s" }, click = "v:lua.ScSa" },
           { text = { builtin.lnumfunc }, click = "v:lua.ScLa" },
           {
             text = { " ", builtin.foldfunc, " " },
@@ -348,60 +348,60 @@ return {
 
   -- https://github.com/zbirenbaum/copilot.lua
   -- GitHub Copilot
-  {
-    "zbirenbaum/copilot.lua",
-    event = "VeryLazy",
-    -- Only load when Node.js is available, otherwise copilot.lua errors on
-    -- startup with "Could not determine Node.js version". Also respect an
-    -- explicit COPILOT_ENABLED=0/false opt-out.
-    cond = function()
-      local enabled = vim.env.COPILOT_ENABLED
-      if enabled == "0" or enabled == "false" then
-        return false
-      end
-      return vim.fn.executable "node" == 1
-    end,
-    config = function()
-      require("copilot").setup {
-        copilot_node_command = vim.fn.exepath "node",
-        panel = {
-          enabled = true,
-          auto_refresh = false,
-          keymap = {
-            jump_prev = "[[",
-            jump_next = "]]",
-            accept = "<CR>",
-            refresh = "gr",
-            open = "<M-CR>",
-          },
-          layout = {
-            position = "bottom", -- | top | left | right
-            ratio = 0.4,
-          },
-        },
-        suggestion = {
-          enabled = true,
-          auto_trigger = true,
-          debounce = 75,
-          keymap = {
-            -- accept = "<M-l>",
-            accept = "<Tab>",
-            accept_word = false,
-            accept_line = false,
-            next = "<M-]>",
-            prev = "<M-[>",
-            dismiss = "<C-]>",
-          },
-        },
-        filetypes = {
-          yaml = true,
-          markdown = true,
-          help = false,
-          ["."] = false,
-        },
-      }
-    end,
-  },
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   event = "VeryLazy",
+  --   -- Only load when Node.js is available, otherwise copilot.lua errors on
+  --   -- startup with "Could not determine Node.js version". Also respect an
+  --   -- explicit COPILOT_ENABLED=0/false opt-out.
+  --   cond = function()
+  --     local enabled = vim.env.COPILOT_ENABLED
+  --     if enabled == "0" or enabled == "false" then
+  --       return false
+  --     end
+  --     return vim.fn.executable "node" == 1
+  --   end,
+  --   config = function()
+  --     require("copilot").setup {
+  --       copilot_node_command = vim.fn.exepath "node",
+  --       panel = {
+  --         enabled = true,
+  --         auto_refresh = false,
+  --         keymap = {
+  --           jump_prev = "[[",
+  --           jump_next = "]]",
+  --           accept = "<CR>",
+  --           refresh = "gr",
+  --           open = "<M-CR>",
+  --         },
+  --         layout = {
+  --           position = "bottom", -- | top | left | right
+  --           ratio = 0.4,
+  --         },
+  --       },
+  --       suggestion = {
+  --         enabled = true,
+  --         auto_trigger = true,
+  --         debounce = 75,
+  --         keymap = {
+  --           -- accept = "<M-l>",
+  --           accept = "<Tab>",
+  --           accept_word = false,
+  --           accept_line = false,
+  --           next = "<M-]>",
+  --           prev = "<M-[>",
+  --           dismiss = "<C-]>",
+  --         },
+  --       },
+  --       filetypes = {
+  --         yaml = true,
+  --         markdown = true,
+  --         help = false,
+  --         ["."] = false,
+  --       },
+  --     }
+  --   end,
+  -- },
 
   -- https://github.com/olimorris/codecompanion.nvim
   -- AI code generation and chat within Neovim
@@ -470,8 +470,8 @@ return {
     "NeogitOrg/neogit",
     cmd = "Neogit",
     dependencies = {
-      "nvim-lua/plenary.nvim",         -- required
-      "sindrets/diffview.nvim",        -- optional
+      "nvim-lua/plenary.nvim", -- required
+      "sindrets/diffview.nvim", -- optional
       "nvim-telescope/telescope.nvim", -- optional
     },
   },
