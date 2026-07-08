@@ -212,6 +212,15 @@
 				},
 			},
 		},
+		"Dockerfile": {
+			"formatter": {
+				"external": {
+					"command":   "{{ lookPath "dockerfmt" }}",
+					"arguments": ["-n"],
+				},
+			},
+			"format_on_save": "on",
+		},
 		"Shell Script": {
 			"tab_size": 2,
 			"formatter": {
