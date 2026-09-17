@@ -1,5 +1,6 @@
 local options = {
   formatters_by_ft = {
+    cue = { "cue_fmt" },
     fish = { "fish_indent" },
     go = { "gofmt" },
     lua = { "stylua" },

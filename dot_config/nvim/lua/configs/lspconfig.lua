@@ -5,6 +5,7 @@ require("nvchad.configs.lspconfig").defaults()
 local servers = {
   "bashls",       -- bash-language-server
   "cssls",        -- vscode-css-language-server
+  "cue",          -- cue lsp (provided by the cue binary)
   "gopls",        -- go
   "html",         -- vscode-html-language-server
   "lua_ls",       -- lua-language-server

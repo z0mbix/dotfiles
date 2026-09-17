@@ -5,6 +5,7 @@ k9s:
   maxConnRetry: 5
   readOnly: false
   noExitOnCtrlC: false
+  defaultView: namespaces
   ui:
     # skin: rose-pine-moon
     enableMouse: false

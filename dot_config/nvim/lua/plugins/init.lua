@@ -23,6 +23,9 @@ return {
     event = "User FilePost",
     opts = {
       -- keep this list in sync with lua/configs/lspconfig.lua
+      -- cue is deliberately omitted: its language server and formatter ship inside
+      -- the cue binary, and mason prepends its bin dir to PATH, which would shadow
+      -- the version managed outside neovim
       ensure_installed = {
         "bashls",
         "cssls",
@@ -68,6 +71,7 @@ return {
         "bash",
         "css",
         "csv",
+        "cue",
         "dockerfile",
         "gitcommit",
         "gitignore",
