@@ -140,6 +140,7 @@ end, { desc = "Open file in finder", silent = true })
 
 -- Open file with the default application
 map("n", "<leader>of", ':silent !open "%"<CR>', { desc = "Open file with default application", silent = true })
+map("n", "<leader>op", "<cmd>NeovimProjectDiscover<CR>", { desc = "Open project chooser", silent = true })
 
 -- Select all
 map("n", "<leader>a", "ggVG", { desc = "Select entire file", silent = true })

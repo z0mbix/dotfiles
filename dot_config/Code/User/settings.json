@@ -1,7 +1,7 @@
 {
   "[terraform]": {},
   "[yaml]": {
-    "editor.defaultFormatter": "redhat.vscode-yaml"
+    "editor.defaultFormatter": "redhat.vscode-yaml",
   },
   "debug.showBreakpointsInOverviewRuler": true,
   "editor.accessibilitySupport": "off",
@@ -19,7 +19,7 @@
   "editor.quickSuggestions": {
     "comments": false,
     "other": true,
-    "strings": true
+    "strings": true,
   },
   "editor.renderWhitespace": "boundary",
   "editor.suggestSelection": "first",
@@ -37,7 +37,7 @@
     "**/vars/**/*.yml": "ansible-advanced",
     "*.yaml.j2": "yaml",
     "*.yml.j2": "yaml",
-    ".envrc": "shellscript"
+    ".envrc": "shellscript",
   },
   "files.exclude": {
     "**/*.pyc": true,
@@ -51,7 +51,7 @@
     "**/.vagrant": true,
     "**/.vscode": true,
     "**/__pycache__": true,
-    "**/CVS": true
+    "**/CVS": true,
   },
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
@@ -70,19 +70,15 @@
   "python.formatting.autopep8Args": [
     "--max-line-length=160",
     "--ignore",
-    "E402"
+    "E402",
   ],
   "python.languageServer": "Default",
-  "python.linting.pycodestyleArgs": [
-    "--max-line-length=160"
-  ],
+  "python.linting.pycodestyleArgs": ["--max-line-length=160"],
   "python.linting.pycodestyleEnabled": true,
   "python.showStartPage": false,
   "redhat.telemetry.enabled": false,
   "security.workspace.trust.untrustedFiles": "open",
-  "shellcheck.customArgs": [
-    "-x"
-  ],
+  "shellcheck.customArgs": ["-x"],
   "shellcheck.enableQuickFix": true,
   "shellformat.flag": "-i 2 -sr",
   "shfmt.executablePath": "/opt/homebrew/bin/shfmt",
@@ -102,175 +98,113 @@
   "vim.neovimPath": "/opt/homebrew/bin/nvim",
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": [
-        "<enter>"
-      ],
-      "commands": [
-        "editor.toggleFold"
-      ]
+      "before": ["<enter>"],
+      "commands": ["editor.toggleFold"],
     },
     {
-      "before": [
-        "<leader>",
-        "<leader>"
-      ],
-      "commands": [
-        "fuzzySearch.activeTextEditor"
-      ]
+      "before": ["<leader>", "<leader>"],
+      "commands": ["fuzzySearch.activeTextEditor"],
     },
     {
-      "before": [
-        "<leader>",
-        "i"
-      ],
+      "before": ["<leader>", "i"],
       "commands": [
         {
-          "command": "workbench.action.terminal.focus"
-        }
-      ]
+          "command": "workbench.action.terminal.focus",
+        },
+      ],
     },
     {
-      "before": [
-        "<leader>",
-        "t"
-      ],
+      "before": ["<leader>", "t"],
       "commands": [
         {
-          "command": "workbench.action.terminal.toggleTerminal"
-        }
-      ]
+          "command": "workbench.action.terminal.toggleTerminal",
+        },
+      ],
     },
     {
-      "before": [
-        "<leader>",
-        "u"
-      ],
+      "before": ["<leader>", "u"],
       "commands": [
         {
-          "command": "workbench.action.focusActiveEditorGroup"
-        }
-      ]
+          "command": "workbench.action.focusActiveEditorGroup",
+        },
+      ],
     },
     {
-      "before": [
-        "<leader>",
-        "v"
-      ],
+      "before": ["<leader>", "v"],
       "commands": [
         {
-          "command": "workbench.action.splitEditor"
-        }
-      ]
+          "command": "workbench.action.splitEditor",
+        },
+      ],
     },
     {
-      "before": [
-        "<leader>",
-        "V"
-      ],
+      "before": ["<leader>", "V"],
       "commands": [
         {
-          "command": "workbench.action.splitEditorDown"
-        }
-      ]
+          "command": "workbench.action.splitEditorDown",
+        },
+      ],
     },
     {
-      "before": [
-        "<leader>",
-        "h"
-      ],
+      "before": ["<leader>", "h"],
       "commands": [
         {
-          "command": "workbench.action.focusLeftGroup"
-        }
-      ]
+          "command": "workbench.action.focusLeftGroup",
+        },
+      ],
     },
     {
-      "before": [
-        "<leader>",
-        "l"
-      ],
+      "before": ["<leader>", "l"],
       "commands": [
         {
-          "command": "workbench.action.focusRightGroup"
-        }
-      ]
+          "command": "workbench.action.focusRightGroup",
+        },
+      ],
     },
     {
-      "before": [
-        "<leader>",
-        "p"
-      ],
+      "before": ["<leader>", "p"],
       "commands": [
         {
-          "command": "workbench.action.showCommands"
-        }
-      ]
+          "command": "workbench.action.showCommands",
+        },
+      ],
     },
     {
-      "before": [
-        "<leader>",
-        "m",
-        "d",
-        "p"
-      ],
-      "commands": [
-        "markdown.togglePreview"
-      ]
+      "before": ["<leader>", "m", "d", "p"],
+      "commands": ["markdown.togglePreview"],
     },
     {
-      "before": [
-        "<leader>",
-        "o"
-      ],
+      "before": ["<leader>", "o"],
       "commands": [
         {
-          "command": "workbench.action.quickOpen"
-        }
-      ]
+          "command": "workbench.action.quickOpen",
+        },
+      ],
     },
     {
-      "before": [
-        "<leader>",
-        "/"
-      ],
+      "before": ["<leader>", "/"],
       "commands": [
         {
-          "command": ":nohl"
-        }
-      ]
+          "command": ":nohl",
+        },
+      ],
     },
     {
-      "before": [
-        ">"
-      ],
-      "commands": [
-        "editor.action.indentLines"
-      ]
+      "before": [">"],
+      "commands": ["editor.action.indentLines"],
     },
     {
-      "before": [
-        "<"
-      ],
-      "commands": [
-        "editor.action.outdentLines"
-      ]
+      "before": ["<"],
+      "commands": ["editor.action.outdentLines"],
     },
     {
-      "after": [
-        "^"
-      ],
-      "before": [
-        "H"
-      ]
+      "after": ["^"],
+      "before": ["H"],
     },
     {
-      "after": [
-        "$"
-      ],
-      "before": [
-        "L"
-      ]
-    }
+      "after": ["$"],
+      "before": ["L"],
+    },
   ],
   "vim.smartRelativeLine": true,
   // "vim.statusBarColorControl": true,
@@ -295,21 +229,19 @@
   //   "statusBar.foreground": "#000000"
   // },
   "vs-kubernetes": {
-    "vs-kubernetes.crd-code-completion": "disabled"
+    "vs-kubernetes.crd-code-completion": "disabled",
   },
-  "gitlens.ai.model": "vscode",
-  "gitlens.ai.vscode.model": "copilot:claude-opus-4.6-fast",
   "terminal.integrated.initialHint": false,
   "workbench.colorCustomizations": {
     "statusBar.background": "#ab9df2",
     "statusBar.noFolderBackground": "#ab9df2",
     "statusBar.debuggingBackground": "#ab9df2",
     "statusBar.foreground": "#ffffff",
-    "statusBar.debuggingForeground": "#ffffff"
+    "statusBar.debuggingForeground": "#ffffff",
   },
   "editor.fontSize": 13,
   "terminal.integrated.fontSize": 13,
   "workbench.iconTheme": "file-icons",
   "aws.cloudformation.telemetry.enabled": false,
-  "aws.telemetry": false
+  "aws.telemetry": false,
 }

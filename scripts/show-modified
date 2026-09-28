@@ -1,58 +1,60 @@
 #!/usr/bin/env bash
+# List managed paths that differ between the source and home directory.
 #
-# List files on disk that have been edited away from the chezmoi source.
-# Output is absolute paths; templates are tagged "(template)" by default.
+# Usage: ./scripts/show-modified [--diff] [--skip-templates]
+#        ./scripts/show-modified --paths-only [--null] [--skip-templates]
 #
-# Usage:
-#   ./scripts/show-modified                            # tagged output
-#   ./scripts/show-modified --paths-only               # bare paths, safe for piping
-#   ./scripts/show-modified --paths-only --skip-templates | xargs chezmoi add
+# --diff             Show changes from rendered source to home (--reverse).
+# --paths-only       Print bare paths (use --null when piping to xargs -0).
+# --null             Separate bare paths with NUL bytes instead of newlines.
+# --skip-templates   Exclude templates; merge those into the source manually.
 #
-# Flags:
-#   --paths-only        Omit the "(template)" suffix so output is xargs-safe.
-#   --skip-templates    Exclude files whose source is a .tmpl (chezmoi add would
-#                       clobber them — use `chezmoi re-add` for templates, or edit
-#                       the .tmpl source by hand).
-#
-
 set -euo pipefail
 
-declare paths_only=0
-declare skip_templates=0
-
+paths_only=0
+skip_templates=0
+show_diff=0
+null_output=0
 for arg in "$@"; do
   case "$arg" in
-  --paths-only) paths_only=1 ;;
-  --skip-templates) skip_templates=1 ;;
-  -h | --help)
-    sed -n '2,/^$/p' "$0" | sed 's/^# \{0,1\}//'
-    exit 0
-    ;;
-  *)
-    echo "unknown flag: $arg" >&2
-    exit 2
-    ;;
+    --paths-only) paths_only=1 ;;
+    --skip-templates) skip_templates=1 ;;
+    --diff) show_diff=1 ;;
+    --null) null_output=1; paths_only=1 ;;
+    -h|--help) sed -n '2,/^set /{ /^set /d; s/^# \{0,1\}//; p; }' "$0"; exit 0 ;;
+    *) printf 'Unknown flag: %s\n' "$arg" >&2; exit 2 ;;
   esac
 done
+if ((show_diff && paths_only)); then
+  echo '--diff cannot be combined with --paths-only or --null' >&2
+  exit 2
+fi
 
-chezmoi status --path-style=absolute |
-  awk 'substr($0,2,1) == "M" { print substr($0,4) }' |
-  while IFS= read -r target; do
-    is_template=0
-    if ((skip_templates)) || ((!paths_only)); then
-      source_path=$(chezmoi source-path "$target")
-      [[ "$source_path" == *.tmpl ]] && is_template=1
-    fi
+source_dir=$(cd -- "$(dirname -- "$0")/.." && pwd)
+status=$(chezmoi --source "$source_dir" status --path-style=absolute)
+targets=()
+while IFS= read -r entry; do
+  [[ "${entry:1:1}" == M ]] || continue
+  target=${entry:3}
+  source_path=$(chezmoi --source "$source_dir" source-path -- "$target")
+  is_template=0
+  [[ "$source_path" == *.tmpl ]] && is_template=1
+  if ((skip_templates && is_template)); then
+    continue
+  fi
+  if ((show_diff)); then
+    targets+=("$target")
+  elif ((null_output)); then
+    printf '%s\0' "$target"
+  elif ((paths_only)); then
+    printf '%s\n' "$target"
+  elif ((is_template)); then
+    printf '%s (template)\n' "$target"
+  else
+    printf '%s\n' "$target"
+  fi
+done <<< "$status"
 
-    if ((skip_templates)) && ((is_template)); then
-      continue
-    fi
-
-    if ((paths_only)); then
-      printf '%s\n' "$target"
-    elif ((is_template)); then
-      printf '%s (template)\n' "$target"
-    else
-      printf '%s\n' "$target"
-    fi
-  done
+if ((show_diff && ${#targets[@]})); then
+  chezmoi --source "$source_dir" --no-pager diff --reverse -- "${targets[@]}"
+fi

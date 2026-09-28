@@ -40,6 +40,28 @@ $ chezmoi apply --verbose
 $ chezmoi apply --dry-run
 ```
 
+## Import home-directory changes
+
+Run these from the chezmoi source directory:
+
+```shell
+./scripts/show-modified
+./scripts/show-modified --diff
+./scripts/import-modified --dry-run
+./scripts/import-modified
+git diff
+```
+
+The diff shows rendered source → home, so added lines are home-directory
+changes. Import makes home the source of truth for differing managed regular
+files, including when both copies were edited. It does not apply to home or
+stage or commit changes. Templates are reported and skipped: merge their edits
+manually with `chezmoi merge <path>`. New unmanaged files need an explicit
+`chezmoi add <path>`; deletions and symlink changes are not imported.
+
+Use `show-modified --skip-templates` to filter templates, or
+`show-modified --paths-only --null` for NUL-separated paths.
+
 ## Work Setup
 
 Add the following host to `~/.ssh/config.user`:

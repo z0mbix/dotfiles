@@ -1,4 +1,4 @@
-require "nvchad.options"
+require("nvchad.options")
 
 local opt = vim.opt
 
@@ -7,13 +7,18 @@ vim.g.maplocalleader = " " -- apparently this is too
 
 opt.termguicolors = true -- use all the colours
 opt.background = "dark" -- dark things
+
+if vim.g.zvim then
+  vim.opt.guifont = "JetBrainsMono_Nerd_Font:h13"
+end
+
 opt.wildmode = { "longest", "full" } -- nice things
 opt.wildmenu = true -- tab completion
 opt.number = true -- allow numbers when in insert mode
 opt.relativenumber = true -- relative numbers when not in insert mode
 opt.exrc = true -- source .vimrc files
 opt.cursorline = true -- highlight the current line
-opt.shortmess:append "atOIcF" -- disable start-up message; append so NvChad's flags survive
+opt.shortmess:append("atOIcF") -- disable start-up message; append so NvChad's flags survive
 opt.ruler = true -- show the line and column number of the cursor position
 opt.hidden = true -- sensible buffer behaviour
 opt.showcmd = true -- show command in last line
@@ -53,7 +58,7 @@ opt.sidescroll = 1 -- enable side scrolling
 opt.scrolljump = 8 -- minimum lines to scroll at end of screen
 opt.swapfile = false -- we live in the future
 opt.undofile = true -- persistent undo across sessions
-opt.undodir = vim.fn.stdpath "state" .. "/undo" -- where to store the undo history
+opt.undodir = vim.fn.stdpath("state") .. "/undo" -- where to store the undo history
 opt.showtabline = 1 -- only show the tabline when more than one tab open
 opt.autoread = true -- detect files changed outside of vim
 opt.showmode = false -- don't show the default vim mode line
@@ -95,25 +100,25 @@ opt.listchars = {
 }
 
 opt.wildignore = {
-  "*.o",         -- compiled object files
-  "*.pyc",       -- python bytecode
-  "*pycache*",   -- python bytecode cache directories
-  "*~",          -- editor backup files
-  "*.gif",       -- image binaries
-  ".git",        -- git metadata directory
-  ".hg",         -- mercurial metadata directory
-  ".idea",       -- jetbrains IDE project directory
-  "*.jpeg",      -- image binaries
-  "*.jpg",       -- image binaries
+  "*.o", -- compiled object files
+  "*.pyc", -- python bytecode
+  "*pycache*", -- python bytecode cache directories
+  "*~", -- editor backup files
+  "*.gif", -- image binaries
+  ".git", -- git metadata directory
+  ".hg", -- mercurial metadata directory
+  ".idea", -- jetbrains IDE project directory
+  "*.jpeg", -- image binaries
+  "*.jpg", -- image binaries
   ".mypy_cache", -- mypy type-checker cache
-  "*.png",       -- image binaries
-  ".svn",        -- subversion metadata directory
+  "*.png", -- image binaries
+  ".svn", -- subversion metadata directory
 }
 
 opt.shada = {
-  "!",     -- global variables that start with an uppercase letter and don't contain lowercase letters
+  "!", -- global variables that start with an uppercase letter and don't contain lowercase letters
   "'1000", -- how many files to save marks for
-  "<50",   -- maximum number of lines saved for each register
-  "s10",   -- maximum size of an item contents in KiB
-  "h",     -- disable 'hlsearch' highlighting when starting neovim
+  "<50", -- maximum number of lines saved for each register
+  "s10", -- maximum size of an item contents in KiB
+  "h", -- disable 'hlsearch' highlighting when starting neovim
 }

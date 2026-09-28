@@ -2,13 +2,13 @@ return {
   {
     "stevearc/conform.nvim",
     event = "BufWritePre",
-    opts = require "configs.conform",
+    opts = require("configs.conform"),
   },
 
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require "configs.lspconfig"
+      require("configs.lspconfig")
     end,
   },
 
@@ -128,7 +128,7 @@ return {
     -- lazy = false,
     event = "VimEnter",
     opts = {
-      dir = vim.fn.stdpath "data" .. "/sessions/",
+      dir = vim.fn.stdpath("data") .. "/sessions/",
     },
   },
 
@@ -175,10 +175,10 @@ return {
 
   -- https://github.com/DanilaMihailov/beacon.nvim
   -- highlights the cursor line after large movements
-  {
-    "danilamihailov/beacon.nvim",
-    event = "VeryLazy",
-  },
+  -- {
+  --   "danilamihailov/beacon.nvim",
+  --   event = "VeryLazy",
+  -- },
 
   -- https://github.com/MagicDuck/grug-far.nvim
   -- search and replace across files
@@ -194,7 +194,7 @@ return {
     event = "VeryLazy",
     dependencies = { "nvim-telescope/telescope.nvim" },
     config = function()
-      require("telescope").load_extension "zoxide"
+      require("telescope").load_extension("zoxide")
     end,
   },
 
@@ -205,7 +205,7 @@ return {
     event = "VeryLazy",
     dependencies = { "nvim-telescope/telescope.nvim" },
     config = function()
-      local telescope = require "telescope"
+      local telescope = require("telescope")
       -- merge undo extension opts into the existing telescope config without clobbering it
       telescope.setup(vim.tbl_deep_extend("force", telescope.config or {}, {
         extensions = {
@@ -215,7 +215,7 @@ return {
           },
         },
       }))
-      telescope.load_extension "undo"
+      telescope.load_extension("undo")
     end,
   },
 
@@ -272,8 +272,8 @@ return {
     "ycdzj/win-mover.nvim",
     event = "VeryLazy",
     config = function()
-      local win_mover = require "win-mover"
-      win_mover.setup {
+      local win_mover = require("win-mover")
+      win_mover.setup({
         ignore = {
           enable = true,
           filetypes = { "minimap", "neo-tree", "toggleterm" },
@@ -292,7 +292,7 @@ return {
             ["<Esc>"] = win_mover.ops.quit,
           },
         },
-      }
+      })
     end,
   },
 
@@ -302,8 +302,8 @@ return {
     "luukvbaal/statuscol.nvim",
     event = "VeryLazy",
     config = function()
-      local builtin = require "statuscol.builtin"
-      require("statuscol").setup {
+      local builtin = require("statuscol.builtin")
+      require("statuscol").setup({
         segments = {
           { text = { "%s" }, click = "v:lua.ScSa" },
           { text = { builtin.lnumfunc }, click = "v:lua.ScLa" },
@@ -313,7 +313,7 @@ return {
             click = "v:lua.ScFa",
           },
         },
-      }
+      })
     end,
   },
 
@@ -512,5 +512,80 @@ return {
     "cappyzawa/trim.nvim",
     event = "BufWritePre",
     opts = {},
+  },
+
+  -- https://github.com/coffebar/neovim-project
+  -- Neovim project manager plugin
+  {
+    "coffebar/neovim-project",
+    opts = {
+      last_session_on_startup = false,
+      projects = {
+        "~/Repos/*",
+      },
+      picker = {
+        type = "telescope",
+        opts = {
+          attach_mappings = function(prompt_bufnr, map)
+            if not vim.g.zvim then
+              return true
+            end
+
+            local function open_in_zvim_window()
+              local entry = require("telescope.actions.state").get_selected_entry()
+              if not entry then
+                return
+              end
+              local directory = vim.fn.expand(entry.value)
+              local launcher = vim.fn.exepath "zvim"
+              if launcher == "" then
+                vim.notify("Install the Zvim CLI launcher to open a new window", vim.log.levels.ERROR)
+                return
+              end
+              if vim.fn.isdirectory(directory) == 0 then
+                vim.notify("Project directory is unavailable: " .. directory, vim.log.levels.ERROR)
+                return
+              end
+
+              local ok, err = pcall(vim.system, { launcher, "--", directory }, { text = true }, function(result)
+                if result.code ~= 0 then
+                  vim.schedule(function()
+                    vim.notify("Cannot open Zvim window: " .. (result.stderr or ""), vim.log.levels.ERROR)
+                  end)
+                end
+              end)
+              if not ok then
+                vim.notify("Cannot launch Zvim: " .. tostring(err), vim.log.levels.ERROR)
+                return
+              end
+              require("telescope.actions").close(prompt_bufnr)
+            end
+
+            map("i", "<C-o>", open_in_zvim_window, { desc = "Open project in a new Zvim window" })
+            map("n", "<C-o>", open_in_zvim_window, { desc = "Open project in a new Zvim window" })
+            return true
+          end,
+        },
+      },
+    },
+    init = function()
+      vim.g.neovim_project_session_loaded = false
+      vim.api.nvim_create_autocmd("User", {
+        group = vim.api.nvim_create_augroup("project_startup_session", { clear = true }),
+        pattern = "SessionLoadPost",
+        callback = function()
+          vim.g.neovim_project_session_loaded = true
+        end,
+      })
+      -- enable saving the state of plugins in the session
+      vim.opt.sessionoptions:append("globals") -- save global variables that start with an uppercase letter and contain at least one lowercase letter.
+    end,
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-telescope/telescope.nvim" },
+      { "Shatur/neovim-session-manager" },
+    },
+    lazy = false,
+    priority = 100,
   },
 }

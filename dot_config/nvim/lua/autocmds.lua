@@ -14,7 +14,6 @@ vim.api.nvim_create_autocmd("BufDelete", {
   end,
 })
 
-
 -- Close some filetypes with <q>
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup "close_with_q",
@@ -65,13 +64,53 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
+local function open_file_picker()
+  if vim.fn.isdirectory ".git" ~= 0 then
+    vim.cmd "Telescope git_files"
+  else
+    vim.cmd "Telescope find_files"
+  end
+end
+
+local project_picker_pending = false
+local project_session_restored = false
+vim.api.nvim_create_autocmd("User", {
+  group = augroup "telescope_project_switch",
+  pattern = { "SessionLoadPost", "SessionSavePost" },
+  desc = "open file picker for projects without a saved session",
+  callback = function(event)
+    local project = package.loaded["neovim-project.project"]
+    if vim.v.vim_did_enter == 0 or not project or not project.switching_project then
+      return
+    end
+
+    if event.match == "SessionLoadPost" then
+      project_session_restored = true
+    end
+    if project_picker_pending then
+      return
+    end
+
+    local cwd = vim.fn.getcwd()
+    project_picker_pending = true
+    vim.schedule(function()
+      local restored = project_session_restored
+      project_session_restored = false
+      project_picker_pending = false
+      if not restored and vim.fn.getcwd() == cwd then
+        open_file_picker()
+      end
+    end)
+  end,
+})
+
 -- Open dashboard or telescope on startup
 vim.api.nvim_create_autocmd("VimEnter", {
   group = augroup "telescope_open",
   desc = "open dashboard or telescope on startup",
   pattern = "*",
-  callback = function()
-    if vim.fn.argc() ~= 0 then
+  callback = vim.schedule_wrap(function()
+    if vim.fn.argc() ~= 0 or vim.g.neovim_project_session_loaded then
       return
     end
 
@@ -87,13 +126,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
       return
     end
 
-    -- Open telescope
-    if vim.fn.isdirectory ".git" ~= 0 then
-      vim.cmd "Telescope git_files"
-    else
-      vim.cmd "Telescope find_files"
-    end
-  end,
+    open_file_picker()
+  end),
 })
 
 vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
@@ -181,18 +215,18 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Auto-open minimap for files longer than the threshold
-local minimap_auto_open_threshold = 200
-vim.api.nvim_create_autocmd({ "BufWinEnter", "BufReadPost" }, {
-  group = augroup "minimap_auto_open",
-  desc = "open minimap for long files",
-  callback = function(args)
-    if vim.bo[args.buf].buftype ~= "" then
-      return
-    end
-    if vim.api.nvim_buf_line_count(args.buf) > minimap_auto_open_threshold then
-      if vim.fn.exists ":Minimap" == 2 then
-        pcall(vim.cmd, "Minimap")
-      end
-    end
-  end,
-})
+-- local minimap_auto_open_threshold = 200
+-- vim.api.nvim_create_autocmd({ "BufWinEnter", "BufReadPost" }, {
+--   group = augroup "minimap_auto_open",
+--   desc = "open minimap for long files",
+--   callback = function(args)
+--     if vim.bo[args.buf].buftype ~= "" then
+--       return
+--     end
+--     if vim.api.nvim_buf_line_count(args.buf) > minimap_auto_open_threshold then
+--       if vim.fn.exists ":Minimap" == 2 then
+--         pcall(vim.cmd, "Minimap")
+--       end
+--     end
+--   end,
+-- })

@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# Import changes to existing managed files from home into this chezmoi source.
+#
+# Usage: ./scripts/import-modified [--dry-run]
+#
+# Home wins when both copies have changed. Review show-modified --diff first.
+# Templates and non-regular files are reported and skipped. New unmanaged
+# files and deletions are not imported; add new files with chezmoi add <path>.
+# This does not apply files to home or stage/commit changes in Git.
+#
+set -euo pipefail
+
+dry_run=0
+for arg in "$@"; do
+  case "$arg" in
+    --dry-run|-n) dry_run=1 ;;
+    -h|--help) sed -n '2,/^set /{ /^set /d; s/^# \{0,1\}//; p; }' "$0"; exit 0 ;;
+    *) printf 'Unknown flag: %s\n' "$arg" >&2; exit 2 ;;
+  esac
+done
+
+source_dir=$(cd -- "$(dirname -- "$0")/.." && pwd)
+status=$(chezmoi --source "$source_dir" status --path-style=absolute)
+targets=()
+while IFS= read -r entry; do
+  [[ "${entry:1:1}" == M ]] || continue
+  target=${entry:3}
+  source_path=$(chezmoi --source "$source_dir" source-path -- "$target")
+  if [[ "$source_path" == *.tmpl ]]; then
+    printf 'Skipped template (merge manually): %s\n' "$target" >&2
+  elif [[ ! -f "$target" || -L "$target" ]]; then
+    printf 'Skipped non-regular file: %s\n' "$target" >&2
+  else
+    targets+=("$target")
+  fi
+done <<< "$status"
+
+if ((${#targets[@]} == 0)); then
+  echo 'No modified managed files to import.'
+  exit 0
+fi
+if ((dry_run)); then
+  printf 'Would import: %s\n' "${targets[@]}"
+else
+  chezmoi --source "$source_dir" re-add --recursive=false -- "${targets[@]}"
+  printf 'Imported: %s\n' "${targets[@]}"
+fi
