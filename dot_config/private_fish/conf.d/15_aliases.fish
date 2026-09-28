@@ -238,3 +238,17 @@ function projects
     cd $dest_dir
   end
 end
+
+function sudo --wraps sudo
+    if contains -- "$argv[1]" nvim vim vi
+        set -l files $argv[2..]
+        if test (count $files) -eq 0
+            echo "sudo: refusing to run $argv[1] as root, use 'sudo -e <file>' instead" >&2
+            return 1
+        end
+        echo "sudo: running 'sudo -e' instead of '$argv[1]' as root" >&2
+        command sudo -e -- $files
+        return
+    end
+    command sudo $argv
+end

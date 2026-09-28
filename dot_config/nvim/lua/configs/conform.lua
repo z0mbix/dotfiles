@@ -3,6 +3,7 @@ local options = {
     cue = { "cue_fmt" },
     fish = { "fish_indent" },
     go = { "gofmt" },
+    hcl = { "terragrunt_hclfmt" },
     lua = { "stylua" },
     rust = { "rustfmt" },
     sh = { "shfmt" },
@@ -13,12 +14,17 @@ local options = {
     shfmt = {
       prepend_args = { "-i", "2", "-ci", "-bn", "-ln", "bash" },
     },
+    terragrunt_hclfmt = {
+      condition = function()
+        return true
+      end,
+    },
   },
 
   format_on_save = {
     -- These options will be passed to conform.format()
-    timeout_ms = 500,
-    lsp_fallback = true,
+    timeout_ms = 2000,
+    lsp_format = "fallback",
   },
 }
 
