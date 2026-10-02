@@ -23,17 +23,20 @@ return {
     event = "User FilePost",
     opts = {
       -- keep this list in sync with lua/configs/lspconfig.lua
-      -- cue is deliberately omitted: its language server and formatter ship inside
-      -- the cue binary, and mason prepends its bin dir to PATH, which would shadow
-      -- the version managed outside neovim
+      -- cue and rust_analyzer are deliberately omitted: they are managed outside neovim
+      -- (the cue binary and mise respectively), and mason prepends its bin dir to PATH,
+      -- which would shadow those versions
       ensure_installed = {
         "bashls",
         "cssls",
         "gopls",
         "html",
+        "jsonls",
         "lua_ls",
         "pyright",
         "terraformls",
+        "ts_ls",
+        "yamlls",
       },
       -- enabling is handled manually in lua/configs/lspconfig.lua via vim.lsp.enable
       automatic_enable = false,
@@ -42,18 +45,6 @@ return {
 
   { import = "nvchad.blink.lazyspec" },
 
-  -- Free <Tab>/<S-Tab> in blink.cmp so Copilot owns them.
-  -- Use <C-n>/<C-p> to navigate the menu and <CR> to accept.
-  {
-    "saghen/blink.cmp",
-    opts = {
-      keymap = {
-        ["<Tab>"] = {},
-        ["<S-Tab>"] = {},
-      },
-    },
-  },
-
   -- https://github.com/nvim-treesitter/nvim-treesitter
   -- treesitter configurations and abstraction layer (main branch — new API)
   {
@@ -61,18 +52,16 @@ return {
     branch = "main",
     lazy = false,
     build = ":TSUpdate",
-    dependencies = {
-      -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-      -- syntax aware text-objects (also on main branch)
-      { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
-    },
     config = function()
       local parsers = {
         "bash",
         "css",
         "csv",
         "cue",
+        "diff",
         "dockerfile",
+        "fish",
+        "git_rebase",
         "gitcommit",
         "gitignore",
         "go",
@@ -83,70 +72,92 @@ return {
         "helm",
         "hocon",
         "html",
+        "javascript",
         "jinja",
         "json",
         "just",
         "lua",
+        "luadoc",
         "make",
         "markdown",
         "markdown_inline",
         "nginx",
+        "printf",
         "python",
         "regex",
+        "ruby",
+        "rust",
         "sql",
         "ssh_config",
         "tera",
         "terraform",
         "toml",
+        "tsx",
+        "typescript",
         "vim",
         "vimdoc",
         "xml",
         "yaml",
       }
 
-      require("nvim-treesitter").install(parsers)
+      local treesitter = require("nvim-treesitter")
+      local installed = {}
+      for _, lang in ipairs(treesitter.get_installed("parsers")) do
+        installed[lang] = true
+      end
+      local missing = vim.tbl_filter(function(lang)
+        return not installed[lang]
+      end, parsers)
+      if #missing > 0 then
+        treesitter.install(missing)
+      end
 
-      -- enable highlight + treesitter-based indent on FileType
+      local max_filesize = 1024 * 1024
+      local max_lines = 20000
+
+      local function has_query(lang, name)
+        local ok, query = pcall(vim.treesitter.query.get, lang, name)
+        return ok and query ~= nil
+      end
+
+      -- enable highlight, treesitter-based indent and folds on FileType, skipping large files
       vim.api.nvim_create_autocmd("FileType", {
         group = vim.api.nvim_create_augroup("nvim_treesitter_start", { clear = true }),
         callback = function(args)
           local buf = args.buf
           local lang = vim.treesitter.language.get_lang(vim.bo[buf].filetype)
-          if lang and pcall(vim.treesitter.language.add, lang) then
-            pcall(vim.treesitter.start, buf, lang)
+          if not lang or not pcall(vim.treesitter.language.add, lang) then
+            return
+          end
+
+          local stat = vim.uv.fs_stat(vim.api.nvim_buf_get_name(buf))
+          if (stat and stat.size > max_filesize) or vim.api.nvim_buf_line_count(buf) > max_lines then
+            return
+          end
+
+          if not pcall(vim.treesitter.start, buf, lang) then
+            return
+          end
+
+          if has_query(lang, "indents") then
             vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+
+          if has_query(lang, "folds") then
+            for _, win in ipairs(vim.fn.win_findbuf(buf)) do
+              vim.wo[win][0].foldmethod = "expr"
+              vim.wo[win][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+            end
           end
         end,
       })
     end,
   },
 
-  -- https://github.com/folke/persistence.nvim
-  -- a session manager
-  {
-    "folke/persistence.nvim",
-    -- lazy = false,
-    event = "VimEnter",
-    opts = {
-      dir = vim.fn.stdpath("data") .. "/sessions/",
-    },
-  },
-
-  -- https://github.com/szw/vim-maximizer
-  -- maximizes and restores current window
-  {
-    "szw/vim-maximizer",
-    event = "VeryLazy",
-  },
-
   -- https://github.com/kylechui/nvim-surround
   -- add, delete, change surroundings (parens, brackets, quotes, tags, custom)
   {
     "kylechui/nvim-surround",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-treesitter/nvim-treesitter-textobjects",
-    },
     event = "VeryLazy",
     opts = {},
   },
@@ -156,14 +167,6 @@ return {
   {
     "wfxr/minimap.vim",
     cmd = { "Minimap", "MinimapClose", "MinimapToggle", "MinimapRefresh", "MinimapUpdateHighlight" },
-    event = "VeryLazy",
-  },
-
-  -- https://github.com/wellle/targets.vim
-  -- adds various text objects to give you more targets to operate on
-  {
-    "wellle/targets.vim",
-    event = "VeryLazy",
   },
 
   -- https://github.com/lewis6991/fileline.nvim
@@ -187,47 +190,32 @@ return {
     cmd = { "GrugFar", "GrugFarWithin" },
   },
 
-  -- https://github.com/jvgrootveld/telescope-zoxide
-  -- telescope extension for zoxide
+  -- https://github.com/nvim-telescope/telescope.nvim
+  -- extends NvChad's telescope spec with the zoxide and undo extensions, loaded with telescope
   {
-    "jvgrootveld/telescope-zoxide",
-    event = "VeryLazy",
-    dependencies = { "nvim-telescope/telescope.nvim" },
-    config = function()
-      require("telescope").load_extension("zoxide")
-    end,
-  },
-
-  -- https://github.com/debugloop/telescope-undo.nvim
-  -- telescope extension for visualizing and restoring undo history
-  {
-    "debugloop/telescope-undo.nvim",
-    event = "VeryLazy",
-    dependencies = { "nvim-telescope/telescope.nvim" },
-    config = function()
-      local telescope = require("telescope")
-      -- merge undo extension opts into the existing telescope config without clobbering it
-      telescope.setup(vim.tbl_deep_extend("force", telescope.config or {}, {
-        extensions = {
-          undo = {
-            vim_diff_opts = { ctxlen = vim.o.scrolloff },
-            entry_format = "#$ID, $STAT, $TIME",
-          },
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      -- https://github.com/jvgrootveld/telescope-zoxide
+      -- telescope extension for zoxide
+      "jvgrootveld/telescope-zoxide",
+      -- https://github.com/debugloop/telescope-undo.nvim
+      -- telescope extension for visualizing and restoring undo history
+      "debugloop/telescope-undo.nvim",
+    },
+    opts = function(_, opts)
+      opts.extensions = vim.tbl_deep_extend("force", opts.extensions or {}, {
+        undo = {
+          vim_diff_opts = { ctxlen = vim.o.scrolloff },
+          entry_format = "#$ID, $STAT, $TIME",
         },
-      }))
+      })
+    end,
+    config = function(_, opts)
+      local telescope = require("telescope")
+      telescope.setup(opts)
+      telescope.load_extension("zoxide")
       telescope.load_extension("undo")
     end,
-  },
-
-  -- https://github.com/ojroques/nvim-bufdel
-  -- delete buffers without closing your windows
-  {
-    "ojroques/nvim-bufdel",
-    event = "VeryLazy",
-    opts = {
-      next = "tabs",
-      quit = false, -- do not quit neovim when last buffer is closed
-    },
   },
 
   -- https://github.com/fedepujol/move.nvim
@@ -276,7 +264,7 @@ return {
       win_mover.setup({
         ignore = {
           enable = true,
-          filetypes = { "minimap", "neo-tree", "toggleterm" },
+          filetypes = { "minimap", "NvimTree" },
         },
         move_mode = {
           keymap = {
@@ -300,7 +288,7 @@ return {
   -- highly customizable status column
   {
     "luukvbaal/statuscol.nvim",
-    event = "VeryLazy",
+    lazy = false,
     config = function()
       local builtin = require("statuscol.builtin")
       require("statuscol").setup({
@@ -321,7 +309,7 @@ return {
   -- customise the appearance of the column character
   {
     "lukas-reineke/virt-column.nvim",
-    event = "VeryLazy",
+    event = "User FilePost",
     opts = {
       -- char = "┊",
       char = "┃",
@@ -333,19 +321,18 @@ return {
   -- shows all whitespaces when in visual mode
   {
     "mcauley-penney/visual-whitespace.nvim",
-    config = true,
     event = "ModeChanged *:[vV\22]", -- lazy load on entering visual mode
     opts = {
+      list_chars = {
+        space = "·",
+        tab = "› ",
+        nbsp = "␣",
+        lead = "‹",
+        trail = "›",
+      },
       ignore = {
         filetypes = { "TelescopePrompt", "NvimTree", "neo-tree", "Trouble", "help" },
         buftypes = {},
-        list_chars = {
-          space = "·",
-          tab = "› ",
-          nbsp = "␣",
-          lead = "‹",
-          trail = "›",
-        },
       },
     },
   },
@@ -407,39 +394,6 @@ return {
   --   end,
   -- },
 
-  -- https://github.com/olimorris/codecompanion.nvim
-  -- AI code generation and chat within Neovim
-  {
-    "olimorris/codecompanion.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    opts = {
-      strategies = {
-        chat = {
-          adapter = "copilot",
-          model = "claude-sonnet-4-6",
-          -- model = "gpt-4.1",
-        },
-        inline = {
-          adapter = "copilot",
-          model = "claude-sonnet-4-6",
-        },
-        cmd = {
-          adapter = "copilot",
-          model = "claude-sonnet-4-6",
-        },
-      },
-      display = {
-        action_palette = {
-          provider = "telescope",
-        },
-      },
-    },
-  },
-
   -- https://github.com/folke/todo-comments.nvim
   -- highlight, list and search todo comments like TODO, HACK, BUG in your projects
   {
@@ -457,17 +411,6 @@ return {
     opts = {},
   },
 
-  -- https://github.com/f-person/git-blame.nvim
-  -- git blame inline comments at the end of lines
-  {
-    "f-person/git-blame.nvim",
-    event = "VeryLazy",
-    opts = {
-      enabled = false,
-      schedule_event = "CursorHold",
-    },
-  },
-
   -- https://github.com/NeogitOrg/neogit
   -- a Magit clone for Neovim that provides an easy-to-use Git interface
   {
@@ -480,13 +423,13 @@ return {
     },
   },
 
-  -- https://github.com/mrjones2014/smart-splits.nvim
+  -- https://github.com/smart-splits-nvim/smart-splits.nvim
   -- intelligently resize and navigate splits
   {
-    "mrjones2014/smart-splits.nvim",
+    "smart-splits-nvim/smart-splits.nvim",
     event = "VeryLazy",
     opts = {
-      ignored_filetypes = { "NvimTree", "neo-tree", "toggleterm", "minimap" },
+      ignored_filetypes = { "NvimTree", "minimap" },
       ignored_buftypes = { "nofile", "prompt", "quickfix" },
     },
   },
@@ -511,7 +454,9 @@ return {
   {
     "cappyzawa/trim.nvim",
     event = "BufWritePre",
-    opts = {},
+    opts = {
+      ft_blocklist = { "markdown", "diff" },
+    },
   },
 
   -- https://github.com/coffebar/neovim-project

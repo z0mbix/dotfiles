@@ -2,11 +2,13 @@ require "nvchad.mappings"
 
 local map = vim.keymap.set
 
+vim.keymap.del("v", "<leader>/")
+vim.keymap.del("x", "<leader>fm")
+
 map("n", ";", ":", { desc = "CMD enter command mode" })
 
 -- source/edit init.lua
 map("n", "<leader>ce", ":edit $MYVIMRC<cr>", { desc = "Edit init.lua", silent = true })
-map("n", "<leader>cs", ":source $MYVIMRC<CR>", { desc = "Source init.lua", silent = true })
 
 -- Show/Hide invisible characters
 map("n", "<leader>'", ":set list!<CR>", { desc = "Toggle invisible characters", silent = true })
@@ -25,24 +27,22 @@ map("n", "n", "nzzzv", { desc = "Next search result centred" })
 map("n", "N", "Nzzzv", { desc = "Previous search result centred" })
 map("n", "J", "mzJ`z", { desc = "Join lines keeping cursor in place" })
 
--- nvim-bufdel - Buffer management
-map("n", "<leader>x", ":BufDel<CR>", { desc = "Delete current buffer", silent = true })
-map("n", "<leader>X", ":BufDelAll<CR>", { desc = "Delete all buffers", silent = true })
+-- Buffer management
+map("n", "<leader>X", function()
+  require("nvchad.tabufline").closeAllBufs(true)
+end, { desc = "Delete all buffers", silent = true })
 
 -- Nvdash
 map("n", "<leader>da", ":Nvdash<CR>", { desc = "Open Nvdash", silent = true })
 
 -- Git
 map("n", "<leader>gd", ":Gitsigns toggle_linehl<CR>", { desc = "Toggle git line highlight", silent = true })
-map("n", "<leader>gb", ":GitBlameToggle<CR>", { desc = "Toggle git blame", silent = true })
+map("n", "<leader>gb", ":Gitsigns toggle_current_line_blame<CR>", { desc = "Toggle git blame", silent = true })
 map("n", "<leader>ghp", ":Gitsigns preview_hunk<CR>", { desc = "Preview git hunk", silent = true })
 map("n", "<leader>ghr", ":Gitsigns reset_hunk<CR>", { desc = "Reset git hunk", silent = true })
-map("n", "<leader>ghj", ":Gitsigns next_hunk<CR>", { desc = "Next git hunk", silent = true })
-map("n", "<leader>ghk", ":Gitsigns prev_hunk<CR>", { desc = "Previous git hunk", silent = true })
+map("n", "<leader>ghj", ":Gitsigns nav_hunk next<CR>", { desc = "Next git hunk", silent = true })
+map("n", "<leader>ghk", ":Gitsigns nav_hunk prev<CR>", { desc = "Previous git hunk", silent = true })
 map("n", "<leader>gg", ":Neogit<CR>", { desc = "Open Neogit", silent = true })
-
--- Write as root if we don't have permission
-map("c", "w!!", "%!sudo tee > /dev/null %", { desc = "Write file as root", silent = true })
 
 -- Clear search highlighting
 map("n", "<leader>/", ":nohlsearch<CR>", { desc = "Clear search highlighting", silent = true })
@@ -65,7 +65,6 @@ map("n", "<leader>cd", ":Telescope zoxide list<CR>", { desc = "Telescope zoxide"
 map("n", "<leader>fC", ":Telescope colorscheme<CR>", { desc = "Telescope colorscheme", silent = true })
 map("n", "<leader>fF", ":Telescope git_files<CR>", { desc = "Telescope git files", silent = true })
 map("n", "<leader>fT", ":TodoTelescope<CR>", { desc = "Telescope todos", silent = true })
-map("n", "<leader>fa", ":Telescope live_grep<CR>", { desc = "Telescope live grep", silent = true })
 map("n", "<leader>fb", ":Telescope buffers<CR>", { desc = "Telescope buffers", silent = true })
 map("n", "<leader>fc", ":Telescope commands<CR>", { desc = "Telescope commands", silent = true })
 map("n", "<leader>ff", ":Telescope find_files<CR>", { desc = "Telescope find files", silent = true })
@@ -73,6 +72,7 @@ map("n", "<leader>fgb", ":Telescope git_branches<CR>", { desc = "Telescope git b
 map("n", "<leader>fgc", ":Telescope git_commits<CR>", { desc = "Telescope git commits", silent = true })
 map("n", "<leader>fgs", ":Telescope git_status<CR>", { desc = "Telescope git status", silent = true })
 map("n", "<leader>fh", ":Telescope command_history<CR>", { desc = "Telescope command history", silent = true })
+map("n", "<leader>fH", ":Telescope help_tags<CR>", { desc = "Telescope help tags", silent = true })
 map("n", "<leader>fm", ":Telescope marks<CR>", { desc = "Telescope marks", silent = true })
 map("n", "<leader>fp", ":Telescope live_grep<CR>", { desc = "Telescope live grep", silent = true })
 map("n", "<leader>fr", ":Telescope registers<CR>", { desc = "Telescope registers", silent = true })
@@ -93,8 +93,9 @@ map("n", "<S-TAB>", ":bprevious!<CR>", { desc = "Previous buffer", silent = true
 map("n", "<leader>n", ":NvimTreeToggle toggle=true action=show<CR>", { desc = "Toggle file tree", silent = true })
 
 -- Folds
-map("n", "<Enter>", "za")
-map("v", "<Enter>", "za")
+map({ "n", "v" }, "<Enter>", function()
+  return vim.bo.buftype == "" and "za" or "<CR>"
+end, { expr = true, desc = "Toggle fold" })
 
 -- Make navigating around splits easier.
 -- Skip the minimap window: moving into it does nothing instead of focusing it.
@@ -139,7 +140,9 @@ map("n", "<leader>oo", function()
 end, { desc = "Open file in finder", silent = true })
 
 -- Open file with the default application
-map("n", "<leader>of", ':silent !open "%"<CR>', { desc = "Open file with default application", silent = true })
+map("n", "<leader>of", function()
+  vim.ui.open(vim.fn.expand "%:p")
+end, { desc = "Open file with default application", silent = true })
 map("n", "<leader>op", "<cmd>NeovimProjectDiscover<CR>", { desc = "Open project chooser", silent = true })
 
 -- Select all
@@ -150,35 +153,17 @@ map("i", "<F1>", "<nop>")
 map("n", "<F1>", "<nop>")
 map("v", "<F1>", "<nop>")
 
--- Keep the cursor in place while joining lines
-map("n", "J", "mzJ`z", { desc = "Join lines keeping cursor in place", silent = true })
-
--- Delete without cutting
-map({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking", silent = true })
-
 -- minimap.vim
 map("n", "<leader>mm", ":MinimapToggle<CR>", { desc = "Toggle minimap", silent = true })
 
--- vim-maximizer
-map("n", "<leader>W", ":MaximizerToggle<CR>", { desc = "Maximize/restore current window", silent = true })
-map("v", "<leader>W", ":MaximizerToggle<CR>gv", { desc = "Maximize/restore current window", silent = true })
+-- Maximise/restore current window
+map({ "n", "v" }, "<leader>W", function()
+  require("maximize").toggle()
+end, { desc = "Maximize/restore current window", silent = true })
 
--- persistence.nvim
-map("n", "<leader>qs", function()
-  require("persistence").load()
-end, { desc = "Load session for current directory" })
-
-map("n", "<leader>qS", function()
-  require("persistence").select()
-end, { desc = "Select session to load" })
-
-map("n", "<leader>ql", function()
-  require("persistence").load { last = true }
-end, { desc = "Load last session" })
-
-map("n", "<leader>qd", function()
-  require("persistence").stop()
-end, { desc = "Stop persistence for current session" })
+-- neovim-project sessions
+map("n", "<leader>qS", "<cmd>NeovimProjectHistory<CR>", { desc = "Select project session to load", silent = true })
+map("n", "<leader>ql", "<cmd>NeovimProjectLoadRecent<CR>", { desc = "Load last project session", silent = true })
 
 -- quickfix
 map("n", "<leader>qfo", ":copen<CR>", { desc = "Open quickfix list", silent = true })
@@ -206,24 +191,14 @@ map("v", "<A-h>", ":MoveHBlock(-1)<CR>", { desc = "Move block left", silent = tr
 map("v", "<A-l>", ":MoveHBlock(1)<CR>", { desc = "Move block right", silent = true })
 
 -- move a character to the beginning or end of the line
-map("n", "mH", ':let @z=@"<cr>x0P:let @"=@z<cr>', { desc = "Move character to beginning of line", silent = true })
-map("n", "mL", ':let @z=@"<cr>x$p:let @"=@z<cr>', { desc = "Move character to end of line", silent = true })
+map("n", "<leader>mh", ':let @z=@"<cr>x0P:let @"=@z<cr>', { desc = "Move character to beginning of line", silent = true })
+map("n", "<leader>ml", ':let @z=@"<cr>x$p:let @"=@z<cr>', { desc = "Move character to end of line", silent = true })
 
 -- Disable annoying things
 map("n", "Q", "<nop>")
 map("n", "q", "<nop>")
 
--- Ctrl + h,j,k,l for insert mode
-map("i", "<C-h>", "<left>")
-map("i", "<C-j>", "<down>")
-map("i", "<C-k>", "<up>")
-map("i", "<C-l>", "<right>")
-
 -- grug-far.nvim
-map("n", "<leader>S", function()
-  require("grug-far").open()
-end, { desc = "Search in project", silent = true })
-
 map("n", "<leader>sp", function()
   require("grug-far").open()
 end, { desc = "Search in project", silent = true })
@@ -240,7 +215,7 @@ map("v", "<leader>sb", function()
   require("grug-far").with_visual_selection { prefills = { paths = vim.fn.expand "%" } }
 end, { desc = "Search selection in current file", silent = true })
 
-map({ "n", "v" }, "<leader>sw", function()
+map("n", "<leader>sw", function()
   require("grug-far").open { prefills = { search = vim.fn.expand "<cword>" } }
 end, { desc = "Search word under cursor", silent = true })
 
@@ -252,15 +227,10 @@ end, { desc = "Search within range", silent = true })
 map("n", "<leader>mw", '<cmd>lua require("win-mover").enter_move_mode()<cr>', { desc = "enter window move mode" })
 
 -- terminal
-map({ "n", "t" }, "<leader>tt", function()
+map("n", "<leader>tt", function()
   require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
 end, { desc = "terminal toggleable horizontal term" })
 
 map({ "n", "t" }, "<m-.>", function()
   require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
 end, { desc = "terminal toggleable horizontal term" })
-
--- CodeCompanion
-map({ "n", "v" }, "<leader>ai", function()
-  require("codecompanion").toggle()
-end, { desc = "Toggle CodeCompanion Chat", silent = true })

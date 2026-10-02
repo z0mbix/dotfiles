@@ -1,12 +1,12 @@
 {{- /* vim: set filetype=gotmpl: */ -}}
-{{- $emailAddress := promptStringOnce . "emailAddress" "What is your email address" "zombie@zombix.org" -}}
-{{- $gitSigningKey := promptStringOnce . "git" "What's your Git signing key" -}}
+{{- $emailAddress := promptStringOnce . "email" "What is your email address" "zombie@zombix.org" -}}
+{{- $gitSigningKey := promptStringOnce . "git.signingKey" "What's your Git signing key" -}}
 {{- $workComputer := false -}}
 {{- $githubUser := "z0mbix" -}}
 {{- $gitName := "z0mbix" -}}
 {{- if not (eq $emailAddress "zombie@zombix.org") -}}
 {{- $workComputer = true -}}
-{{- $githubUser = promptStringOnce . "github" "What is your GitHub username" -}}
+{{- $githubUser = promptStringOnce . "github.user" "What is your GitHub username" -}}
 {{- $gitName = "David Wooldridge" -}}
 {{- end -}}
 {{- $brewPath := "/opt/homebrew/bin/brew" -}}
@@ -24,3 +24,11 @@ data:
     signingKey: {{ $gitSigningKey | quote }}
   github:
     user: {{ $githubUser }}
+
+merge:
+  command: nvim
+  args:
+    - -d
+    - {{ printf "%q" "{{ .Destination }}" }}
+    - {{ printf "%q" "{{ .Source }}" }}
+    - {{ printf "%q" "{{ .Target }}" }}

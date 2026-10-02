@@ -15,8 +15,8 @@ local options = {
       prepend_args = { "-i", "2", "-ci", "-bn", "-ln", "bash" },
     },
     terragrunt_hclfmt = {
-      condition = function()
-        return true
+      condition = function(_, ctx)
+        return vim.fs.root(ctx.dirname, { "terragrunt.hcl", "root.hcl" }) ~= nil
       end,
     },
   },

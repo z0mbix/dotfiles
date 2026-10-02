@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd("BufDelete", {
   group = augroup "show_dashboard_on_last_buffer_close",
   callback = function()
     local bufs = vim.t.bufs
-    if #bufs == 1 and vim.api.nvim_buf_get_name(bufs[1]) == "" then
+    if bufs and #bufs == 1 and vim.api.nvim_buf_get_name(bufs[1]) == "" then
       vim.cmd "Nvdash"
     end
   end,
@@ -18,22 +18,12 @@ vim.api.nvim_create_autocmd("BufDelete", {
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup "close_with_q",
   pattern = {
-    "PlenaryTestPopup",
-    "codecompanion",
     "checkhealth",
     "grug-far",
     "grug-far-results",
     "grug-far-history",
     "help",
-    "lspinfo",
-    "neotest-output",
-    "neotest-output-panel",
-    "neotest-summary",
-    "notify",
     "qf",
-    "spectre_panel",
-    "startuptime",
-    "tsplayground",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
@@ -47,7 +37,13 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = { "man" },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
-    vim.keymap.set("n", "q", "<cmd>quitall<cr>", { buffer = event.buf, silent = true })
+    vim.keymap.set("n", "q", function()
+      if #vim.fn.getbufinfo { buflisted = 1 } == 0 then
+        vim.cmd "quitall"
+      else
+        vim.cmd "close"
+      end
+    end, { buffer = event.buf, silent = true })
   end,
 })
 
@@ -65,7 +61,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 local function open_file_picker()
-  if vim.fn.isdirectory ".git" ~= 0 then
+  if vim.fs.root(0, ".git") then
     vim.cmd "Telescope git_files"
   else
     vim.cmd "Telescope find_files"
@@ -158,12 +154,11 @@ vim.filetype.add {
   extension = {
     hujson = "jsonc",
     rc = "sh",
-    repo = "yum",
+    repo = "dosini",
   },
   filename = {
     [".envrc"] = "sh",
     Brewfile = "ruby",
-    Jenkinsfile = "jenkinsfile",
     ["nats.conf"] = "hocon",
     [vim.fn.expand "~/.kube/config"] = "yaml",
   },
@@ -174,9 +169,9 @@ vim.filetype.add {
     [".*%.Brewfile"] = "ruby",
     [".*%.Makefile"] = "make",
     [".*%.code%-workspace"] = "json",
-    [".*%.fish.tmpl"] = "fish",
+    [".*%.fish%.tmpl"] = "fish",
     [".*%.json%..+"] = "json",
-    [".*%.repo%.j2"] = "yum",
+    [".*%.repo%.j2"] = "dosini",
     [".*%.tfstate"] = "json",
     [".*%.ya?ml%.j2"] = "yaml",
     [".*/%.ssh/config%..+"] = "sshconfig",

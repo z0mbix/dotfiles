@@ -47,9 +47,15 @@ font-feature = "zero"
 keybind = alt+left=esc:b
 keybind = alt+right=esc:f
 
-# Shift+Enter -> ESC + CR: insert literal newline (e.g. multi-line prompts)
-keybind = shift+enter=text:\x1b\r
+# Shift+Enter -> CSI 13;2u: the Kitty keyboard protocol encoding that TUIs
+# (Crush, etc.) match on. Overriding this with text:\x1b\r hides the key from
+# them and gets read as escape-then-enter instead.
+# keybind = shift+enter=csi:13;2u
 {{- if eq .chezmoi.os "darwin" }}
+
+# Cmd+Shift+M: toggle mouse reporting off, so Cmd+click reaches Ghostty's URL
+# handler instead of being swallowed by a TUI that has captured the mouse.
+keybind = cmd+shift+m=toggle_mouse_reporting
 
 # Cmd+Right -> Ctrl-E: jump to end of line
 keybind = cmd+right=text:\x05

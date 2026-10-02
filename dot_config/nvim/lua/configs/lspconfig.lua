@@ -8,9 +8,13 @@ local servers = {
   "cue",          -- cue lsp (provided by the cue binary)
   "gopls",        -- go
   "html",         -- vscode-html-language-server
+  "jsonls",       -- vscode-json-language-server
   "lua_ls",       -- lua-language-server
   "pyright",      -- python
+  "rust_analyzer", -- rust (provided by mise)
   "terraformls",  -- terraform
+  "ts_ls",        -- typescript-language-server
+  "yamlls",       -- yaml-language-server
 }
 vim.lsp.enable(servers)
 
