@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+# Apply only selected parts of this configuration.
+#
+# Usage: ./scripts/install [chezmoi flags] <component>...
+#        ./scripts/install --list
+#
+# Components are named after their target, without the leading dot, the
+# .config/ prefix, a trailing "rc" or "_profile", or a file extension, so
+# "nvim" is ~/.config/nvim, "bash" is ~/.bashrc and ~/.bash_profile, and
+# "starship" is ~/.config/starship.toml. "git" also includes
+# ~/.gitallowedsigners.
+#
+# --list             List the available components and their targets.
+# -n, --dry-run      Show what would change without changing anything.
+# -v, --verbose      Show the changes as they are made.
+#
+# Any other flag is passed straight to chezmoi apply. Scripts in
+# .chezmoiscripts are not run when applying selected targets.
+#
+# Examples: ./scripts/install nvim
+#           ./scripts/install --dry-run --verbose nvim fish tmux
+#
+set -euo pipefail
+
+source_dir=$(cd -- "$(dirname -- "$0")/.." && pwd)
+
+list=0
+flags=()
+names=()
+for arg in "$@"; do
+  case "$arg" in
+    --list) list=1 ;;
+    -h|--help) sed -n '2,/^set /{ /^set /d; s/^# \{0,1\}//; p; }' "$0"; exit 0 ;;
+    -*) flags+=("$arg") ;;
+    *) names+=("$arg") ;;
+  esac
+done
+
+component_name() {
+  local name=${1#.config/}
+  name=${name#.}
+  name=${name%_profile}
+  case "$name" in
+    gitallowedsigners) name=git ;;
+    *.*) name=${name%.*} ;;
+    ?*rc) name=${name%rc} ;;
+  esac
+  printf '%s\n' "$name"
+}
+
+components=()
+targets=()
+while IFS= read -r path; do
+  case "$path" in
+    .chezmoiscripts*) continue ;;
+    .config/*/*) continue ;;
+    .config/*) ;;
+    .config) continue ;;
+    */*) continue ;;
+  esac
+  components+=("$(component_name "$path")")
+  targets+=("$path")
+done < <(chezmoi --source "$source_dir" managed --path-style=relative)
+
+if ((list)); then
+  for i in "${!components[@]}"; do
+    printf '%s\t~/%s\n' "${components[i]}" "${targets[i]}"
+  done | sort | awk -F'\t' '
+    $1 == prev { printf ", %s", $2; next }
+    { if (NR > 1) print ""; printf "%-16s %s", $1, $2; prev = $1 }
+    END { if (NR) print "" }
+  '
+  exit 0
+fi
+
+if ((${#names[@]} == 0)); then
+  echo 'No components given, use --list to see what is available' >&2
+  exit 2
+fi
+
+selected=()
+unknown=()
+for name in "${names[@]}"; do
+  found=0
+  for i in "${!components[@]}"; do
+    if [[ "${components[i]}" == "$name" ]]; then
+      selected+=("$HOME/${targets[i]}")
+      found=1
+    fi
+  done
+  ((found)) || unknown+=("$name")
+done
+
+if ((${#unknown[@]})); then
+  printf 'Unknown component: %s\n' "${unknown[@]}" >&2
+  echo 'Use --list to see what is available' >&2
+  exit 2
+fi
+
+chezmoi --source "$source_dir" apply ${flags[@]+"${flags[@]}"} -- "${selected[@]}"

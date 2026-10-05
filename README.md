@@ -40,6 +40,21 @@ $ chezmoi apply --verbose
 $ chezmoi apply --dry-run
 ```
 
+## Install selected parts
+
+```shell
+$ ./scripts/install --list
+$ ./scripts/install nvim
+$ ./scripts/install --dry-run --verbose nvim fish tmux
+```
+
+Run this from the chezmoi source directory. Component names come from their
+target paths without the leading dot, the `.config/` prefix, a trailing `rc`
+or `_profile`, or a file extension. Any other flag goes straight to
+`chezmoi apply`. Scripts in `.chezmoiscripts` are not run, so on a new machine
+run `chezmoi init z0mbix` first, then this script, and install tmux plugins
+yourself with `prefix + I`.
+
 ## Import home-directory changes
 
 Run these from the chezmoi source directory:
