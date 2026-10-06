@@ -1,4 +1,16 @@
 return {
+  -- Hide Git status icons while retaining NvChad's status colours.
+  {
+    "nvim-tree/nvim-tree.lua",
+    opts = {
+      renderer = {
+        icons = {
+          show = { git = false },
+        },
+      },
+    },
+  },
+
   {
     "stevearc/conform.nvim",
     event = "BufWritePre",
