@@ -4,6 +4,7 @@ local options = {
     fish = { "fish_indent" },
     go = { "gofmt" },
     hcl = { "terragrunt_hclfmt" },
+    hujson = { "hujsonfmt" },
     lua = { "stylua" },
     rust = { "rustfmt" },
     sh = { "shfmt" },
@@ -11,6 +12,10 @@ local options = {
   },
 
   formatters = {
+    hujsonfmt = {
+      command = "hujsonfmt",
+      stdin = true,
+    },
     shfmt = {
       prepend_args = { "-i", "2", "-ci", "-bn", "-ln", "bash" },
     },

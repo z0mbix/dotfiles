@@ -152,7 +152,7 @@ vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave"
 -- (*.sh, *.py, *.rb, *.js, *.ts, *.json, *.yaml, *.hcl, Gemfile, etc. are all native)
 vim.filetype.add {
   extension = {
-    hujson = "jsonc",
+    hujson = "hujson",
     rc = "sh",
     repo = "dosini",
   },
@@ -178,6 +178,8 @@ vim.filetype.add {
     ["nats.*%.conf"] = "hocon",
   },
 }
+
+vim.treesitter.language.register("json", "hujson")
 
 vim.api.nvim_create_autocmd("VimResized", {
   group = augroup "resize_windows",
