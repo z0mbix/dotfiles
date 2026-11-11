@@ -225,7 +225,7 @@
 			"tab_size": 2,
 			"formatter": {
 				"external": {
-					"command":   "{{ lookPath "shfmt" }}",
+					"command":   "{{ if eq .chezmoi.os "darwin" }}{{ joinPath (dir .brewPath) "shfmt" }}{{ else }}{{ lookPath "shfmt" }}{{ end }}",
 					"arguments": ["-i", "2", "-ci", "-bn", "-ln", "bash"],
 				},
 			},

@@ -1,5 +1,7 @@
 .claude/
 .mise.toml
+/dot_aws/config.local
+/dot_gitconfig.local
 .DS_Store
 dot_DS_Store
 dot_config/private_fish/conf.d/private_05_private.fish

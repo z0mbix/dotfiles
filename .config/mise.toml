@@ -1,0 +1,3 @@
+[tasks."brew:apply"]
+description = "Apply the repository Brewfile"
+run = 'brew bundle --file="$MISE_CONFIG_ROOT/Brewfile"'

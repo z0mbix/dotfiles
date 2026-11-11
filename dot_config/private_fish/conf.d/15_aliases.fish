@@ -67,7 +67,7 @@ abbr gco 'git checkout'
 abbr gcom 'git checkout main'
 abbr gf 'git fetch'
 abbr gfom 'git fetch origin main'
-abbr grom  'git rebase origin main'
+abbr grom 'git rebase origin main'
 abbr gpap 'git push-and-pr'
 abbr gcomagp 'git checkout main && git pull'
 abbr got git
@@ -180,63 +180,63 @@ function cdf
 end
 
 function __repos_cd
-  set repos_dir "$HOME/Repos"
-  cd $repos_dir; or return
+    set repos_dir "$HOME/Repos"
+    cd $repos_dir; or return
 
-  if not test -d "$repos_dir"
-    echo "$repos_dir does not exist"
-    return 1
-  end
+    if not test -d "$repos_dir"
+        echo "$repos_dir does not exist"
+        return 1
+    end
 
-  set dest_dir (fd --type d --max-depth 1 | string trim --right --chars '/' | fzf --prompt "Repos> ")
-  # set dest_dir (find "$repos_dir" -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | sort | fzf --prompt "Repos> ")
-  if test -n "$dest_dir"
-    cd "$repos_dir/$dest_dir"
-  end
+    set dest_dir (fd --type d --max-depth 1 | string trim --right --chars '/' | fzf --prompt "Repos> ")
+    # set dest_dir (find "$repos_dir" -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | sort | fzf --prompt "Repos> ")
+    if test -n "$dest_dir"
+        cd "$repos_dir/$dest_dir"
+    end
 end
 
 function neovim-config
-  cd $HOME/.config/nvim/
-  nvim
+    cd $HOME/.config/nvim/
+    nvim
 end
 
 function fish-config
-  cd $HOME/.config/fish/
-  nvim
+    cd $HOME/.config/fish/
+    nvim
 end
 
 function catw
-	bat (which $argv[1])
+    bat (which $argv[1])
 end
 abbr batw catw
 
 function viw
-	nvim (which $argv[1])
+    nvim (which $argv[1])
 end
 abbr vimw viw
 abbr nvimw viw
 
 function projects
-  set project_dir $argv[1]
-  # set projects_dir "$HOME/iCloudDrive/Projects"
-  set projects_dir "$HOME/Repos"
+    set project_dir $argv[1]
+    # set projects_dir "$HOME/iCloudDrive/Projects"
+    set projects_dir "$HOME/Repos"
 
-  cd $projects_dir || return
+    cd $projects_dir || return
 
-  if test -n "$project_dir"
-    if test -d "$project_dir"
-      cd $project_dir
-      return
-    else
-      echo "'$project_dir' is not a valid project!"
-      sleep 1
+    if test -n "$project_dir"
+        if test -d "$project_dir"
+            cd $project_dir
+            return
+        else
+            echo "'$project_dir' is not a valid project!"
+            sleep 1
+        end
     end
-  end
 
-  set dest_dir (fd . --type d --max-depth 1 . | fzf)
-  if test -n "$dest_dir"
-    cd $dest_dir
-  end
+    set dest_dir (fd . --type d --max-depth 1 . | fzf)
+    if test -n "$dest_dir"
+        cd $dest_dir
+    end
 end
 
 function sudo --wraps sudo
@@ -251,4 +251,9 @@ function sudo --wraps sudo
         return
     end
     command sudo $argv
+end
+
+function start-hesh
+    wakeonlan -i 192.168.71.255 -p 9 94:c6:91:af:53:12
+    ping 192.168.68.10 -c 30
 end

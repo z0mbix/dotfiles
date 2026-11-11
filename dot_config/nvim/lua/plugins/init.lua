@@ -423,6 +423,15 @@ return {
     opts = {},
   },
 
+  -- https://github.com/akinsho/git-conflict.nvim
+  -- highlight merge conflicts and resolve them with buffer-local mappings
+  {
+    "akinsho/git-conflict.nvim",
+    version = "*",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {},
+  },
+
   -- https://github.com/NeogitOrg/neogit
   -- a Magit clone for Neovim that provides an easy-to-use Git interface
   {
@@ -520,8 +529,11 @@ return {
               require("telescope.actions").close(prompt_bufnr)
             end
 
-            map("i", "<C-o>", open_in_zvim_window, { desc = "Open project in a new Zvim window" })
-            map("n", "<C-o>", open_in_zvim_window, { desc = "Open project in a new Zvim window" })
+            local actions = require "telescope.actions"
+            map("i", "<CR>", open_in_zvim_window, { desc = "Open project in a new Zvim window" })
+            map("n", "<CR>", open_in_zvim_window, { desc = "Open project in a new Zvim window" })
+            map("i", "<C-o>", actions.select_default, { desc = "Open project in the current window" })
+            map("n", "<C-o>", actions.select_default, { desc = "Open project in the current window" })
             return true
           end,
         },

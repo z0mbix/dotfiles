@@ -1,5 +1,10 @@
 README.md
 scripts
+nvim.log
+Brewfile
+.config/mise.toml
+.aws/config.local
+.gitconfig.local
 
 {{- if .workComputer }}
 .aws/
@@ -9,7 +14,6 @@ scripts
 .gitconfig
 .hammerspoon/
 .ssh/config
-Brewfile
 iCloudDrive
 {{- end }}
 
@@ -17,7 +21,6 @@ iCloudDrive
 .config/fish/conf.d/07_darwin.fish
 .config/fish/conf.d/07_darwin.fish.tmpl
 .hammerspoon/
-Brewfile
 iCloudDrive
 {{- end }}
 

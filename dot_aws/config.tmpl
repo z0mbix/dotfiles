@@ -1,0 +1,7 @@
+[default]
+region=eu-west-2
+cli_pager=
+{{ $localConfig := joinPath .chezmoi.homeDir ".aws/config.local" -}}
+{{ if stat $localConfig -}}
+{{ include $localConfig -}}
+{{ end -}}

@@ -1,0 +1,11 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- $settings := .chezmoi.stdin | default "{}" | fromJson -}}
+{{- $before := toJson $settings -}}
+{{- $settings = setValueAtPath "alwaysthinkingEnabled" true $settings -}}
+{{- $settings = setValueAtPath "attribution.commit" "" $settings -}}
+{{- $settings = setValueAtPath "attribution.pr" "" $settings -}}
+{{- if eq (toJson $settings) $before -}}
+{{ .chezmoi.stdin -}}
+{{- else -}}
+{{ $settings | toPrettyJson }}
+{{ end -}}

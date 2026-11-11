@@ -40,6 +40,21 @@ $ chezmoi apply --verbose
 $ chezmoi apply --dry-run
 ```
 
+The Brewfile stays in this repository and is not copied to `~/Brewfile`.
+The macOS bundle hook reads it directly from the source directory. To apply
+it manually from this repository or one of its subdirectories:
+
+```shell
+mise run brew:apply
+```
+
+The task is defined in `.config/mise.toml`, which is repository tooling and
+is excluded from chezmoi's managed targets. From outside the repository:
+
+```shell
+brew bundle --file="$(chezmoi source-path)/Brewfile"
+```
+
 ## Install selected parts
 
 ```shell
@@ -76,6 +91,38 @@ manually with `chezmoi merge <path>`. New unmanaged files need an explicit
 
 Use `show-modified --skip-templates` to filter templates, or
 `show-modified --paths-only --null` for NUL-separated paths.
+
+## Host-specific Git settings
+
+The shared Git config includes `~/.gitconfig.local` last. Keep device-specific
+credential helpers and other overrides there. This file is not managed or
+synced, and hosts without it use just the shared settings. Git reads the
+include directly, so local edits take effect without running chezmoi.
+
+## Host-specific Claude settings
+
+`dot_claude/modify_settings.json` manages the thinking and attribution
+preferences while preserving other local settings, including Rex hooks.
+These hooks stay on the machines where they were installed.
+
+## Host-specific AWS profiles
+
+`dot_aws/config.tmpl` contains the shared defaults and appends
+`~/.aws/config.local` when that file exists. Keep machine-specific profiles
+and their service sections in that local file; it is not managed or synced.
+Hosts without it receive only the shared defaults. AWS reads the resulting
+`~/.aws/config`; chezmoi handles the include when rendering the template.
+
+After editing `~/.aws/config.local`, render it into the AWS config with:
+
+```shell
+chezmoi diff ~/.aws/config
+chezmoi apply ~/.aws/config
+```
+
+Edit the local fragment for host-specific changes rather than running
+`chezmoi re-add ~/.aws/config`. Keep credentials in the existing credential
+provider or `~/.aws/credentials`.
 
 ## Work Setup
 
