@@ -1,11 +1,11 @@
 # vim: set ft=dosini commentstring=#\ %s:
 
-theme = "Rose Pine Moon"
+config-file = ?auto/theme.ghostty
 
 maximize = true
 
 clipboard-read = allow
-copy-on-select = true
+copy-on-select = both
 cursor-style = block
 focus-follows-mouse = true
 {{- if eq .chezmoi.os "darwin" }}
@@ -18,7 +18,7 @@ macos-titlebar-style = tabs
 
 mouse-hide-while-typing = true
 quit-after-last-window-closed = true
-scrollback-limit = 10000000
+scrollback-limit-bytes = 10000000
 shell-integration = fish
 shell-integration-features = no-cursor,no-sudo,no-title
 unfocused-split-opacity = 0.8
