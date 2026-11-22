@@ -27,14 +27,18 @@ for arg in "$@"; do
 done
 
 source_dir=$(cd -- "$(dirname -- "$0")/.." && pwd)
-chezmoi_config=${CHEZMOI_CONFIG:-$HOME/.config/chezmoi/chezmoi-personal.yaml}
-status=$(chezmoi --source "$source_dir" --config "$chezmoi_config" status --path-style=absolute)
+chezmoi_args=(--source "$source_dir")
+chezmoi_config=${CHEZMOI_CONFIG:-${XDG_CONFIG_HOME:-$HOME/.config}/chezmoi/chezmoi-personal.yaml}
+if [[ -n "${CHEZMOI_CONFIG:-}" || -f "$chezmoi_config" ]]; then
+  chezmoi_args+=(--config "$chezmoi_config")
+fi
+status=$(chezmoi "${chezmoi_args[@]}" status --path-style=absolute)
 targets=()
 
 while IFS= read -r entry; do
   [[ "${entry:1:1}" == M ]] || continue
   target=${entry:3}
-  source_path=$(chezmoi --source "$source_dir" --config "$chezmoi_config" source-path -- "$target")
+  source_path=$(chezmoi "${chezmoi_args[@]}" source-path -- "$target")
   if [[ "$source_path" == *.tmpl ]]; then
     printf 'Skipped template (merge manually): %s\n' "$target" >&2
   elif [[ ! -f "$target" || -L "$target" ]]; then
@@ -52,6 +56,6 @@ fi
 if ((dry_run)); then
   printf 'Would import: %s\n' "${targets[@]}"
 else
-  chezmoi --source "$source_dir" --config "$chezmoi_config" re-add --recursive=false -- "${targets[@]}"
+  chezmoi "${chezmoi_args[@]}" re-add --recursive=false -- "${targets[@]}"
   printf 'Imported: %s\n' "${targets[@]}"
 fi

@@ -42,14 +42,18 @@ if ((show_diff && paths_only)); then
 fi
 
 source_dir=$(cd -- "$(dirname -- "$0")/.." && pwd)
-chezmoi_config=${CHEZMOI_CONFIG:-$HOME/.config/chezmoi/chezmoi-personal.yaml}
-status=$(chezmoi --source "$source_dir" --config "$chezmoi_config" status --path-style=absolute)
+chezmoi_args=(--source "$source_dir")
+chezmoi_config=${CHEZMOI_CONFIG:-${XDG_CONFIG_HOME:-$HOME/.config}/chezmoi/chezmoi-personal.yaml}
+if [[ -n "${CHEZMOI_CONFIG:-}" || -f "$chezmoi_config" ]]; then
+  chezmoi_args+=(--config "$chezmoi_config")
+fi
+status=$(chezmoi "${chezmoi_args[@]}" status --path-style=absolute)
 targets=()
 
 while IFS= read -r entry; do
   [[ "${entry:1:1}" == M ]] || continue
   target=${entry:3}
-  source_path=$(chezmoi --source "$source_dir" --config "$chezmoi_config" source-path -- "$target")
+  source_path=$(chezmoi "${chezmoi_args[@]}" source-path -- "$target")
   is_template=0
   [[ "$source_path" == *.tmpl ]] && is_template=1
   if ((skip_templates && is_template)); then
@@ -69,5 +73,5 @@ while IFS= read -r entry; do
 done <<<"$status"
 
 if ((show_diff && ${#targets[@]})); then
-  chezmoi --source "$source_dir" --config "$chezmoi_config" --no-pager diff --reverse -- "${targets[@]}"
+  chezmoi "${chezmoi_args[@]}" --no-pager diff --reverse -- "${targets[@]}"
 fi

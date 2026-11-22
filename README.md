@@ -92,6 +92,10 @@ manually with `chezmoi merge <path>`. New unmanaged files need an explicit
 Use `show-modified --skip-templates` to filter templates, or
 `show-modified --paths-only --null` for NUL-separated paths.
 
+The repository scripts use `chezmoi-personal.yaml` in chezmoi's config
+directory when it exists, otherwise chezmoi's default config. Set
+`CHEZMOI_CONFIG` to select a different config explicitly.
+
 ## Host-specific Git settings
 
 The shared Git config includes `~/.gitconfig.local` last. Keep device-specific

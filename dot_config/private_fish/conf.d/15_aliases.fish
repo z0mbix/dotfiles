@@ -40,6 +40,7 @@ abbr nv nvim
 abbr vi nvim
 abbr vim nvim
 abbr unset 'set --erase'
+abbr pdw pwd
 
 abbr downloads "cd $HOME/Downloads"
 abbr p projects
@@ -76,16 +77,6 @@ abbr gsp 'git stash pop'
 abbr gsa 'git stash apply'
 abbr gss 'git stash show -p'
 abbr gsd 'git stash drop'
-
-# Docker
-abbr dk docker
-abbr dkb 'docker build'
-abbr dki 'docker images'
-abbr dkl 'docker login'
-abbr dkp 'docker ps'
-abbr dkr 'docker run'
-abbr dkrm 'docker rm'
-abbr dkrmi 'docker rmi'
 
 # Terraform
 abbr tf terraform

@@ -23,7 +23,11 @@
 set -euo pipefail
 
 source_dir=$(cd -- "$(dirname -- "$0")/.." && pwd)
-chezmoi_config=${CHEZMOI_CONFIG:-$HOME/.config/chezmoi/chezmoi-personal.yaml}
+chezmoi_args=(--source "$source_dir")
+chezmoi_config=${CHEZMOI_CONFIG:-${XDG_CONFIG_HOME:-$HOME/.config}/chezmoi/chezmoi-personal.yaml}
+if [[ -n "${CHEZMOI_CONFIG:-}" || -f "$chezmoi_config" ]]; then
+  chezmoi_args+=(--config "$chezmoi_config")
+fi
 
 list=0
 flags=()
@@ -65,7 +69,7 @@ while IFS= read -r path; do
   esac
   components+=("$(component_name "$path")")
   targets+=("$path")
-done < <(chezmoi --source "$source_dir" --config "$chezmoi_config" managed --path-style=relative)
+done < <(chezmoi "${chezmoi_args[@]}" managed --path-style=relative)
 
 if ((list)); then
   for i in "${!components[@]}"; do
@@ -102,4 +106,4 @@ if ((${#unknown[@]})); then
   exit 2
 fi
 
-chezmoi --source "$source_dir" --config "$chezmoi_config" apply ${flags[@]+"${flags[@]}"} -- "${selected[@]}"
+chezmoi "${chezmoi_args[@]}" apply ${flags[@]+"${flags[@]}"} -- "${selected[@]}"
